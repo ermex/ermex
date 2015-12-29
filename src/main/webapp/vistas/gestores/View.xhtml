@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
+            <h:form id="GestoresViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestoresController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGestoresLabel_gestor}"/>
+                        <h:outputText value="#{gestoresController.selected.gestor}" title="#{bundle.ViewGestoresTitle_gestor}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_oficio}"/>
+                        <h:outputText value="#{gestoresController.selected.oficio}" title="#{bundle.ViewGestoresTitle_oficio}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaOficio}"/>
+                        <h:outputText value="#{gestoresController.selected.fechaOficio}" title="#{bundle.ViewGestoresTitle_fechaOficio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_pwdftp}"/>
+                        <h:outputText value="#{gestoresController.selected.pwdftp}" title="#{bundle.ViewGestoresTitle_pwdftp}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_pwdwms}"/>
+                        <h:outputText value="#{gestoresController.selected.pwdwms}" title="#{bundle.ViewGestoresTitle_pwdwms}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaEnviouser}"/>
+                        <h:outputText value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.ViewGestoresTitle_fechaEnviouser}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaInicio}"/>
+                        <h:outputText value="#{gestoresController.selected.fechaInicio}" title="#{bundle.ViewGestoresTitle_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaFin}"/>
+                        <h:outputText value="#{gestoresController.selected.fechaFin}" title="#{bundle.ViewGestoresTitle_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_status}"/>
+                        <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.ViewGestoresTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_idorganismo}"/>
+                        <h:outputText value="#{gestoresController.selected.idorganismo}" title="#{bundle.ViewGestoresTitle_idorganismo}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_descripcion1}"/>
+                        <h:outputText value="#{gestoresController.selected.descripcion1}" title="#{bundle.ViewGestoresTitle_descripcion1}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_descripcion2}"/>
+                        <h:outputText value="#{gestoresController.selected.descripcion2}" title="#{bundle.ViewGestoresTitle_descripcion2}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_estado}"/>
+                        <h:outputText value="#{gestoresController.selected.estado}" title="#{bundle.ViewGestoresTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_municipio}"/>
+                        <h:outputText value="#{gestoresController.selected.municipio}" title="#{bundle.ViewGestoresTitle_municipio}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_idpersona}"/>
+                        <h:outputText value="#{gestoresController.selected.idpersona}" title="#{bundle.ViewGestoresTitle_idpersona}"/>
+                        <h:outputText value="#{bundle.ViewGestoresLabel_designador}"/>
+                        <h:outputText value="#{gestoresController.selected.designador}" title="#{bundle.ViewGestoresTitle_designador}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GestoresViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

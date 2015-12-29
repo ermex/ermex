@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RatificacionesCreateDlg" widgetVar="RatificacionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRatificacionesTitle}">
+            <h:form id="RatificacionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_idratificacion}" for="idratificacion" />
+                        <p:inputText id="idratificacion" value="#{ratificacionesController.selected.idratificacion}" title="#{bundle.CreateRatificacionesTitle_idratificacion}" required="true" requiredMessage="#{bundle.CreateRatificacionesRequiredMessage_idratificacion}"/>
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_anio}" for="anio" />
+                        <p:calendar id="anio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.anio}" title="#{bundle.EditRatificacionesTitle_anio}" required="true" requiredMessage="#{bundle.EditRatificacionesRequiredMessage_anio}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_inicio}" for="inicio" />
+                        <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.EditRatificacionesTitle_inicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_fin}" for="fin" />
+                        <p:calendar id="fin" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.fin}" title="#{bundle.EditRatificacionesTitle_fin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_responsables}" for="responsables" />
+                        <p:inputText id="responsables" value="#{ratificacionesController.selected.responsables}" title="#{bundle.CreateRatificacionesTitle_responsables}" />
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_responsablee}" for="responsablee" />
+                        <p:inputText id="responsablee" value="#{ratificacionesController.selected.responsablee}" title="#{bundle.CreateRatificacionesTitle_responsablee}" />
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_comentarios}" for="comentarios" />
+                        <p:inputText id="comentarios" value="#{ratificacionesController.selected.comentarios}" title="#{bundle.CreateRatificacionesTitle_comentarios}" />
+                        <p:outputLabel value="#{bundle.CreateRatificacionesLabel_status}" for="status" />
+                        <p:selectBooleanCheckbox id="status" value="#{ratificacionesController.selected.status}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ratificacionesController.create}" value="#{bundle.Save}" update="display,:RatificacionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'RatificacionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RatificacionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

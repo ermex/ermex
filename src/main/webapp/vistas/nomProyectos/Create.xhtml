@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NomProyectosCreateDlg" widgetVar="NomProyectosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNomProyectosTitle}">
+            <h:form id="NomProyectosCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{nomProyectosController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{nomProyectosController.selected.numero}" title="#{bundle.CreateNomProyectosTitle_numero}" required="true" requiredMessage="#{bundle.CreateNomProyectosRequiredMessage_numero}"/>
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{nomProyectosController.selected.nombre}" title="#{bundle.CreateNomProyectosTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_fechaInicial}" for="fechaInicial" />
+                        <p:calendar id="fechaInicial" pattern="MM/dd/yyyy" value="#{nomProyectosController.selected.fechaInicial}" title="#{bundle.EditNomProyectosTitle_fechaInicial}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_fechaFinal}" for="fechaFinal" />
+                        <p:calendar id="fechaFinal" pattern="MM/dd/yyyy" value="#{nomProyectosController.selected.fechaFinal}" title="#{bundle.EditNomProyectosTitle_fechaFinal}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_nubosidad}" for="nubosidad" />
+                        <p:inputText id="nubosidad" value="#{nomProyectosController.selected.nubosidad}" title="#{bundle.CreateNomProyectosTitle_nubosidad}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_modos}" for="modos" />
+                        <p:inputText id="modos" value="#{nomProyectosController.selected.modos}" title="#{bundle.CreateNomProyectosTitle_modos}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_satelites}" for="satelites" />
+                        <p:inputText id="satelites" value="#{nomProyectosController.selected.satelites}" title="#{bundle.CreateNomProyectosTitle_satelites}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{nomProyectosController.selected.nivel}" title="#{bundle.CreateNomProyectosTitle_nivel}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_solicitudes}" for="solicitudes" />
+                        <p:inputText id="solicitudes" value="#{nomProyectosController.selected.solicitudes}" title="#{bundle.CreateNomProyectosTitle_solicitudes}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_notas}" for="notas" />
+                        <p:inputText id="notas" value="#{nomProyectosController.selected.notas}" title="#{bundle.CreateNomProyectosTitle_notas}" />
+                        <p:outputLabel value="#{bundle.CreateNomProyectosLabel_programacion}" for="programacion" />
+                        <p:inputText id="programacion" value="#{nomProyectosController.selected.programacion}" title="#{bundle.CreateNomProyectosTitle_programacion}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{nomProyectosController.create}" value="#{bundle.Save}" update="display,:NomProyectosListForm:datalist,:growl" oncomplete="handleSubmit(args,'NomProyectosCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NomProyectosCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

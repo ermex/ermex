@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListSolicitudesInternetTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="SolicitudesInternetListForm">
+                <p:panel header="#{bundle.ListSolicitudesInternetTitle}">
+                    <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
+                                 selectionMode="single" selection="#{solicitudesInternetController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.solicitud}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_solicitud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.solicitud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_gestor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gestor}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_dependencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dependencia}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_organismo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.organismo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_tema}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tema}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_nubosidad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nubosidad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_modo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_resolucion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resolucion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_nivel}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nivel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo1I}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo1I}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo1F}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo1F}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo2I}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo2I}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo2F}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo2F}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo3I}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo3I}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_periodo3F}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.periodo3F}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_fechaCaptura}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCaptura}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_fechaVentanilla}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaVentanilla}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_justificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.justificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_controlsolicitudes}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.controlsolicitudes}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" disabled="#{empty solicitudesInternetController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm" oncomplete="PF('SolicitudesInternetEditDialog').show()" disabled="#{empty solicitudesInternetController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ControlsolicitudesCreateDlg" widgetVar="ControlsolicitudesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateControlsolicitudesTitle}">
+            <h:form id="ControlsolicitudesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
+                        <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" title="#{bundle.CreateControlsolicitudesTitle_idcontrolsolicitud}" required="true" requiredMessage="#{bundle.CreateControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
+                        <p:inputText id="gestor" value="#{controlsolicitudesController.selected.gestor}" title="#{bundle.CreateControlsolicitudesTitle_gestor}" />
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_fechaasignacion}" for="fechaasignacion" />
+                        <p:calendar id="fechaasignacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.EditControlsolicitudesTitle_fechaasignacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_tema}" for="tema" />
+                        <p:inputText id="tema" value="#{controlsolicitudesController.selected.tema}" title="#{bundle.CreateControlsolicitudesTitle_tema}" />
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_observaciones}" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.CreateControlsolicitudesTitle_observaciones}" />
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{controlsolicitudesController.selected.status}" title="#{bundle.CreateControlsolicitudesTitle_status}" required="true" requiredMessage="#{bundle.CreateControlsolicitudesRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_fechatermino}" for="fechatermino" />
+                        <p:calendar id="fechatermino" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechatermino}" title="#{bundle.EditControlsolicitudesTitle_fechatermino}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_fechacancelacion}" for="fechacancelacion" />
+                        <p:calendar id="fechacancelacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.EditControlsolicitudesTitle_fechacancelacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_totalimagenes}" for="totalimagenes" />
+                        <p:inputText id="totalimagenes" value="#{controlsolicitudesController.selected.totalimagenes}" title="#{bundle.CreateControlsolicitudesTitle_totalimagenes}" required="true" requiredMessage="#{bundle.CreateControlsolicitudesRequiredMessage_totalimagenes}"/>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_solicitud}" for="solicitud" />
+                        <p:selectOneMenu id="solicitud" value="#{controlsolicitudesController.selected.solicitud}" >
+                            <f:selectItems value="#{solicitudesInternetController.itemsAvailableSelectOne}"
+                                           var="solicitudItem"
+                                           itemValue="#{solicitudItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion" />
+                        <p:selectOneMenu id="idpersonalatencion" value="#{controlsolicitudesController.selected.idpersonalatencion}" >
+                            <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
+                                           var="idpersonalatencionItem"
+                                           itemValue="#{idpersonalatencionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_proyecto}" for="proyecto" />
+                        <p:selectOneMenu id="proyecto" value="#{controlsolicitudesController.selected.proyecto}" >
+                            <f:selectItems value="#{nomProyectosController.itemsAvailableSelectOne}"
+                                           var="proyectoItem"
+                                           itemValue="#{proyectoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{controlsolicitudesController.create}" value="#{bundle.Save}" update="display,:ControlsolicitudesListForm:datalist,:growl" oncomplete="handleSubmit(args,'ControlsolicitudesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ControlsolicitudesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

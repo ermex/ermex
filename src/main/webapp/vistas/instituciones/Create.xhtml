@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InstitucionesCreateDlg" widgetVar="InstitucionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitucionesTitle}">
+            <h:form id="InstitucionesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.CreateInstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.CreateInstitucionesRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_tipo}" for="tipo" />
+                        <p:selectOneMenu id="tipo" value="#{institucionesController.selected.tipo}" >
+                            <f:selectItems value="#{institucionesController.tipo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="id dependencia" for="dependencia" />
+                        <p:selectOneMenu id="dependencia" value="#{institucionesController.dependencia}" >
+                            <f:selectItems value="#{dependenciasController.items}"
+                                           var="dependencia"
+                                           itemLabel="#{dependencia.siglas}"
+                                           itemValue="#{dependencia.iddependencia}"/>  
+                            <p:ajax event="change" update="idorganismo" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_idorganismo}" for="idorganismo" />
+                        <p:selectOneMenu id="idorganismo" value="#{institucionesController.selected.idorganismo}">
+                            <f:selectItems value="#{institucionesController.itemsDependencia}"
+                                           var="idorganismoItem"
+                                           itemLabel="#{idorganismoItem.nombre}"
+                                           itemValue="#{idorganismoItem}"/>  
+                            
+                        </p:selectOneMenu>       
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:InstitucionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InstitucionesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

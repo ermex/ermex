@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DocumentosnotasEditDlg" widgetVar="DocumentosnotasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDocumentosnotasTitle}">
+            <h:form id="DocumentosnotasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{documentosnotasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_iddocumentonota}" for="iddocumentonota" />
+                        <p:inputText id="iddocumentonota" value="#{documentosnotasController.selected.iddocumentonota}" title="#{bundle.EditDocumentosnotasTitle_iddocumentonota}" required="true" requiredMessage="#{bundle.EditDocumentosnotasRequiredMessage_iddocumentonota}"/>
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_notaword}" for="notaword" />
+                        <p:inputText id="notaword" value="#{documentosnotasController.selected.notaword}" title="#{bundle.EditDocumentosnotasTitle_notaword}" />
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_notapdf}" for="notapdf" />
+                        <p:inputText id="notapdf" value="#{documentosnotasController.selected.notapdf}" title="#{bundle.EditDocumentosnotasTitle_notapdf}" />
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_relacionimg}" for="relacionimg" />
+                        <p:inputText id="relacionimg" value="#{documentosnotasController.selected.relacionimg}" title="#{bundle.EditDocumentosnotasTitle_relacionimg}" />
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_acuse}" for="acuse" />
+                        <p:inputText id="acuse" value="#{documentosnotasController.selected.acuse}" title="#{bundle.EditDocumentosnotasTitle_acuse}" />
+                        <p:outputLabel value="#{bundle.EditDocumentosnotasLabel_idnota}" for="idnota" />
+                        <p:selectOneMenu id="idnota" value="#{documentosnotasController.selected.idnota}" required="true" requiredMessage="#{bundle.EditDocumentosnotasRequiredMessage_idnota}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{notasController.itemsAvailableSelectOne}"
+                                           var="idnotaItem"
+                                           itemValue="#{idnotaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{documentosnotasController.update}" value="#{bundle.Save}" update="display,:DocumentosnotasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DocumentosnotasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DocumentosnotasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

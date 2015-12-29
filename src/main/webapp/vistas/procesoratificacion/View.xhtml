@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProcesoratificacionViewDlg" widgetVar="ProcesoratificacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProcesoratificacionTitle}">
+            <h:form id="ProcesoratificacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_idprocesor}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.idprocesor}" title="#{bundle.ViewProcesoratificacionTitle_idprocesor}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_freceprati}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ViewProcesoratificacionTitle_freceprati}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_cambios}"/>
+                        <p:selectBooleanCheckbox value="#{procesoratificacionController.selected.cambios}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_status}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ViewProcesoratificacionTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_comentarios}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ViewProcesoratificacionTitle_comentarios}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_fechaEnvioclaves}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ViewProcesoratificacionTitle_fechaEnvioclaves}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_fechaConficlaves}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ViewProcesoratificacionTitle_fechaConficlaves}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_proceso}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ViewProcesoratificacionTitle_proceso}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_documentacion}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ViewProcesoratificacionTitle_documentacion}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_idratificacion}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.idratificacion}" title="#{bundle.ViewProcesoratificacionTitle_idratificacion}"/>
+                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_gestor}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.gestor}" title="#{bundle.ViewProcesoratificacionTitle_gestor}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProcesoratificacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

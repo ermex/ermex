@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
+            <h:form id="PersonasCreateForm">
+                <h:panelGroup id="display"  >
+                    <p:panelGrid columns="2" rendered="#{personasController.selected != null}">
+                        
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_tipo}" for="tipo" />
+                        <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
+                            <f:selectItems value="#{personasController.tipo}" />
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_curp}" for="curp" />
+                        <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.CreatePersonasTitle_curp}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.CreatePersonasTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidop}" for="apellidop" />
+                        <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.CreatePersonasTitle_apellidop}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidom}" for="apellidom" />
+                        <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.CreatePersonasTitle_apellidom}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_grado}" for="grado" />
+                        <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.CreatePersonasTitle_grado}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.CreatePersonasTitle_cargo}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo1}" for="correo1" />
+                        <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.CreatePersonasTitle_correo1}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo2}" for="correo2" />
+                        <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.CreatePersonasTitle_correo2}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo3}" for="correo3" />
+                        <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.CreatePersonasTitle_correo3}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.CreatePersonasTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_domicilioOficina}" for="domicilioOficina" />
+                        <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.CreatePersonasTitle_domicilioOficina}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_telpersonal}" for="telpersonal" />
+                        <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.CreatePersonasTitle_telpersonal}" />
+                        <p:outputLabel value="#{bundle.CreatePersonasLabel_dompersonal}" for="dompersonal" />
+                        <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.CreatePersonasTitle_dompersonal}" />
+                        <p:outputLabel value="Dependencia" for="selectedDependencia" />
+                        <p:selectOneMenu id="selectedDependencia" value="#{personasController.selectedDepedencia}" >
+                            <f:selectItems value="#{dependenciasController.items}"
+                                                       var="dependencia"
+                                                       itemLabel="#{dependencia.siglas}"
+                                                       itemValue="#{dependencia}"/>  
+                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion" />
+                                    </p:selectOneMenu>
+                                   <p:outputLabel value="Organismo" for="selectedOrganismo" />
+                                   <p:selectOneMenu id="selectedOrganismo" value="#{personasController.selectedOrganismo}" >
+                                       <f:selectItem itemLabel="Select One" itemValue="" />            
+                                       <f:selectItems value="#{personasController.itemOrganismosXDependencia}" 
+                                                       var="organismo"
+                                                       itemLabel="#{organismo.nombre}"
+                                                       itemValue="#{organismo}"/>  
+                                        <p:ajax event="change" update="selectedInstitucion" />
+                                    </p:selectOneMenu>  
+                                   <p:outputLabel value="#{bundle.CreatePersonasLabel_idinstitucion}" for="selectedInstitucion" />
+                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" >
+                                       <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                       <f:selectItems value="#{personasController.itemInstitucionXOrganismo}" 
+                                                       var="institucion"
+                                                       itemLabel="#{institucion.nombre}"
+                                                       itemValue="#{institucion}"/>                                      
+                                    </p:selectOneMenu>   
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personasController.create}" value="#{bundle.Save}" update="display,:PersonasListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

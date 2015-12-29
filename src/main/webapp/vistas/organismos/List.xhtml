@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrganismosTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="OrganismosListForm">
+                <p:panel header="#{bundle.ListOrganismosTitle}">
+                    <p:dataTable id="datalist" value="#{organismosController.items}" var="item"
+                                 selectionMode="single" selection="#{organismosController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idorganismo}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
+
+                        <p:column width="10%">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrganismosTitle_idorganismo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idorganismo}"/>
+                        </p:column>
+                        <p:column width="25%">
+                            <f:facet name="header" >
+                                <h:outputText value="#{bundle.ListOrganismosTitle_iddependencia}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iddependencia.siglas}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOrganismosTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{organismosController.prepareCreate}" update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrganismosViewForm" oncomplete="PF('OrganismosViewDialog').show()" disabled="#{empty organismosController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrganismosEditForm" oncomplete="PF('OrganismosEditDialog').show()" disabled="#{empty organismosController.selected}"/>                            
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

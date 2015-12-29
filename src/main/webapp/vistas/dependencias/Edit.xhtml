@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DependenciasEditDlg" widgetVar="DependenciasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDependenciasTitle}">
+            <h:form id="DependenciasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDependenciasLabel_iddependencia}" for="iddependencia" />
+                        <p:inputText id="iddependencia" value="#{dependenciasController.selected.iddependencia}" title="#{bundle.EditDependenciasTitle_iddependencia}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditDependenciasLabel_siglas}" for="siglas" />
+                        <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.EditDependenciasTitle_siglas}" required="true" requiredMessage="ES REQUERIDO EL CAMPO SIGLAS" />
+                        <p:outputLabel value="#{bundle.EditDependenciasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.EditDependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.EditDependenciasRequiredMessage_nombre}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dependenciasController.update}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DependenciasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DependenciasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

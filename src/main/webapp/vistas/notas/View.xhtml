@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotasViewDlg" widgetVar="NotasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNotasTitle}">
+            <h:form id="NotasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notasController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNotasLabel_idnota}"/>
+                        <h:outputText value="#{notasController.selected.idnota}" title="#{bundle.ViewNotasTitle_idnota}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_nonota}"/>
+                        <h:outputText value="#{notasController.selected.nonota}" title="#{bundle.ViewNotasTitle_nonota}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_nombre}"/>
+                        <h:outputText value="#{notasController.selected.nombre}" title="#{bundle.ViewNotasTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_noimagen}"/>
+                        <h:outputText value="#{notasController.selected.noimagen}" title="#{bundle.ViewNotasTitle_noimagen}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_nooficio}"/>
+                        <h:outputText value="#{notasController.selected.nooficio}" title="#{bundle.ViewNotasTitle_nooficio}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_fechacreacion}"/>
+                        <h:outputText value="#{notasController.selected.fechacreacion}" title="#{bundle.ViewNotasTitle_fechacreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNotasLabel_observaciones}"/>
+                        <h:outputText value="#{notasController.selected.observaciones}" title="#{bundle.ViewNotasTitle_observaciones}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_status}"/>
+                        <h:outputText value="#{notasController.selected.status}" title="#{bundle.ViewNotasTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_fechaoficio}"/>
+                        <h:outputText value="#{notasController.selected.fechaoficio}" title="#{bundle.ViewNotasTitle_fechaoficio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNotasLabel_fechaacuse}"/>
+                        <h:outputText value="#{notasController.selected.fechaacuse}" title="#{bundle.ViewNotasTitle_fechaacuse}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNotasLabel_reposiciones}"/>
+                        <h:outputText value="#{notasController.selected.reposiciones}" title="#{bundle.ViewNotasTitle_reposiciones}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_dispotivioentrega}"/>
+                        <h:outputText value="#{notasController.selected.dispotivioentrega}" title="#{bundle.ViewNotasTitle_dispotivioentrega}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_idorganismo}"/>
+                        <h:outputText value="#{notasController.selected.idorganismo}" title="#{bundle.ViewNotasTitle_idorganismo}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_pwdnota}"/>
+                        <h:outputText value="#{notasController.selected.pwdnota}" title="#{bundle.ViewNotasTitle_pwdnota}"/>
+                        <h:outputText value="#{bundle.ViewNotasLabel_idcontrolsolicitud}"/>
+                        <h:outputText value="#{notasController.selected.idcontrolsolicitud}" title="#{bundle.ViewNotasTitle_idcontrolsolicitud}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NotasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

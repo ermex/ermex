@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudesInternetEditDlg" widgetVar="SolicitudesInternetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSolicitudesInternetTitle}">
+            <h:form id="SolicitudesInternetEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{solicitudesInternetController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_solicitud}" for="solicitud" />
+                        <p:inputText id="solicitud" value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.EditSolicitudesInternetTitle_solicitud}" required="true" requiredMessage="#{bundle.EditSolicitudesInternetRequiredMessage_solicitud}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_gestor}" for="gestor" />
+                        <p:inputText id="gestor" value="#{solicitudesInternetController.selected.gestor}" title="#{bundle.EditSolicitudesInternetTitle_gestor}" required="true" requiredMessage="#{bundle.EditSolicitudesInternetRequiredMessage_gestor}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{solicitudesInternetController.selected.nombre}" title="#{bundle.EditSolicitudesInternetTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_dependencia}" for="dependencia" />
+                        <p:inputText id="dependencia" value="#{solicitudesInternetController.selected.dependencia}" title="#{bundle.EditSolicitudesInternetTitle_dependencia}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_organismo}" for="organismo" />
+                        <p:inputText id="organismo" value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.EditSolicitudesInternetTitle_organismo}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_tema}" for="tema" />
+                        <p:inputText id="tema" value="#{solicitudesInternetController.selected.tema}" title="#{bundle.EditSolicitudesInternetTitle_tema}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_nubosidad}" for="nubosidad" />
+                        <p:inputText id="nubosidad" value="#{solicitudesInternetController.selected.nubosidad}" title="#{bundle.EditSolicitudesInternetTitle_nubosidad}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_modo}" for="modo" />
+                        <p:inputText id="modo" value="#{solicitudesInternetController.selected.modo}" title="#{bundle.EditSolicitudesInternetTitle_modo}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_resolucion}" for="resolucion" />
+                        <p:inputText id="resolucion" value="#{solicitudesInternetController.selected.resolucion}" title="#{bundle.EditSolicitudesInternetTitle_resolucion}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{solicitudesInternetController.selected.nivel}" title="#{bundle.EditSolicitudesInternetTitle_nivel}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo1I}" for="periodo1I" />
+                        <p:calendar id="periodo1I" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo1I}" title="#{bundle.EditSolicitudesInternetTitle_periodo1I}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo1F}" for="periodo1F" />
+                        <p:calendar id="periodo1F" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo1F}" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
+                        <p:calendar id="periodo2I" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo2I}" title="#{bundle.EditSolicitudesInternetTitle_periodo2I}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo2F}" for="periodo2F" />
+                        <p:calendar id="periodo2F" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo2F}" title="#{bundle.EditSolicitudesInternetTitle_periodo2F}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo3I}" for="periodo3I" />
+                        <p:calendar id="periodo3I" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo3I}" title="#{bundle.EditSolicitudesInternetTitle_periodo3I}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_periodo3F}" for="periodo3F" />
+                        <p:calendar id="periodo3F" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.periodo3F}" title="#{bundle.EditSolicitudesInternetTitle_periodo3F}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_fechaCaptura}" for="fechaCaptura" />
+                        <p:calendar id="fechaCaptura" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaCaptura}" title="#{bundle.EditSolicitudesInternetTitle_fechaCaptura}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_fechaVentanilla}" for="fechaVentanilla" />
+                        <p:calendar id="fechaVentanilla" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaVentanilla}" title="#{bundle.EditSolicitudesInternetTitle_fechaVentanilla}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_justificacion}" for="justificacion" />
+                        <p:inputText id="justificacion" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.EditSolicitudesInternetTitle_justificacion}" />
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{solicitudesInternetController.selected.status}" title="#{bundle.EditSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.EditSolicitudesInternetRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.EditSolicitudesInternetLabel_controlsolicitudes}" for="controlsolicitudes" />
+                        <p:selectOneMenu id="controlsolicitudes" value="#{solicitudesInternetController.selected.controlsolicitudes}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{controlsolicitudesController.itemsAvailableSelectOne}"
+                                           var="controlsolicitudesItem"
+                                           itemValue="#{controlsolicitudesItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SolicitudesInternetEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

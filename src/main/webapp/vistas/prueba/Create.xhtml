@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
+            <h:form id="GestoresCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{gestoresController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_gestor}" for="gestor" />
+                        <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.CreateGestoresTitle_gestor}" required="true" requiredMessage="#{bundle.CreateGestoresRequiredMessage_gestor}"/>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_oficio}" for="oficio" />
+                        <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.CreateGestoresTitle_oficio}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_fechaOficio}" for="fechaOficio" />
+                        <p:calendar id="fechaOficio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaOficio}" title="#{bundle.EditGestoresTitle_fechaOficio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_pwdftp}" for="pwdftp" />
+                        <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="#{bundle.CreateGestoresTitle_pwdftp}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_pwdwms}" for="pwdwms" />
+                        <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="#{bundle.CreateGestoresTitle_pwdwms}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
+                        <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.EditGestoresTitle_fechaEnviouser}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaInicio}" title="#{bundle.EditGestoresTitle_fechaInicio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaFin}" title="#{bundle.EditGestoresTitle_fechaFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{gestoresController.selected.status}" title="#{bundle.CreateGestoresTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_idorganismo}" for="idorganismo" />
+                        <p:inputText id="idorganismo" value="#{gestoresController.selected.idorganismo}" title="#{bundle.CreateGestoresTitle_idorganismo}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_descripcion1}" for="descripcion1" />
+                        <p:inputText id="descripcion1" value="#{gestoresController.selected.descripcion1}" title="#{bundle.CreateGestoresTitle_descripcion1}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_descripcion2}" for="descripcion2" />
+                        <p:inputText id="descripcion2" value="#{gestoresController.selected.descripcion2}" title="#{bundle.CreateGestoresTitle_descripcion2}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_estado}" for="estado" />
+                        <p:inputText id="estado" value="#{gestoresController.selected.estado}" title="#{bundle.CreateGestoresTitle_estado}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_municipio}" for="municipio" />
+                        <p:inputText id="municipio" value="#{gestoresController.selected.municipio}" title="#{bundle.CreateGestoresTitle_municipio}" />
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_idpersona}" for="idpersona" />
+                        <p:selectOneMenu id="idpersona" value="#{gestoresController.selected.idpersona}" >
+                            <f:selectItems value="#{personasController.itemsAvailableSelectOne}"
+                                           var="idpersonaItem"
+                                           itemValue="#{idpersonaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateGestoresLabel_designador}" for="designador" />
+                        <p:selectOneMenu id="designador" value="#{gestoresController.selected.designador}" >
+                            <f:selectItems value="#{personasController.itemsAvailableSelectOne}"
+                                           var="designadorItem"
+                                           itemValue="#{designadorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{gestoresController.create}" value="#{bundle.Save}" update="display,:GestoresListForm:datalist,:growl" oncomplete="handleSubmit(args,'GestoresCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GestoresCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

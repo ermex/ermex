@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SolicitudesInternetViewDlg" widgetVar="SolicitudesInternetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}">
+            <h:form id="SolicitudesInternetViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{solicitudesInternetController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_solicitud}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.ViewSolicitudesInternetTitle_solicitud}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_gestor}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.gestor}" title="#{bundle.ViewSolicitudesInternetTitle_gestor}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nombre}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.nombre}" title="#{bundle.ViewSolicitudesInternetTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_dependencia}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.dependencia}" title="#{bundle.ViewSolicitudesInternetTitle_dependencia}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_organismo}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.ViewSolicitudesInternetTitle_organismo}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_tema}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.tema}" title="#{bundle.ViewSolicitudesInternetTitle_tema}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nubosidad}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.nubosidad}" title="#{bundle.ViewSolicitudesInternetTitle_nubosidad}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_modo}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.modo}" title="#{bundle.ViewSolicitudesInternetTitle_modo}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_resolucion}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.resolucion}" title="#{bundle.ViewSolicitudesInternetTitle_resolucion}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nivel}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.nivel}" title="#{bundle.ViewSolicitudesInternetTitle_nivel}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo1I}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo1I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo1F}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo1F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1F}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo2I}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo2I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo2I}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo2F}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo2F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo2F}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo3I}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo3I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo3I}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo3F}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.periodo3F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo3F}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_fechaCaptura}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.fechaCaptura}" title="#{bundle.ViewSolicitudesInternetTitle_fechaCaptura}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_fechaVentanilla}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.fechaVentanilla}" title="#{bundle.ViewSolicitudesInternetTitle_fechaVentanilla}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_justificacion}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.ViewSolicitudesInternetTitle_justificacion}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_status}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.status}" title="#{bundle.ViewSolicitudesInternetTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_controlsolicitudes}"/>
+                        <h:outputText value="#{solicitudesInternetController.selected.controlsolicitudes}" title="#{bundle.ViewSolicitudesInternetTitle_controlsolicitudes}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="SolicitudesInternetViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

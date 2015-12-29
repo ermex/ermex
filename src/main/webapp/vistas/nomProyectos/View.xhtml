@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NomProyectosViewDlg" widgetVar="NomProyectosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNomProyectosTitle}">
+            <h:form id="NomProyectosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{nomProyectosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_numero}"/>
+                        <h:outputText value="#{nomProyectosController.selected.numero}" title="#{bundle.ViewNomProyectosTitle_numero}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_nombre}"/>
+                        <h:outputText value="#{nomProyectosController.selected.nombre}" title="#{bundle.ViewNomProyectosTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_fechaInicial}"/>
+                        <h:outputText value="#{nomProyectosController.selected.fechaInicial}" title="#{bundle.ViewNomProyectosTitle_fechaInicial}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_fechaFinal}"/>
+                        <h:outputText value="#{nomProyectosController.selected.fechaFinal}" title="#{bundle.ViewNomProyectosTitle_fechaFinal}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_nubosidad}"/>
+                        <h:outputText value="#{nomProyectosController.selected.nubosidad}" title="#{bundle.ViewNomProyectosTitle_nubosidad}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_modos}"/>
+                        <h:outputText value="#{nomProyectosController.selected.modos}" title="#{bundle.ViewNomProyectosTitle_modos}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_satelites}"/>
+                        <h:outputText value="#{nomProyectosController.selected.satelites}" title="#{bundle.ViewNomProyectosTitle_satelites}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_nivel}"/>
+                        <h:outputText value="#{nomProyectosController.selected.nivel}" title="#{bundle.ViewNomProyectosTitle_nivel}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_solicitudes}"/>
+                        <h:outputText value="#{nomProyectosController.selected.solicitudes}" title="#{bundle.ViewNomProyectosTitle_solicitudes}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_notas}"/>
+                        <h:outputText value="#{nomProyectosController.selected.notas}" title="#{bundle.ViewNomProyectosTitle_notas}"/>
+                        <h:outputText value="#{bundle.ViewNomProyectosLabel_programacion}"/>
+                        <h:outputText value="#{nomProyectosController.selected.programacion}" title="#{bundle.ViewNomProyectosTitle_programacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NomProyectosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
