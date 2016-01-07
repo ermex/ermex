@@ -115,7 +115,7 @@ public class GestoresController implements Serializable {
     }
 
     public void reset(){
-        selected=null;
+        selected=new Gestores();
         selectedDependencia=null;
         selectedOrganismos=null;
         selectedInstitucion=null;

@@ -172,7 +172,7 @@
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
                                     </p:panelGrid>  
                                 <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wiz').loadStep('tabGestor', false)"/>                           
-                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wiz').loadStep('tabGestor', false)"/>
+                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wiz').loadStep('tabGestor',true)"/>
                                 
                                 </p:panelGrid>
                             </p:panel>                             
