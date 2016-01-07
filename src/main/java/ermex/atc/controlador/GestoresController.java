@@ -19,12 +19,10 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.event.FlowEvent;
 
 @Named("gestoresController")
 @SessionScoped
@@ -43,14 +41,10 @@ public class GestoresController implements Serializable {
     @EJB
     private ermex.atc.sesion.PersonasFacade ejbFacadePersona;    
     private List<Gestores> itemsActivos = null;
-//    private List<Instituciones> itemsInstitucionXOrganismo=null;
-//    private List<Organismos> itemsOrganismosXDependencia=null;
-    
     private Dependencias selectedDependencia;
     private Organismos  selectedOrganismos;
     private Instituciones selectedInstitucion;
     private HashMap<String, String> status=null;
-    private boolean skip;
     
     public GestoresController() {
         status = new HashMap<>();
@@ -60,20 +54,6 @@ public class GestoresController implements Serializable {
         status.put("activo", "activo");
     }
 
-    public void save() {        
-        FacesMessage msg = new FacesMessage("Successful", "Welcome :");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-    public String onFlowProcess(FlowEvent event) {
-        if(skip) {
-            skip = false;   //reset in case user goes back
-            return "tabGestor";
-        }
-        else {
-            
-            return event.getNewStep();
-        }
-    }
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;
     }
@@ -98,13 +78,6 @@ public class GestoresController implements Serializable {
         this.selectedInstitucion = selectedInstitucion;
     }
 
-    public boolean isSkip() {
-        return skip;
-    }
-
-    public void setSkip(boolean skip) {
-        this.skip = skip;
-    }
     public List<Gestores> getItemsActivos() {
         return ejbFacade.findByNoStatus("baja");
     }
@@ -115,7 +88,7 @@ public class GestoresController implements Serializable {
     public void setStatus(HashMap<String, String> status) {
         this.status = status;
     }
-
+    
     public void setItemsActivos(List<Gestores> itemsActivos) {
         this.itemsActivos = itemsActivos;
     }   
@@ -135,9 +108,18 @@ public class GestoresController implements Serializable {
     }
 
     public List<Personas> getItemsfindGestorInstitucion(String tipo) {
+        if(this.selectedInstitucion==null){
+            return null;
+        }
         return ejbFacadePersona.findTipoInstitucion(tipo,this.selectedInstitucion.getIdinstitucion());
     }
 
+    public void reset(){
+        selected=null;
+        selectedDependencia=null;
+        selectedOrganismos=null;
+        selectedInstitucion=null;
+    }
     //////////////////////////////////////////////////////
     
     public Gestores getSelected() {
@@ -163,15 +145,10 @@ public class GestoresController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    
     public void create() {
-        //persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GestoresCreated"));
-        selected=null;
-        selectedDependencia=null;
-        selectedOrganismos=null;
-        selectedInstitucion=null;
-        this.skip=true;
-        //save();
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GestoresCreated"));
+        reset();
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }

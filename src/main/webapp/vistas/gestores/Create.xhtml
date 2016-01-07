@@ -10,7 +10,7 @@
         <p:dialog width="100%" height="50%" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
             <h:form id="GestoresCreateForm">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizard" widgetVar="wiz"  flowListener="#{gestoresController.onFlowProcess}">
+                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
                         <p:tab id="tabGestor" title="Gestor">
                             <p:panel header="Detalles del Gestor">
                                 <p:messages />
@@ -170,9 +170,9 @@
                                         
                                         <h:outputText value="Cargo: " />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
-                                    </p:panelGrid>                                    
-                                <p:commandButton actionListener="#{gestoresController.create}" value="#{bundle.Save}" update="wizard" process="@this"  />
-                                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('wiz').loadStep('tab0', false)"/>
+                                    </p:panelGrid>  
+                                <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wiz').loadStep('tabGestor', false)"/>                           
+                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wiz').loadStep('tabGestor', false)"/>
                                 
                                 </p:panelGrid>
                             </p:panel>                             
