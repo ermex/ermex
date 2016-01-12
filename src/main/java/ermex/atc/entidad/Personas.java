@@ -6,7 +6,6 @@
 package ermex.atc.entidad;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -56,6 +56,37 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Personas.findByHuellamanoder", query = "SELECT p FROM Personas p WHERE p.huellamanoder = :huellamanoder"),
     @NamedQuery(name = "Personas.findByNombramiento", query = "SELECT p FROM Personas p WHERE p.nombramiento = :nombramiento")})
 public class Personas implements Serializable {
+
+    @Lob
+    @Column(name = "idoficialanv")
+    private byte[] idoficialanv;
+    @Lob
+    @Column(name = "idoficialrev")
+    private byte[] idoficialrev;
+    @Lob
+    @Column(name = "credoficialanv")
+    private byte[] credoficialanv;
+    @Lob
+    @Column(name = "credoficialrev")
+    private byte[] credoficialrev;
+    @Lob
+    @Column(name = "imgcurp")
+    private byte[] imgcurp;
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
+    @Lob
+    @Column(name = "huellapulgar")
+    private byte[] huellapulgar;
+    @Lob
+    @Column(name = "huellamanoizq")
+    private byte[] huellamanoizq;
+    @Lob
+    @Column(name = "huellamanoder")
+    private byte[] huellamanoder;
+    @Lob
+    @Column(name = "nombramiento")
+    private byte[] nombramiento;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -105,26 +136,6 @@ public class Personas implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "dompersonal")
     private String dompersonal;
-    @Column(name = "idoficialanv")
-    private BigInteger idoficialanv;
-    @Column(name = "idoficialrev")
-    private BigInteger idoficialrev;
-    @Column(name = "credoficialanv")
-    private BigInteger credoficialanv;
-    @Column(name = "credoficialrev")
-    private BigInteger credoficialrev;
-    @Column(name = "imgcurp")
-    private BigInteger imgcurp;
-    @Column(name = "foto")
-    private BigInteger foto;
-    @Column(name = "huellapulgar")
-    private BigInteger huellapulgar;
-    @Column(name = "huellamanoizq")
-    private BigInteger huellamanoizq;
-    @Column(name = "huellamanoder")
-    private BigInteger huellamanoder;
-    @Column(name = "nombramiento")
-    private BigInteger nombramiento;
     @JoinColumn(name = "idinstitucion", referencedColumnName = "idinstitucion")
     @ManyToOne
     private Instituciones idinstitucion;
@@ -260,85 +271,6 @@ public class Personas implements Serializable {
         this.dompersonal = dompersonal;
     }
 
-    public BigInteger getIdoficialanv() {
-        return idoficialanv;
-    }
-
-    public void setIdoficialanv(BigInteger idoficialanv) {
-        this.idoficialanv = idoficialanv;
-    }
-
-    public BigInteger getIdoficialrev() {
-        return idoficialrev;
-    }
-
-    public void setIdoficialrev(BigInteger idoficialrev) {
-        this.idoficialrev = idoficialrev;
-    }
-
-    public BigInteger getCredoficialanv() {
-        return credoficialanv;
-    }
-
-    public void setCredoficialanv(BigInteger credoficialanv) {
-        this.credoficialanv = credoficialanv;
-    }
-
-    public BigInteger getCredoficialrev() {
-        return credoficialrev;
-    }
-
-    public void setCredoficialrev(BigInteger credoficialrev) {
-        this.credoficialrev = credoficialrev;
-    }
-
-    public BigInteger getImgcurp() {
-        return imgcurp;
-    }
-
-    public void setImgcurp(BigInteger imgcurp) {
-        this.imgcurp = imgcurp;
-    }
-
-    public BigInteger getFoto() {
-        return foto;
-    }
-
-    public void setFoto(BigInteger foto) {
-        this.foto = foto;
-    }
-
-    public BigInteger getHuellapulgar() {
-        return huellapulgar;
-    }
-
-    public void setHuellapulgar(BigInteger huellapulgar) {
-        this.huellapulgar = huellapulgar;
-    }
-
-    public BigInteger getHuellamanoizq() {
-        return huellamanoizq;
-    }
-
-    public void setHuellamanoizq(BigInteger huellamanoizq) {
-        this.huellamanoizq = huellamanoizq;
-    }
-
-    public BigInteger getHuellamanoder() {
-        return huellamanoder;
-    }
-
-    public void setHuellamanoder(BigInteger huellamanoder) {
-        this.huellamanoder = huellamanoder;
-    }
-
-    public BigInteger getNombramiento() {
-        return nombramiento;
-    }
-
-    public void setNombramiento(BigInteger nombramiento) {
-        this.nombramiento = nombramiento;
-    }
 
     public Instituciones getIdinstitucion() {
         return idinstitucion;
@@ -387,6 +319,86 @@ public class Personas implements Serializable {
     @Override
     public String toString() {
         return "ermex.atc.entidad.Personas[ idpersona=" + idpersona + " ]";
+    }
+
+    public byte[] getIdoficialanv() {
+        return idoficialanv;
+    }
+
+    public void setIdoficialanv(byte[] idoficialanv) {
+        this.idoficialanv = idoficialanv;
+    }
+
+    public byte[] getIdoficialrev() {
+        return idoficialrev;
+    }
+
+    public void setIdoficialrev(byte[] idoficialrev) {
+        this.idoficialrev = idoficialrev;
+    }
+
+    public byte[] getCredoficialanv() {
+        return credoficialanv;
+    }
+
+    public void setCredoficialanv(byte[] credoficialanv) {
+        this.credoficialanv = credoficialanv;
+    }
+
+    public byte[] getCredoficialrev() {
+        return credoficialrev;
+    }
+
+    public void setCredoficialrev(byte[] credoficialrev) {
+        this.credoficialrev = credoficialrev;
+    }
+
+    public byte[] getImgcurp() {
+        return imgcurp;
+    }
+
+    public void setImgcurp(byte[] imgcurp) {
+        this.imgcurp = imgcurp;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public byte[] getHuellapulgar() {
+        return huellapulgar;
+    }
+
+    public void setHuellapulgar(byte[] huellapulgar) {
+        this.huellapulgar = huellapulgar;
+    }
+
+    public byte[] getHuellamanoizq() {
+        return huellamanoizq;
+    }
+
+    public void setHuellamanoizq(byte[] huellamanoizq) {
+        this.huellamanoizq = huellamanoizq;
+    }
+
+    public byte[] getHuellamanoder() {
+        return huellamanoder;
+    }
+
+    public void setHuellamanoder(byte[] huellamanoder) {
+        this.huellamanoder = huellamanoder;
+    }
+
+    public byte[] getNombramiento() {
+        return nombramiento;
+    }
+
+    public void setNombramiento(byte[] nombramiento) {
+        this.nombramiento = nombramiento;
     }
     
 }

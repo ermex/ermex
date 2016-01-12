@@ -114,6 +114,7 @@
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":GestoresEditForm" oncomplete="PF('GestoresEditDialog').show()" disabled="#{empty gestoresController.selected}"/>
                         </f:facet>
                     </p:dataTable>
+                    <p:graphicImage id="photo" value="#{gestoresController.foto}" cache="false" height="50" width="50" />
                 </p:panel>
             </h:form>
 

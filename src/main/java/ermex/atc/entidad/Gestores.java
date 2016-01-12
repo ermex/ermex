@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -49,6 +50,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Gestores.findByMunicipio", query = "SELECT g FROM Gestores g WHERE g.municipio = :municipio"),
     @NamedQuery(name = "Gestores.findByDesignacion", query = "SELECT g FROM Gestores g WHERE g.designacion = :designacion")})
 public class Gestores implements Serializable {
+
+    @Lob
+    @Column(name = "designacion")
+    private byte[] designacion;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -93,8 +98,6 @@ public class Gestores implements Serializable {
     private Short estado;
     @Column(name = "municipio")
     private Short municipio;
-    @Column(name = "designacion")
-    private BigInteger designacion;
     @OneToMany(mappedBy = "gestor")
     private List<Procesoratificacion> procesoratificacionList;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
@@ -223,13 +226,6 @@ public class Gestores implements Serializable {
         this.municipio = municipio;
     }
 
-    public BigInteger getDesignacion() {
-        return designacion;
-    }
-
-    public void setDesignacion(BigInteger designacion) {
-        this.designacion = designacion;
-    }
 
     public List<Procesoratificacion> getProcesoratificacionList() {
         return procesoratificacionList;
@@ -278,6 +274,14 @@ public class Gestores implements Serializable {
     @Override
     public String toString() {
         return "ermex.atc.entidad.Gestores[ gestor=" + gestor + " ]";
+    }
+
+    public byte[] getDesignacion() {
+        return designacion;
+    }
+
+    public void setDesignacion(byte[] designacion) {
+        this.designacion = designacion;
     }
     
 }

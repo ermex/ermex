@@ -8,6 +8,8 @@ import ermex.atc.entidad.Instituciones;
 import ermex.atc.entidad.Organismos;
 import ermex.atc.entidad.Personas;
 import ermex.atc.sesion.GestoresFacade;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,6 +25,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @Named("gestoresController")
 @SessionScoped
@@ -53,6 +57,10 @@ public class GestoresController implements Serializable {
         status.put("ratificacion", "ratificacion"); 
         status.put("activo", "activo");
     }
+    public StreamedContent getFoto() throws IOException { 
+        this.getItems();
+        return new DefaultStreamedContent(new ByteArrayInputStream(items.get(494).getDesignacion()));
+        }
 
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;
