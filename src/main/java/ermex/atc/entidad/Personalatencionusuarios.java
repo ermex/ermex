@@ -34,6 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Personalatencionusuarios.findByPuesto", query = "SELECT p FROM Personalatencionusuarios p WHERE p.puesto = :puesto"),
     @NamedQuery(name = "Personalatencionusuarios.findByUsuario", query = "SELECT p FROM Personalatencionusuarios p WHERE p.usuario = :usuario"),
     @NamedQuery(name = "Personalatencionusuarios.findByPwd", query = "SELECT p FROM Personalatencionusuarios p WHERE p.pwd = :pwd"),
+    @NamedQuery(name = "Personalatencionusuarios.findByPwdAndUsuario", query = "SELECT p FROM Personalatencionusuarios p WHERE p.usuario = :usuario and p.pwd = :pwd"),
     @NamedQuery(name = "Personalatencionusuarios.findByStatus", query = "SELECT p FROM Personalatencionusuarios p WHERE p.status = :status")})
 public class Personalatencionusuarios implements Serializable {
 

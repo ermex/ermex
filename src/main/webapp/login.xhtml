@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+          
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="/JSFSession/public/css/cssFormulario.css"/>
+    </h:head>
+   
+        <ui:composition template="/templateLogin.xhtml">
+            <ui:define name="body">
+               <h:form>                 
+                 <p:panel header="LOGIN">
+                   <center>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Usuario: " for="usuario" />
+                        <p:inputText   id="usuario" label="usuario" required="true" requiredMessage="Se requiere Usuario" value="#{loginController.usuario.usuario}">
+                            <p:tooltip for="usuario" value="Introduzca su Usuario"></p:tooltip>                            
+                        </p:inputText>
+                        <p:outputLabel value="Contraseña: " for="pwd" />
+                        <h:inputSecret id="pwd" label="pwd" required="true" binding="#{pwd}" requiredMessage="Se requiere password" value="#{loginController.usuario.pwd}">
+                            <p:tooltip for="pwd" value="Introduzca su Contraseña"></p:tooltip>
+                        </h:inputSecret>
+                    </p:panelGrid>
+                       <p:commandButton value="Check" type="Sumbit" actionListener="#{loginController.autenticar()}"  oncomplete="handleLoginRequest(xhr, status, args)"  ajax="false" />
+                  </center>          
+                </p:panel>
+              </h:form>
+            </ui:define>
+        </ui:composition>
+</html>
