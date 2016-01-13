@@ -12,7 +12,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,12 +21,11 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.PhaseId;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -53,7 +51,8 @@ public class GestoresController implements Serializable {
     private Organismos  selectedOrganismos;
     private Instituciones selectedInstitucion;
     private HashMap<String, String> status=null;
-    private UploadedFile file;
+    private UploadedFile Updesignacion;
+    private String nomgestor;
     
     public GestoresController() {
         status = new HashMap<>();
@@ -63,41 +62,38 @@ public class GestoresController implements Serializable {
         status.put("activo", "activo");
     }
 
-    public UploadedFile getFile() {
-        return file;
+    public String getNomgestor() {
+        return nomgestor;
     }
 
-    public void setFile(UploadedFile file) {
-        this.file = file;
+    public void setNomgestor(String nomgestor) {
+        this.nomgestor = nomgestor;
     }
-    public void upload() {
-        if(file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            byte[] archivo = new byte[file.getContents().length];
-            System.arraycopy(file.getContents(),0,archivo,0,file.getContents().length);
-            System.out.println("*********************************************");
-            System.out.println("archivo: "+Arrays.toString(archivo));          
-        }
+
+    public UploadedFile getUpdesignacion() {
+        return Updesignacion;
     }
+
+    public void setUpdesignacion(UploadedFile Updesignacion) {
+        this.Updesignacion = Updesignacion;
+    }
+
+    public void subirDesignacion(FileUploadEvent event) {  
+       Updesignacion = event.getFile();
+       this.selected.setDesignacion(Updesignacion.getContents());
+    }
+    
     public StreamedContent getImgDesignacion() throws IOException { 
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) 
-        {// So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
-            return new DefaultStreamedContent();
-        }
-        else 
-        {// So, browser is requesting the image. Get ID value from actual request param.
-            String id = context.getExternalContext().getRequestParameterMap().get("img_designacion");
-            if(id.compareTo("ermex0002")==0)
-            {
-                return new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(id).getDesignacion()));
-            }else
-            {
-                this.getItems();
-                return new DefaultStreamedContent(new ByteArrayInputStream(items.get(493).getDesignacion()));   
-            }           
-        }
+            System.out.println("");
+            String a=nomgestor;
+//            if(nomgestor.compareTo("ermex0002")==0||nomgestor.compareTo("ermex0004")==0)
+//            {
+                return new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(nomgestor).getDesignacion()));
+//            }else
+//            {
+//                this.getItems();
+//                return new DefaultStreamedContent(new ByteArrayInputStream(items.get(493).getDesignacion()));   
+//            }                  
         }
 
     public Dependencias getSelectedDependencia() {
@@ -200,7 +196,7 @@ public class GestoresController implements Serializable {
         }
     }
 
-    public void update() {
+    public void update() {        
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("GestoresUpdated"));
     }
 

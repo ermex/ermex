@@ -106,9 +106,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGestoresTitle_designador}"/>
                             </f:facet>
-                            <p:graphicImage   value="#{gestoresController.imgDesignacion}" cache="false" height="50" width="50" >
-                                <f:param id="img_designacion" name="img_designacion" value="#{item.gestor}" />
-                            </p:graphicImage>
+                            <p:link outcome="verImg" value="Imagen">
+                                <f:param id="nomgestor" name="nomgestor" value="#{item.gestor}" />
+                            </p:link>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>

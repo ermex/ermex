@@ -9,10 +9,8 @@
             <h:outputText value="Subir archivo"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form enctype="multipart/form-data">
-                <p:growl id="messages" showDetail="true" />
-                <p:fileUpload value="#{gestoresController.file}" mode="simple" skinSimple="true" />               
-                <p:commandButton value="Submit" ajax="false" actionListener="#{gestoresController.upload}" />
+            <h:form>
+                <p:growl id="messages" showDetail="true" />               
             </h:form>               
         </ui:define>        
     </ui:composition>

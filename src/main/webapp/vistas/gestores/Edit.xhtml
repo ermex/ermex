@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="GestoresEditDlg" widgetVar="GestoresEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGestoresTitle}">
-            <h:form id="GestoresEditForm">
+            <h:form id="GestoresEditForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{gestoresController.selected != null}">
                         <p:outputLabel value="#{bundle.EditGestoresLabel_gestor}" for="gestor" />
@@ -30,6 +30,7 @@
                         <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaFin}" title="#{bundle.EditGestoresTitle_fechaFin}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditGestoresLabel_status}" for="status" />
                         <p:inputText id="status" value="#{gestoresController.selected.status}" title="#{bundle.EditGestoresTitle_status}" />                        
+                        <p:outputLabel value="#{bundle.EditGestoresLabel_municipio}" for="municipio" />
                         <p:inputText id="municipio" value="#{gestoresController.selected.municipio}" title="#{bundle.EditGestoresTitle_municipio}" />
                         <p:outputLabel value="#{bundle.EditGestoresLabel_idpersona}" for="idpersona" />
                         <p:selectOneMenu id="idpersona" value="#{gestoresController.selected.idpersona}" >
@@ -45,7 +46,9 @@
                                            var="designadorItem"
                                            itemValue="#{designadorItem}"/>
                         </p:selectOneMenu>
-                    </p:panelGrid>
+                        <p:outputLabel value="designacion" for="designacion"/>
+                        <p:fileUpload id="designacion" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true" />
+                        </p:panelGrid>
                     <p:commandButton actionListener="#{gestoresController.update}" value="#{bundle.Save}" update="display,:GestoresListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GestoresEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="GestoresEditDialog.hide()"/>
                 </h:panelGroup>
