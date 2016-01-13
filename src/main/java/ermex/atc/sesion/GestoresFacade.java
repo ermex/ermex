@@ -37,5 +37,10 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
         List<Gestores> results = query.getResultList();
         return results;
     }
+    public Gestores findByGestor(String gestor){
+        TypedQuery<Gestores> query =
+        em.createNamedQuery("Gestores.findByGestor",Gestores.class).setParameter("gestor",gestor);
+        return query.getSingleResult();
+    }
     
 }

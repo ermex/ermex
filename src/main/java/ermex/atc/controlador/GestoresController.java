@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,12 +22,15 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.PhaseId;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 @Named("gestoresController")
 @SessionScoped
@@ -49,6 +53,7 @@ public class GestoresController implements Serializable {
     private Organismos  selectedOrganismos;
     private Instituciones selectedInstitucion;
     private HashMap<String, String> status=null;
+    private UploadedFile file;
     
     public GestoresController() {
         status = new HashMap<>();
@@ -57,9 +62,42 @@ public class GestoresController implements Serializable {
         status.put("ratificacion", "ratificacion"); 
         status.put("activo", "activo");
     }
-    public StreamedContent getFoto() throws IOException { 
-        this.getItems();
-        return new DefaultStreamedContent(new ByteArrayInputStream(items.get(494).getDesignacion()));
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+    public void upload() {
+        if(file != null) {
+            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            byte[] archivo = new byte[file.getContents().length];
+            System.arraycopy(file.getContents(),0,archivo,0,file.getContents().length);
+            System.out.println("*********************************************");
+            System.out.println("archivo: "+Arrays.toString(archivo));          
+        }
+    }
+    public StreamedContent getImgDesignacion() throws IOException { 
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) 
+        {// So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        }
+        else 
+        {// So, browser is requesting the image. Get ID value from actual request param.
+            String id = context.getExternalContext().getRequestParameterMap().get("img_designacion");
+            if(id.compareTo("ermex0002")==0)
+            {
+                return new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(id).getDesignacion()));
+            }else
+            {
+                this.getItems();
+                return new DefaultStreamedContent(new ByteArrayInputStream(items.get(493).getDesignacion()));   
+            }           
+        }
         }
 
     public Dependencias getSelectedDependencia() {

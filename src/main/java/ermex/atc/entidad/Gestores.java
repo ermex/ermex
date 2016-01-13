@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "gestores", catalog = "gestor", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Gestores.findAll", query = "SELECT g FROM Gestores g"),
+    @NamedQuery(name = "Gestores.findAll", query = "SELECT g FROM Gestores g order by g.gestor"),
     @NamedQuery(name = "Gestores.findByGestor", query = "SELECT g FROM Gestores g WHERE g.gestor = :gestor"),
     @NamedQuery(name = "Gestores.findByOficio", query = "SELECT g FROM Gestores g WHERE g.oficio = :oficio"),
     @NamedQuery(name = "Gestores.findByFechaOficio", query = "SELECT g FROM Gestores g WHERE g.fechaOficio = :fechaOficio"),
@@ -46,7 +46,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Gestores.findByDescripcion1", query = "SELECT g FROM Gestores g WHERE g.descripcion1 = :descripcion1"),
     @NamedQuery(name = "Gestores.findByDescripcion2", query = "SELECT g FROM Gestores g WHERE g.descripcion2 = :descripcion2"),
     @NamedQuery(name = "Gestores.findByEstado", query = "SELECT g FROM Gestores g WHERE g.estado = :estado"),
-    @NamedQuery(name = "Gestores.findByNoStatus", query = "SELECT g FROM Gestores g WHERE g.status != :status"),
+    @NamedQuery(name = "Gestores.findByNoStatus", query = "SELECT g FROM Gestores g WHERE g.status != :status order by g.gestor"),
     @NamedQuery(name = "Gestores.findByMunicipio", query = "SELECT g FROM Gestores g WHERE g.municipio = :municipio"),
     @NamedQuery(name = "Gestores.findByDesignacion", query = "SELECT g FROM Gestores g WHERE g.designacion = :designacion")})
 public class Gestores implements Serializable {
