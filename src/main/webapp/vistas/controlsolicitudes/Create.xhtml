@@ -14,8 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
                         <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" title="#{bundle.CreateControlsolicitudesTitle_idcontrolsolicitud}" required="true" requiredMessage="#{bundle.CreateControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
-                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
-                        <p:inputText id="gestor" value="#{controlsolicitudesController.selected.gestor}" title="#{bundle.CreateControlsolicitudesTitle_gestor}" />
                         <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_fechaasignacion}" for="fechaasignacion" />
                         <p:calendar id="fechaasignacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.EditControlsolicitudesTitle_fechaasignacion}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_tema}" for="tema" />
@@ -47,6 +45,12 @@
                             <f:selectItems value="#{nomProyectosController.itemsAvailableSelectOne}"
                                            var="proyectoItem"
                                            itemValue="#{proyectoItem}"/>
+                        </p:selectOneMenu>
+                         <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
+                        <p:selectOneMenu id="gestor" value="#{controlsolicitudesController.selected.gestor}" >
+                            <f:selectItems value="#{gestoresController.itemsAvailableSelectOne}"
+                                           var="gestorItem"
+                                           itemValue="#{gestorItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{controlsolicitudesController.create}" value="#{bundle.Save}" update="display,:ControlsolicitudesListForm:datalist,:growl" oncomplete="handleSubmit(args,'ControlsolicitudesCreateDialog');"/>

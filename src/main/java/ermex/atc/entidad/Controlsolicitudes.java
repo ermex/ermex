@@ -49,9 +49,6 @@ public class Controlsolicitudes implements Serializable {
     @NotNull
     @Column(name = "idcontrolsolicitud")
     private Integer idcontrolsolicitud;
-    @Size(max = 2147483647)
-    @Column(name = "gestor")
-    private String gestor;
     @Column(name = "fechaasignacion")
     @Temporal(TemporalType.DATE)
     private Date fechaasignacion;
@@ -86,6 +83,9 @@ public class Controlsolicitudes implements Serializable {
     @JoinColumn(name = "proyecto", referencedColumnName = "numero")
     @ManyToOne
     private NomProyectos proyecto;
+    @JoinColumn(name = "gestor", referencedColumnName = "gestor")
+    @ManyToOne
+    private Gestores gestor;
 
     public Controlsolicitudes() {
     }
@@ -108,13 +108,14 @@ public class Controlsolicitudes implements Serializable {
         this.idcontrolsolicitud = idcontrolsolicitud;
     }
 
-    public String getGestor() {
+    public Gestores getGestor() {
         return gestor;
     }
 
-    public void setGestor(String gestor) {
+    public void setGestor(Gestores gestor) {
         this.gestor = gestor;
     }
+
 
     public Date getFechaasignacion() {
         return fechaasignacion;

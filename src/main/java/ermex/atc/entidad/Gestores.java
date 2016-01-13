@@ -100,6 +100,8 @@ public class Gestores implements Serializable {
     private Short municipio;
     @OneToMany(mappedBy = "gestor")
     private List<Procesoratificacion> procesoratificacionList;
+    @OneToMany(mappedBy = "gestor")
+    private List<Controlsolicitudes> controlsolicitudesList;
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @ManyToOne
     private Personas idpersona;
@@ -250,6 +252,15 @@ public class Gestores implements Serializable {
     public void setDesignador(Personas designador) {
         this.designador = designador;
     }
+
+    public List<Controlsolicitudes> getControlsolicitudesList() {
+        return controlsolicitudesList;
+    }
+
+    public void setControlsolicitudesList(List<Controlsolicitudes> controlsolicitudesList) {
+        this.controlsolicitudesList = controlsolicitudesList;
+    }
+    
 
     @Override
     public int hashCode() {
