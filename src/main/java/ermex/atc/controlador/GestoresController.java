@@ -9,6 +9,8 @@ import ermex.atc.entidad.Organismos;
 import ermex.atc.entidad.Personas;
 import ermex.atc.sesion.GestoresFacade;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -25,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -86,14 +89,16 @@ public class GestoresController implements Serializable {
     public StreamedContent getImgDesignacion() throws IOException { 
             System.out.println("");
             String a=nomgestor;
-//            if(nomgestor.compareTo("ermex0002")==0||nomgestor.compareTo("ermex0004")==0)
-//            {
+            if(ejbFacade.findByGestor(nomgestor).getDesignacion()!=null)
+            {
                 return new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(nomgestor).getDesignacion()));
-//            }else
-//            {
-//                this.getItems();
-//                return new DefaultStreamedContent(new ByteArrayInputStream(items.get(493).getDesignacion()));   
-//            }                  
+            }else
+            {               
+                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                String absoluteDiskPath = servletContext.getRealPath("/resources/images/error-imagen.png");
+                File errorImagen = new File(absoluteDiskPath);           
+                return new DefaultStreamedContent(new FileInputStream(errorImagen));   
+            }                  
         }
 
     public Dependencias getSelectedDependencia() {
