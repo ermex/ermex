@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -39,4 +40,10 @@ public class PersonasFacade extends AbstractFacade<Personas> {
 //        List<Instituciones> results = query.getResultList();
 //        return results;
     } 
+    
+    public Personas findByPersonaGestor(String idpersona){
+        TypedQuery<Personas> query =
+        em.createNamedQuery("Personas.findByIdpersona",Personas.class).setParameter("idpersona",Long.parseLong(idpersona));
+        return (Personas) query.getSingleResult();
+    }
 }

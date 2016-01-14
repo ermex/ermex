@@ -10,8 +10,10 @@
     <h:body>
         <f:metadata>
             <f:viewParam name="nomgestor" value="#{gestoresController.nomgestor}" ></f:viewParam>
+            <f:viewParam name="idpersonas" value="#{gestoresController.idpersonas}" ></f:viewParam>
+            <f:viewParam name="atributo" value="#{gestoresController.atributo}" ></f:viewParam>
         </f:metadata>
-        <p:graphicImage   value="#{gestoresController.imgDesignacion}" cache="false" height="100%" width="100%" />
+        <p:graphicImage   value="#{gestoresController.imgAtributo}" cache="false" height="100%" width="100%" />
     </h:body>
 </html>
 

@@ -32,82 +32,56 @@
                                 <h:outputText value="#{bundle.ListGestoresTitle_gestor}"/>
                             </f:facet>
                             <h:outputText value="#{item.gestor}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_oficio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.oficio}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_fechaOficio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaOficio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_pwdftp}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pwdftp}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_pwdwms}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pwdwms}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_fechaEnviouser}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaEnviouser}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_fechaInicio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaInicio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_fechaFin}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.fechaFin}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </p:column>
+                        </p:column>                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGestoresTitle_status}"/>
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
+                        </p:column> 
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Institucion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idpersona.idinstitucion.nombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_idorganismo}"/>
+                                <h:outputText value="Gestor Nombre"/>
                             </f:facet>
-                            <h:outputText value="#{item.idorganismo}"/>
+                            <h:outputText value="#{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
                         </p:column>
-                        
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_idpersona}"/>
+                                <h:outputText value="Gestor Imagenes"/>
                             </f:facet>
-                            <h:outputText value="#{item.idpersona}"/>
+                            <p:link outcome="verImg" value="CREDRENCIAL ANV">
+                                <f:param  name="idpersonas" value="#{item.idpersona.idpersona}" />
+                                <f:param  name="atributo" value="idoficialanv" />
+                            </p:link>
+                        </p:column>                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Designador Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Desigandor Imagenes"/>
+                            </f:facet>
+                            <p:link outcome="verImg" value="CREDRENCIAL ANV">
+                                <f:param  name="idpersonas" value="#{item.designador.idpersona}"/>
+                                <f:param  name="atributo" value="idoficialanv" />
+                            </p:link>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGestoresTitle_designador}"/>
                             </f:facet>
-                            <p:link outcome="verImg" value="Imagen">
-                                <f:param id="nomgestor" name="nomgestor" value="#{item.gestor}" />
+                            <p:link  outcome="verImg" value="Imagen" >
+                                <f:param  name="nomgestor" value="#{item.gestor}" />
+                                <f:param  name="atributo"  value="nomgestor" />
                             </p:link>
                         </p:column>
                         <f:facet name="footer">

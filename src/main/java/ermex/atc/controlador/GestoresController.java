@@ -56,6 +56,8 @@ public class GestoresController implements Serializable {
     private HashMap<String, String> status=null;
     private UploadedFile Updesignacion;
     private String nomgestor;
+    private String idpersonas;
+    private String atributo;
     
     public GestoresController() {
         status = new HashMap<>();
@@ -73,6 +75,22 @@ public class GestoresController implements Serializable {
         this.nomgestor = nomgestor;
     }
 
+    public String getIdpersonas() {
+        return idpersonas;
+    }
+
+    public void setIdpersonas(String idpersonas) {
+        this.idpersonas = idpersonas;
+    }
+
+    public String getAtributo() {
+        return atributo;
+    }
+
+    public void setAtributo(String atributo) {
+        this.atributo = atributo;
+    }
+    
     public UploadedFile getUpdesignacion() {
         return Updesignacion;
     }
@@ -86,21 +104,39 @@ public class GestoresController implements Serializable {
        this.selected.setDesignacion(Updesignacion.getContents());
     }
     
-    public StreamedContent getImgDesignacion() throws IOException { 
-            System.out.println("");
-            String a=nomgestor;
-            if(ejbFacade.findByGestor(nomgestor).getDesignacion()!=null)
-            {
-                return new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(nomgestor).getDesignacion()));
-            }else
-            {               
-                ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-                String absoluteDiskPath = servletContext.getRealPath("/resources/images/error-imagen.png");
-                File errorImagen = new File(absoluteDiskPath);           
-                return new DefaultStreamedContent(new FileInputStream(errorImagen));   
-            }                  
+    public DefaultStreamedContent imagenError()throws IOException{
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String absoluteDiskPath = servletContext.getRealPath("/resources/images/error-imagen.png");
+        File errorImagen = new File(absoluteDiskPath);           
+        return new DefaultStreamedContent(new FileInputStream(errorImagen));   
+    }
+    public StreamedContent getImgAtributo() throws IOException { 
+        
+        Personas personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+        DefaultStreamedContent imagenAtributo=null;
+        switch(atributo){
+            case "nomgestor":
+                if(ejbFacade.findByGestor(nomgestor).getDesignacion()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(ejbFacade.findByGestor(nomgestor).getDesignacion()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "idoficialanv":  
+                if(personaGestor.getIdoficialanv()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialanv()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            
         }
-
+        return imagenAtributo;
+    }
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;
     }
