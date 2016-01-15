@@ -323,7 +323,7 @@ public class SolicitudesInternet implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.SolicitudesInternet[ solicitud=" + solicitud + " ]";
+        return solicitud ;
     }
     
 }

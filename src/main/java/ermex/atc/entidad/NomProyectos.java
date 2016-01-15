@@ -206,7 +206,7 @@ public class NomProyectos implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.NomProyectos[ numero=" + numero + " ]";
+        return numero.toString();
     }
     
 }

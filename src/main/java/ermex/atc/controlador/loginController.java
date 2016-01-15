@@ -47,7 +47,7 @@ public class loginController {
     {
         boolean login=false;
         FacesMessage mensaje=null;  
-        RequestContext contextRequest = RequestContext.getCurrentInstance();
+
         FacesContext context= FacesContext.getCurrentInstance();
         ExternalContext contExternal=context.getExternalContext();
         

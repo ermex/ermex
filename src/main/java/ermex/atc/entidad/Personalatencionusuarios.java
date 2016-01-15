@@ -187,7 +187,7 @@ public class Personalatencionusuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.Personalatencionusuarios[ usuario=" + usuario + " ]";
+        return usuario;
     }
     
 }

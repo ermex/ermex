@@ -41,9 +41,13 @@ public class PersonalatencionusuariosFacade extends AbstractFacade<Personalatenc
         try {
              TypedQuery<Personalatencionusuarios> query = emLogin.createNamedQuery("Personalatencionusuarios.findByPwdAndUsuario", Personalatencionusuarios.class).setParameter("usuario",usuario)
             .setParameter("pwd", pwd);
+             System.out.println("Estamos en el try");
             usuarioBD = query.getSingleResult();
         } catch (Exception e) {
+                        System.out.println("Usuario:" +usuario);
+            System.out.println("PWD:" +pwd);
             System.out.println("Error en personalatencionusuariosFacade" + e);
+
         }
 
         return usuarioBD;

@@ -133,7 +133,7 @@ public class Documentosnotas implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.Documentosnotas[ iddocumentonota=" + iddocumentonota + " ]";
+        return iddocumentonota.toString();
     }
     
 }

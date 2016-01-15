@@ -273,7 +273,7 @@ public class Notas implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.Notas[ idnota=" + idnota + " ]";
+        return idnota;
     }
     
 }

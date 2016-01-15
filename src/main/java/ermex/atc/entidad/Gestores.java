@@ -284,7 +284,7 @@ public class Gestores implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.Gestores[ gestor=" + gestor + " ]";
+        return gestor;
     }
 
     public byte[] getDesignacion() {

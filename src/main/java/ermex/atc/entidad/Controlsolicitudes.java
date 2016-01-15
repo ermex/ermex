@@ -227,7 +227,7 @@ public class Controlsolicitudes implements Serializable {
 
     @Override
     public String toString() {
-        return "ermex.atc.entidad.Controlsolicitudes[ idcontrolsolicitud=" + idcontrolsolicitud + " ]";
+        return idcontrolsolicitud.toString();
     }
     
 }
