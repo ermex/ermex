@@ -12,7 +12,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -133,7 +132,87 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            
+            case "idoficialrev":  
+                if(personaGestor.getIdoficialrev()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialrev()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "credoficialanv":  
+                if(personaGestor.getCredoficialanv()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialanv()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "credoficialrev":  
+                if(personaGestor.getCredoficialrev()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialrev()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "imgcurp":  
+                if(personaGestor.getImgcurp()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getImgcurp()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;    
+            case "foto":  
+                if(personaGestor.getFoto()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getFoto()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "huellapulgar":  
+                if(personaGestor.getHuellapulgar()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellapulgar()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "huellamanoizq":  
+                if(personaGestor.getHuellamanoizq()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoizq()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "huellamanoder":  
+                if(personaGestor.getHuellamanoder()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoder()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;
+            case "nombramiento":  
+                if(personaGestor.getNombramiento()!=null)
+                {
+                    imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getNombramiento()));
+                }else
+                {      
+                    imagenAtributo=imagenError();
+                }
+                break;    
         }
         return imagenAtributo;
     }

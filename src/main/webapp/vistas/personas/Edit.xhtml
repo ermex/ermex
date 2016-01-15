@@ -8,12 +8,47 @@
 
     <ui:composition>
 
-        <p:dialog id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
+        <p:dialog width="100%" height="100%" id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
             <h:form id="PersonasEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personasController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.EditPersonasLabel_tipo}" for="tipo" />
+                <p:growl id="growl1"  sticky="true" showDetail="true"/>
+                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
+                    
+                    <p:tab id="tabInstitucion" title="Institución">                            
+                            <p:panel header="Detalles de la Institución">
+                            <p:panelGrid columns="2"  columnClasses="label, value"   >                                 
+                                <p:outputLabel value="Dependencia" for="selectedDependencia" />
+                        <p:selectOneMenu id="selectedDependencia" value="#{personasController.selectedDepedencia}" >
+                            <f:selectItems value="#{dependenciasController.items}"
+                                                       var="dependencia"
+                                                       itemLabel="#{dependencia.siglas}"
+                                                       itemValue="#{dependencia}"/>  
+                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion" />
+                                    </p:selectOneMenu>
+                                   <p:outputLabel value="Organismo" for="selectedOrganismo" />
+                                   <p:selectOneMenu id="selectedOrganismo" value="#{personasController.selectedOrganismo}" >
+                                       <f:selectItem itemLabel="Select One" itemValue="" />           
+                                       <f:selectItems value="#{personasController.itemOrganismosXDependencia}" 
+                                                       var="organismo"
+                                                       itemLabel="#{organismo.nombre}"
+                                                       itemValue="#{organismo}"/>  
+                                        <p:ajax event="change" update="selectedInstitucion" />
+                                    </p:selectOneMenu>  
+                        <p:outputLabel value="#{bundle.EditPersonasLabel_idinstitucion}" for="selectedInstitucion" />
+                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" >
+                                        <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                       <f:selectItems value="#{personasController.itemInstitucionXOrganismo}" 
+                                                       var="institucion"
+                                                       itemLabel="#{institucion.nombre}"
+                                                       itemValue="#{institucion}"/>                                      
+                                    </p:selectOneMenu> 
+                            </p:panelGrid>
+                        </p:panel>
+                    </p:tab> 
+                    <p:tab id="tabPersona" title="Persona">
+                        <p:panel header="Detalles de la Persona">
+                            <p:messages />
+                            <p:panelGrid columns="4" layout="grid" >
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_tipo}" for="tipo" />
                         <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
                             <f:selectItems value="#{personasController.tipo}" />
                         </p:selectOneMenu>
@@ -43,38 +78,62 @@
                         <p:outputLabel value="#{bundle.EditPersonasLabel_telpersonal}" for="telpersonal" />
                         <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.EditPersonasTitle_telpersonal}" />
                         <p:outputLabel value="#{bundle.EditPersonasLabel_dompersonal}" for="dompersonal" />
-                        <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.EditPersonasTitle_dompersonal}" />
+                        <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.EditPersonasTitle_dompersonal}" />    
+                            </p:panelGrid>
+                        </p:panel>                       
+                    </p:tab>
+                    <p:tab id="tabImagen" title="Imagenes">
+                        <p:panel header="Seleccionar las imagenes correspondientes" >
+                            <p:panelGrid columns="2" layout="grid" >                                    
+                                                            
+                                <p:fileUpload label="IDENTIFICACION OFICIAL ANVERSO" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
+                                    <h:outputText id="nombreidoficialanv" value="#{personasController.nombreidoficialanv}" />
+                                </p:fileUpload>
                         
-                        <p:outputLabel value="Dependencia" for="selectedDependencia" />
-                        <p:selectOneMenu id="selectedDependencia" value="#{personasController.selectedDepedencia}" >
-                            <f:selectItems value="#{dependenciasController.items}"
-                                                       var="dependencia"
-                                                       itemLabel="#{dependencia.siglas}"
-                                                       itemValue="#{dependencia}"/>  
-                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion" />
-                                    </p:selectOneMenu>
-                                   <p:outputLabel value="Organismo" for="selectedOrganismo" />
-                                   <p:selectOneMenu id="selectedOrganismo" value="#{personasController.selectedOrganismo}" >
-                                       <f:selectItem itemLabel="Select One" itemValue="" />           
-                                       <f:selectItems value="#{personasController.itemOrganismosXDependencia}" 
-                                                       var="organismo"
-                                                       itemLabel="#{organismo.nombre}"
-                                                       itemValue="#{organismo}"/>  
-                                        <p:ajax event="change" update="selectedInstitucion" />
-                                    </p:selectOneMenu>  
-                        <p:outputLabel value="#{bundle.EditPersonasLabel_idinstitucion}" for="selectedInstitucion" />
-                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" >
-                                        <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                       <f:selectItems value="#{personasController.itemInstitucionXOrganismo}" 
-                                                       var="institucion"
-                                                       itemLabel="#{institucion.nombre}"
-                                                       itemValue="#{institucion}"/>                                      
-                                    </p:selectOneMenu>   
+                                <p:fileUpload label="IDENTIFICACION OFICIAL REVERSO" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
+                                    <h:outputText id="nombreidoficialrev" value="#{personasController.nombreidoficialrev}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CREDENCIAL OFICIAL ANVERSO" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
+                                    <h:outputText id="nombrecredoficialanv" value="#{personasController.nombrecredoficialanv}" />                                
+                                </p:fileUpload>
+
+                                <p:fileUpload label="CREDENCIAL OFICIAL REVERSO" update="nombrecredoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialRev}" auto="true" >
+                                    <h:outputText id="nombrecredoficialrev" value="#{personasController.nombrecredoficialrev}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA MANO DERECHA" update="nombrehuellamanoder" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoDer}" auto="true" >
+                                    <h:outputText id="nombrehuellamanoder" value="#{personasController.nombrehuellamanoder}" />                                
+                                </p:fileUpload>
+
+                                <p:fileUpload label="HUELLA MANO IZQUIERDA" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
+                                    <h:outputText id="nombrehuellamanoizq" value="#{personasController.nombrehuellamanoizq}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA DEL PULGAR" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >
+                                    <h:outputText id="nombrehuellapulgar" value="#{personasController.nombrehuellapulgar}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CURP" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
+                                    <h:outputText id="nombreimgcurp" value="#{personasController.nombreimgcurp}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="FOTO" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
+                                    <h:outputText id="nombrefoto" value="#{personasController.nombrefoto}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="NOMBRAMIENTO" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
+                                    <h:outputText id="nombrenombramiento" value="#{personasController.nombrenombramiento}" />                                
+                                </p:fileUpload>
+                            </p:panelGrid>
+                        </p:panel>
+                               
+                        <p:commandButton immediate="true" value="#{bundle.Save}" update="@parent,:PersonasEditForm:growl1,:PersonasListForm:datalist" actionListener="#{personasController.update}"   oncomplete="PF('wiz').loadStep('tabInstitucion', false)"/>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}" oncomplete="PF('wiz').loadStep('tabInstitucion',true)"/>
+                                
+                    </p:tab>    
                         
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{personasController.update}" value="#{bundle.Save}" update="display,:PersonasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonasEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonasEditDialog.hide()"/>
-                </h:panelGroup>
+                </p:wizard> 
             </h:form>
         </p:dialog>
 

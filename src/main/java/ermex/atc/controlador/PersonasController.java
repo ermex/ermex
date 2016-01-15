@@ -7,7 +7,6 @@ import ermex.atc.entidad.Dependencias;
 import ermex.atc.entidad.Instituciones;
 import ermex.atc.entidad.Organismos;
 import ermex.atc.sesion.PersonasFacade;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("personasController")
 @SessionScoped
@@ -30,7 +31,7 @@ public class PersonasController implements Serializable {
     @EJB
     private ermex.atc.sesion.PersonasFacade ejbFacade;
     private List<Personas> items = null;
-    private Personas selected;
+    private Personas selected=new Personas();
     
     private HashMap<String, String> tipo=null;
     private Dependencias selectedDepedencia;
@@ -39,10 +40,18 @@ public class PersonasController implements Serializable {
     private ermex.atc.sesion.OrganismosFacade ejbFacadeOrganismo;
     @EJB
     private ermex.atc.sesion.InstitucionesFacade ejbFacadeInstitucion;
+    private UploadedFile imagen;
+    private String nombreidoficialanv;
+    private String nombreidoficialrev;
+    private String nombrecredoficialanv;
+    private String nombrecredoficialrev;
+    private String nombreimgcurp;
+    private String nombrefoto;
+    private String nombrehuellapulgar;
+    private String nombrehuellamanoizq;
+    private String nombrehuellamanoder;
+    private String nombrenombramiento;
 
-    public HashMap<String, String> getTipo() {
-        return tipo;
-    }
     public PersonasController() {
         tipo = new HashMap<>();
         tipo.put("Designador", "D");
@@ -50,6 +59,170 @@ public class PersonasController implements Serializable {
         tipo.put("Designador y Gestor", "A");
     }
 
+    public String getNombreidoficialanv() {
+        return nombreidoficialanv;
+    }
+
+    public void setNombreidoficialanv(String nombreidoficialanv) {
+        this.nombreidoficialanv = nombreidoficialanv;
+    }
+
+    public String getNombreidoficialrev() {
+        return nombreidoficialrev;
+    }
+
+    public void setNombreidoficialrev(String nombreidoficialrev) {
+        this.nombreidoficialrev = nombreidoficialrev;
+    }
+
+    public String getNombrecredoficialanv() {
+        return nombrecredoficialanv;
+    }
+
+    public void setNombrecredoficialanv(String nombrecredoficialanv) {
+        this.nombrecredoficialanv = nombrecredoficialanv;
+    }
+
+    public String getNombrecredoficialrev() {
+        return nombrecredoficialrev;
+    }
+
+    public void setNombrecredoficialrev(String nombrecredoficialrev) {
+        this.nombrecredoficialrev = nombrecredoficialrev;
+    }
+
+    public String getNombreimgcurp() {
+        return nombreimgcurp;
+    }
+
+    public void setNombreimgcurp(String nombreimgcurp) {
+        this.nombreimgcurp = nombreimgcurp;
+    }
+
+    public String getNombrefoto() {
+        return nombrefoto;
+    }
+
+    public void setNombrefoto(String nombrefoto) {
+        this.nombrefoto = nombrefoto;
+    }
+
+    public String getNombrehuellapulgar() {
+        return nombrehuellapulgar;
+    }
+
+    public void setNombrehuellapulgar(String nombrehuellapulgar) {
+        this.nombrehuellapulgar = nombrehuellapulgar;
+    }
+
+    public String getNombrehuellamanoizq() {
+        return nombrehuellamanoizq;
+    }
+
+    public void setNombrehuellamanoizq(String nombrehuellamanoizq) {
+        this.nombrehuellamanoizq = nombrehuellamanoizq;
+    }
+
+    public String getNombrehuellamanoder() {
+        return nombrehuellamanoder;
+    }
+
+    public void setNombrehuellamanoder(String nombrehuellamanoder) {
+        this.nombrehuellamanoder = nombrehuellamanoder;
+    }
+
+    public String getNombrenombramiento() {
+        return nombrenombramiento;
+    }
+
+    public void setNombrenombramiento(String nombrenombramiento) {
+        this.nombrenombramiento = nombrenombramiento;
+    }
+    
+    public HashMap<String, String> getTipo() {
+        return tipo;
+    }
+
+    public UploadedFile getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(UploadedFile Imagen) {
+        this.imagen = Imagen;
+    }
+    
+    public void subirIdOficialAnv(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setIdoficialanv(imagen.getContents()); 
+       this.nombreidoficialanv=event.getFile().getFileName();
+    }
+    
+    public void subirIdOficialRev(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setIdoficialrev(imagen.getContents());  
+       this.nombreidoficialrev=event.getFile().getFileName();
+    }
+    public void subirCredOficialAnv(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setCredoficialanv(imagen.getContents()); 
+       this.nombrecredoficialanv=event.getFile().getFileName();
+    }
+    
+    public void subirCredOficialRev(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setCredoficialrev(imagen.getContents());  
+       this.nombrecredoficialrev=event.getFile().getFileName();
+    }
+    public void subirHuellaManoDer(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellamanoder(imagen.getContents()); 
+       this.nombrehuellamanoder=event.getFile().getFileName();
+    }
+    
+    public void subirHuellaManoIzq(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellamanoizq(imagen.getContents()); 
+       this.nombrehuellamanoizq=event.getFile().getFileName();
+    }
+    
+    public void subirHuellaPulgar(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellapulgar(imagen.getContents()); 
+       this.nombrehuellapulgar=event.getFile().getFileName();
+    }
+    public void subirImgCurp(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setImgcurp(imagen.getContents()); 
+       this.nombreimgcurp=event.getFile().getFileName();
+    }
+    
+    public void subirFoto(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setFoto(imagen.getContents()); 
+       this.nombrefoto=event.getFile().getFileName();
+    }
+    
+    public void subirNombramiento(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setNombramiento(imagen.getContents()); 
+       this.nombrenombramiento=event.getFile().getFileName();
+    }
+    
+    public void reset(){
+        selected=new Personas();
+        selectedDepedencia=null;
+        selectedOrganismo=null; 
+        nombreidoficialanv="";
+        nombreidoficialrev="";
+        nombrecredoficialanv="";
+        nombrecredoficialrev="";
+        nombreimgcurp="";
+        nombrefoto="";
+        nombrehuellapulgar="";
+        nombrehuellamanoizq="";
+        nombrehuellamanoder="";
+        nombrenombramiento="";
+    }
     public Personas getSelected() {
         return selected;
     }
@@ -97,6 +270,7 @@ public class PersonasController implements Serializable {
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonasCreated"));
+        reset();
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -104,6 +278,7 @@ public class PersonasController implements Serializable {
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("PersonasUpdated"));
+        reset();
     }
 
     public void destroy() {
