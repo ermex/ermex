@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "solicitudes_internet", catalog = "gestor", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "SolicitudesInternet.findAll", query = "SELECT s FROM SolicitudesInternet s"),
+    @NamedQuery(name = "SolicitudesInternet.findAll", query = "SELECT s FROM SolicitudesInternet s order by s.solicitud"),
     @NamedQuery(name = "SolicitudesInternet.findBySolicitud", query = "SELECT s FROM SolicitudesInternet s WHERE s.solicitud = :solicitud"),
     @NamedQuery(name = "SolicitudesInternet.findByGestor", query = "SELECT s FROM SolicitudesInternet s WHERE s.gestor = :gestor"),
     @NamedQuery(name = "SolicitudesInternet.findByNombre", query = "SELECT s FROM SolicitudesInternet s WHERE s.nombre = :nombre"),
@@ -121,7 +121,8 @@ public class SolicitudesInternet implements Serializable {
     private Controlsolicitudes controlsolicitudes;
 
     public SolicitudesInternet() {
-    }
+        status=2;
+       }
 
     public SolicitudesInternet(String solicitud) {
         this.solicitud = solicitud;

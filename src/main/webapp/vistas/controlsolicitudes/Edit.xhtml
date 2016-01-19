@@ -13,9 +13,8 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
-                        <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" title="#{bundle.EditControlsolicitudesTitle_idcontrolsolicitud}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_gestor}" for="gestor" />
-                        <p:inputText id="gestor" value="#{controlsolicitudesController.selected.gestor}" title="#{bundle.EditControlsolicitudesTitle_gestor}" />
+                        <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" readonly="true" title="#{bundle.EditControlsolicitudesTitle_idcontrolsolicitud}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
+
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechaasignacion}" for="fechaasignacion" />
                         <p:calendar id="fechaasignacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.EditControlsolicitudesTitle_fechaasignacion}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_tema}" for="tema" />
@@ -23,15 +22,15 @@
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_observaciones}" for="observaciones" />
                         <p:inputText id="observaciones" value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.EditControlsolicitudesTitle_observaciones}" />
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{controlsolicitudesController.selected.status}" title="#{bundle.EditControlsolicitudesTitle_status}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_status}"/>
+                        <p:inputText id="status" value="#{controlsolicitudesController.selected.status}" readonly="true" title="#{bundle.EditControlsolicitudesTitle_status}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_status}"/>
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechatermino}" for="fechatermino" />
                         <p:calendar id="fechatermino" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechatermino}" title="#{bundle.EditControlsolicitudesTitle_fechatermino}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechacancelacion}" for="fechacancelacion" />
                         <p:calendar id="fechacancelacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.EditControlsolicitudesTitle_fechacancelacion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_totalimagenes}" for="totalimagenes" />
-                        <p:inputText id="totalimagenes" value="#{controlsolicitudesController.selected.totalimagenes}" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_totalimagenes}"/>
+                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_totalimagenes}" for="totalimagenes"/>
+                        <p:inputText id="totalimagenes" value="#{controlsolicitudesController.selected.totalimagenes}"  readonly="true" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_totalimagenes}"/>
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_solicitud}" for="solicitud" />
-                        <p:selectOneMenu id="solicitud" value="#{controlsolicitudesController.selected.solicitud}" >
+                        <p:selectOneMenu id="solicitud" value="#{controlsolicitudesController.selected.solicitud}" disabled="true" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{solicitudesInternetController.itemsAvailableSelectOne}"
                                            var="solicitudItem"
@@ -49,7 +48,15 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{nomProyectosController.itemsAvailableSelectOne}"
                                            var="proyectoItem"
-                                           itemValue="#{proyectoItem}"/>
+                                           itemValue="#{proyectoItem}"
+                                           itemLabel="#{proyectoItem.getNombre()}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
+                        <p:selectOneMenu id="gestor" value="#{controlsolicitudesController.selected.gestor}"  disabled="true">
+                            <f:selectItems value="#{gestoresController.itemsAvailableSelectOne}"
+                                           var="gestorItem"
+                                           itemValue="#{gestorItem}"                                          
+                                           />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{controlsolicitudesController.update}" value="#{bundle.Save}" update="display,:ControlsolicitudesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ControlsolicitudesEditDialog');"/>

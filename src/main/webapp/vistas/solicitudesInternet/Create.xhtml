@@ -10,12 +10,11 @@
 
         <p:dialog id="SolicitudesInternetCreateDlg" widgetVar="SolicitudesInternetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetCreateForm">
+                
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{solicitudesInternetController.selected != null}">
+                    <p:panelGrid columns="4" rendered="#{solicitudesInternetController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_solicitud}" for="solicitud" />
                         <p:inputText id="solicitud" value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.CreateSolicitudesInternetTitle_solicitud}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_solicitud}"/>
-                        <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
-                        <p:inputText id="gestor" value="#{solicitudesInternetController.selected.gestor}" title="#{bundle.CreateSolicitudesInternetTitle_gestor}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_gestor}"/>
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{solicitudesInternetController.selected.nombre}" title="#{bundle.CreateSolicitudesInternetTitle_nombre}" />
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_dependencia}" for="dependencia" />
@@ -51,13 +50,14 @@
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion" />
                         <p:inputText id="justificacion" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" />
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{solicitudesInternetController.selected.status}" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
-                        <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_controlsolicitudes}" for="controlsolicitudes" />
-                        <p:selectOneMenu id="controlsolicitudes" value="#{solicitudesInternetController.selected.controlsolicitudes}" >
-                            <f:selectItems value="#{controlsolicitudesController.itemsAvailableSelectOne}"
-                                           var="controlsolicitudesItem"
-                                           itemValue="#{controlsolicitudesItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="status" value="#{solicitudesInternetController.selected.setStatus(2)}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
+                            <p:selectOneMenu id="gestor" value="#{solicitudesInternetController.selected.gestor}" >
+                            <f:selectItems value="#{gestoresController.getItemsActivos()}"
+                                           var="gestorItem"
+                                           itemValue="#{gestorItem}"/>
+                        </p:selectOneMenu>                        
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="handleSubmit(args,'SolicitudesInternetCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SolicitudesInternetCreateDialog.hide()"/>

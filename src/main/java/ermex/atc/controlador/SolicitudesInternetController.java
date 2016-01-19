@@ -14,7 +14,9 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -63,11 +65,24 @@ public class SolicitudesInternetController implements Serializable {
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetUpdated"));
+        FacesMessage mensaje=null;
+        FacesContext context= FacesContext.getCurrentInstance();
+        if (selected.getStatus()==2) {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetUpdated"));
+        }else
+        {
+             mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos no actualizados","Verifique dato");
+        }
+        
+        FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetDeleted"));
+        System.out.println("Valores al eliminar" + selected.getStatus() + selected.getSolicitud());
+       // persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetDeleted"));
+       
+        selected.setStatus(0);
+          persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.

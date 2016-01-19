@@ -46,8 +46,7 @@ public class loginController {
     public void autenticar() throws IOException
     {
         boolean login=false;
-        FacesMessage mensaje=null;  
-
+        FacesMessage mensaje=null;
         FacesContext context= FacesContext.getCurrentInstance();
         ExternalContext contExternal=context.getExternalContext();
         
