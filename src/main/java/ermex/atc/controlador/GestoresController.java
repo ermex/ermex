@@ -109,6 +109,14 @@ public class GestoresController implements Serializable {
         File errorImagen = new File(absoluteDiskPath);           
         return new DefaultStreamedContent(new FileInputStream(errorImagen));   
     }
+    public StreamedContent getImgMini(byte[]img) throws IOException {
+        if(img == null){
+            return imagenError();
+        }else{
+            return new DefaultStreamedContent(new ByteArrayInputStream(img));
+        }
+    }
+    
     public StreamedContent getImgAtributo() throws IOException { 
         
         Personas personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
@@ -212,9 +220,11 @@ public class GestoresController implements Serializable {
                 {      
                     imagenAtributo=imagenError();
                 }
-                break;    
+                break;
+            default: imagenAtributo=imagenError();
+                     break;    
         }
-        return imagenAtributo;
+        return imagenAtributo;       
     }
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;

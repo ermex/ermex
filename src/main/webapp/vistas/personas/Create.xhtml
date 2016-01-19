@@ -13,6 +13,7 @@
                     
                     <p:tab id="tabInstitucion" title="Institución">                            
                             <p:panel header="Detalles de la Institución">
+                            <p:messages/>
                             <p:panelGrid columns="2"  columnClasses="label, value"   >                                 
                                 <p:outputLabel value="Dependencia" for="selectedDependencia" />
                                 <p:selectOneMenu id="selectedDependencia" value="#{personasController.selectedDepedencia}" >
@@ -32,7 +33,7 @@
                                         <p:ajax event="change" update="selectedInstitucion" />
                                     </p:selectOneMenu>  
                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_idinstitucion}" for="selectedInstitucion" />
-                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" >
+                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" required="true" requiredMessage="Debes seleccionar una institucion">
                                        <f:selectItem itemLabel="Select One" itemValue="" /> 
                                        <f:selectItems value="#{personasController.itemInstitucionXOrganismo}" 
                                                        var="institucion"
@@ -54,7 +55,7 @@
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_curp}" for="curp" />
                                     <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.CreatePersonasTitle_curp}" />
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_nombre}" for="nombre" />
-                                    <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.CreatePersonasTitle_nombre}" />
+                                    <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.CreatePersonasTitle_nombre}" required="true" requiredMessage="Es necesario ingresar el nombre"/>
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidop}" for="apellidop" />
                                     <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.CreatePersonasTitle_apellidop}" />
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidom}" for="apellidom" />
