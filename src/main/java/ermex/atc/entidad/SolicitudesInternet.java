@@ -6,6 +6,7 @@
 package ermex.atc.entidad;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -121,14 +122,19 @@ public class SolicitudesInternet implements Serializable {
     private Controlsolicitudes controlsolicitudes;
 
     public SolicitudesInternet() {
-        status=2;
+        this.fechaVentanilla = Calendar.getInstance().getTime();
+        this.fechaCaptura=Calendar.getInstance().getTime();
+        this.status=2;
+        
        }
 
     public SolicitudesInternet(String solicitud) {
+        this.fechaVentanilla = Calendar.getInstance().getTime();
         this.solicitud = solicitud;
     }
 
     public SolicitudesInternet(String solicitud, String gestor, int status) {
+        this.fechaVentanilla = Calendar.getInstance().getTime();
         this.solicitud = solicitud;
         this.gestor = gestor;
         this.status = status;

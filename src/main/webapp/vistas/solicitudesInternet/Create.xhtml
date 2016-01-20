@@ -50,9 +50,9 @@
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion" />
                         <p:inputText id="justificacion" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" />
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{solicitudesInternetController.selected.setStatus(2)}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
+                        <p:inputText id="status" value="#{solicitudesInternetController.selected.status}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
                         <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
-                            <p:selectOneMenu id="gestor" value="#{solicitudesInternetController.selected.gestor}" >
+                        <p:selectOneMenu id="gestor" value="#{solicitudesInternetController.selectGestores}" >
                             <f:selectItems value="#{gestoresController.getItemsActivos()}"
                                            var="gestorItem"
                                            itemValue="#{gestorItem}"/>

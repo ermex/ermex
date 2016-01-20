@@ -3,6 +3,7 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.SolicitudesInternet;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Gestores;
 import ermex.atc.sesion.SolicitudesInternetFacade;
 
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.UploadedFile;
 
 @Named("solicitudesInternetController")
 @SessionScoped
@@ -29,6 +31,24 @@ public class SolicitudesInternetController implements Serializable {
     private ermex.atc.sesion.SolicitudesInternetFacade ejbFacade;
     private List<SolicitudesInternet> items = null;
     private SolicitudesInternet selected;
+    private Gestores selectGestores;
+    private UploadedFile file;
+
+    public Gestores getSelectGestores() {
+        return selectGestores;
+    }
+
+    public void setSelectGestores(Gestores selectGestores) {
+        this.selectGestores = selectGestores;
+    }
+    
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
 
     public SolicitudesInternetController() {
     }
@@ -75,6 +95,14 @@ public class SolicitudesInternetController implements Serializable {
         }
         
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
+    }
+    public void leerTxt()
+    {
+        if (file!=null) {
+            System.out.println("El valor de File" + file);
+        }
+        else
+            System.out.println("Es nulo file");
     }
 
     public void destroy() {
