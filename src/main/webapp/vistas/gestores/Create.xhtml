@@ -7,17 +7,17 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog width="100%" height="50%" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
-            <h:form id="GestoresCreateForm">
+        <p:dialog  position="top" closable="false" width="100%" height="50%" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
+            <h:form id="GestoresCreateForm" enctype="multipart/form-data">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
+                <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="Siguiente" backLabel="Atras">
                         <p:tab id="tabGestor" title="Gestor">
                             <p:panel header="Detalles del Gestor">
                                 <p:messages />
                                 <p:panelGrid columns="2" >       
                                     <p:outputLabel value="Gestor: " for="gestor" />
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="Usuario del Gestor" required="true" requiredMessage="Es requerido el Gestor"/>
-                                    <p:outputLabel value="Oficio: " for="gestor" />
+                                    <p:outputLabel value="Oficio: " for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="Oficio externo" />
                                     <p:outputLabel value="Contraseña FTP: " for="pwdftp" />
                                     <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="Contraseña para el ftp" />
@@ -31,6 +31,7 @@
                                     
                                 </p:panelGrid> 
                             </p:panel>
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                                
                         </p:tab>
                         <p:tab id="tabInstitucion" title="Institución">                            
                             <p:panel header="Detalles de la Institución">
@@ -62,10 +63,11 @@
                                                        itemValue="#{institucion}"/>                                      
                                     </p:selectOneMenu>   
                                 </p:panelGrid> 
-                                <p:commandButton id="createInstitucion" icon="ui-icon-plus"   value="Nueva Institución" actionListener="#{institucionesController.prepareCreate}" update=":InstitucionesCreateForm" oncomplete="PF('InstitucionesCreateDialog').show()"/>
-                                <p:commandButton id="createOrganismo" icon="ui-icon-plus"   value="Nuevo Organismo" actionListener="#{organismosController.prepareCreate}" update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()"/>
+                                <p:commandButton id="createInstitucion" icon="ui-icon-plus"   value="Nueva Institución" action="#{institucionesController.preparate(gestoresController.selectedOrganismos)}" update=":InstitucionesCreateForm" oncomplete="PF('InstitucionesCreateDialog').show()"/>
+                                <p:commandButton id="createOrganismo" icon="ui-icon-plus"   value="Nuevo Organismo" action="#{organismosController.preparate(gestoresController.selectedOrganismos)}"  update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()"/>
 
                             </p:panel> 
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
                         <p:tab id="tabPersonas" title="Personas">
                             <p:panel header="Detalles del Designador y del Gestor">
@@ -106,8 +108,17 @@
                                         </p:column>
                                     </p:row>    
                                 </p:panelGrid>
-                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" actionListener="#{personasController.prepareCreate}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
+                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selectedInstitucion)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
                                 </p:panel>
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
+                        </p:tab>
+                        <p:tab id="tabImagen" title="Imagen">
+                            <p:panel header="Seleccionar Designación">
+                                <p:fileUpload update="i" id="designacion" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
+                                    <p:graphicImage id="i" title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="300" width="550" />                                   
+                                </p:fileUpload>
+                            </p:panel>
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
                         <p:tab id="tabConfirmacion" title="Confirmación">
                             <p:panel header="Datos del nuevo Gestor">
@@ -171,8 +182,8 @@
                                         <h:outputText value="Cargo: " />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
                                     </p:panelGrid>  
-                                <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wiz').loadStep('tabGestor', false)"/>                           
-                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wiz').loadStep('tabGestor',true)"/>
+                                <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false)"/>                           
+                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                                 
                                 </p:panelGrid>
                             </p:panel>                             

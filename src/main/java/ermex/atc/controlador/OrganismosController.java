@@ -56,7 +56,12 @@ public class OrganismosController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    
+    public void preparate(Organismos organismo) {
+        this.selected = new Organismos();
+        this.selected.setIddependencia(organismo.getIddependencia());
+        initializeEmbeddableKey();
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("OrganismosCreated"));
         if (!JsfUtil.isValidationFailed()) {

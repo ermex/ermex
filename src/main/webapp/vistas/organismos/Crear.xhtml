@@ -15,17 +15,9 @@
                         <p:outputLabel value="#{bundle.CreateOrganismosLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.CreateOrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.CreateOrganismosRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.CreateOrganismosLabel_iddependencia}" for="iddependencia" />
-                        <p:selectOneMenu id="iddependencia" value="#{organismosController.selected.iddependencia}" >
-                            
-                            <f:selectItems value="#{dependenciasController.itemsAvailableSelectOne}" 
-                                           var="iddependenciaItem" 
-                                           itemLabel="#{iddependenciaItem.siglas}" 
-                                           itemValue="#{iddependenciaItem}" />
-                           
-                        </p:selectOneMenu>
+                        <h:outputText id="iddependencia" value="#{organismosController.selected.iddependencia.siglas}" title="Dependencia del nuevo organismo"/>               
                     </p:panelGrid>
                     <p:commandButton actionListener="#{organismosController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'OrganismosCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="OrganismosCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

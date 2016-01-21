@@ -75,7 +75,11 @@ public class InstitucionesController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public void preparate(Organismos organismo) {
+        this.selected = new Instituciones();
+        this.selected.setIdorganismo(organismo);
+        initializeEmbeddableKey();
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("InstitucionesCreated"));
         if (!JsfUtil.isValidationFailed()) {

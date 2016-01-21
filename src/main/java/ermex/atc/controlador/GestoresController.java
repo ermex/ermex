@@ -118,8 +118,7 @@ public class GestoresController implements Serializable {
     }
     
     public StreamedContent getImgAtributo() throws IOException { 
-        
-        Personas personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+        Personas personaGestor=null;       
         DefaultStreamedContent imagenAtributo=null;
         switch(atributo){
             case "nomgestor":
@@ -131,7 +130,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "idoficialanv":  
+            case "idoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);                
                 if(personaGestor.getIdoficialanv()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialanv()));
@@ -140,7 +139,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "idoficialrev":  
+            case "idoficialrev":personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
                 if(personaGestor.getIdoficialrev()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialrev()));
@@ -149,7 +148,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "credoficialanv":  
+            case "credoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
                 if(personaGestor.getCredoficialanv()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialanv()));
@@ -158,7 +157,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "credoficialrev":  
+            case "credoficialrev": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
                 if(personaGestor.getCredoficialrev()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialrev()));
@@ -167,7 +166,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "imgcurp":  
+            case "imgcurp": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
                 if(personaGestor.getImgcurp()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getImgcurp()));
@@ -176,7 +175,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;    
-            case "foto":  
+            case "foto":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
                 if(personaGestor.getFoto()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getFoto()));
@@ -185,7 +184,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellapulgar":  
+            case "huellapulgar": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
                 if(personaGestor.getHuellapulgar()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellapulgar()));
@@ -194,7 +193,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellamanoizq":  
+            case "huellamanoizq": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
                 if(personaGestor.getHuellamanoizq()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoizq()));
@@ -203,7 +202,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellamanoder":  
+            case "huellamanoder":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
                 if(personaGestor.getHuellamanoder()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoder()));
@@ -212,7 +211,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "nombramiento":  
+            case "nombramiento":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
                 if(personaGestor.getNombramiento()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getNombramiento()));
@@ -300,6 +299,16 @@ public class GestoresController implements Serializable {
 
     public void setSelected(Gestores selected) {
         this.selected = selected;
+        try
+        {
+            this.selectedDependencia=selected.getIdpersona().getIdinstitucion().getIdorganismo().getIddependencia();
+            this.selectedOrganismos=selected.getIdpersona().getIdinstitucion().getIdorganismo();
+            this.selectedInstitucion=selected.getIdpersona().getIdinstitucion();
+           
+        }catch(Exception e){
+//            this.selectedOrganismo=selected.getIdinstitucion().getIdorganismo();
+//            this.selectedDepedencia=selected.getIdinstitucion().getIdorganismo().getIddependencia();
+        }
     }
 
     protected void setEmbeddableKeys() {

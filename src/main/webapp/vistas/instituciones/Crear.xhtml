@@ -19,24 +19,11 @@
                             <f:selectItems value="#{institucionesController.tipo}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="id dependencia" for="dependencia" />
-                        <p:selectOneMenu id="dependencia" value="#{institucionesController.dependencia}" >
-                            <f:selectItems value="#{dependenciasController.items}"
-                                           var="dependencia"
-                                           itemLabel="#{dependencia.siglas}"
-                                           itemValue="#{dependencia.iddependencia}"/>  
-                            <p:ajax event="change" update="idorganismo" />
-                        </p:selectOneMenu>
+                        <h:outputText id="dependencia" value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="Dependencia de la nueva institucion"/>                              
                         <p:outputLabel value="#{bundle.CreateInstitucionesLabel_idorganismo}" for="idorganismo" />
-                        <p:selectOneMenu id="idorganismo" value="#{institucionesController.selected.idorganismo}">
-                            <f:selectItems value="#{institucionesController.itemsDependencia}"
-                                           var="idorganismoItem"
-                                           itemLabel="#{idorganismoItem.nombre}"
-                                           itemValue="#{idorganismoItem}"/>  
-                            
-                        </p:selectOneMenu>       
+                        <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="Organismo del nuevo organismo"/>                           
                     </p:panelGrid>
                     <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="InstitucionesCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

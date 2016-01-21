@@ -267,7 +267,11 @@ public class PersonasController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public void prepare(Instituciones institucion) {
+        selected = new Personas();
+        selected.setIdinstitucion(institucion);
+        initializeEmbeddableKey();
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonasCreated"));
         reset();

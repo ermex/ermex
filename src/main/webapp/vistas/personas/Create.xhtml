@@ -127,7 +127,7 @@
                             </p:panelGrid>
                         </p:panel>
                                
-                        <p:commandButton immediate="true" value="#{bundle.Save}" update="@parent,:PersonasCreateForm:growl1,:PersonasListForm:datalist" actionListener="#{personasController.create}"   oncomplete="PF('wiz').loadStep('tabInstitucion', false)"/>
+                        <p:commandButton immediate="true" value="#{bundle.Save}" update=":PersonasCreateForm:growl1,:PersonasListForm:datalist" actionListener="#{personasController.create}"   oncomplete="PF('wiz').loadStep('tabInstitucion', false)"/>
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}" oncomplete="PF('wiz').loadStep('tabInstitucion',true)"/>
                                 
                     </p:tab>    

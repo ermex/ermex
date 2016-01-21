@@ -8,70 +8,118 @@
 
     <ui:composition>
 
-        <p:dialog id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
+        <p:dialog position="top" height="100%" width="100%"  position="top" closable="false" id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
             <h:form id="PersonasCreateForm">
-                <h:panelGroup id="display"  >
-                    <p:panelGrid columns="2" rendered="#{personasController.selected != null}">
-                        
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_tipo}" for="tipo" />
-                        <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
-                            <f:selectItems value="#{personasController.tipo}" />
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_curp}" for="curp" />
-                        <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.CreatePersonasTitle_curp}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.CreatePersonasTitle_nombre}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidop}" for="apellidop" />
-                        <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.CreatePersonasTitle_apellidop}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidom}" for="apellidom" />
-                        <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.CreatePersonasTitle_apellidom}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_grado}" for="grado" />
-                        <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.CreatePersonasTitle_grado}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_cargo}" for="cargo" />
-                        <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.CreatePersonasTitle_cargo}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo1}" for="correo1" />
-                        <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.CreatePersonasTitle_correo1}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo2}" for="correo2" />
-                        <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.CreatePersonasTitle_correo2}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_correo3}" for="correo3" />
-                        <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.CreatePersonasTitle_correo3}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.CreatePersonasTitle_telefono}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_domicilioOficina}" for="domicilioOficina" />
-                        <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.CreatePersonasTitle_domicilioOficina}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_telpersonal}" for="telpersonal" />
-                        <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.CreatePersonasTitle_telpersonal}" />
-                        <p:outputLabel value="#{bundle.CreatePersonasLabel_dompersonal}" for="dompersonal" />
-                        <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.CreatePersonasTitle_dompersonal}" />
-                        <p:outputLabel value="Dependencia" for="selectedDependencia" />
-                        <p:selectOneMenu id="selectedDependencia" value="#{personasController.selectedDepedencia}" >
-                            <f:selectItems value="#{dependenciasController.items}"
-                                                       var="dependencia"
-                                                       itemLabel="#{dependencia.siglas}"
-                                                       itemValue="#{dependencia}"/>  
-                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion" />
+                <p:growl id="growl"  sticky="true" showDetail="true"/>
+                <p:wizard id="wizardCrearPersonas" widgetVar="wizCrearPersonas" nextLabel="Siguiente" backLabel="Atras">
+                    
+                    <p:tab id="tabInstitucion" title="Institución">                            
+                        <p:panel header="Detalles de la Institución">
+                            <p:messages/>
+                            <p:panelGrid columns="2"  columnClasses="label, value"   >                                 
+                                <p:outputLabel value="Dependencia" for="iddependencia" />
+                                <h:outputText id="iddependencia" value="#{personasController.selected.idinstitucion.idorganismo.iddependencia.siglas}" title="Dependencia de la nueva persona"/>                                             
+                                
+                                <p:outputLabel value="Organismo" for="idorganismo" />
+                                <h:outputText id="idorganismo" value="#{personasController.selected.idinstitucion.idorganismo.nombre}" title="Organismo de la nueva persona" /> 
+                                
+                                <p:outputLabel value="#{bundle.CreatePersonasLabel_idinstitucion}" for="idinstitucion" />                                                           
+                                <h:outputText id="idinstitucion" value="#{personasController.selected.idinstitucion.nombre}" title="Institucion de la nueva persona" />                               
+                            </p:panelGrid>
+                        </p:panel>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />                       
+                    </p:tab> 
+                    <p:tab id="tabPersona" title="Persona">
+                        <p:panel header="Detalles de la Persona">
+                            <p:messages />
+                            <p:panelGrid columns="4" layout="grid" >
+
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_tipo}" for="tipo" />
+                                    <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
+                                        <f:selectItems value="#{personasController.tipo}" />
                                     </p:selectOneMenu>
-                                   <p:outputLabel value="Organismo" for="selectedOrganismo" />
-                                   <p:selectOneMenu id="selectedOrganismo" value="#{personasController.selectedOrganismo}" >
-                                       <f:selectItem itemLabel="Select One" itemValue="" />            
-                                       <f:selectItems value="#{personasController.itemOrganismosXDependencia}" 
-                                                       var="organismo"
-                                                       itemLabel="#{organismo.nombre}"
-                                                       itemValue="#{organismo}"/>  
-                                        <p:ajax event="change" update="selectedInstitucion" />
-                                    </p:selectOneMenu>  
-                                   <p:outputLabel value="#{bundle.CreatePersonasLabel_idinstitucion}" for="selectedInstitucion" />
-                                   <p:selectOneMenu id="selectedInstitucion" value="#{personasController.selected.idinstitucion}" >
-                                       <f:selectItem itemLabel="Select One" itemValue="" /> 
-                                       <f:selectItems value="#{personasController.itemInstitucionXOrganismo}" 
-                                                       var="institucion"
-                                                       itemLabel="#{institucion.nombre}"
-                                                       itemValue="#{institucion}"/>                                      
-                                    </p:selectOneMenu>   
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{personasController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'PersonasCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonasCreateDialog.hide()"/>
-                </h:panelGroup>
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_curp}" for="curp" />
+                                    <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.CreatePersonasTitle_curp}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_nombre}" for="nombre" />
+                                    <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.CreatePersonasTitle_nombre}" required="true" requiredMessage="Es necesario ingresar el nombre"/>
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidop}" for="apellidop" />
+                                    <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.CreatePersonasTitle_apellidop}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_apellidom}" for="apellidom" />
+                                    <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.CreatePersonasTitle_apellidom}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_grado}" for="grado" />
+                                    <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.CreatePersonasTitle_grado}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_cargo}" for="cargo" />
+                                    <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.CreatePersonasTitle_cargo}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_correo1}" for="correo1" />
+                                    <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.CreatePersonasTitle_correo1}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_correo2}" for="correo2" />
+                                    <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.CreatePersonasTitle_correo2}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_correo3}" for="correo3" />
+                                    <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.CreatePersonasTitle_correo3}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_telefono}" for="telefono" />
+                                    <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.CreatePersonasTitle_telefono}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_domicilioOficina}" for="domicilioOficina" />
+                                    <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.CreatePersonasTitle_domicilioOficina}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_telpersonal}" for="telpersonal" />
+                                    <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.CreatePersonasTitle_telpersonal}" />
+                                    <p:outputLabel value="#{bundle.CreatePersonasLabel_dompersonal}" for="dompersonal" />
+                                    <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.CreatePersonasTitle_dompersonal}" />
+                                </p:panelGrid>
+                        </p:panel>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />
+                    </p:tab>
+                    <p:tab id="tabImagen" title="Imagenes">
+                        <p:panel header="Seleccionar las imagenes correspondientes" >
+                            <p:panelGrid columns="2" layout="grid" >                                    
+                                                            
+                                <p:fileUpload label="IDENTIFICACION OFICIAL ANVERSO" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
+                                    <h:outputText id="nombreidoficialanv" value="#{personasController.nombreidoficialanv}" />
+                                </p:fileUpload>
+                        
+                                <p:fileUpload label="IDENTIFICACION OFICIAL REVERSO" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
+                                    <h:outputText id="nombreidoficialrev" value="#{personasController.nombreidoficialrev}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CREDENCIAL OFICIAL ANVERSO" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
+                                    <h:outputText id="nombrecredoficialanv" value="#{personasController.nombrecredoficialanv}" />                                
+                                </p:fileUpload>
+
+                                <p:fileUpload label="CREDENCIAL OFICIAL REVERSO" update="nombrecredoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialRev}" auto="true" >
+                                    <h:outputText id="nombrecredoficialrev" value="#{personasController.nombrecredoficialrev}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA MANO DERECHA" update="nombrehuellamanoder" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoDer}" auto="true" >
+                                    <h:outputText id="nombrehuellamanoder" value="#{personasController.nombrehuellamanoder}" />                                
+                                </p:fileUpload>
+
+                                <p:fileUpload label="HUELLA MANO IZQUIERDA" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
+                                    <h:outputText id="nombrehuellamanoizq" value="#{personasController.nombrehuellamanoizq}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA DEL PULGAR" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >
+                                    <h:outputText id="nombrehuellapulgar" value="#{personasController.nombrehuellapulgar}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CURP" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
+                                    <h:outputText id="nombreimgcurp" value="#{personasController.nombreimgcurp}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="FOTO" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
+                                    <h:outputText id="nombrefoto" value="#{personasController.nombrefoto}" />                                
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="NOMBRAMIENTO" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
+                                    <h:outputText id="nombrenombramiento" value="#{personasController.nombrenombramiento}" />                                
+                                </p:fileUpload>
+                            </p:panelGrid>
+                        </p:panel>
+                               
+                        <p:commandButton value="#{bundle.Save}" actionListener="#{personasController.create}"       update=":GestoresCreateForm,:growl"             oncomplete="handleSubmit(args,'PersonasCreateDialog');PF('wizCrearPersonas').loadStep('tabInstitucion',true)"/>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />
+                        
+                    </p:tab>    
+                        
+                </p:wizard> 
             </h:form>
         </p:dialog>
 
