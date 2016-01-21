@@ -4,7 +4,6 @@ import ermex.atc.entidad.Dependencias;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.sesion.DependenciasFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,12 +21,13 @@ import javax.faces.convert.FacesConverter;
 @Named("dependenciasController")
 @SessionScoped
 public class DependenciasController implements Serializable {
-
+    // Atributos por default
     @EJB
     private ermex.atc.sesion.DependenciasFacade ejbFacade;
     private List<Dependencias> items = null;
     private Dependencias selected;
-
+    
+    //*************************** Metodos por default
     public DependenciasController() {
     }
 

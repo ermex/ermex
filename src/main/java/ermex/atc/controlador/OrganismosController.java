@@ -23,13 +23,13 @@ import javax.faces.convert.FacesConverter;
 @Named("organismosController")
 @SessionScoped
 public class OrganismosController implements Serializable {
-
+    // Atributos por default
     @EJB
     private ermex.atc.sesion.OrganismosFacade ejbFacade;
     private List<Organismos> items = null;
     private Organismos selected;
     
-
+    //*************************** Metodos por default
     public OrganismosController() {
     }
 
@@ -57,6 +57,8 @@ public class OrganismosController implements Serializable {
         return selected;
     }
     
+    // Metodo del Programador
+    // Prepara el organismo a crear asignando la dependencia enviada
     public void preparate(Organismos organismo) {
         this.selected = new Organismos();
         this.selected.setIddependencia(organismo.getIddependencia());
@@ -87,9 +89,6 @@ public class OrganismosController implements Serializable {
         }
         return items;
     }
-    
-    
-   
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {

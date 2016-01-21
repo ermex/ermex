@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
@@ -22,10 +21,7 @@
                         <h:outputText value="#{institucionesController.selected.nombre}" title="#{bundle.ViewInstitucionesTitle_nombre}"/>
                         <h:outputText value="#{bundle.ViewInstitucionesLabel_tipo}"/>
                         <h:outputText value="#{institucionesController.selected.tipo}" title="#{bundle.ViewInstitucionesTitle_tipo}"/>
-                        
-                        
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="InstitucionesViewDialog.hide()"/>
+                    </p:panelGrid>                 
                 </h:panelGroup>
             </h:form>
         </p:dialog>

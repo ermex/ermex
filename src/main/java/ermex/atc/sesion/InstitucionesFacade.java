@@ -30,13 +30,18 @@ public class InstitucionesFacade extends AbstractFacade<Instituciones> {
         super(Instituciones.class);
     }
     
-    public List<Instituciones> findOrganismos(long a){
-//            Query query = em.createQuery("SELECT i FROM Instituciones i where i.idorganismo.idorganismo = :o ").setParameter("o", a);
-//            return (List<Instituciones>) query.getResultList();
+    //Metodos del programador
+    
+    public List<Instituciones> findOrganismos(long idorganismo)
+    {
+    //Regresa la lista de instituciones deacuerdo a cierto organismo  "parametro->idorganismo"          
         TypedQuery<Instituciones> query =
-        em.createNamedQuery("Instituciones.findByOrganismos",Instituciones.class).setParameter("idorganismo",a);
+        em.createNamedQuery("Instituciones.findByOrganismos",Instituciones.class).setParameter("idorganismo",idorganismo);
         List<Instituciones> results = query.getResultList();
         return results;
+        
+        //Query query = em.createQuery("SELECT i FROM Instituciones i where i.idorganismo.idorganismo = :o ").setParameter("o", a);
+        //return (List<Instituciones>) query.getResultList();
     }  
     
 }

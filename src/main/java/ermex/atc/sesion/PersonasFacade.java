@@ -32,16 +32,21 @@ public class PersonasFacade extends AbstractFacade<Personas> {
         super(Personas.class);
     }
     
-    public List<Personas> findTipoInstitucion(String tipo,Long idinstitucion){
+    //Metodos del programador
+    
+    public List<Personas> findTipoInstitucion(String tipo,Long idinstitucion)
+    {
+    //Regresa la lista de personas deacuerdo a cierta tipo e institucion  "parametro->tipo,idinstitucion"
             Query query = em.createQuery("SELECT p FROM Personas p WHERE (p.tipo = :tipo OR  p.tipo='A') and p.idinstitucion.idinstitucion = :idinstitucion").setParameter("tipo",tipo).setParameter("idinstitucion",idinstitucion);
             return (List<Personas>) query.getResultList();
-//        TypedQuery<Instituciones> query =
-//        em.createNamedQuery("Instituciones.findByOrganismos",Instituciones.class).setParameter("idorganismo",a);
-//        List<Instituciones> results = query.getResultList();
-//        return results;
+            //TypedQuery<Instituciones> query =em.createNamedQuery("Instituciones.findByOrganismos",Instituciones.class).setParameter("idorganismo",a);
+            //List<Instituciones> results = query.getResultList();
+            //return results;
     } 
     
-    public Personas findByPersonaGestor(String idpersona){
+    public Personas findByPersonaGestor(String idpersona)
+    {
+    //Regresa a la persona que tenga el id  "parametro->idpersona"    
         TypedQuery<Personas> query =
         em.createNamedQuery("Personas.findByIdpersona",Personas.class).setParameter("idpersona",Long.parseLong(idpersona));
         return (Personas) query.getSingleResult();

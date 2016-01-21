@@ -29,15 +29,25 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
     public GestoresFacade() {
         super(Gestores.class);
     }
-    public List<Gestores> findByNoStatus(String a){
-//            Query query = em.createQuery("SELECT i FROM Instituciones i where i.idorganismo.idorganismo = :o ").setParameter("o", a);
-//            return (List<Instituciones>) query.getResultList();
+    
+    //Metodos del programador
+    
+    public List<Gestores> findByNoStatus(String nostatus)
+    {
+    //Regresa la lista de los gestores que no tenga el status  "parametro->nostatus"  
+            
         TypedQuery<Gestores> query =
-        em.createNamedQuery("Gestores.findByNoStatus",Gestores.class).setParameter("status","baja");
+        em.createNamedQuery("Gestores.findByNoStatus",Gestores.class).setParameter("status",nostatus);
         List<Gestores> results = query.getResultList();
         return results;
+        
+        //Query query = em.createQuery("SELECT i FROM Instituciones i where i.idorganismo.idorganismo = :o ").setParameter("o", a);
+        //return (List<Instituciones>) query.getResultList();
     }
-    public Gestores findByGestor(String gestor){
+    public Gestores findByGestor(String gestor)
+    {
+    //Regresa el gestor que tiene id "parametro->gestor"  
+        
         TypedQuery<Gestores> query =
         em.createNamedQuery("Gestores.findByGestor",Gestores.class).setParameter("gestor",gestor);
         return query.getSingleResult();

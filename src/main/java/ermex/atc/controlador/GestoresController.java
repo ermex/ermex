@@ -41,6 +41,7 @@ public class GestoresController implements Serializable {
     private ermex.atc.sesion.GestoresFacade ejbFacade;
     private List<Gestores> items = null;
     private Gestores selected=new Gestores();
+    
     // Atributos del Programador
     @EJB
     private ermex.atc.sesion.OrganismosFacade ejbFacadeOrganismo;
@@ -65,51 +66,58 @@ public class GestoresController implements Serializable {
         status.put("ratificacion", "ratificacion"); 
         status.put("activo", "activo");
     }
-
-    public String getNomgestor() {
-        return nomgestor;
-    }
-
-    public void setNomgestor(String nomgestor) {
-        this.nomgestor = nomgestor;
-    }
-
-    public String getIdpersonas() {
-        return idpersonas;
-    }
-
-    public void setIdpersonas(String idpersonas) {
-        this.idpersonas = idpersonas;
-    }
-
-    public String getAtributo() {
-        return atributo;
-    }
-
-    public void setAtributo(String atributo) {
-        this.atributo = atributo;
+    
+    //*************************** Metodos del programador
+    public void reset()
+    {
+        //Metodo que resetea todos los valores
+        selected=new Gestores();
+        selectedDependencia=null;
+        selectedOrganismos=null;
+        selectedInstitucion=null;
     }
     
-    public UploadedFile getUpdesignacion() {
-        return Updesignacion;
-    }
-
-    public void setUpdesignacion(UploadedFile Updesignacion) {
-        this.Updesignacion = Updesignacion;
-    }
-
-    public void subirDesignacion(FileUploadEvent event) {  
-       Updesignacion = event.getFile();
-       this.selected.setDesignacion(Updesignacion.getContents());
+    public List<Organismos> getItemOrganismosXDependencia() 
+    {
+        //Metodo que regresa una lista de todos los organismos de la dependencia seleccionada "selectedDependencia"
+        
+        if(selectedDependencia== null){
+            return ejbFacadeOrganismo.findorganismosdependencia(1);      
+        }
+        return ejbFacadeOrganismo.findorganismosdependencia(selectedDependencia.getIddependencia()); 
     }
     
-    public DefaultStreamedContent imagenError()throws IOException{
+    public List<Instituciones> getItemInstitucionXOrganismo() 
+    {
+        //Metodo que regresa una lista de todas las instituciones del organismo seleccionado "selectedOrganismo"
+        
+        if(selectedOrganismos== null){
+            return ejbFacadeInstitucion.findOrganismos(1);     
+        }
+        return ejbFacadeInstitucion.findOrganismos(selectedOrganismos.getIdorganismo()); 
+    }
+
+    public List<Personas> getItemsfindGestorInstitucion(String tipo) 
+    {
+        //Metodo que regresa una lista de todas las personas de la institucion seleccionada "selectedInstitucion" y cierto tipo
+        if(this.selectedInstitucion==null){
+            return null;
+        }
+        return ejbFacadePersona.findTipoInstitucion(tipo,this.selectedInstitucion.getIdinstitucion());
+    }
+    
+    public DefaultStreamedContent imagenError()throws IOException
+    {
+        //Regresa la imagen de error
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String absoluteDiskPath = servletContext.getRealPath("/resources/images/error-imagen.png");
         File errorImagen = new File(absoluteDiskPath);           
         return new DefaultStreamedContent(new FileInputStream(errorImagen));   
     }
-    public StreamedContent getImgMini(byte[]img) throws IOException {
+    
+    public StreamedContent getImgMini(byte[]img) throws IOException 
+    {   
+        //Regresa la imagen "img" para mostrarla (se usa para mostrarla en miniatura )
         if(img == null){
             return imagenError();
         }else{
@@ -117,7 +125,10 @@ public class GestoresController implements Serializable {
         }
     }
     
-    public StreamedContent getImgAtributo() throws IOException { 
+    public StreamedContent getImgAtributo() throws IOException 
+    {
+        //Regresa la imagen de acuerdo a los atributos nomgestor idpersonas atributo
+        //utilizado para mostrar las imagenes de las personas y de los gestores 
         Personas personaGestor=null;       
         DefaultStreamedContent imagenAtributo=null;
         switch(atributo){
@@ -225,6 +236,45 @@ public class GestoresController implements Serializable {
         }
         return imagenAtributo;       
     }
+    
+    //***** Getter y Setter 
+    public String getNomgestor() {
+        return nomgestor;
+    }
+
+    public void setNomgestor(String nomgestor) {
+        this.nomgestor = nomgestor;
+    }
+
+    public String getIdpersonas() {
+        return idpersonas;
+    }
+
+    public void setIdpersonas(String idpersonas) {
+        this.idpersonas = idpersonas;
+    }
+
+    public String getAtributo() {
+        return atributo;
+    }
+
+    public void setAtributo(String atributo) {
+        this.atributo = atributo;
+    }
+    
+    public UploadedFile getUpdesignacion() {
+        return Updesignacion;
+    }
+
+    public void setUpdesignacion(UploadedFile Updesignacion) {
+        this.Updesignacion = Updesignacion;
+    }
+
+    public void subirDesignacion(FileUploadEvent event) {  
+       Updesignacion = event.getFile();
+       this.selected.setDesignacion(Updesignacion.getContents());
+    }
+    
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;
     }
@@ -263,48 +313,20 @@ public class GestoresController implements Serializable {
     public void setItemsActivos(List<Gestores> itemsActivos) {
         this.itemsActivos = itemsActivos;
     }   
-
-    public List<Organismos> getItemOrganismosXDependencia() {
-        if(selectedDependencia== null){
-            return ejbFacadeOrganismo.findorganismosdependencia(1);      
-        }
-        return ejbFacadeOrganismo.findorganismosdependencia(selectedDependencia.getIddependencia()); 
-    }
     
-    public List<Instituciones> getItemInstitucionXOrganismo() {
-        if(selectedOrganismos== null){
-            return ejbFacadeInstitucion.findOrganismos(1);     
-        }
-        return ejbFacadeInstitucion.findOrganismos(selectedOrganismos.getIdorganismo()); 
-    }
-
-    public List<Personas> getItemsfindGestorInstitucion(String tipo) {
-        if(this.selectedInstitucion==null){
-            return null;
-        }
-        return ejbFacadePersona.findTipoInstitucion(tipo,this.selectedInstitucion.getIdinstitucion());
-    }
-
-    public void reset(){
-        selected=new Gestores();
-        selectedDependencia=null;
-        selectedOrganismos=null;
-        selectedInstitucion=null;
-    }
-    //////////////////////////////////////////////////////
-    
+     //*************************** Metodos por default
     public Gestores getSelected() {
         return selected;
     }
-
+    
+    // Modificacion del Programador
     public void setSelected(Gestores selected) {
         this.selected = selected;
         try
         {
             this.selectedDependencia=selected.getIdpersona().getIdinstitucion().getIdorganismo().getIddependencia();
             this.selectedOrganismos=selected.getIdpersona().getIdinstitucion().getIdorganismo();
-            this.selectedInstitucion=selected.getIdpersona().getIdinstitucion();
-           
+            this.selectedInstitucion=selected.getIdpersona().getIdinstitucion();         
         }catch(Exception e){
 //            this.selectedOrganismo=selected.getIdinstitucion().getIdorganismo();
 //            this.selectedDepedencia=selected.getIdinstitucion().getIdorganismo().getIddependencia();

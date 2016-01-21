@@ -27,21 +27,22 @@ import org.primefaces.model.UploadedFile;
 @Named("personasController")
 @SessionScoped
 public class PersonasController implements Serializable {
-
+    // Atributos por default
     @EJB
     private ermex.atc.sesion.PersonasFacade ejbFacade;
     private List<Personas> items = null;
     private Personas selected=new Personas();
     
-    private HashMap<String, String> tipo=null;
-    private Dependencias selectedDepedencia;
-    private Organismos selectedOrganismo;
+    // Atributos del Programador
     @EJB
     private ermex.atc.sesion.OrganismosFacade ejbFacadeOrganismo;
     @EJB
     private ermex.atc.sesion.InstitucionesFacade ejbFacadeInstitucion;
-    private UploadedFile imagen;
-    private String nombreidoficialanv;
+    private HashMap<String, String> tipo=null;  //Tipos de personas
+    private Dependencias selectedDepedencia;    //Dependencia seleccionada
+    private Organismos selectedOrganismo;       //Organismo seleccionado
+    private UploadedFile imagen;                //Imagen subida    
+    private String nombreidoficialanv;          //Guarda el nombre de la imagen seleccionada
     private String nombreidoficialrev;
     private String nombrecredoficialanv;
     private String nombrecredoficialrev;
@@ -58,7 +59,103 @@ public class PersonasController implements Serializable {
         tipo.put("Gestor", "G");
         tipo.put("Designador y Gestor", "A");
     }
-
+    
+    //*************************** Metodos del programador
+    public void reset()
+    {
+        //Metodo que resetea todos los valores
+        selected=new Personas();
+        selectedDepedencia=null;
+        selectedOrganismo=null; 
+        nombreidoficialanv="";
+        nombreidoficialrev="";
+        nombrecredoficialanv="";
+        nombrecredoficialrev="";
+        nombreimgcurp="";
+        nombrefoto="";
+        nombrehuellapulgar="";
+        nombrehuellamanoizq="";
+        nombrehuellamanoder="";
+        nombrenombramiento="";
+    }
+    
+    public List<Organismos> getItemOrganismosXDependencia() 
+    {
+        //Metodo que regresa una lista de todos los organismos de la dependencia seleccionada "selectedDependencia"
+        if(selectedDepedencia== null){
+            return ejbFacadeOrganismo.findorganismosdependencia(1);      
+        }
+        return ejbFacadeOrganismo.findorganismosdependencia(selectedDepedencia.getIddependencia()); 
+    }
+    
+    public List<Instituciones> getItemInstitucionXOrganismo() 
+    {
+        //Metodo que regresa una lista de todas las instituciones del organismo seleccionado "selectedOrganismo"
+        if(selectedOrganismo== null){
+            return ejbFacadeInstitucion.findOrganismos(1);     
+        }
+        return ejbFacadeInstitucion.findOrganismos(selectedOrganismo.getIdorganismo()); 
+    }
+    
+    // Metodos para guardar la imagen en su respectivo campo 
+    public void subirIdOficialAnv(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setIdoficialanv(imagen.getContents()); 
+       this.nombreidoficialanv=event.getFile().getFileName();
+    }
+    
+    public void subirIdOficialRev(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setIdoficialrev(imagen.getContents());  
+       this.nombreidoficialrev=event.getFile().getFileName();
+    }
+    public void subirCredOficialAnv(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setCredoficialanv(imagen.getContents()); 
+       this.nombrecredoficialanv=event.getFile().getFileName();
+    }
+    
+    public void subirCredOficialRev(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setCredoficialrev(imagen.getContents());  
+       this.nombrecredoficialrev=event.getFile().getFileName();
+    }
+    public void subirHuellaManoDer(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellamanoder(imagen.getContents()); 
+       this.nombrehuellamanoder=event.getFile().getFileName();
+    }
+    
+    public void subirHuellaManoIzq(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellamanoizq(imagen.getContents()); 
+       this.nombrehuellamanoizq=event.getFile().getFileName();
+    }
+    
+    public void subirHuellaPulgar(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setHuellapulgar(imagen.getContents()); 
+       this.nombrehuellapulgar=event.getFile().getFileName();
+    }
+    public void subirImgCurp(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setImgcurp(imagen.getContents()); 
+       this.nombreimgcurp=event.getFile().getFileName();
+    }
+    
+    public void subirFoto(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setFoto(imagen.getContents()); 
+       this.nombrefoto=event.getFile().getFileName();
+    }
+    
+    public void subirNombramiento(FileUploadEvent event) {  
+       imagen = event.getFile();
+       this.selected.setNombramiento(imagen.getContents()); 
+       this.nombrenombramiento=event.getFile().getFileName();
+    }
+    
+    //***** Getter y Setter 
     public String getNombreidoficialanv() {
         return nombreidoficialanv;
     }
@@ -151,82 +248,28 @@ public class PersonasController implements Serializable {
         this.imagen = Imagen;
     }
     
-    public void subirIdOficialAnv(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setIdoficialanv(imagen.getContents()); 
-       this.nombreidoficialanv=event.getFile().getFileName();
+    public Dependencias getSelectedDepedencia() {
+        return selectedDepedencia;
+    }
+
+    public void setSelectedDepedencia(Dependencias selectedDepedencia) {
+        this.selectedDepedencia = selectedDepedencia;
+    }
+
+    public Organismos getSelectedOrganismo() {
+        return selectedOrganismo;
+    }
+
+    public void setSelectedOrganismo(Organismos selectedOrganismo) {
+        this.selectedOrganismo = selectedOrganismo;
     }
     
-    public void subirIdOficialRev(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setIdoficialrev(imagen.getContents());  
-       this.nombreidoficialrev=event.getFile().getFileName();
-    }
-    public void subirCredOficialAnv(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setCredoficialanv(imagen.getContents()); 
-       this.nombrecredoficialanv=event.getFile().getFileName();
-    }
+    //*************************** Metodos por default
     
-    public void subirCredOficialRev(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setCredoficialrev(imagen.getContents());  
-       this.nombrecredoficialrev=event.getFile().getFileName();
-    }
-    public void subirHuellaManoDer(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setHuellamanoder(imagen.getContents()); 
-       this.nombrehuellamanoder=event.getFile().getFileName();
-    }
-    
-    public void subirHuellaManoIzq(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setHuellamanoizq(imagen.getContents()); 
-       this.nombrehuellamanoizq=event.getFile().getFileName();
-    }
-    
-    public void subirHuellaPulgar(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setHuellapulgar(imagen.getContents()); 
-       this.nombrehuellapulgar=event.getFile().getFileName();
-    }
-    public void subirImgCurp(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setImgcurp(imagen.getContents()); 
-       this.nombreimgcurp=event.getFile().getFileName();
-    }
-    
-    public void subirFoto(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setFoto(imagen.getContents()); 
-       this.nombrefoto=event.getFile().getFileName();
-    }
-    
-    public void subirNombramiento(FileUploadEvent event) {  
-       imagen = event.getFile();
-       this.selected.setNombramiento(imagen.getContents()); 
-       this.nombrenombramiento=event.getFile().getFileName();
-    }
-    
-    public void reset(){
-        selected=new Personas();
-        selectedDepedencia=null;
-        selectedOrganismo=null; 
-        nombreidoficialanv="";
-        nombreidoficialrev="";
-        nombrecredoficialanv="";
-        nombrecredoficialrev="";
-        nombreimgcurp="";
-        nombrefoto="";
-        nombrehuellapulgar="";
-        nombrehuellamanoizq="";
-        nombrehuellamanoder="";
-        nombrenombramiento="";
-    }
     public Personas getSelected() {
         return selected;
     }
-
+    // Modificacion del Programador
     public void setSelected(Personas selected) {
         this.selected = selected;
         try
@@ -238,20 +281,6 @@ public class PersonasController implements Serializable {
 //            this.selectedDepedencia=selected.getIdinstitucion().getIdorganismo().getIddependencia();
         }
     }
-    public List<Organismos> getItemOrganismosXDependencia() {
-        if(selectedDepedencia== null){
-            return ejbFacadeOrganismo.findorganismosdependencia(1);      
-        }
-        return ejbFacadeOrganismo.findorganismosdependencia(selectedDepedencia.getIddependencia()); 
-    }
-    
-    public List<Instituciones> getItemInstitucionXOrganismo() {
-        if(selectedOrganismo== null){
-            return ejbFacadeInstitucion.findOrganismos(1);     
-        }
-        return ejbFacadeInstitucion.findOrganismos(selectedOrganismo.getIdorganismo()); 
-    }
-
     protected void setEmbeddableKeys() {
     }
 
@@ -267,11 +296,14 @@ public class PersonasController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    // Metodo del Programador
+    // Prepara la Persona a crear asignando la institucion enviada
     public void prepare(Instituciones institucion) {
         selected = new Personas();
         selected.setIdinstitucion(institucion);
         initializeEmbeddableKey();
     }
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("PersonasCreated"));
         reset();
@@ -339,25 +371,7 @@ public class PersonasController implements Serializable {
     public List<Personas> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-
-    public Dependencias getSelectedDepedencia() {
-        return selectedDepedencia;
-    }
-
-    public void setSelectedDepedencia(Dependencias selectedDepedencia) {
-        this.selectedDepedencia = selectedDepedencia;
-    }
-
-    public Organismos getSelectedOrganismo() {
-        return selectedOrganismo;
-    }
-
-    public void setSelectedOrganismo(Organismos selectedOrganismo) {
-        this.selectedOrganismo = selectedOrganismo;
-    }
-
     
-
     @FacesConverter(forClass = Personas.class)
     public static class PersonasControllerConverter implements Converter {
 

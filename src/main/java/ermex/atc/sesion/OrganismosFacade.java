@@ -30,13 +30,17 @@ public class OrganismosFacade extends AbstractFacade<Organismos> {
       
         super(Organismos.class);
     }
+    //Metodos del programador
     
-    public List<Organismos> findorganismosdependencia(long a){
-        //    Query query = em.createQuery("SELECT o FROM Organismos o where o.iddependencia.iddependencia = :s ").setParameter("s", a);
-        //    return (List<Organismos>) query.getResultList();
+    public List<Organismos> findorganismosdependencia(long iddependencia)
+    { 
+    //Regresa la lista de organismos deacuerdo a cierta dependencia  "parametro->iddependencia"               
         TypedQuery<Organismos> query =
-        em.createNamedQuery("Organismos.findByDependencia",Organismos.class).setParameter("iddependencia",a);
+        em.createNamedQuery("Organismos.findByDependencia",Organismos.class).setParameter("iddependencia",iddependencia);
         List<Organismos> results = query.getResultList();
         return results;
+        
+        //Query query = em.createQuery("SELECT o FROM Organismos o where o.iddependencia.iddependencia = :s ").setParameter("s", a);
+        //return (List<Organismos>) query.getResultList();
     }    
 }

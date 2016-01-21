@@ -24,12 +24,12 @@ import javax.faces.convert.FacesConverter;
 @Named("institucionesController")
 @SessionScoped
 public class InstitucionesController implements Serializable {
-
+    // Atributos por default
     @EJB
     private ermex.atc.sesion.InstitucionesFacade ejbFacade;
     private List<Instituciones> items = null;
     private Instituciones selected;
-    
+    // Atributos del Programador
     @EJB
     private ermex.atc.sesion.OrganismosFacade ejbFacadeOrganismo;
     private long dependencia=1;
@@ -45,11 +45,39 @@ public class InstitucionesController implements Serializable {
         tipo.put("Gobierno Federal", "Gobierno Federal");
         tipo.put("Gobierno Estatal", "Gobierno Estatal");
     }
+    
+    //*************************** Metodos del programador
+    //***** Getter y Setter 
+    public long getDependencia() {
+            return dependencia;       
+    }
 
+    public void setDependencia(long dependencia) {
+        this.dependencia = dependencia;
+    }
+    
+    public List<Organismos> getItemsDependencia() {
+        return ejbFacadeOrganismo.findorganismosdependencia(this.getDependencia());        
+    }
+
+    public void setItemsDependencia(List<Organismos> itemsDependencia) {
+        this.itemsDependencia = itemsDependencia;
+    }
+
+    public HashMap<String, String> getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(HashMap<String, String> tipo) {
+        this.tipo = tipo;
+    }
+        
+    //*************************** Metodos por default
     public Instituciones getSelected() {
         return selected;
     }
-
+    
+    // Modificacion del Programador
     public void setSelected(Instituciones selected) {
         this.selected = selected;
         try
@@ -75,6 +103,9 @@ public class InstitucionesController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
+    
+    // Metodo del Programador
+    // Prepara la Institucion a crear asignando el organismo enviado 
     public void preparate(Organismos organismo) {
         this.selected = new Instituciones();
         this.selected.setIdorganismo(organismo);
@@ -146,20 +177,6 @@ public class InstitucionesController implements Serializable {
         return getFacade().findAll();
     }
 
-    /**
-     * @return the dependencia
-     */
-    public long getDependencia() {
-            return dependencia;       
-    }
-
-    /**
-     * @param dependencia the dependencia to set
-     */
-    public void setDependencia(long dependencia) {
-        this.dependencia = dependencia;
-    }
-
     @FacesConverter(forClass = Instituciones.class)
     public static class InstitucionesControllerConverter implements Converter {
 
@@ -198,25 +215,6 @@ public class InstitucionesController implements Serializable {
                 return null;
             }
         }
-        
-        
-
     }
-
-    public List<Organismos> getItemsDependencia() {
-        return ejbFacadeOrganismo.findorganismosdependencia(this.getDependencia());        
-    }
-
-    public void setItemsDependencia(List<Organismos> itemsDependencia) {
-        this.itemsDependencia = itemsDependencia;
-    }
-
-    public HashMap<String, String> getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(HashMap<String, String> tipo) {
-        this.tipo = tipo;
-    }
-        
+   
 }

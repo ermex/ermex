@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog width="100%" height="100%" id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
+        <p:dialog  position="top" height="100%" width="100%" closable="false" id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
             <h:form id="PersonasEditForm">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
                 <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
@@ -43,6 +43,7 @@
                                     </p:selectOneMenu> 
                             </p:panelGrid>
                         </p:panel>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wiz').loadStep('tabInstitucion',true);PF('PersonasEditDialog').hide();" />
                     </p:tab> 
                     <p:tab id="tabPersona" title="Persona">
                         <p:panel header="Detalles de la Persona">
@@ -80,7 +81,8 @@
                         <p:outputLabel value="#{bundle.EditPersonasLabel_dompersonal}" for="dompersonal" />
                         <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.EditPersonasTitle_dompersonal}" />    
                             </p:panelGrid>
-                        </p:panel>                       
+                        </p:panel>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wiz').loadStep('tabInstitucion',true);PF('PersonasEditDialog').hide();" />
                     </p:tab>
                     <p:tab id="tabImagen" title="Imagenes">
                         <p:panel header="Seleccionar las imagenes correspondientes" >
@@ -130,8 +132,7 @@
                                
                         <p:commandButton value="#{bundle.Save}"   actionListener="#{personasController.update}" oncomplete="PF('wiz').loadStep('tabInstitucion',true);PF('PersonasEditDialog').hide();" immediate="true"  update=":PersonasEditForm:growl1,:PersonasListForm:datalist"    />
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wiz').loadStep('tabInstitucion',true);PF('PersonasEditDialog').hide();" />
-                        
-                                
+       
                     </p:tab>    
                         
                 </p:wizard> 

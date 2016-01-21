@@ -19,7 +19,6 @@
                         <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.EditDependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.EditDependenciasRequiredMessage_nombre}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dependenciasController.update}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DependenciasEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DependenciasEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
