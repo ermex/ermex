@@ -17,11 +17,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import org.primefaces.model.UploadedFile;
 
 @Named("solicitudesInternetController")
 @SessionScoped
@@ -32,25 +30,77 @@ public class SolicitudesInternetController implements Serializable {
     private List<SolicitudesInternet> items = null;
     private SolicitudesInternet selected;
     private Gestores selectGestores;
-    private UploadedFile file;
+    private String  noPeriodo1;
+     private String noPeriodo2;
+     private String noPeriodo3;
 
+    public String getNoPeriodo2() {
+        return noPeriodo2;
+    }
+
+    public void setNoPeriodo2(String noPeriodo2) {
+        this.noPeriodo2 = noPeriodo2;
+    }
+
+    public String getNoPeriodo3() {
+        return noPeriodo3;
+    }
+
+    public void setNoPeriodo3(String noPeriodo3) {
+        this.noPeriodo3 = noPeriodo3;
+    }
+    public String getNoPeriodo1() {
+        
+        return noPeriodo1;
+    }
+
+    public void setNoPeriodo1(String periodoS) {
+        int radioSelec=0;
+       if (periodoS.compareTo("dos")==0) {
+            noPeriodo2="dos";
+            noPeriodo1="uno";
+            noPeriodo3=null;
+            radioSelec=2;
+        }else
+        {
+            if (periodoS.compareTo("tres")==0) {
+                noPeriodo3="tres";
+                noPeriodo1="uno";
+                noPeriodo2="dos";
+                radioSelec=3;
+            }else
+            {
+               this.noPeriodo1 = periodoS; 
+                noPeriodo2=null;
+                noPeriodo3=null;
+                radioSelec=1;
+            }
+        }
+        resetPeriodos(radioSelec);
+             
+      
+    }
+    
     public Gestores getSelectGestores() {
         return selectGestores;
+    }
+    private void  resetPeriodos(int datos)
+    {
+        selected.setPeriodo3I(null);
+        selected.setPeriodo3F(null);
+        selected.setPeriodo2I(null);
+        selected.setPeriodo2F(null);
     }
 
     public void setSelectGestores(Gestores selectGestores) {
         this.selectGestores = selectGestores;
     }
     
-    public UploadedFile getFile() {
-        return file;
-    }
-
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
 
     public SolicitudesInternetController() {
+        this.noPeriodo1="uno";
+        this.noPeriodo2=null;
+        this.noPeriodo3=null;
     }
 
     public SolicitudesInternet getSelected() {
@@ -86,7 +136,6 @@ public class SolicitudesInternetController implements Serializable {
 
     public void update() {
         FacesMessage mensaje=null;
-        FacesContext context= FacesContext.getCurrentInstance();
         if (selected.getStatus()==2) {
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetUpdated"));
         }else
@@ -95,14 +144,6 @@ public class SolicitudesInternetController implements Serializable {
         }
         
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
-    }
-    public void leerTxt()
-    {
-        if (file!=null) {
-            System.out.println("El valor de File" + file);
-        }
-        else
-            System.out.println("Es nulo file");
     }
 
     public void destroy() {
@@ -129,6 +170,8 @@ public class SolicitudesInternetController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    selected.setGestor(selectGestores.getGestor());
+                    selectGestores=null;
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
