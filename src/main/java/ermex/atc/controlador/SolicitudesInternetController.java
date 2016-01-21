@@ -31,8 +31,15 @@ public class SolicitudesInternetController implements Serializable {
     private SolicitudesInternet selected;
     private Gestores selectGestores;
     private String  noPeriodo1;
-     private String noPeriodo2;
-     private String noPeriodo3;
+    private String noPeriodo2;
+    private String noPeriodo3;
+     
+     
+    public SolicitudesInternetController() {
+        this.noPeriodo1="uno";
+        this.noPeriodo2=null;
+        this.noPeriodo3=null;
+    }
 
     public String getNoPeriodo2() {
         return noPeriodo2;
@@ -95,14 +102,6 @@ public class SolicitudesInternetController implements Serializable {
     public void setSelectGestores(Gestores selectGestores) {
         this.selectGestores = selectGestores;
     }
-    
-
-    public SolicitudesInternetController() {
-        this.noPeriodo1="uno";
-        this.noPeriodo2=null;
-        this.noPeriodo3=null;
-    }
-
     public SolicitudesInternet getSelected() {
         return selected;
     }
@@ -138,9 +137,10 @@ public class SolicitudesInternetController implements Serializable {
         FacesMessage mensaje=null;
         if (selected.getStatus()==2) {
             persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetUpdated"));
+             mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Actualizada","Se ha modifica la solicitud" + selected.getSolicitud());
         }else
         {
-             mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos no actualizados","Verifique dato");
+             mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Solicitud no Actualizada","La solicitud no se puede actualizar" + selected.getSolicitud());
         }
         
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
