@@ -11,7 +11,7 @@
         <p:dialog  position="top" height="100%" width="100%" closable="false" id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
             <h:form id="PersonasEditForm">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
+                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras" rendered="#{personasController.selected != null}">
                     
                     <p:tab id="tabInstitucion" title="Institución">                            
                             <p:panel header="Detalles de la Institución">

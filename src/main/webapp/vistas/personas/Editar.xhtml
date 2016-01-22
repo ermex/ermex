@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog  position="top" height="100%" width="100%" closable="false" id="PersonasEditarDlg" widgetVar="PersonasEditarDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}">
+            <h:form id="PersonasEditarForm">
+                <h:panelGroup id="display" >
+                <p:growl id="growl1"  sticky="true" showDetail="true"/>
+                <p:wizard id="wizardEditarPersona" widgetVar="wizEditarPersona" nextLabel="Siguiente" backLabel="Atras">
+                    <p:tab id="tabPersona" title="Persona">
+                        <p:panel header="Detalles de la Persona">
+                            <p:messages />
+                            <p:panelGrid columns="4" layout="grid" >
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_tipo}" for="tipo" />
+                            <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
+                                <f:selectItems value="#{personasController.tipo}" />
+                            </p:selectOneMenu>                      
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_curp}" for="curp" />
+                            <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.EditPersonasTitle_curp}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_nombre}" for="nombre" />
+                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.EditPersonasTitle_nombre}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_apellidop}" for="apellidop" />
+                            <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.EditPersonasTitle_apellidop}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_apellidom}" for="apellidom" />
+                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.EditPersonasTitle_apellidom}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_grado}" for="grado" />
+                            <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.EditPersonasTitle_grado}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_cargo}" for="cargo" />
+                            <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.EditPersonasTitle_cargo}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_correo1}" for="correo1" />
+                            <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.EditPersonasTitle_correo1}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_correo2}" for="correo2" />
+                            <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.EditPersonasTitle_correo2}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_correo3}" for="correo3" />
+                            <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.EditPersonasTitle_correo3}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_telefono}" for="telefono" />
+                            <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.EditPersonasTitle_telefono}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_domicilioOficina}" for="domicilioOficina" />
+                            <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.EditPersonasTitle_domicilioOficina}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_telpersonal}" for="telpersonal" />
+                            <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.EditPersonasTitle_telpersonal}" />
+                            <p:outputLabel value="#{bundle.EditPersonasLabel_dompersonal}" for="dompersonal" />
+                            <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.EditPersonasTitle_dompersonal}" />    
+                                </p:panelGrid>
+                            </p:panel>
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />
+                    </p:tab>
+                    <p:tab id="tabImagen" title="Imagenes">
+                        <p:panel header="Seleccionar las imagenes correspondientes" >
+                            <p:panelGrid columns="2" layout="grid" >                                    
+                                                            
+                                <p:fileUpload label="IDENTIFICACION OFICIAL ANVERSO" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
+                                    <p:graphicImage id="nombreidoficialanv" value="#{gestoresController.getImgMini(personasController.selected.idoficialanv)}" cache="false" height="50" width="250" />                              
+                                </p:fileUpload>
+                        
+                                <p:fileUpload label="IDENTIFICACION OFICIAL REVERSO" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
+                                    <p:graphicImage id="nombreidoficialrev" value="#{gestoresController.getImgMini(personasController.selected.idoficialrev)}" cache="false" height="50" width="250" />                                                             
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CREDENCIAL OFICIAL ANVERSO" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
+                                    <p:graphicImage id="nombrecredoficialanv" value="#{gestoresController.getImgMini(personasController.selected.credoficialanv)}" cache="false" height="50" width="250" />                               
+                                </p:fileUpload>
+
+                                <p:fileUpload label="CREDENCIAL OFICIAL REVERSO" update="nombrecredoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialRev}" auto="true" >
+                                    <p:graphicImage id="nombrecredoficialrev" value="#{gestoresController.getImgMini(personasController.selected.credoficialrev)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA MANO DERECHA" update="nombrehuellamanoder" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoDer}" auto="true" >
+                                    <p:graphicImage id="nombrehuellamanoder" value="#{gestoresController.getImgMini(personasController.selected.huellamanoder)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+
+                                <p:fileUpload label="HUELLA MANO IZQUIERDA" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
+                                    <p:graphicImage id="nombrehuellamanoizq" value="#{gestoresController.getImgMini(personasController.selected.huellamanoizq)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="HUELLA DEL PULGAR" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >                 
+                                    <p:graphicImage id="nombrehuellapulgar" value="#{gestoresController.getImgMini(personasController.selected.huellapulgar)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="CURP" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
+                                    <p:graphicImage id="nombreimgcurp" value="#{gestoresController.getImgMini(personasController.selected.imgcurp)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="FOTO" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
+                                    <p:graphicImage id="nombrefoto" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="NOMBRAMIENTO" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
+                                    <p:graphicImage id="nombrenombramiento" value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" height="50" width="250" /> 
+                                </p:fileUpload>
+                            </p:panelGrid>
+                        </p:panel>                             
+                        <p:commandButton value="#{bundle.Save}"   actionListener="#{personasController.update}" oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" immediate="true" />
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />      
+                    </p:tab>                            
+                </p:wizard> 
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -17,7 +17,7 @@
                         <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.EditDependenciasTitle_siglas}" required="true" requiredMessage="ES REQUERIDO EL CAMPO SIGLAS" />
                         <p:outputLabel value="#{bundle.EditDependenciasLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.EditDependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.EditDependenciasRequiredMessage_nombre}"/>
-                    </p:panelGrid>
+                    </p:panelGrid>        
                     <p:commandButton actionListener="#{dependenciasController.update}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DependenciasEditDialog');"/>
                 </h:panelGroup>
             </h:form>

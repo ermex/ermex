@@ -27,13 +27,13 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
 
-                        <p:column  width="60">
+                        <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGestoresTitle_gestor}"/>
                             </f:facet>
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
-                        <p:column>
+                        <p:column width="5%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListGestoresTitle_status}"/>
                             </f:facet>
@@ -50,13 +50,19 @@
                                 <h:outputText value="Gestor Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
-                        </p:column>                                            
+                        </p:column>  
+                        <p:column width="2%">
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Designador Nombre"/>
                             </f:facet>
                             <h:outputText value="#{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
-                        </p:column>                       
+                        </p:column>
+                        <p:column width="2%">
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GestoresViewForm" oncomplete="PF('GestoresViewDialog').show()" disabled="#{empty gestoresController.selected}"/>
@@ -69,6 +75,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+           
         </ui:define>
     </ui:composition>
 

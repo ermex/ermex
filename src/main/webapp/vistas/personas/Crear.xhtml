@@ -7,7 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
         <p:dialog position="top" height="100%" width="100%" closable="false" id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
             <h:form id="PersonasCreateForm">
                 <p:growl id="growl"  sticky="true" showDetail="true"/>
@@ -114,7 +113,7 @@
                             </p:panelGrid>
                         </p:panel>
                                
-                        <p:commandButton value="#{bundle.Save}" actionListener="#{personasController.create}"       update=":GestoresCreateForm,:growl"             oncomplete="handleSubmit(args,'PersonasCreateDialog');PF('wizCrearPersonas').loadStep('tabInstitucion',true)"/>
+                        <p:commandButton value="#{bundle.Save}" actionListener="#{personasController.create}"       update=":GestoresCreateForm,:growl,:GestoresEditForm,:growl"             oncomplete="handleSubmit(args,'PersonasCreateDialog');PF('wizCrearPersonas').loadStep('tabInstitucion',true)"/>
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />
                         
                     </p:tab>    

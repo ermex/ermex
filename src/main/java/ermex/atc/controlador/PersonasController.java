@@ -31,7 +31,7 @@ public class PersonasController implements Serializable {
     @EJB
     private ermex.atc.sesion.PersonasFacade ejbFacade;
     private List<Personas> items = null;
-    private Personas selected=new Personas();
+    private Personas selected;
     
     // Atributos del Programador
     @EJB
@@ -40,7 +40,9 @@ public class PersonasController implements Serializable {
     private ermex.atc.sesion.InstitucionesFacade ejbFacadeInstitucion;
     private HashMap<String, String> tipo=null;  //Tipos de personas
     private Dependencias selectedDepedencia;    //Dependencia seleccionada
-    private Organismos selectedOrganismo;       //Organismo seleccionado
+    private Organismos selectedOrganismo;
+    private Instituciones selectedInstitucion;
+//Organismo seleccionado
     private UploadedFile imagen;                //Imagen subida    
     private String nombreidoficialanv;          //Guarda el nombre de la imagen seleccionada
     private String nombreidoficialrev;
@@ -263,7 +265,14 @@ public class PersonasController implements Serializable {
     public void setSelectedOrganismo(Organismos selectedOrganismo) {
         this.selectedOrganismo = selectedOrganismo;
     }
-    
+
+    public Instituciones getSelectedInstitucion() {
+        return selectedInstitucion;
+    }
+
+    public void setSelectedInstitucion(Instituciones selectedInstitucion) {
+        this.selectedInstitucion = selectedInstitucion;
+    }
     //*************************** Metodos por default
     
     public Personas getSelected() {
@@ -302,6 +311,12 @@ public class PersonasController implements Serializable {
         selected = new Personas();
         selected.setIdinstitucion(institucion);
         initializeEmbeddableKey();
+    }
+    // Metodo del Programador
+    // Prepara la Persona a crear asignando la institucion enviada
+    public void prepare1(Personas persona) {
+        selected = persona;
+        //initializeEmbeddableKey();
     }
     
     public void create() {

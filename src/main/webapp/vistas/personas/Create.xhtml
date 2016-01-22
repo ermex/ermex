@@ -7,10 +7,10 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <p:dialog position="top" height="100%" width="100%" closable="false" id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
-            <h:form id="PersonasCreateForm">
-                <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras">
-                    
+            <h:form id="PersonasCreateForm" >
+                
+                <p:growl id="growl1"  sticky="true" showDetail="true"/>        
+                <p:wizard id="wizard" widgetVar="wiz" nextLabel="Siguiente" backLabel="Atras" rendered="#{personasController.selected != null}">                   
                     <p:tab id="tabInstitucion" title="Institución">                            
                             <p:panel header="Detalles de la Institución">
                             <p:messages/>
@@ -134,6 +134,7 @@
                                 
                     </p:tab>        
                 </p:wizard> 
+                
             </h:form>
         </p:dialog>
     </ui:composition>

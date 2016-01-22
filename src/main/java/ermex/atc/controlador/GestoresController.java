@@ -40,7 +40,7 @@ public class GestoresController implements Serializable {
     @EJB
     private ermex.atc.sesion.GestoresFacade ejbFacade;
     private List<Gestores> items = null;
-    private Gestores selected=new Gestores();
+    private Gestores selected;
     
     // Atributos del Programador
     @EJB
@@ -58,7 +58,7 @@ public class GestoresController implements Serializable {
     private String nomgestor;
     private String idpersonas;
     private String atributo;
-    
+    private String nombreidoficialanv;
     public GestoresController() {
         status = new HashMap<>();
         status.put("baja", "baja");
@@ -68,6 +68,20 @@ public class GestoresController implements Serializable {
     }
     
     //*************************** Metodos del programador
+    public void subirIdOficialAnv(FileUploadEvent event) {  
+       UploadedFile imagen = event.getFile();
+       this.selected.getDesignador().setIdoficialanv(imagen.getContents()); 
+       this.nombreidoficialanv=event.getFile().getFileName();
+    }
+
+    public String getNombreidoficialanv() {
+        return nombreidoficialanv;
+    }
+
+    public void setNombreidoficialanv(String nombreidoficialanv) {
+        this.nombreidoficialanv = nombreidoficialanv;
+    }
+    
     public void reset()
     {
         //Metodo que resetea todos los valores
