@@ -97,7 +97,8 @@
                                 
                             <p:commandButton id="createButtonSolicitud" icon="ui-icon-plus"   value="Estilo 1" actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" disabled="#{empty solicitudesInternetController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm" oncomplete="PF('SolicitudesInternetEditDialog').show()" disabled="#{empty solicitudesInternetController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm" oncomplete="PF('SolicitudesInternetEditDialog').show()" disabled="#{empty solicitudesInternetController.selected}" 
+                                             action="#{solicitudesInternetController.iniciarValores()}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
                     </p:dataTable>

@@ -23,22 +23,34 @@ import javax.faces.convert.FacesConverter;
 
 @Named("solicitudesInternetController")
 @SessionScoped
-public class SolicitudesInternetController implements Serializable {
+public  class SolicitudesInternetController implements Serializable {
 
     @EJB
     private ermex.atc.sesion.SolicitudesInternetFacade ejbFacade;
     private List<SolicitudesInternet> items = null;
     private SolicitudesInternet selected;
+    private SolicitudesInternet selectedRespaldo;
     private Gestores selectGestores;
     private String  noPeriodo1;
     private String noPeriodo2;
     private String noPeriodo3;
+    private int radioS;
      
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
+        radioS=periodosBase();
+    }
+    public  void iniciarValores()
+    {
+        System.out.println("Iniciando valores");
+        this.noPeriodo1="uno";
+        this.noPeriodo2=null;
+        this.noPeriodo3=null;
+        radioS=periodosBase();
+        selectedRespaldo=selected;
     }
 
     public String getNoPeriodo2() {
@@ -57,12 +69,11 @@ public class SolicitudesInternetController implements Serializable {
         this.noPeriodo3 = noPeriodo3;
     }
     public String getNoPeriodo1() {
-        
         return noPeriodo1;
     }
 
     public void setNoPeriodo1(String periodoS) {
-        int radioSelec=0;
+        int radioSelec;
        if (periodoS.compareTo("dos")==0) {
             noPeriodo2="dos";
             noPeriodo1="uno";
@@ -93,10 +104,31 @@ public class SolicitudesInternetController implements Serializable {
     }
     private void  resetPeriodos(int datos)
     {
-        selected.setPeriodo3I(null);
-        selected.setPeriodo3F(null);
-        selected.setPeriodo2I(null);
-        selected.setPeriodo2F(null);
+        System.out.println("Valor de la variable radioS " + radioS);
+        if (radioS==3 && datos==1 || datos==1 && radioS==2 
+                ) {
+            selected.setPeriodo3I(null);
+            selected.setPeriodo3F(null);
+            selected.setPeriodo2I(null);
+            selected.setPeriodo2F(null);
+        }else
+        {
+            if (radioS==3 && datos==2) {
+                selected.setPeriodo3I(null);
+                selected.setPeriodo3F(null);
+            }
+            else
+            {
+                if (datos==1) {
+                    selected.setPeriodo3I(null);
+                    selected.setPeriodo3F(null);
+                    selected.setPeriodo2I(null);
+                    selected.setPeriodo2F(null);
+                }
+            }
+        }
+        radioS=datos;
+        
     }
 
     public void setSelectGestores(Gestores selectGestores) {
@@ -205,6 +237,34 @@ public class SolicitudesInternetController implements Serializable {
 
     public List<SolicitudesInternet> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    private int periodosBase() {
+        int contadorPeriodo=1;
+            if (selected !=null) 
+            {
+                if (null!=selected.getPeriodo3I()) {
+                    contadorPeriodo=3;
+                    noPeriodo3="tres";
+                    noPeriodo2="dos";
+                }else
+                {
+                    if (null!=selected.getPeriodo2I()) {
+                        contadorPeriodo=2;
+                        noPeriodo2="dos";
+                    }
+                }   
+            }
+            System.out.println("Numero  de perio de la solictud " + contadorPeriodo);
+        return contadorPeriodo;
+    }
+    public void cancelarEdit()
+    {
+        System.out.println("Valor de respaldo "+ selectedRespaldo.getPeriodo2F());
+        System.out.println("valor de respaldo "+selectedRespaldo.getPeriodo2I());
+        System.out.println("valor de select" + selected.getPeriodo2F());
+        System.out.println("valor de select" + selected.getPeriodo2I());
+        selected=selectedRespaldo;
     }
 
     @FacesConverter(forClass = SolicitudesInternet.class)

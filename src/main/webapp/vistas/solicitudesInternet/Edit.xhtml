@@ -192,7 +192,7 @@
                           
                          </p:panelGrid> 
                             <p:commandButton actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SolicitudesInternetEditDialog.hide()"/>
+                            <p:commandButton value="#{bundle.Cancel}"  actionListener="#{solicitudesInternetController.cancelarEdit()}" oncomplete="SolicitudesInternetEditDialog.hide()"/>
                          </p:panel>
                     </p:tab>
                 </p:wizard>
