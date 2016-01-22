@@ -28,6 +28,7 @@ public  class SolicitudesInternetController implements Serializable {
     @EJB
     private ermex.atc.sesion.SolicitudesInternetFacade ejbFacade;
     private List<SolicitudesInternet> items = null;
+    private List<SolicitudesInternet> itemsRespaldo = null;
     private SolicitudesInternet selected;
     private SolicitudesInternet selectedRespaldo;
     private Gestores selectGestores;
@@ -43,14 +44,24 @@ public  class SolicitudesInternetController implements Serializable {
         this.noPeriodo3=null;
         radioS=periodosBase();
     }
+    public SolicitudesInternet getSelectedRespaldo() {
+        return selectedRespaldo;
+    }
+
+    public void setSelectedRespaldo(SolicitudesInternet selectedRespaldo) {
+        this.selectedRespaldo = selectedRespaldo;
+    }
     public  void iniciarValores()
     {
         System.out.println("Iniciando valores");
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
-        radioS=periodosBase();
-        selectedRespaldo=selected;
+        radioS=periodosBase(); 
+        itemsRespaldo=getFacade().findAll();
+        if (selected!=null) {
+        selectedRespaldo=ejbFacade.find(selected.getSolicitud());
+        }
     }
 
     public String getNoPeriodo2() {
@@ -73,27 +84,31 @@ public  class SolicitudesInternetController implements Serializable {
     }
 
     public void setNoPeriodo1(String periodoS) {
-        int radioSelec;
-       if (periodoS.compareTo("dos")==0) {
-            noPeriodo2="dos";
-            noPeriodo1="uno";
-            noPeriodo3=null;
-            radioSelec=2;
-        }else
-        {
-            if (periodoS.compareTo("tres")==0) {
-                noPeriodo3="tres";
-                noPeriodo1="uno";
-                noPeriodo2="dos";
-                radioSelec=3;
-            }else
-            {
-               this.noPeriodo1 = periodoS; 
-                noPeriodo2=null;
-                noPeriodo3=null;
-                radioSelec=1;
-            }
+        int radioSelec=0;
+        if (periodoS!=null) {
+               if (periodoS.compareTo("dos")==0)
+               {
+                   noPeriodo2="dos";
+                   noPeriodo1="uno";
+                   noPeriodo3=null;
+                   radioSelec=2;
+               }else
+               {
+                   if (periodoS.compareTo("tres")==0) {
+                       noPeriodo3="tres";
+                       noPeriodo1="uno";
+                       noPeriodo2="dos";
+                       radioSelec=3;
+                   }else
+                   {
+                      this.noPeriodo1 = periodoS; 
+                       noPeriodo2=null;
+                       noPeriodo3=null;
+                       radioSelec=1;
+                   }
+               }
         }
+      
         resetPeriodos(radioSelec);
              
       
@@ -172,6 +187,7 @@ public  class SolicitudesInternetController implements Serializable {
              mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Actualizada","Se ha modifica la solicitud" + selected.getSolicitud());
         }else
         {
+            items=itemsRespaldo;
              mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Solicitud no Actualizada","La solicitud no se puede actualizar" + selected.getSolicitud());
         }
         
@@ -260,11 +276,11 @@ public  class SolicitudesInternetController implements Serializable {
     }
     public void cancelarEdit()
     {
-        System.out.println("Valor de respaldo "+ selectedRespaldo.getPeriodo2F());
-        System.out.println("valor de respaldo "+selectedRespaldo.getPeriodo2I());
-        System.out.println("valor de select" + selected.getPeriodo2F());
-        System.out.println("valor de select" + selected.getPeriodo2I());
-        selected=selectedRespaldo;
+        selected = selectedRespaldo;
+        items=null;
+        items=itemsRespaldo;
+        selectedRespaldo=null;
+        
     }
 
     @FacesConverter(forClass = SolicitudesInternet.class)

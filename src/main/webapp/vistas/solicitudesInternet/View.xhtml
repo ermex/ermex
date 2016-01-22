@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetViewDlg" widgetVar="SolicitudesInternetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetViewDlg" width="80%" height="50%" widgetVar="SolicitudesInternetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetViewForm">
                 <h:panelGroup id="display">
                    
@@ -46,7 +46,7 @@
                                     <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_status}"/>
                                     <h:outputText value="#{solicitudesInternetController.selected.status}" title="#{bundle.ViewSolicitudesInternetTitle_status}"/>
                                     <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_justificacion}"/>
-                                    <h:outputText value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.ViewSolicitudesInternetTitle_justificacion}"/>
+                                    <h:inputTextarea value="#{solicitudesInternetController.selected.justificacion}" rows="5" cols="50" readonly="true" title="#{bundle.ViewSolicitudesInternetTitle_justificacion}"/>
 
                                 </p:panelGrid>
                                 <p:panelGrid columns="4" class="panelGridNoBorder">
