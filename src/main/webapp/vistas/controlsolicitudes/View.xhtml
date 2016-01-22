@@ -8,42 +8,52 @@
 
     <ui:composition>
 
-        <p:dialog id="ControlsolicitudesViewDlg" widgetVar="ControlsolicitudesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewControlsolicitudesTitle}">
+        <p:dialog id="ControlsolicitudesViewDlg" width="70%" height="50%" widgetVar="ControlsolicitudesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewControlsolicitudesTitle}">
             <h:form id="ControlsolicitudesViewForm">
                 <h:panelGroup id="display">
+                    
+                    <p:panelGrid columns="2" class="panelGridNoBorder" columnClasses="grid,grid" layout="grid">
                     <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_idcontrolsolicitud}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.idcontrolsolicitud}" title="#{bundle.ViewControlsolicitudesTitle_idcontrolsolicitud}"/>
+                        <f:facet name="header">
+                            <h:outputLabel value="Solicitud"/>
+                        </f:facet>
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_solicitud}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.solicitud}" title="#{bundle.ViewControlsolicitudesTitle_solicitud}"/>
                         <h:outputText value="#{bundle.ViewControlsolicitudesLabel_gestor}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.gestor}" title="#{bundle.ViewControlsolicitudesTitle_gestor}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.gestor}" title="#{bundle.ViewControlsolicitudesTitle_gestor}"/>                        
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_tema}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.tema}" title="#{bundle.ViewControlsolicitudesTitle_tema}"/>                                             
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_idpersonalatencion}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.idpersonalatencion}" title="#{bundle.ViewControlsolicitudesTitle_idpersonalatencion}"/>
                         <h:outputText value="#{bundle.ViewControlsolicitudesLabel_fechaasignacion}"/>
                         <h:outputText value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.ViewControlsolicitudesTitle_fechaasignacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_tema}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.tema}" title="#{bundle.ViewControlsolicitudesTitle_tema}"/>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_observaciones}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.ViewControlsolicitudesTitle_observaciones}"/>
+                         <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>                        
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_proyecto}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.proyecto}" title="#{bundle.ViewControlsolicitudesTitle_proyecto}"/>
+                    </p:panelGrid>
+                      <p:panelGrid columns="2" class="panelGridNoBorder">
+                          <f:facet name="header">
+                              <p:outputLabel value="Estado de la solictud"/>
+                          </f:facet>
                         <h:outputText value="#{bundle.ViewControlsolicitudesLabel_status}"/>
                         <h:outputText value="#{controlsolicitudesController.selected.status}" title="#{bundle.ViewControlsolicitudesTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_totalimagenes}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.totalimagenes}" title="#{bundle.ViewControlsolicitudesTitle_totalimagenes}"/>
                         <h:outputText value="#{bundle.ViewControlsolicitudesLabel_fechatermino}"/>
                         <h:outputText value="#{controlsolicitudesController.selected.fechatermino}" title="#{bundle.ViewControlsolicitudesTitle_fechatermino}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewControlsolicitudesLabel_fechacancelacion}"/>
                         <h:outputText value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.ViewControlsolicitudesTitle_fechacancelacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_totalimagenes}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.totalimagenes}" title="#{bundle.ViewControlsolicitudesTitle_totalimagenes}"/>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_solicitud}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.solicitud}" title="#{bundle.ViewControlsolicitudesTitle_solicitud}"/>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_idpersonalatencion}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.idpersonalatencion}" title="#{bundle.ViewControlsolicitudesTitle_idpersonalatencion}"/>
-                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_proyecto}"/>
-                        <h:outputText value="#{controlsolicitudesController.selected.proyecto}" title="#{bundle.ViewControlsolicitudesTitle_proyecto}"/>
-                    </p:panelGrid>
+                        <h:outputText value="#{bundle.ViewControlsolicitudesLabel_observaciones}"/>
+                        <h:outputText value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.ViewControlsolicitudesTitle_observaciones}"/>
+                      </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="ControlsolicitudesViewDialog.hide()"/>
+                    </p:panelGrid>
+                        
                 </h:panelGroup>
             </h:form>
         </p:dialog>

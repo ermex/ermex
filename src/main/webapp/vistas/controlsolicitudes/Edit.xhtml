@@ -8,17 +8,59 @@
 
     <ui:composition>
 
-        <p:dialog id="ControlsolicitudesEditDlg" widgetVar="ControlsolicitudesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditControlsolicitudesTitle}">
+        <p:dialog id="ControlsolicitudesEditDlg" width="70%" height="50%" widgetVar="ControlsolicitudesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditControlsolicitudesTitle}">
             <h:form id="ControlsolicitudesEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
-                        <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" readonly="true" title="#{bundle.EditControlsolicitudesTitle_idcontrolsolicitud}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
-
+                    <p:growl id="growlEditControlSo"  sticky="true" showDetail="true"/>
+                    <p:wizard id="wizarEdiControlSoli" widgetVar="WEDC">
+                        <p:tab title="">
+                            <p:panel>
+                                <p:message/>
+                                <p:panelGrid columns="2" class="panelGridNoBorder" layout="grid">
+                                    <p:panelGrid columns="2" columnClasses="label,value" class="panelGridNoBorder">
+                                        <f:facet name="header">
+                                            <h:outputText value="Solicitud"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
+                                        <p:inputText id="idcontrolsolicitud" value="#{controlsolicitudesController.selected.idcontrolsolicitud}" readonly="true" 
+                                                     title="#{bundle.EditControlsolicitudesTitle_idcontrolsolicitud}" required="true" 
+                                                     requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_idcontrolsolicitud}"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_solicitud}" for="solicitud" />
+                                        <h:outputText id="solictud" value="#{controlsolicitudesController.selected.solicitud}"/>
+                                        
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_tema}" for="tema" />
+                                        <p:inputText id="tema" value="#{controlsolicitudesController.selected.tema}" title="#{bundle.EditControlsolicitudesTitle_tema}" />
+                                        
+                                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
+                                        <h:outputText id="gestor" value="#{controlsolicitudesController.selected.gestor}"/>                                        
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion" />
+                                        <p:selectOneMenu id="idpersonalatencion" value="#{controlsolicitudesController.selected.idpersonalatencion}" >
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
+                                                           var="idpersonalatencionItem"
+                                                           itemValue="#{idpersonalatencionItem}"/>
+                                        </p:selectOneMenu>                                        
+                                    </p:panelGrid>
+                                    
+                                    <p:panelGrid columnClasses="label, value">
+                                        <f:facet name="header">
+                                            <h:outputText value="Estado de la solicitud"/>
+                                        </f:facet>
+                                        
+                                    </p:panelGrid>                                        
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab>
+                            <p:panel>
+                                <p:message/>
+                                
+                            </p:panel>
+                        </p:tab>                        
+                        
+                        <p:panelGrid columns="2" rendered="#{controlsolicitudesController.selected != null}">
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechaasignacion}" for="fechaasignacion" />
                         <p:calendar id="fechaasignacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.EditControlsolicitudesTitle_fechaasignacion}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_tema}" for="tema" />
-                        <p:inputText id="tema" value="#{controlsolicitudesController.selected.tema}" title="#{bundle.EditControlsolicitudesTitle_tema}" />
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_observaciones}" for="observaciones" />
                         <p:inputText id="observaciones" value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.EditControlsolicitudesTitle_observaciones}" />
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_status}" for="status" />
@@ -29,20 +71,7 @@
                         <p:calendar id="fechacancelacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.EditControlsolicitudesTitle_fechacancelacion}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_totalimagenes}" for="totalimagenes"/>
                         <p:inputText id="totalimagenes" value="#{controlsolicitudesController.selected.totalimagenes}"  readonly="true" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_totalimagenes}"/>
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_solicitud}" for="solicitud" />
-                        <p:selectOneMenu id="solicitud" value="#{controlsolicitudesController.selected.solicitud}" disabled="true" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{solicitudesInternetController.itemsAvailableSelectOne}"
-                                           var="solicitudItem"
-                                           itemValue="#{solicitudItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion" />
-                        <p:selectOneMenu id="idpersonalatencion" value="#{controlsolicitudesController.selected.idpersonalatencion}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
-                                           var="idpersonalatencionItem"
-                                           itemValue="#{idpersonalatencionItem}"/>
-                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_proyecto}" for="proyecto" />
                         <p:selectOneMenu id="proyecto" value="#{controlsolicitudesController.selected.proyecto}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
@@ -51,16 +80,11 @@
                                            itemValue="#{proyectoItem}"
                                            itemLabel="#{proyectoItem.getNombre()}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" for="gestor" />
-                        <p:selectOneMenu id="gestor" value="#{controlsolicitudesController.selected.gestor}"  disabled="true">
-                            <f:selectItems value="#{gestoresController.itemsAvailableSelectOne}"
-                                           var="gestorItem"
-                                           itemValue="#{gestorItem}"                                          
-                                           />
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{controlsolicitudesController.update}" value="#{bundle.Save}" update="display,:ControlsolicitudesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ControlsolicitudesEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="ControlsolicitudesEditDialog.hide()"/>
+                    </p:wizard>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

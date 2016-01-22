@@ -11,7 +11,7 @@
         <p:dialog id="SolicitudesInternetEditDlg" width="80%" height="50%" closable="false" widgetVar="SolicitudesInternetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetEditForm">
                 <h:panelGroup id="display" >
-                    <p:growl id="growl1"  sticky="true" showDetail="true"/>
+                    <p:growl id="growlEditSolici"  sticky="true" showDetail="true"/>
                  <p:wizard id="wizardEditSoli" widgetVar="wiz" >
                         <p:tab id="editarsolictud" title="Solicitud">
                             <p:panel header="Detalles de solicitud" toggleOrientation="center">   
@@ -127,7 +127,7 @@
                         </p:tab>
                      
                      <p:tab title="Confirmar">
-                         <p:panel header="Detalles de periodos">
+                         <p:panel header="Informacion de la solicitud actualizada">
                              <p:panelGrid columns="2"  class="panelGridNoBorder" layout="grid">
                                 <p:panelGrid columns="2" class="panelGridNoBorder" rendered="#{solicitudesInternetController.selected != null}">
                                     <f:facet name="header">
