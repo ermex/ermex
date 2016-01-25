@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">  
+    <h:body>
+        <h:form >
+          <p:growl autoUpdate="true"/>
+            <p:panelMenu>
+                    <p:submenu label="Dependencias" icon="ui-icon-check">
+                         <p:menuitem value="Ver Dependecnias" outcome="/vistas/dependencias/List.xhtml" />     
+                   </p:submenu>
+                    <p:submenu label="Organismos" icon="ui-icon-check">
+                          <p:menuitem value="Ver Organismos" outcome="/vistas/organismos/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Instituciones" icon="ui-icon-check">
+                          <p:menuitem value="Ver Instituciones" outcome="/vistas/instituciones/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Personas" icon="ui-icon-check">
+                          <p:menuitem value="Ver Personas" outcome="/vistas/personas/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Gestores" icon="ui-icon-check">
+                        <p:menuitem value="Ver a Gestores" outcome="/vistas/gestores/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Solicitudes" icon="ui-icon-check">
+                        <p:menuitem value="Ver Solicitudes" outcome="/vistas/solicitudesInternet/List.xhtml" />
+                        <p:menuitem value="Control Solicitudes" outcome="/vistas/controlsolicitudes/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Usuarios" icon="ui-icon-check">
+                        <p:menuitem value="Usuarios" outcome="/vistas/personalatencionusuarios/List.xhtml" />
+                   </p:submenu>
+                    <p:submenu label="Notas" icon="ui-icon-check">
+                        <p:menuitem value="Notas" outcome="/vistas/notas/List.xhtml" />
+                        <p:menuitem value="Documentos notas" outcome="/vistas/documentosnotas/List.xhtml" />
+                   </p:submenu>                    
+                </p:panelMenu>
+        </h:form>
+    </h:body>
+</html>
+
