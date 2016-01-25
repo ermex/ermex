@@ -7,8 +7,6 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListGestoresTitle}"></h:outputText>
         </ui:define>
@@ -16,53 +14,44 @@
         <ui:define name="body">
             <h:form id="GestoresListForm">
                 <p:panel header="#{bundle.ListGestoresTitle}">
-                    <p:dataTable id="datalist" value="#{gestoresController.itemsActivos}" var="item"
+                    
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{gestoresController.items}" var="item"
                                  selectionMode="single" selection="#{gestoresController.selected}"
                                  paginator="true"
                                  rowKey="#{item.gestor}"
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 rowsPerPageTemplate="10,20,30,40,50"                               
+                                 resizableColumns="true"                                                                  
                                  >
-
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
-
-                        <p:column width="5%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_gestor}"/>
-                            </f:facet>
+                        <f:facet name="header">
+                            <p:commandButton update="datalist" value="Update"  icon="ui-icon-refresh" oncomplete="PF('datalist').clearFilters()"/>
+                        </f:facet>
+                        <p:column headerText="#{bundle.ListGestoresTitle_gestor}" width="07%" filterBy="#{item.gestor}" filterMatchMode="contains">       
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
-                        <p:column width="5%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListGestoresTitle_status}"/>
+                        <p:column headerText="#{bundle.ListGestoresTitle_status}" width="9%" filterBy="#{item.status}" filterMatchMode="contains" >                                
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('datalist').filter()">
+                                    <f:selectItem itemLabel="T"  itemValue="" />
+                                    <f:selectItem itemLabel="A" itemValue="activo"  />
+                                    <f:selectItem itemLabel="B" itemValue="baja" />    
+                                </p:selectOneButton>                             
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column> 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Institucion"/>
-                            </f:facet>
+                        <p:column headerText="Institucion" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains">
                             <h:outputText value="#{item.idpersona.idinstitucion.nombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Gestor Nombre"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
-                        </p:column>  
-                        <p:column width="2%">
+                        <p:column headerText="Gestor Nombre">
                             <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Designador Nombre"/>
-                            </f:facet>
-                            <h:outputText value="#{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
-                        </p:column>
-                        <p:column width="2%">
+                            <h:outputText value=" #{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
+                        </p:column>                        
+                        <p:column headerText="Designador Nombre">
                             <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
-                        </p:column>
+                            <h:outputText value=" #{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
+                        </p:column>            
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":GestoresViewForm" oncomplete="PF('GestoresViewDialog').show()" disabled="#{empty gestoresController.selected}"/>

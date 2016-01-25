@@ -8,12 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
+        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" maximizable="true" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
             <h:form id="GestoresViewForm">
                 <h:panelGroup id="display">
                     <p:tabView id="ViewTab" onTabClose="ViewGestor">
                         <p:tab id="ViewGestor" title="Gestor">
-                            <p:panelGrid columns="2"  columnClasses="label, value"   >
+                            <p:panelGrid columns="2" layout="grid">
+                            <p:panelGrid columns="2"  columnClasses="label, value">
                             <f:facet name="header"> <h:outputText value="GESTOR" /> </f:facet>
                             <h:outputText value="#{bundle.ViewGestoresLabel_gestor}"/>
                             <h:outputText value="#{gestoresController.selected.gestor}" title="#{bundle.ViewGestoresTitle_gestor}"/>
@@ -42,14 +43,14 @@
                             <h:outputText value="#{bundle.ViewGestoresLabel_status}"/>
                             <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.ViewGestoresTitle_status}"/>  
                             </p:panelGrid>
-                        </p:tab>
-                        <p:tab title="Nombramiento" id="ViewNombramiento">
                             <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                 <f:param  name="nomgestor" value="#{gestoresController.selected.gestor}" />
                                     <f:param  name="atributo" value="nomgestor" />
-                                    <p:graphicImage title="Identificacion Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="70" width="150" />
-                            </p:link> 
+                                    <p:graphicImage title="Designacion"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="220" width="350" />
+                            </p:link>
+                            </p:panelGrid>
                         </p:tab>
+                        
                         <p:tab id="ViewInstitucion" title="Institucion">
                             <p:panelGrid columns="2"  columnClasses="label, value"   >
                             <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
@@ -186,7 +187,7 @@
                             </p:panelGrid>
                         </p:tab>
                         <p:tab id="ViewImgDesignador" title="Imágenes Designador" >
-                            <p:panelGrid columns="2" layout="grid" >
+                            <p:panelGrid columns="4" layout="grid" >
                                 <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                     <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
                                     <f:param  name="atributo" value="idoficialanv" />
