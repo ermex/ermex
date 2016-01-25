@@ -5,78 +5,62 @@
  */
 package ermex.atc.controlador;
 
-import ermex.atc.entidad.Instituciones;
-import ermex.atc.entidad.Organismos;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-
 /**
  *
  * @author ermex
  */
+
 @Named(value = "prueba")
 @SessionScoped
-public class prueba implements Serializable {
-    private Long  dependencia;
-    private Long  organismo;
-    private Long institucion;
-    private Instituciones i;
+public class prueba implements Serializable 
+{   
     @EJB
-    private ermex.atc.sesion.OrganismosFacade ejbFacadeOrganismo;
-    @EJB
-    private ermex.atc.sesion.InstitucionesFacade ejbFacadeInstitucion;
-    
-    /**
-     * Creates a new instance of prueba
-     */
-    
-    public List<Organismos> getOrganismosXDependencia() {     
-        return ejbFacadeOrganismo.findorganismosdependencia(dependencia); 
-    }
-    
-    public List<Instituciones> getInstitucionXOrganismo() {
-        return ejbFacadeInstitucion.findOrganismos(organismo); 
-    }
-    
-    public prueba() {
-//        dependencia = Long.parseLong("1");
-////        organismo = Long.parseLong("1");
-//        institucion = Long.parseLong("1");
+    private ermex.atc.sesion.GestoresFacade ejbFacade;
+    private List<Object> reporteMensualProcesadas;
+    public prueba(){
     }
 
-    public Long getDependencia() {
-        return dependencia;
+    public List<Object> getReporteMensualProcesadas() {
+        return reporteMensualProcesadas=ejbFacade.reporteMensualProcesadas();
     }
 
-    public void setDependencia(Long dependencia) {
-        this.dependencia = dependencia;
+    public void setReporteMensualProcesadas(List<Object> reporteMensualProcesadas) {
+        this.reporteMensualProcesadas = reporteMensualProcesadas;
     }
-
-    public Long getOrganismo() {
-        return organismo;
-    }
-
-    public void setOrganismo(Long organismo) {
-        this.organismo = organismo;
-    }
-
-    public Long getInstitucion() {
-        return institucion;
-    }
-
-    public void setInstitucion(Long institucion) {
-        this.institucion = institucion;
-    }
-
-    public Instituciones getI() {
-        return i;
-    }
-
-    public void setI(Instituciones i) {
-        this.i = i;
-    }
-    
+    public long getProcesadasTotalMensual() {
+        long total=0;
+        reporteMensualProcesadas=ejbFacade.reporteMensualProcesadas();
+        for (Object obj:reporteMensualProcesadas) 
+        {
+            Object[]aa =(Object[])obj;
+            if(aa[1]!=null){
+            total=total+(long)aa[1];}
+        }
+        return total;
+      }
+    public long getProcesadasTotalAnual() {
+        long total=0;
+        for (Object obj:reporteMensualProcesadas) 
+        {
+            Object[]aa =(Object[])obj;
+            if(aa[1]!=null){
+            total=total+(long)aa[2];}
+        }
+        return total;
+      }
+    public long getProcesadasTotalAcumulado() {
+        long total=0;
+        for (Object obj:reporteMensualProcesadas) 
+        {
+            Object[]aa =(Object[])obj;
+            if(aa[1]!=null){
+            total=total+(long)aa[3];}
+        }
+        return total;
+      }    
 }

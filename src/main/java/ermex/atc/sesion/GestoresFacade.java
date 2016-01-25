@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -53,4 +54,33 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
         return query.getSingleResult();
     }
   
+    public List<Object> reporteMensualProcesadas()
+    {
+    //Regresa el gestor que tiene id "parametro->gestor"  
+        Query query=em.createNativeQuery("select tac.satelite,tf.mes,tf.anio,tac.acom acomulado\n" +
+"			from\n" +
+"			(\n" +
+"				select ta.satelite,tm.mes,ta.anio\n" +
+"				from\n" +
+"				(\n" +
+"					select satelite, count (*) mes from escenas_procesadas \n" +
+"					where to_char(fechap,'yyyy-mm-dd') between '2015-11-01' and '2015-11-29'\n" +
+"					group by satelite\n" +
+"				)tm\n" +
+"				full outer JOIN\n" +
+"				(\n" +
+"					select satelite, count (*) anio from escenas_procesadas \n" +
+"					where to_char(fechap,'yyyy-mm-dd') between '2015-01-01' and '2015-11-29'\n" +
+"					group by satelite\n" +
+"				)ta on tm.satelite=ta.satelite\n" +
+"			)tf\n" +
+"			full outer JOIN\n" +
+"			(\n" +
+"				select satelite, count (*) acom from escenas_procesadas \n" +
+"				where  to_char(fechap,'yyyy-mm-dd') between '2003-01-01' and '2015-11-29'\n" +
+"				group by satelite\n" +
+"			)tac on tf.satelite=tac.satelite order by tac.satelite DESC");
+        
+    return (List<Object>) query.getResultList();       
+    }
 }

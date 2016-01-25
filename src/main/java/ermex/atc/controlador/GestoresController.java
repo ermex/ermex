@@ -64,9 +64,9 @@ public class GestoresController implements Serializable {
         status.put("baja", "baja");
         status.put("pendiente", "pendiente");
         status.put("ratificacion", "ratificacion"); 
-        status.put("activo", "activo");
+        status.put("activo", "activo"); 
     }
-    
+
     //*************************** Metodos del programador
     public void subirIdOficialAnv(FileUploadEvent event) {  
        UploadedFile imagen = event.getFile();

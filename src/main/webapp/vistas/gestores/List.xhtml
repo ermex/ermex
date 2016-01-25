@@ -35,10 +35,10 @@
                             <p:columnToggler datasource="datalist" trigger="toggler" />
                             <p:commandButton update="datalist" value="Update" style="float:right" icon="ui-icon-refresh" oncomplete="PF('datalist').clearFilters()"/>
                         </f:facet>
-                        <p:column headerText="#{bundle.ListGestoresTitle_gestor}" width="07%" filterBy="#{item.gestor}" filterMatchMode="contains">       
+                        <p:column headerText="#{bundle.ListGestoresTitle_gestor}" filterBy="#{item.gestor}" filterMatchMode="contains">       
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
-                        <p:column headerText="#{bundle.ListGestoresTitle_status}" width="9%" filterBy="#{item.status}" filterMatchMode="contains" >                                
+                        <p:column headerText="#{bundle.ListGestoresTitle_status}" filterBy="#{item.status}" filterMatchMode="contains" >                                
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('datalist').filter()">
                                     <f:selectItem itemLabel="T"  itemValue="" />

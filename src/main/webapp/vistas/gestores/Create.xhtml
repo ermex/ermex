@@ -15,12 +15,16 @@
                             <p:panel header="Detalles del Gestor">
                                 <p:messages />
                                 <p:panelGrid columns="2" >       
-                                    <p:outputLabel value="Gestor: " for="gestor" />
-                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="Usuario del Gestor" required="true" requiredMessage="Es requerido el Gestor"/>
+                                    <p:outputLabel value="Gestor: " for="gestor" />                                   
+                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="Usuario del Gestor" required="true" requiredMessage="Es requerido el Gestor" validatorMessage="El gestor debe ser ermex**** *->digitos">
+                                        <f:validateRegex pattern="((?=ermex).{9,9})"  />
+                                    </p:inputText>
                                     <p:outputLabel value="Oficio: " for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="Oficio externo" />
                                     <p:outputLabel value="Contraseña FTP: " for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="Contraseña para el ftp" />
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="Contraseña para el ftp" validatorMessage="La contraseña debe ser de 9 digitos 0-9 A-Z a-z">
+                                        <f:validateRegex pattern="((?=.*[a-z])(?=.*[A-Z]).{9,9})"  />
+                                    </p:inputText>
                                     <p:outputLabel value="Contraseña WMS: " for="pwdwms" />
                                     <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="Contraseña para el wms:" />
                                     <p:outputLabel value="Estado : " for="status" />
