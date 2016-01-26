@@ -86,7 +86,12 @@ public class NomProyectosController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if (persistAction==PersistAction.CREATE) {
+                        getFacade().create(selected);
+                    }else
+                    {
+                        getFacade().edit(selected);   
+                    }
                 } else {
                     getFacade().remove(selected);
                 }

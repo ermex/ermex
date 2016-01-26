@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "nom_proyectos", catalog = "gestor", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "NomProyectos.findAll", query = "SELECT n FROM NomProyectos n"),
+    @NamedQuery(name = "NomProyectos.findAll", query = "SELECT n FROM NomProyectos n ORDER BY n.nombre"),
     @NamedQuery(name = "NomProyectos.findByNumero", query = "SELECT n FROM NomProyectos n WHERE n.numero = :numero"),
     @NamedQuery(name = "NomProyectos.findByNombre", query = "SELECT n FROM NomProyectos n WHERE n.nombre = :nombre"),
     @NamedQuery(name = "NomProyectos.findByFechaInicial", query = "SELECT n FROM NomProyectos n WHERE n.fechaInicial = :fechaInicial"),

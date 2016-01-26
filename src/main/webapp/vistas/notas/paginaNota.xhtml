@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <ui:composition>
+        <p:dialog id="dialogPaginaNota" widgetVar="PaginaNotaFormDialog" height="100%" width="100%" modal="true" resizable="false" appendTo="@(body)">
+            <h:form id="paginaNotaForm">
+                <p:panel header="Imagenes Entregadas">
+                    <p:dataTable id="datalist" value="#{notasController.itemsObject}" var="emIngE"
+                                 paginator="true"                                 
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                            >
+                        <p:column headerText="Satelite">
+                            <h:outputText value="#{emIngE[0]}"/>
+                       </p:column>
+                        <p:column headerText="KJ">
+                           <h:outputText value="#{emIngE[1]}"/>
+                       </p:column>
+                        <p:column headerText="Fecha">                           
+                           <h:outputText value="#{emIngE[2]}"/>
+                       </p:column>
+                        <p:column headerText="Nivel-Procedencia">
+                           <h:outputText value="#{emIngE[3]}"/>
+                       </p:column>                        
+                        <p:column headerText="Copia" >
+                           <h:outputText value="#{emIngE[4]}"/>
+                       </p:column>
+                </p:dataTable>
+               </p:panel>
+            </h:form>  
+        </p:dialog>
+        
+    </ui:composition>
+</html>
+

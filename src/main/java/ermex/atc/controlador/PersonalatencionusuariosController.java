@@ -86,7 +86,12 @@ public class PersonalatencionusuariosController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    if (persistAction==PersistAction.CREATE) {
+                        getFacade().create(selected);
+                    }else
+                    {
                     getFacade().edit(selected);
+                    }
                 } else {
                     getFacade().remove(selected);
                 }

@@ -219,8 +219,13 @@ public  class SolicitudesInternetController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     selected.setGestor(selectGestores.getGestor());
+                    if (persistAction==PersistAction.CREATE) {
+                        getFacade().create(selected);
+                    }else
+                    {
                     selectGestores=null;
                     getFacade().edit(selected);
+                    }
                 } else {
                     getFacade().remove(selected);
                 }

@@ -86,7 +86,12 @@ public class ControlsolicitudesController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    getFacade().edit(selected);
+                    if (persistAction!=PersistAction.UPDATE) {
+                        getFacade().create(selected);
+                    }else
+                    {
+                     getFacade().edit(selected);   
+                    }
                 } else {
                     getFacade().remove(selected);
                 }

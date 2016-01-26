@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="viewButton verNota editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton verNota"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -124,9 +124,9 @@
                             <h:outputText value="#{item.idcontrolsolicitud}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{notasController.prepareCreate}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotasViewForm" oncomplete="PF('NotasViewDialog').show()" disabled="#{empty notasController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotasEditForm" oncomplete="PF('NotasEditDialog').show()" disabled="#{empty notasController.selected}"/>
+                            <p:commandButton id="verNota"   icon="ui-icon-pencil" value="No. imagen" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" disabled="#{empty notasController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notasController.destroy}" update=":growl,datalist" disabled="#{empty notasController.selected}"/>
                         </f:facet>
                     </p:dataTable>
@@ -136,6 +136,7 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="paginaNota.xhtml"/>
         </ui:define>
     </ui:composition>
 

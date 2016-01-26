@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotasCreateDlg" widgetVar="NotasCreateDialog" width="80%" height="80%"  modal="true" resizable="true" appendTo="@(body)" header="#{bundle.CreateNotasTitle}">
+            <h:form id="NotasCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notasController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_idnota}" for="idnota" />
+                        <p:inputText id="idnota" value="#{notasController.selected.idnota}" title="#{bundle.CreateNotasTitle_idnota}" required="true" requiredMessage="#{bundle.CreateNotasRequiredMessage_idnota}"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_nonota}" for="nonota" />
+                        <p:inputText id="nonota" value="#{notasController.selected.nonota}" title="#{bundle.CreateNotasTitle_nonota}" required="true" requiredMessage="#{bundle.CreateNotasRequiredMessage_nonota}"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{notasController.selected.nombre}" title="#{bundle.CreateNotasTitle_nombre}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_noimagen}" for="noimagen" />
+                        <p:inputText id="noimagen" value="#{notasController.selected.noimagen}" title="#{bundle.CreateNotasTitle_noimagen}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_nooficio}" for="nooficio" />
+                        <p:inputText id="nooficio" value="#{notasController.selected.nooficio}" title="#{bundle.CreateNotasTitle_nooficio}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_fechacreacion}" for="fechacreacion" />
+                        <p:calendar id="fechacreacion" pattern="MM/dd/yyyy" value="#{notasController.selected.fechacreacion}" title="#{bundle.EditNotasTitle_fechacreacion}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_observaciones}" for="observaciones" />
+                        <p:inputText id="observaciones" value="#{notasController.selected.observaciones}" title="#{bundle.CreateNotasTitle_observaciones}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{notasController.selected.status}" title="#{bundle.CreateNotasTitle_status}" required="true" requiredMessage="#{bundle.CreateNotasRequiredMessage_status}"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_fechaoficio}" for="fechaoficio" />
+                        <p:calendar id="fechaoficio" pattern="MM/dd/yyyy" value="#{notasController.selected.fechaoficio}" title="#{bundle.EditNotasTitle_fechaoficio}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_fechaacuse}" for="fechaacuse" />
+                        <p:calendar id="fechaacuse" pattern="MM/dd/yyyy" value="#{notasController.selected.fechaacuse}" title="#{bundle.EditNotasTitle_fechaacuse}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_reposiciones}" for="reposiciones" />
+                        <p:inputText id="reposiciones" value="#{notasController.selected.reposiciones}" title="#{bundle.CreateNotasTitle_reposiciones}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_dispotivioentrega}" for="dispotivioentrega" />
+                        <p:inputText id="dispotivioentrega" value="#{notasController.selected.dispotivioentrega}" title="#{bundle.CreateNotasTitle_dispotivioentrega}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_idorganismo}" for="idorganismo" />
+                        <p:inputText id="idorganismo" value="#{notasController.selected.idorganismo}" title="#{bundle.CreateNotasTitle_idorganismo}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_pwdnota}" for="pwdnota" />
+                        <p:inputText id="pwdnota" value="#{notasController.selected.pwdnota}" title="#{bundle.CreateNotasTitle_pwdnota}" />
+                        <p:outputLabel value="#{bundle.CreateNotasLabel_idcontrolsolicitud}" for="idcontrolsolicitud" />
+                        <p:selectOneMenu id="idcontrolsolicitud" value="#{notasController.selected.idcontrolsolicitud}" >
+                            <f:selectItems value="#{controlsolicitudesController.itemsAvailableSelectOne}"
+                                           var="idcontrolsolicitudItem"
+                                           itemValue="#{idcontrolsolicitudItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notasController.create}" value="#{bundle.Save}" update="ControlsolicitudesEditForm" oncomplete="handleSubmit(args,'NotasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotasCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -7,8 +7,10 @@ package ermex.atc.entidad;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -103,6 +105,7 @@ public class Notas implements Serializable {
     private List<Documentosnotas> documentosnotasList;
 
     public Notas() {
+         this.fechacreacion=Calendar.getInstance(Locale.getDefault()).getTime();
     }
 
     public Notas(String idnota) {

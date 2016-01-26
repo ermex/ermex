@@ -3,6 +3,8 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Controlsolicitudes;
+import ermex.atc.entidad.imgEntreNo;
 import ermex.atc.sesion.NotasFacade;
 
 import java.io.Serializable;
@@ -26,6 +28,9 @@ public class NotasController implements Serializable {
     @EJB
     private ermex.atc.sesion.NotasFacade ejbFacade;
     private List<Notas> items = null;
+    //Declaracion de variables para llenar la tabla de imagenes entregradas en paginaNota.xhtml
+    private List<Object> itemsObject=null;
+    private List<Object> itemsObjectFilas=null;
     private Notas selected;
 
     public NotasController() {
@@ -39,6 +44,13 @@ public class NotasController implements Serializable {
         this.selected = selected;
     }
 
+    public List<Object> getItemsObject() {
+        if (selected!=null) {
+        itemsObject=getFacade().consultarImagen(selected.getIdnota());    
+        }
+        
+        return itemsObject;
+    }
     protected void setEmbeddableKeys() {
     }
 
@@ -53,6 +65,13 @@ public class NotasController implements Serializable {
         selected = new Notas();
         initializeEmbeddableKey();
         return selected;
+    }
+    public Notas crearNotaCS(Controlsolicitudes idCs)
+    {
+        selected=prepareCreate();
+        selected.setIdcontrolsolicitud(idCs);
+        return selected;
+        
     }
 
     public void create() {
@@ -86,7 +105,12 @@ public class NotasController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    if (persistAction==PersistAction.CREATE) {
+                        getFacade().create(selected);
+                    }else
+                    {                    
                     getFacade().edit(selected);
+                    }
                 } else {
                     getFacade().remove(selected);
                 }
