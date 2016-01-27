@@ -9,12 +9,47 @@
         <title>Facelet Title</title>
     </h:head>
     <ui:composition>
-        <p:dialog id="dialogPaginaNota" widgetVar="PaginaNotaFormDialog" height="100%" width="100%" modal="true" resizable="false" appendTo="@(body)">
-            <h:form id="paginaNotaForm">
-                <p:panel header="Imagenes Entregadas">
+        <p:dialog id="dialogPaginaNota" widgetVar="PaginaNotaFormDialog" width="80%" height="80%" modal="true" resizable="false" appendTo="@(body)">
+            <h:form id="paginaNotaForm"> 
+                <h:panelGroup  rendered="#{notasController.selected!=null}">
+                    <p:panel>
+                        <p:panelGrid columns="2" layout="grid">
+                        <p:panelGrid columns="2" layout="grid">
+                            <f:facet name="header">
+                                <h:outputText id="encabezadoInND" value="Informacion del Designador"/>
+                            </f:facet>
+                            <h:outputText id="infND1" value="Nombre:"/>
+                            <h:outputText id="infoD2" value="#{notasController.designador.nombre}"/>
+                            <h:outputText id="infND3" value="Primer Apellido:"/>
+                            <h:outputText id="infoD4" value="#{notasController.designador.apellidop}"/>
+                            <h:outputText id="infND5" value="Segindo Apellido:"/>
+                            <h:outputText id="infoD6" value="#{notasController.designador.apellidom}"/>
+                            <h:outputText id="infND7" value="Institucion"/>
+                            <h:outputText id="infoD8" value="#{notasController.institucion.nombre}"/>
+                            <h:outputText id="infND9" value="Cargo:"/>
+                            <h:outputText id="infoD10" value="#{notasController.designador.cargo}"/>                           
+                        </p:panelGrid>
+                        <p:panelGrid columns="2" layout="grid">
+                            <f:facet name="header">
+                                <h:outputText id="encabezadoInNG" value="Informacion del Gestor"/>
+                            </f:facet>
+                            <h:outputText id="infNG1" value="Nombre:"/>
+                            <h:outputText id="infoG2" value="#{notasController.gestor.nombre}"/>
+                            <h:outputText id="infNG3" value="Primer Apellido:"/>
+                            <h:outputText id="infoG4" value="#{notasController.gestor.apellidop}"/>
+                            <h:outputText id="infNG5" value="Segindo Apellido:"/>
+                            <h:outputText id="infoG6" value="#{notasController.gestor.apellidom}"/>
+                            <h:outputText id="infNG7" value="Institucion"/>
+                            <h:outputText id="infoG8" value="#{notasController.institucion.nombre}"/>
+                            <h:outputText id="infNG9" value="Usuario:"/>
+                            <h:outputText id="infoG10" value="#{notasController.usuarioGestor}"/>                             
+                        </p:panelGrid>
+                    </p:panelGrid>
+                </p:panel>
+               <p:panel header="Imagenes Entregadas">
                     <p:dataTable id="datalist" value="#{notasController.itemsObject}" var="emIngE"
-                                 paginator="true"                                 
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 scrollable="true"
+                                 scrollHeight="90%"
                             >
                         <p:column headerText="Satelite">
                             <h:outputText value="#{emIngE[0]}"/>
@@ -33,9 +68,9 @@
                        </p:column>
                 </p:dataTable>
                </p:panel>
-            </h:form>  
-        </p:dialog>
-        
+              </h:panelGroup>
+            </h:form>
+        </p:dialog>        
     </ui:composition>
 </html>
 

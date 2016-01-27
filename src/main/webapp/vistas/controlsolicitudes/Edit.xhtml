@@ -45,7 +45,7 @@
                                     </p:panelGrid>
                                     <p:panelGrid columns="1"  class="panelGridNoBorder">
                                      <p:commandButton id="createButtonProyecto" icon="ui-icon-plus"   value="Nuevo Proyecto" actionListener="#{nomProyectosController.prepareCreate}" update=":NomProyectosCreateForm" oncomplete="PF('NomProyectosCreateDialog').show()"/>                                        
-                                     <p:commandButton id="createButtonNotas" icon="ui-icon-plus"   value="Crear Nota" actionListener="#{notasController.crearNotaCS(controlsolicitudesController.selected.idcontrolsolicitud)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()"/>
+                                     <p:commandButton id="createButtonNotas" icon="ui-icon-plus"   value="Crear Nota" actionListener="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()"/>
                                     </p:panelGrid>
                                     <p:panelGrid columns="2" >
                                         <f:facet name="header">

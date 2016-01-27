@@ -4,6 +4,10 @@ import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Controlsolicitudes;
+import ermex.atc.entidad.Gestores;
+import ermex.atc.entidad.Instituciones;
+import ermex.atc.entidad.Organismos;
+import ermex.atc.entidad.Personas;
 import ermex.atc.entidad.imgEntreNo;
 import ermex.atc.sesion.NotasFacade;
 
@@ -30,9 +34,15 @@ public class NotasController implements Serializable {
     private List<Notas> items = null;
     //Declaracion de variables para llenar la tabla de imagenes entregradas en paginaNota.xhtml
     private List<Object> itemsObject=null;
-    private List<Object> itemsObjectFilas=null;
-    private Notas selected;
-
+    private Notas selected;    
+    private Personas designador;
+    private Personas gestor;
+    private Instituciones institucion;
+    private Organismos organismo;
+    private String solicitud;
+    private String usuarioGestor;
+   
+    
     public NotasController() {
     }
 
@@ -44,12 +54,62 @@ public class NotasController implements Serializable {
         this.selected = selected;
     }
 
+    public NotasFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public Personas getDesignador() {
+        return designador;
+    }
+
+    public Personas getGestor() {
+        return gestor;
+    }
+
+    public String getUsuarioGestor() {
+        return usuarioGestor;
+    }
+
+    public Instituciones getInstitucion() {
+        return institucion;
+    }
+
+    public Organismos getOrganismo() {
+        return organismo;
+    }
+
+    public String getSolicitud() {
+        return solicitud;
+    }
+
+    //metodo para obtener las imagenes entregadas a la nota
     public List<Object> getItemsObject() {
-        if (selected!=null) {
-        itemsObject=getFacade().consultarImagen(selected.getIdnota());    
+        if (selected!=null) {           
+            itemsObject=getFacade().consultarImagen(selected.getIdnota());
+            
         }
         
         return itemsObject;
+    }
+    
+    //metodo para obtener informacion de la nota.
+    public void informacionNota()
+    {
+        try {
+         if (selected!= null) {
+            solicitud=selected.getIdcontrolsolicitud().getSolicitud().toString();
+            designador=selected.getIdcontrolsolicitud().getGestor().getDesignador();
+            gestor=selected.getIdcontrolsolicitud().getGestor().getIdpersona();
+            institucion=selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion();
+            organismo= selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getIdorganismo();
+            usuarioGestor=selected.getIdcontrolsolicitud().getGestor().toString();
+            //nombreDesigandor= designador.getCargo()+ " " + designador.getNombre()+ " " +designador.getApellidop()+" " + designador.getApellidom();
+            //nombreGestor=gestor.getCargo() + " " + gestor.getNombre() + " " + gestor.getApellidop() + " " + gestor.getApellidom();
+        }     
+            
+        } catch (Exception ex) {
+             JsfUtil.addErrorMessage(ex,"No se ecnontro informacion en la base de datos");
+        }
     }
     protected void setEmbeddableKeys() {
     }
