@@ -13,6 +13,7 @@ import java.util.List;
 import ermex.atc.sesion.reporteFacade;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -28,10 +29,11 @@ public class reportesController implements Serializable {
     private List<Object> resultadoContoller;
     private Date Fechafinal;
     private Date Fechainicio;
-    private int opcion=0;
+    private Date fechalimite;
+    private int opcion;
     private reporteFacade repofk;
+    private String encabezadoTabla;
     public reportesController() {
-        this.repofk= new reporteFacade();
         opcion=0;
     }
 
@@ -45,6 +47,7 @@ public class reportesController implements Serializable {
 
     public void setOpcion(int opcion) {
         this.opcion = opcion;
+        asiganrEncabezado();
     }
     
 
@@ -71,25 +74,54 @@ public class reportesController implements Serializable {
     public int getOpcion() {
         return opcion;
     }
+
+    public String getEncabezadoTabla() {
+        return encabezadoTabla;
+    }
+
+    public Date getFechalimite() {
+        fechalimite=Calendar.getInstance().getTime();
+        return fechalimite;
+    }
+    
+    
+    //metodo generado por el programador para obtener consulta de los reportes por periodos
+    // ya sea por dependencia, organismo, institucion y gestor
     public List<Object> generarReporte()
-    {   
+    {   repofk= new reporteFacade();
         String fecha1=null;
         String fecha2=null;
         
-        if (Fechainicio!=null && Fechafinal!=null &opcion!=0) {
+        if (Fechainicio!=null && Fechafinal!=null & opcion!=0) {
             DateFormat  formatofeha= new SimpleDateFormat("yyyy-MM-dd");
             fecha1= formatofeha.format(Fechainicio);
             fecha2= formatofeha.format(Fechafinal);
-            System.out.println("Estamos en elc ontroler con los siguientes valores");
-            System.out.println(fecha1);
-            System.out.println(fecha2);
-            resultadoContoller=getFacade().reporteDepen(fecha1,fecha2, 1);   
-        }
+            resultadoContoller=getFacade().reporteDepen(fecha1,fecha2, this.opcion);  
+            opcion=0;
+            Fechainicio=null;
+            Fechafinal=null;
+        }        
 
          
          return resultadoContoller;
     }
-    
+    //metodo generado por el programador para cabiar en encabezado de la tabla de list de reportes
+    private void asiganrEncabezado()
+    {
+        System.out.println("Valor del opcion en el case " + opcion);
+        switch(opcion)
+        {
+            case 1 :
+                encabezadoTabla="DEPENDENCIA";
+                break;
+            case 2 :
+                encabezadoTabla="ORGANISMO";
+                break;
+            case 3 :
+                encabezadoTabla="INSTITUCION";
+                break;
+        }
+    }
 
     
 }

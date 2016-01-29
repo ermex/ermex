@@ -5,6 +5,7 @@
  */
 package ermex.atc.sesion;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,7 +18,7 @@ import javax.persistence.Query;
  *
  * @author ermex
  */
-public class reporteFacade {
+public class reporteFacade implements Serializable{
 
     
     @PersistenceContext(unitName = "ermex")
@@ -25,7 +26,7 @@ public class reporteFacade {
     private final EntityManagerFactory emf;
     private final EntityManager emFacade;
 
-    protected EntityManager getEntityManager() {
+    protected EntityManager getEntityManager()  {
         return em;
     }
     /**
@@ -53,17 +54,23 @@ public class reporteFacade {
             if (a==2) {
               sqldependencia ="select * from reportemenorg(?, ?) as (siglas text, img numeric)";
             query=emFacade.createNativeQuery(sqldependencia);
+                        query.setParameter(1, fechainicial);
+            query.setParameter(2, fechafinal);
             resul=query.getResultList();
             }else
             {
                 if (a==3) {
                       sqldependencia ="select * from reportemenins(?, ?) as (siglas text, img numeric)";
                     query=emFacade.createNativeQuery(sqldependencia);
+                                query.setParameter(1, fechainicial);
+            query.setParameter(2, fechafinal);
             resul=query.getResultList();
                 }else
                 {
                   sqldependencia ="select * from reportemenges(?, ?) as (gestor text, nombre text, apellidop text,apellidom text, img numeric)";    
                   query=emFacade.createNativeQuery(sqldependencia);
+                              query.setParameter(1, fechainicial);
+            query.setParameter(2, fechafinal);
                 resul=query.getResultList();
                 }
             }

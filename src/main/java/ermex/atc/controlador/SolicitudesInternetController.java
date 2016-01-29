@@ -5,7 +5,6 @@ import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Gestores;
 import ermex.atc.sesion.SolicitudesInternetFacade;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +19,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 @Named("solicitudesInternetController")
 @SessionScoped
@@ -35,6 +36,7 @@ public  class SolicitudesInternetController implements Serializable {
     private String  noPeriodo1;
     private String noPeriodo2;
     private String noPeriodo3;
+    private UploadedFile file;
     private int radioS;
      
      
@@ -51,9 +53,9 @@ public  class SolicitudesInternetController implements Serializable {
     public void setSelectedRespaldo(SolicitudesInternet selectedRespaldo) {
         this.selectedRespaldo = selectedRespaldo;
     }
+   //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
     {
-        System.out.println("Iniciando valores");
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
@@ -82,7 +84,7 @@ public  class SolicitudesInternetController implements Serializable {
     public String getNoPeriodo1() {
         return noPeriodo1;
     }
-
+    //metodo creado por el procramador para limbiar los periodos al crear una nueva solicitud
     public void setNoPeriodo1(String periodoS) {
         int radioSelec=0;
         if (periodoS!=null) {
@@ -117,9 +119,9 @@ public  class SolicitudesInternetController implements Serializable {
     public Gestores getSelectGestores() {
         return selectGestores;
     }
+    //los periodos se pasan a nulos 
     private void  resetPeriodos(int datos)
     {
-        System.out.println("Valor de la variable radioS " + radioS);
         if (radioS==3 && datos==1 || datos==1 && radioS==2 
                 ) {
             selected.setPeriodo3I(null);
@@ -155,6 +157,25 @@ public  class SolicitudesInternetController implements Serializable {
 
     public void setSelected(SolicitudesInternet selected) {
         this.selected = selected;
+    }
+
+    public UploadedFile getFile() {
+        System.out.println("Estamos en el getFile jajajaj");
+       
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file=file;
+    }
+    
+    public void handleFileUpload(FileUploadEvent event) {
+        if (event!=null) {
+            System.out.println("Imprimir" + event.getFile().getFileName());
+            
+        }
+            
+
     }
 
     protected void setEmbeddableKeys() {
@@ -276,7 +297,6 @@ public  class SolicitudesInternetController implements Serializable {
                     }
                 }   
             }
-            System.out.println("Numero  de perio de la solictud " + contadorPeriodo);
         return contadorPeriodo;
     }
     public void cancelarEdit()
