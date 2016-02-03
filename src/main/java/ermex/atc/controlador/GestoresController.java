@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -359,6 +360,8 @@ public class GestoresController implements Serializable {
 
     public Gestores prepareCreate() {
         selected = new Gestores();
+        selected.setFechaInicio(new Date());
+        selected.setStatus("activo");
         initializeEmbeddableKey();
         return selected;
     }
