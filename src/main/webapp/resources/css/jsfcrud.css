@@ -21,3 +21,12 @@
     background-image: url("../images/ground.png") !important;
 }
 
+.imageSubir{
+    height: 210px; 
+    width:  280px;
+}
+
+.imageSubirr{
+    height: 300px; 
+    width:  500px;
+}

@@ -8,237 +8,239 @@
 
     <ui:composition>
 
-        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" maximizable="true" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
+        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" maximizable="true" modal="true"  resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
             <h:form id="GestoresViewForm">
                 <h:panelGroup id="display">
                     <p:tabView id="ViewTab" onTabClose="ViewGestor">
                         <p:tab id="ViewGestor" title="Gestor">
-                            <p:panelGrid columns="2" layout="grid">
-                            <p:panelGrid columns="2"  columnClasses="label, value">
-                            <f:facet name="header"> <h:outputText value="GESTOR" /> </f:facet>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_gestor}"/>
-                            <h:outputText value="#{gestoresController.selected.gestor}" title="#{bundle.ViewGestoresTitle_gestor}"/>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_oficio}"/>
-                            <h:outputText value="#{gestoresController.selected.oficio}" title="#{bundle.ViewGestoresTitle_oficio}"/>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_fechaOficio}"/>
-                            <h:outputText value="#{gestoresController.selected.fechaOficio}" title="#{bundle.ViewGestoresTitle_fechaOficio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_pwdftp}"/>
-                            <h:outputText value="#{gestoresController.selected.pwdftp}" title="#{bundle.ViewGestoresTitle_pwdftp}"/>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_pwdwms}"/>
-                            <h:outputText value="#{gestoresController.selected.pwdwms}" title="#{bundle.ViewGestoresTitle_pwdwms}"/>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_fechaEnviouser}"/>
-                            <h:outputText value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.ViewGestoresTitle_fechaEnviouser}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_fechaInicio}"/>
-                            <h:outputText value="#{gestoresController.selected.fechaInicio}" title="#{bundle.ViewGestoresTitle_fechaInicio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_fechaFin}"/>
-                            <h:outputText value="#{gestoresController.selected.fechaFin}" title="#{bundle.ViewGestoresTitle_fechaFin}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                            <h:outputText value="#{bundle.ViewGestoresLabel_status}"/>
-                            <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.ViewGestoresTitle_status}"/>  
-                            </p:panelGrid>
-                            <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
-                                <f:param  name="nomgestor" value="#{gestoresController.selected.gestor}" />
-                                    <f:param  name="atributo" value="nomgestor" />
-                                    <p:graphicImage title="Designacion"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="220" width="350" />
-                            </p:link>
-                            </p:panelGrid>
-                        </p:tab>
-                        
-                        <p:tab id="ViewInstitucion" title="Institucion">
-                            <p:panelGrid columns="2"  columnClasses="label, value"   >
-                            <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
-                            <h:outputText value="Dependencia:" />
-                            <h:outputText value="#{gestoresController.selected.designador.idinstitucion.idorganismo.iddependencia.nombre}" styleClass="outputLabel"/>
+                            <p:fieldset legend="Institución" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                <h:outputText value="Dependencia:" />
+                                <h:outputText value="#{gestoresController.selected.designador.idinstitucion.idorganismo.iddependencia.nombre}" styleClass="outputLabel"/>
 
-                            <h:outputText value="Organismo:" />
-                            <h:outputText value="#{gestoresController.selected.designador.idinstitucion.idorganismo.nombre}" styleClass="outputLabel"/>
+                                <h:outputText value="Organismo:" />
+                                <h:outputText value="#{gestoresController.selected.designador.idinstitucion.idorganismo.nombre}" styleClass="outputLabel"/>
 
-                            <h:outputText value="Institución:" />
-                            <h:outputText value="#{gestoresController.selected.designador.idinstitucion.nombre}" styleClass="outputLabel"/>                                                                                                    
-                            </p:panelGrid>
-                        </p:tab>
+                                <h:outputText value="Institución:" />
+                                <h:outputText value="#{gestoresController.selected.designador.idinstitucion.nombre}" styleClass="outputLabel"/>                                                                                                    
+                                </p:panelGrid>                                        
+                            </p:fieldset>
+                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                    <p:panelGrid columns="2" layout="grid" >
+
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_gestor}"/>
+                                        <h:outputText value="#{gestoresController.selected.gestor}" title="#{bundle.ViewGestoresTitle_gestor}"/>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_oficio}"/>
+                                        <h:outputText value="#{gestoresController.selected.oficio}" title="#{bundle.ViewGestoresTitle_oficio}"/>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaOficio}"/>
+                                        <h:outputText value="#{gestoresController.selected.fechaOficio}" title="#{bundle.ViewGestoresTitle_fechaOficio}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_pwdftp}"/>
+                                        <h:outputText value="#{gestoresController.selected.pwdftp}" title="#{bundle.ViewGestoresTitle_pwdftp}"/>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_pwdwms}"/>
+                                        <h:outputText value="#{gestoresController.selected.pwdwms}" title="#{bundle.ViewGestoresTitle_pwdwms}"/>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaEnviouser}"/>
+                                        <h:outputText value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.ViewGestoresTitle_fechaEnviouser}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaInicio}"/>
+                                        <h:outputText value="#{gestoresController.selected.fechaInicio}" title="#{bundle.ViewGestoresTitle_fechaInicio}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_fechaFin}"/>
+                                        <h:outputText value="#{gestoresController.selected.fechaFin}" title="#{bundle.ViewGestoresTitle_fechaFin}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                        <h:outputText value="#{bundle.ViewGestoresLabel_status}"/>
+                                        <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.ViewGestoresTitle_status}"/>  
+                                    </p:panelGrid>                                                            
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
+                                        <f:param  name="nomgestor" value="#{gestoresController.selected.gestor}" />
+                                        <f:param  name="atributo" value="nomgestor" />
+                                        <p:graphicImage title="Oficio de designación de gestor"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="200" width="260" />
+                                    </p:link>             
+                                </p:panelGrid>   
+                            </p:fieldset>
+                        </p:tab>                     
                         <p:tab id="ViewPersonaGestor" title="Persona Gestor">
-                            <p:panelGrid columns="2"  columnClasses="label, value"   >
-                            <f:facet name="header"> <h:outputText value="PERSONA GESTOR" /> </f:facet>
-                            <h:outputText value="Curp :" />
-                                <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
+                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                    <h:outputText value="Curp :" />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Nombre: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.grado} #{gestoresController.selected.idpersona.nombre} #{gestoresController.selected.idpersona.apellidop} #{gestoresController.selected.idpersona.apellidom}" styleClass="outputLabel"/>
+                                    <h:outputText value="Nombre: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.grado} #{gestoresController.selected.idpersona.nombre} #{gestoresController.selected.idpersona.apellidop} #{gestoresController.selected.idpersona.apellidom}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Cargo: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
+                                    <h:outputText value="Cargo: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Correo 1: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.correo1}" styleClass="outputLabel"/>
+                                    <h:outputText value="Correo 1: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.correo1}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Correo 2: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.correo2}" styleClass="outputLabel"/>
+                                    <h:outputText value="Correo 2: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.correo2}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Telefono: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.telefono}" styleClass="outputLabel"/>
+                                    <h:outputText value="Telefono: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.telefono}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Domicilio Oficina: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.domicilioOficina}" styleClass="outputLabel"/>
-                                
-                                <h:outputText value="Correo 3(Personal): " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.correo3}" styleClass="outputLabel"/>
+                                    <h:outputText value="Domicilio Oficina: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.domicilioOficina}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Telefono Personal: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.telpersonal}" styleClass="outputLabel"/>
+                                    <h:outputText value="Correo 3(Personal): " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.correo3}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Domicilio Personal: " />
-                                <h:outputText value="#{gestoresController.selected.idpersona.dompersonal}" styleClass="outputLabel"/>
-                            </p:panelGrid>
-                        </p:tab>
-                        <p:tab id="ViewImgGestor" title="Imágenes Gestor" >
-                            <p:panelGrid columns="2" layout="grid" >
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="idoficialanv" />
-                                        <p:graphicImage title="Identificacion Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialanv)}" cache="false" height="70" width="150" />
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="idoficialrev" />
-                                    <p:graphicImage title="Identificacion Oficial rev"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialrev)}" cache="false" height="70" width="150" />
-                                </p:link>  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="credoficialanv" />
-                                    <p:graphicImage title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialanv)}" cache="false" height="70" width="150" />                                   
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="credoficialrev" />
-                                    <p:graphicImage title="Credencial Oficial rev"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialrev)}" cache="false" height="70" width="150" />                                  
-                                </p:link>  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="huellamanoizq" />
-                                    <p:graphicImage title="Mano izquierda"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoizq)}" cache="false" height="70" width="150" />               
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="huellamanoder" />
-                                    <p:graphicImage title="Mano derecha"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoder)}" cache="false" height="70" width="150" />                                  
-                                </p:link>                                  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="huellapulgar" />
-                                    <p:graphicImage title="Pulgar"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellapulgar)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="foto" />
-                                    <p:graphicImage title="Foto"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.foto)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="imgcurp" />
-                                    <p:graphicImage title="Curp"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.imgcurp)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                    <f:param  name="atributo" value="nombramiento" />
-                                    <p:graphicImage title="Nombramiento"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.nombramiento)}" cache="false" height="70" width="150" />
-                                </p:link>
+                                    <h:outputText value="Telefono Personal: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.telpersonal}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Domicilio Personal: " />
+                                    <h:outputText value="#{gestoresController.selected.idpersona.dompersonal}" styleClass="outputLabel"/>
                                 </p:panelGrid>
+                            </p:fieldset>
+                            <p:fieldset legend="Imágenes" style="margin-bottom:20px">
+                                <p:panelGrid columns="5" layout="grid" >
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialanv" />
+                                            <p:graphicImage title="Identificación Oficial Anverso"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialanv)}" cache="false" height="70" width="150" />
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialrev" />
+                                        <p:graphicImage title="Identificación Oficial Reverso"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialrev)}" cache="false" height="70" width="150" />
+                                    </p:link>  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialanv" />
+                                        <p:graphicImage title="Credencial Oficial Anverso"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialanv)}" cache="false" height="70" width="150" />                                   
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialrev" />
+                                        <p:graphicImage title="Credencial Oficial Reverso"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialrev)}" cache="false" height="70" width="150" />                                  
+                                    </p:link>  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoizq" />
+                                        <p:graphicImage title="Mano izquierda"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoizq)}" cache="false" height="70" width="150" />               
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoder" />
+                                        <p:graphicImage title="Mano derecha"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoder)}" cache="false" height="70" width="150" />                                  
+                                    </p:link>                                  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="huellapulgar" />
+                                        <p:graphicImage title="Pulgar"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellapulgar)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="foto" />
+                                        <p:graphicImage title="Foto"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.foto)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="imgcurp" />
+                                        <p:graphicImage title="Curp"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.imgcurp)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="nombramiento" />
+                                        <p:graphicImage title="Nombramiento"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.nombramiento)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                </p:panelGrid>
+                            </p:fieldset>                            
                         </p:tab>
-                        <p:tab id="ViewPersonaDesignacion" title="Persona Designacion">
-                            <p:panelGrid columns="2"  columnClasses="label, value"   >
-                            <f:facet name="header"> <h:outputText value="PERSONA DESIGNADOR: " /> </f:facet>
-                            <h:outputText value="Curp:" />
-                                <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
+                        <p:tab id="ViewPersonaDesignacion" title="Persona Designador">
+                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                    <h:outputText value="Curp:" />
+                                    <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Nombre: " />
-                                <h:outputText value="#{gestoresController.selected.designador.grado} #{gestoresController.selected.designador.nombre} #{gestoresController.selected.designador.apellidop} #{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
+                                    <h:outputText value="Nombre: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.grado} #{gestoresController.selected.designador.nombre} #{gestoresController.selected.designador.apellidop} #{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Cargo: " />
-                                <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
+                                    <h:outputText value="Cargo: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Correo 1: " />
-                                <h:outputText value="#{gestoresController.selected.designador.correo1}" styleClass="outputLabel"/>
+                                    <h:outputText value="Correo 1: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.correo1}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Correo 2: " />
-                                <h:outputText value="#{gestoresController.selected.designador.correo2}" styleClass="outputLabel"/>                               
-                                
-                                <h:outputText value="Telefono: " />
-                                <h:outputText value="#{gestoresController.selected.designador.telefono}" styleClass="outputLabel"/>
+                                    <h:outputText value="Correo 2: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.correo2}" styleClass="outputLabel"/>                               
 
-                                <h:outputText value="Domicilio Oficina: " />
-                                <h:outputText value="#{gestoresController.selected.designador.domicilioOficina}" styleClass="outputLabel"/>
-                                
-                                <h:outputText value="Correo 3(Personal): " />
-                                <h:outputText value="#{gestoresController.selected.designador.correo3}" styleClass="outputLabel"/>
+                                    <h:outputText value="Telefono: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.telefono}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Telefono Personal: " />
-                                <h:outputText value="#{gestoresController.selected.designador.telpersonal}" styleClass="outputLabel"/>
+                                    <h:outputText value="Domicilio Oficina: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.domicilioOficina}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Domicilio Personal: " />
-                                <h:outputText value="#{gestoresController.selected.designador.dompersonal}" styleClass="outputLabel"/>
-                            </p:panelGrid>
-                        </p:tab>
-                        <p:tab id="ViewImgDesignador" title="Imágenes Designador" >
-                            <p:panelGrid columns="4" layout="grid" >
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="idoficialanv" />
-                                        <p:graphicImage title="Identificacion Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialanv)}" cache="false" height="70" width="150" />
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="idoficialrev" />
-                                    <p:graphicImage title="Identificacion Oficial rev"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialrev)}" cache="false" height="70" width="150" />
-                                </p:link>  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="credoficialanv" />
-                                    <p:graphicImage title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialanv)}" cache="false" height="70" width="150" />                                   
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="credoficialrev" />
-                                    <p:graphicImage title="Credencial Oficial rev"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialrev)}" cache="false" height="70" width="150" />                                  
-                                </p:link>  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="huellamanoizq" />
-                                    <p:graphicImage title="Mano izquierda"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoizq)}" cache="false" height="70" width="150" />               
-                                </p:link>      
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="huellamanoder" />
-                                    <p:graphicImage title="Mano derecha"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoder)}" cache="false" height="70" width="150" />                                  
-                                </p:link>                                  
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="huellapulgar" />
-                                    <p:graphicImage title="Pulgar"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellapulgar)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="foto" />
-                                    <p:graphicImage title="Foto"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.foto)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="imgcurp" />
-                                    <p:graphicImage title="Curp"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.imgcurp)}" cache="false" height="70" width="150" />
-                                </p:link>
-                                <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                    <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                    <f:param  name="atributo" value="nombramiento" />
-                                    <p:graphicImage title="Nombramiento"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.nombramiento)}" cache="false" height="70" width="150" />
-                                </p:link>
-                            </p:panelGrid>    
+                                    <h:outputText value="Correo 3(Personal): " />
+                                    <h:outputText value="#{gestoresController.selected.designador.correo3}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Telefono Personal: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.telpersonal}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Domicilio Personal: " />
+                                    <h:outputText value="#{gestoresController.selected.designador.dompersonal}" styleClass="outputLabel"/>
+                                </p:panelGrid>
+                            </p:fieldset>
+                            <p:fieldset legend="Imágenes" style="margin-bottom:20px">
+                                <p:panelGrid columns="5" layout="grid" >
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialanv" />
+                                            <p:graphicImage title="Identificación Oficial Anverso"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialanv)}" cache="false" height="70" width="150" />
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialrev" />
+                                        <p:graphicImage title="Identificación Oficial Reverso"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialrev)}" cache="false" height="70" width="150" />
+                                    </p:link>  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialanv" />
+                                        <p:graphicImage title="Credencial Oficial Anverso"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialanv)}" cache="false" height="70" width="150" />                                   
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialrev" />
+                                        <p:graphicImage title="Credencial Oficial Reverso"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialrev)}" cache="false" height="70" width="150" />                                  
+                                    </p:link>  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoizq" />
+                                        <p:graphicImage title="Mano izquierda"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoizq)}" cache="false" height="70" width="150" />               
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoder" />
+                                        <p:graphicImage title="Mano derecha"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoder)}" cache="false" height="70" width="150" />                                  
+                                    </p:link>                                  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="huellapulgar" />
+                                        <p:graphicImage title="Pulgar"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellapulgar)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="foto" />
+                                        <p:graphicImage title="Foto"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.foto)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="imgcurp" />
+                                        <p:graphicImage title="Curp"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.imgcurp)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="nombramiento" />
+                                        <p:graphicImage title="Nombramiento"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.nombramiento)}" cache="false" height="70" width="150" />
+                                    </p:link>
+                                </p:panelGrid> 
+                            </p:fieldset>
                         </p:tab>
                     </p:tabView>                           
                 </h:panelGroup>

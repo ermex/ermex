@@ -7,14 +7,14 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog  position="top" closable="false" width="100%" height="50%" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
+        <p:dialog  width="1000" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
             <h:form id="GestoresCreateForm" enctype="multipart/form-data">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
                 <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="Siguiente" backLabel="Atras">
                         <p:tab id="tabGestor" title="Gestor">
                             <p:panel header="Detalles del Gestor">
                                 <p:messages />
-                                <p:panelGrid columns="2" >       
+                                <p:panelGrid columns="2" layout="grid" >       
                                     <p:outputLabel value="Gestor: " for="gestor" />                                   
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="Usuario del Gestor" required="true" requiredMessage="Es requerido el Gestor" validatorMessage="El gestor debe ser ermex**** *->digitos">
                                         <f:validateRegex pattern="((?=ermex).{9,9})"  />
@@ -23,15 +23,13 @@
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="Oficio externo" />
                                     <p:outputLabel value="Contraseña FTP: " for="pwdftp" />
                                     <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="Contraseña para el ftp" validatorMessage="La contraseña debe ser de 9 digitos 0-9 A-Z a-z">
-                                        <f:validateRegex pattern="((?=.*[a-z])(?=.*[A-Z]).{9,9})"  />
+                                       
                                     </p:inputText>
                                     <p:outputLabel value="Contraseña WMS: " for="pwdwms" />
-                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="Contraseña para el wms:" />
+                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="Contraseña para el wms" />
                                     <p:outputLabel value="Estado : " for="status" />
-                                    <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="Estado del gestor" >
-                                        <f:selectItem itemLabel="activo" itemValue="activo" />
-                                        <f:selectItems value="#{gestoresController.status}"/>
-                                    </p:selectOneMenu>
+                                    <p:inputText id="status" value="activo" title="Estado del gestor" disabled="true" />
+                                    
                                     
                                 </p:panelGrid> 
                             </p:panel>
@@ -40,7 +38,7 @@
                         <p:tab id="tabInstitucion" title="Institución">                            
                             <p:panel header="Detalles de la Institución">
                                 <p:messages />
-                                <p:panelGrid columns="2" >       
+                                <p:panelGrid columns="2" layout="grid">       
                                     <p:outputLabel value="Dependencia" for="selectedDependencia" />
                                     <p:selectOneMenu id="selectedDependencia" value="#{gestoresController.selectedDependencia}" >
                                         <f:selectItems value="#{dependenciasController.items}"
@@ -76,7 +74,7 @@
                         <p:tab id="tabPersonas" title="Personas">
                             <p:panel header="Detalles del Designador y del Gestor">
                                 <p:messages />
-                                <p:panelGrid >
+                                <p:panelGrid style="float:  top">
                                     <p:row>
                                         <p:column> 
                                             <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}">
@@ -117,17 +115,17 @@
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
                         <p:tab id="tabImagen" title="Imagen">
-                            <p:panel header="Seleccionar Designación">
+                            <p:panel header="Seleccionar Designación" style="text-align:center">
                                 <p:fileUpload update="i" id="designacion" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
-                                    <p:graphicImage id="i" title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="300" width="550" />                                   
+                                    <p:graphicImage id="i" title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
                                 </p:fileUpload>
                             </p:panel>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
                         <p:tab id="tabConfirmacion" title="Confirmación">
-                            <p:panel header="Datos del nuevo Gestor">
-                                <p:panelGrid id="confirmacion" columns="4" layout="grid" columnClasses="grid,grid,grid,grid">
-                                    <p:panelGrid columns="2"  columnClasses="label, value"   >    
+                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                    <p:panelGrid columns="2" layout="grid" >
                                         <f:facet name="header"> <h:outputText value="GESTOR" /> </f:facet>
                                         <h:outputText value="Gestor :" />
                                         <h:outputText value="#{gestoresController.selected.gestor}" styleClass="outputLabel"/>
@@ -143,8 +141,9 @@
                                         
                                         <h:outputText value="Contraseña del WMS: " />
                                         <h:outputText value="#{gestoresController.selected.pwdwms}" styleClass="outputLabel"/>
-                                    </p:panelGrid>                                        
-                                    <p:panelGrid columns="2" columnClasses="label, value">    
+
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="2" layout="grid" >
                                         <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
                                         <h:outputText value="Dependencia:" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.iddependencia.siglas}" styleClass="outputLabel"/>
@@ -154,8 +153,13 @@
 
                                         <h:outputText value="Institución:" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.nombre}" styleClass="outputLabel"/>                                                                            
-                                    </p:panelGrid>       
-                                    <p:panelGrid columns="2" columnClasses="label, value">    
+
+                                    </p:panelGrid>
+                                </p:panelGrid>    
+                            </p:fieldset>
+                            <p:fieldset legend="Personas" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" layout="grid">
+                                    <p:panelGrid columns="2" layout="grid" >
                                         <f:facet name="header"> <h:outputText value="PERSONA GESTOR" /> </f:facet>
                                         <h:outputText value="Curp :" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
@@ -165,32 +169,24 @@
 
                                         <h:outputText value="Cargo: " />
                                         <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
+
                                     </p:panelGrid>
-                                    <p:panelGrid columns="2" columnClasses="label, value">             
+                                    <p:panelGrid columns="2" layout="grid" >
                                         <f:facet name="header"> <h:outputText value="PERSONA DESIGNADOR: " /> </f:facet>
                                         <h:outputText value="Curp:" />
                                         <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Grado: " />
-                                        <h:outputText value="#{gestoresController.selected.designador.grado}" styleClass="outputLabel"/>
-
                                         <h:outputText value="Nombre: " />
-                                        <h:outputText value="#{gestoresController.selected.designador.nombre}" styleClass="outputLabel"/>
-                                        
-                                        <h:outputText value="Apellido Paterno: " />
-                                        <h:outputText value="#{gestoresController.selected.designador.apellidop}" styleClass="outputLabel"/>
-                                        
-                                        <h:outputText value="Apellido Materno: " />
-                                        <h:outputText value="#{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
-                                        
+                                        <h:outputText value="#{gestoresController.selected.designador.grado} #{gestoresController.selected.designador.nombre} #{gestoresController.selected.designador.apellidop} #{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
+                                 
                                         <h:outputText value="Cargo: " />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
-                                    </p:panelGrid>  
-                                <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false)"/>                           
-                                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
-                                
-                                </p:panelGrid>
-                            </p:panel>                             
+
+                                    </p:panelGrid>
+                                </p:panelGrid>                                 
+                            </p:fieldset>    
+                            <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false)"/>                           
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                               
                         </p:tab>
                     </p:wizard> 
             </h:form>

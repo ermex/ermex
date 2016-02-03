@@ -121,6 +121,7 @@ public class Gestores implements Serializable {
     }
 
     public void setGestor(String gestor) {
+        this.fechaInicio= new Date();
         this.gestor = gestor;
     }
 

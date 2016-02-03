@@ -385,7 +385,7 @@ public class GestoresController implements Serializable {
 
     public List<Gestores> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findByNoStatus("prueba","compra","antiguo");
         }
         return items;
     }
