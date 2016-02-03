@@ -12,18 +12,19 @@
             <h:form id="PersonasViewForm">
                 <h:panelGroup id="display">
                     <p:panel header="Datos de la persona">
-                        <p:panelGrid id="confirmacion" columns="3" layout="grid" columnClasses="grid,grid,grid">
-                            <p:panelGrid columns="2"  columnClasses="label, value"   >    
-                             <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
+                        <p:fieldset legend="Institución" style="margin-bottom:20px">
+                            <p:panelGrid columns="2" layout="grid">
                                 <h:outputText value="DEPENDENCIA"/>
                                 <h:outputText value="#{personasController.selected.idinstitucion.idorganismo.iddependencia.siglas}" title="DEPENDENCIA"/>
                                 <h:outputText value="ORGANISMO"/>
                                 <h:outputText value="#{personasController.selected.idinstitucion.idorganismo.nombre}" title="oRGANISMO"/>
                                 <h:outputText value="#{bundle.ViewPersonasLabel_idinstitucion}"/>
                                 <h:outputText value="#{personasController.selected.idinstitucion.nombre}" title="#{bundle.ViewPersonasTitle_idinstitucion}"/>
-                            </p:panelGrid>                                       
-                            <p:panelGrid columns="2" columnClasses="label, value">    
-                            <f:facet name="header"> <h:outputText value="INFORMACIÓN DE LA PERSONA" /> </f:facet>
+                            </p:panelGrid>                                        
+                        </p:fieldset>
+                        <p:fieldset legend="Información" style="margin-bottom:20px">
+                            <p:panelGrid columns="2" layout="grid">
+                                
                                 <h:outputText value="#{bundle.ViewPersonasLabel_idpersona}"/>
                                 <h:outputText value="#{personasController.selected.idpersona}" title="#{bundle.ViewPersonasTitle_idpersona}"/>
                                 <h:outputText value="#{bundle.ViewPersonasLabel_tipo}"/>
@@ -55,9 +56,11 @@
                                 <h:outputText value="#{bundle.ViewPersonasLabel_dompersonal}"/>
                                 <h:outputText value="#{personasController.selected.dompersonal}" title="#{bundle.ViewPersonasTitle_dompersonal}"/>
 
-                            </p:panelGrid>       
-                            <p:panelGrid columns="2" >    
-                            <f:facet name="header"> <h:outputText value="IMÁGENES" /> </f:facet>  
+                                </p:panelGrid>
+                            </p:fieldset>
+                            
+                        <p:fieldset legend="Imágenes" style="margin-bottom:20px">
+                            <p:panelGrid columns="5" layout="grid">
                                 <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                     <f:param  name="idpersonas" value="#{personasController.selected.idpersona}" />
                                     <f:param  name="atributo" value="idoficialanv" />
@@ -109,7 +112,7 @@
                                     <p:graphicImage title="Nombramiento"  value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" height="70" width="150" />
                                 </p:link>
                             </p:panelGrid>
-                        </p:panelGrid>               
+                        </p:fieldset>             
                     </p:panel>
                 </h:panelGroup>
             </h:form>

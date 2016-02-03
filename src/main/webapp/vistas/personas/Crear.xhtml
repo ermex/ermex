@@ -34,8 +34,8 @@
                             <p:panelGrid columns="4" layout="grid" >
 
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_tipo}" for="tipo" />
-                                    <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
-                                        <f:selectItems value="#{personasController.tipo}" />
+                                    <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}">                     
+                                        <f:selectItems value="#{personasController.tipo}"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="#{bundle.CreatePersonasLabel_curp}" for="curp" />
                                     <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.CreatePersonasTitle_curp}" />
@@ -69,46 +69,46 @@
                     </p:tab>
                     <p:tab id="tabImagen" title="Imagenes">
                         <p:panel header="Seleccionar las imagenes correspondientes" >
-                            <p:panelGrid columns="2" layout="grid" >                                    
+                            <p:panelGrid columns="5" style="text-align:center" >                                    
                                                             
                                 <p:fileUpload label="IDENTIFICACION OFICIAL ANVERSO" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
-                                    <h:outputText id="nombreidoficialanv" value="#{personasController.nombreidoficialanv}" />
+                                    <p:graphicImage  id="nombreidoficialanv" value="#{gestoresController.getImgMini(personasController.selected.idoficialanv)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                         
                                 <p:fileUpload label="IDENTIFICACION OFICIAL REVERSO" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
-                                    <h:outputText id="nombreidoficialrev" value="#{personasController.nombreidoficialrev}" />                                
+                                    <p:graphicImage  id="nombreidoficialrev" value="#{gestoresController.getImgMini(personasController.selected.idoficialrev)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="CREDENCIAL OFICIAL ANVERSO" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
-                                    <h:outputText id="nombrecredoficialanv" value="#{personasController.nombrecredoficialanv}" />                                
+                                    <p:graphicImage  id="nombrecredoficialanv" value="#{gestoresController.getImgMini(personasController.selected.credoficialanv)}" cache="false" styleClass="imageSubir"/>                               
                                 </p:fileUpload>
 
                                 <p:fileUpload label="CREDENCIAL OFICIAL REVERSO" update="nombrecredoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialRev}" auto="true" >
-                                    <h:outputText id="nombrecredoficialrev" value="#{personasController.nombrecredoficialrev}" />                                
+                                    <p:graphicImage  id="nombrecredoficialrev" value="#{gestoresController.getImgMini(personasController.selected.credoficialrev)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="HUELLA MANO DERECHA" update="nombrehuellamanoder" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoDer}" auto="true" >
-                                    <h:outputText id="nombrehuellamanoder" value="#{personasController.nombrehuellamanoder}" />                                
+                                    <p:graphicImage  id="nombrehuellamanoder" value="#{gestoresController.getImgMini(personasController.selected.huellamanoder)}" cache="false" styleClass="imageSubir"/>                          
                                 </p:fileUpload>
 
                                 <p:fileUpload label="HUELLA MANO IZQUIERDA" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
-                                    <h:outputText id="nombrehuellamanoizq" value="#{personasController.nombrehuellamanoizq}" />                                
+                                    <p:graphicImage  id="nombrehuellamanoizq" value="#{gestoresController.getImgMini(personasController.selected.huellamanoizq)}" cache="false" styleClass="imageSubir"/>                               
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="HUELLA DEL PULGAR" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >
-                                    <h:outputText id="nombrehuellapulgar" value="#{personasController.nombrehuellapulgar}" />                                
+                                    <p:graphicImage  id="nombrehuellapulgar" value="#{gestoresController.getImgMini(personasController.selected.huellapulgar)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="CURP" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
-                                    <h:outputText id="nombreimgcurp" value="#{personasController.nombreimgcurp}" />                                
+                                    <p:graphicImage  id="nombreimgcurp" value="#{gestoresController.getImgMini(personasController.selected.imgcurp)}" cache="false" styleClass="imageSubir"/>                              
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="FOTO" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
-                                    <h:outputText id="nombrefoto" value="#{personasController.nombrefoto}" />                                
+                                    <p:graphicImage  id="nombrefoto" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="NOMBRAMIENTO" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
-                                    <h:outputText id="nombrenombramiento" value="#{personasController.nombrenombramiento}" />                                
+                                    <p:graphicImage  id="nombrenombramiento" value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" styleClass="imageSubir"/>                                
                                 </p:fileUpload>
                             </p:panelGrid>
                         </p:panel>

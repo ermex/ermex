@@ -44,17 +44,7 @@ public class PersonasController implements Serializable {
     private Instituciones selectedInstitucion;
 //Organismo seleccionado
     private UploadedFile imagen;                //Imagen subida    
-    private String nombreidoficialanv;          //Guarda el nombre de la imagen seleccionada
-    private String nombreidoficialrev;
-    private String nombrecredoficialanv;
-    private String nombrecredoficialrev;
-    private String nombreimgcurp;
-    private String nombrefoto;
-    private String nombrehuellapulgar;
-    private String nombrehuellamanoizq;
-    private String nombrehuellamanoder;
-    private String nombrenombramiento;
-
+   
     public PersonasController() {
         tipo = new HashMap<>();
         tipo.put("Designador", "D");
@@ -69,16 +59,6 @@ public class PersonasController implements Serializable {
         selected=new Personas();
         selectedDepedencia=null;
         selectedOrganismo=null; 
-        nombreidoficialanv="";
-        nombreidoficialrev="";
-        nombrecredoficialanv="";
-        nombrecredoficialrev="";
-        nombreimgcurp="";
-        nombrefoto="";
-        nombrehuellapulgar="";
-        nombrehuellamanoizq="";
-        nombrehuellamanoder="";
-        nombrenombramiento="";
     }
     
     public List<Organismos> getItemOrganismosXDependencia() 
@@ -103,141 +83,51 @@ public class PersonasController implements Serializable {
     public void subirIdOficialAnv(FileUploadEvent event) {  
        imagen = event.getFile();
        this.selected.setIdoficialanv(imagen.getContents()); 
-       this.nombreidoficialanv=event.getFile().getFileName();
     }
     
     public void subirIdOficialRev(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setIdoficialrev(imagen.getContents());  
-       this.nombreidoficialrev=event.getFile().getFileName();
+       this.selected.setIdoficialrev(imagen.getContents());
     }
     public void subirCredOficialAnv(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setCredoficialanv(imagen.getContents()); 
-       this.nombrecredoficialanv=event.getFile().getFileName();
+       this.selected.setCredoficialanv(imagen.getContents());
     }
     
     public void subirCredOficialRev(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setCredoficialrev(imagen.getContents());  
-       this.nombrecredoficialrev=event.getFile().getFileName();
+       this.selected.setCredoficialrev(imagen.getContents());
     }
     public void subirHuellaManoDer(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setHuellamanoder(imagen.getContents()); 
-       this.nombrehuellamanoder=event.getFile().getFileName();
+       this.selected.setHuellamanoder(imagen.getContents());
     }
     
     public void subirHuellaManoIzq(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setHuellamanoizq(imagen.getContents()); 
-       this.nombrehuellamanoizq=event.getFile().getFileName();
+       this.selected.setHuellamanoizq(imagen.getContents());
     }
     
     public void subirHuellaPulgar(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setHuellapulgar(imagen.getContents()); 
-       this.nombrehuellapulgar=event.getFile().getFileName();
+       this.selected.setHuellapulgar(imagen.getContents());
     }
     public void subirImgCurp(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setImgcurp(imagen.getContents()); 
-       this.nombreimgcurp=event.getFile().getFileName();
+       this.selected.setImgcurp(imagen.getContents());
     }
     
     public void subirFoto(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setFoto(imagen.getContents()); 
-       this.nombrefoto=event.getFile().getFileName();
+       this.selected.setFoto(imagen.getContents());
     }
     
     public void subirNombramiento(FileUploadEvent event) {  
        imagen = event.getFile();
-       this.selected.setNombramiento(imagen.getContents()); 
-       this.nombrenombramiento=event.getFile().getFileName();
+       this.selected.setNombramiento(imagen.getContents());
     }
     
-    //***** Getter y Setter 
-    public String getNombreidoficialanv() {
-        return nombreidoficialanv;
-    }
-
-    public void setNombreidoficialanv(String nombreidoficialanv) {
-        this.nombreidoficialanv = nombreidoficialanv;
-    }
-
-    public String getNombreidoficialrev() {
-        return nombreidoficialrev;
-    }
-
-    public void setNombreidoficialrev(String nombreidoficialrev) {
-        this.nombreidoficialrev = nombreidoficialrev;
-    }
-
-    public String getNombrecredoficialanv() {
-        return nombrecredoficialanv;
-    }
-
-    public void setNombrecredoficialanv(String nombrecredoficialanv) {
-        this.nombrecredoficialanv = nombrecredoficialanv;
-    }
-
-    public String getNombrecredoficialrev() {
-        return nombrecredoficialrev;
-    }
-
-    public void setNombrecredoficialrev(String nombrecredoficialrev) {
-        this.nombrecredoficialrev = nombrecredoficialrev;
-    }
-
-    public String getNombreimgcurp() {
-        return nombreimgcurp;
-    }
-
-    public void setNombreimgcurp(String nombreimgcurp) {
-        this.nombreimgcurp = nombreimgcurp;
-    }
-
-    public String getNombrefoto() {
-        return nombrefoto;
-    }
-
-    public void setNombrefoto(String nombrefoto) {
-        this.nombrefoto = nombrefoto;
-    }
-
-    public String getNombrehuellapulgar() {
-        return nombrehuellapulgar;
-    }
-
-    public void setNombrehuellapulgar(String nombrehuellapulgar) {
-        this.nombrehuellapulgar = nombrehuellapulgar;
-    }
-
-    public String getNombrehuellamanoizq() {
-        return nombrehuellamanoizq;
-    }
-
-    public void setNombrehuellamanoizq(String nombrehuellamanoizq) {
-        this.nombrehuellamanoizq = nombrehuellamanoizq;
-    }
-
-    public String getNombrehuellamanoder() {
-        return nombrehuellamanoder;
-    }
-
-    public void setNombrehuellamanoder(String nombrehuellamanoder) {
-        this.nombrehuellamanoder = nombrehuellamanoder;
-    }
-
-    public String getNombrenombramiento() {
-        return nombrenombramiento;
-    }
-
-    public void setNombrenombramiento(String nombrenombramiento) {
-        this.nombrenombramiento = nombrenombramiento;
-    }
-    
+    //***** Getter y Setter    
     public HashMap<String, String> getTipo() {
         return tipo;
     }
@@ -307,7 +197,18 @@ public class PersonasController implements Serializable {
     }
     // Metodo del Programador
     // Prepara la Persona a crear asignando la institucion enviada
-    public void prepare(Instituciones institucion) {
+    public void prepare(Instituciones institucion,String selectTipo) {
+        if("designador".equals(selectTipo))
+        {
+            tipo = new HashMap<>();
+            tipo.put("Designador", "D");
+            tipo.put("Designador y Gestor", "A");
+        }else{
+            tipo = new HashMap<>();
+            tipo.put("Designador", "D");
+            tipo.put("Gestor", "G");
+            tipo.put("Designador y Gestor", "A");
+        }        
         selected = new Personas();
         selected.setIdinstitucion(institucion);
         initializeEmbeddableKey();
@@ -315,6 +216,10 @@ public class PersonasController implements Serializable {
     // Metodo del Programador
     // Prepara la Persona a crear asignando la institucion enviada
     public void prepare1(Personas persona) {
+        tipo = new HashMap<>();
+            tipo.put("Designador", "D");
+            tipo.put("Gestor", "G");
+            tipo.put("Designador y Gestor", "A");
         selected = persona;
         //initializeEmbeddableKey();
     }

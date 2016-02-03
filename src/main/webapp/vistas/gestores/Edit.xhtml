@@ -58,7 +58,7 @@
                                 <p:messages />
                                 <p:panelGrid >
                                     <p:row>
-                                        <p:column> 
+                                        <p:column style="display: none;"> 
                                             <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}" disabledSelection="false" >
                                                 <f:facet name="header">
                                                     <h3>GESTOR</h3>
@@ -92,7 +92,7 @@
                                         </p:column>
                                     </p:row>    
                                 </p:panelGrid>
-                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selected.idpersona.idinstitucion)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
+                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selected.idpersona.idinstitucion,'designador')}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
                                 
                             </p:panel>
                         </p:tab>

@@ -110,7 +110,7 @@
                                         </p:column>
                                     </p:row>    
                                 </p:panelGrid>
-                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selectedInstitucion)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
+                                <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selectedInstitucion,null)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
                                 </p:panel>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
