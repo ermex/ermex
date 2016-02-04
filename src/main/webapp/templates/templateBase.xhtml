@@ -8,8 +8,10 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             <link rel="stylesheet" href="/webapp/resources/css/cssLayout.css"/>
-            <link rel="stylesheet" href="/webapp/resources/css/default.css"/>
+            <!--<link rel="stylesheet" href="/webapp/resources/css/default.css"/>  -->         
         <title>Facelets Template</title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
 
     <h:body>
@@ -21,10 +23,15 @@
                     </div>                
             </p:layoutUnit>
             
-            <p:layoutUnit position="south" size="100" >
-                <ui:insert name="footer"/> >
+            <p:layoutUnit position="south" size="70" >
+                
+                <h5 align="center">
+                    Estación de Recepción México Nueva Generación, ERMEX , MÉXICO - © - 2016 <br/>
+                    22a. Zona militar carretera Toluca-Tenango km. 19.5 Paraje Rancho Sanabria , Santa María Rayón , Estado de México
+                </h5>
+                 
             </p:layoutUnit>
-            <p:layoutUnit position="west" resizable="false" size="300" minSize="300" maxSize="300">
+            <p:layoutUnit position="west" resizable="false" size="200" minSize="200" maxSize="200">
                      <ui:include src="templateMenuP.xhtml"/>
              </p:layoutUnit>            
             

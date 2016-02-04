@@ -10,36 +10,36 @@
         <p:dialog  width="1000" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
             <h:form id="GestoresCreateForm" enctype="multipart/form-data">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="Siguiente" backLabel="Atras">
-                        <p:tab id="tabGestor" title="Gestor">
-                            <p:panel header="Detalles del Gestor">
+                <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
+                    <p:tab id="tabGestor" title="#{bundle.GestorTitle}">
+                            <p:panel header="#{bundle.DetallesPanel}">
                                 <p:messages />
                                 <p:panelGrid columns="2" layout="grid" >       
-                                    <p:outputLabel value="Gestor: " for="gestor" />                                   
-                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="Usuario del Gestor" required="true" requiredMessage="Es requerido el Gestor" validatorMessage="El gestor debe ser ermex**** *->digitos">
+                                    <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
+                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}">
                                         <f:validateRegex pattern="((?=ermex).{9,9})"  />
                                     </p:inputText>
-                                    <p:outputLabel value="Oficio: " for="oficio" />
-                                    <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="Oficio externo" />
-                                    <p:outputLabel value="Contraseña FTP: " for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="Contraseña para el ftp" validatorMessage="La contraseña debe ser de 9 digitos 0-9 A-Z a-z">
+                                    <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
+                                    <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresInput_oficio}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}">
                                        
                                     </p:inputText>
-                                    <p:outputLabel value="Contraseña WMS: " for="pwdwms" />
-                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="Contraseña para el wms" />
-                                    <p:outputLabel value="Estado : " for="status" />
-                                    <p:inputText id="status" value="activo" title="Estado del gestor" disabled="true" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
+                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
+                                    <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" />
                                     
                                     
                                 </p:panelGrid> 
                             </p:panel>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                                
                         </p:tab>
-                        <p:tab id="tabInstitucion" title="Institución">                            
-                            <p:panel header="Detalles de la Institución">
+                        <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">                            
+                            <p:panel header="#{bundle.DetallesPanel}">
                                 <p:messages />
                                 <p:panelGrid columns="2" layout="grid">       
-                                    <p:outputLabel value="Dependencia" for="selectedDependencia" />
+                                    <p:outputLabel value="#{bundle.DependenciaLabel}" for="selectedDependencia" />
                                     <p:selectOneMenu id="selectedDependencia" value="#{gestoresController.selectedDependencia}" >
                                         <f:selectItems value="#{dependenciasController.items}"
                                                        var="dependencia"
@@ -47,7 +47,7 @@
                                                        itemValue="#{dependencia}"/>  
                                         <p:ajax event="change" update="selectedOrganismo,selectedInstitucion" />
                                     </p:selectOneMenu>
-                                   <p:outputLabel value="Organismo" for="selectedOrganismo" />
+                                   <p:outputLabel value="#{bundle.OrganismoLabel}" for="selectedOrganismo" />
                                    <p:selectOneMenu id="selectedOrganismo" value="#{gestoresController.selectedOrganismos}" >
                                        <f:selectItem itemLabel="Select One" itemValue="" />            
                                        <f:selectItems value="#{gestoresController.itemOrganismosXDependencia}" 
@@ -56,7 +56,7 @@
                                                        itemValue="#{organismo}"/>  
                                         <p:ajax event="change" update="selectedInstitucion" />
                                     </p:selectOneMenu>  
-                                   <p:outputLabel value="Institución" for="selectedInstitucion" />
+                                   <p:outputLabel value="#{bundle.InstitucionLabel}" for="selectedInstitucion" />
                                    <p:selectOneMenu id="selectedInstitucion" value="#{gestoresController.selectedInstitucion}" >
                                        <f:selectItem itemLabel="Select One" itemValue="" /> 
                                        <f:selectItems value="#{gestoresController.itemInstitucionXOrganismo}" 
@@ -71,23 +71,23 @@
                             </p:panel> 
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
-                        <p:tab id="tabPersonas" title="Personas">
-                            <p:panel header="Detalles del Designador y del Gestor">
+                        <p:tab id="tabPersonas" title="#{bundle.PersonasTitle}">
+                            <p:panel header="#{bundle.PersonasGDPanel}">
                                 <p:messages />
                                 <p:panelGrid style="float:  top">
                                     <p:row>
                                         <p:column> 
                                             <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}">
                                                 <f:facet name="header">
-                                                    <h3>GESTOR</h3>
+                                                    <h3>#{bundle.GestoresTitle_idpersona}</h3>
                                                 </f:facet>
-                                                <p:column headerText="Curp">
+                                                <p:column headerText="#{bundle.PersonasLabel_curp}">
                                                     <h:outputText value="#{gestores.curp}" />
                                                 </p:column>
-                                                <p:column headerText="Nombre">
+                                                <p:column headerText="#{bundle.PersonasLabel_nombre}">
                                                     <h:outputText value="#{gestores.grado} #{gestores.nombre} #{gestores.apellidop} #{gestores.apellidom}" />
                                                 </p:column>
-                                                <p:column headerText="Cargo">
+                                                <p:column headerText="#{bundle.PersonasLabel_cargo}">
                                                     <h:outputText value="#{gestores.cargo}" />
                                                 </p:column>
                                             </p:dataTable>  
@@ -95,15 +95,15 @@
                                         <p:column>                                            
                                             <p:dataTable id="tablaDesignador" var="designador" selectionMode="single" rowKey="#{designador.idpersona}" selection="#{gestoresController.selected.designador}" value="#{gestoresController.getItemsfindGestorInstitucion('D')}">
                                                 <f:facet name="header">
-                                                    <h3>DESIGNADOR</h3>
+                                                    <h3>#{bundle.GestoresTitle_designador}</h3>
                                                 </f:facet>
-                                                <p:column headerText="Curp">
+                                                <p:column headerText="#{bundle.PersonasLabel_curp}">
                                                     <h:outputText value="#{designador.curp}" />
                                                 </p:column>
-                                                <p:column headerText="Nombre">
+                                                <p:column headerText="#{bundle.PersonasLabel_nombre}">
                                                     <h:outputText value="#{designador.grado} #{designador.nombre} #{designador.apellidop} #{designador.apellidom}" />
                                                 </p:column>
-                                                <p:column headerText="Cargo">
+                                                <p:column headerText="#{bundle.PersonasLabel_cargo}">
                                                     <h:outputText value="#{designador.cargo}" />
                                                 </p:column>
                                             </p:dataTable>
@@ -114,78 +114,78 @@
                                 </p:panel>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
-                        <p:tab id="tabImagen" title="Imagen">
-                            <p:panel header="Seleccionar Designación" style="text-align:center">
-                                <p:fileUpload update="i" id="designacion" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
-                                    <p:graphicImage id="i" title="Credencial Oficial anv"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
+                        <p:tab id="tabImagen" title="#{bundle.ImagenTitle}">
+                            <p:panel header="#{bundle.GestoresTitle_designacion}" style="text-align:center">
+                                <p:fileUpload update="imgdesignacion" id="designacion" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
+                                    <p:graphicImage id="imgdesignacion" title="#{bundle.GestoresInput_designacion}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
                                 </p:fileUpload>
                             </p:panel>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
                         </p:tab>
-                        <p:tab id="tabConfirmacion" title="Confirmación">
-                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                    <p:tab id="tabConfirmacion" title="#{bundle.ConfirmacionTitle}">
+                        <p:fieldset legend="#{bundle.DetallesPanel}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
                                     <p:panelGrid columns="2" layout="grid" >
-                                        <f:facet name="header"> <h:outputText value="GESTOR" /> </f:facet>
-                                        <h:outputText value="Gestor :" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.UsuarioTitle}" /> </f:facet>
+                                        <h:outputText value="#{bundle.GestoresLabel_gestor}" />
                                         <h:outputText value="#{gestoresController.selected.gestor}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Estado: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_status}" />
                                         <h:outputText value="#{gestoresController.selected.status}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Oficio: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_oficio}" />
                                         <h:outputText value="#{gestoresController.selected.oficio}" styleClass="outputLabel"/>
                                         
-                                        <h:outputText value="Contraseña del FTP: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_pwdftp}" />
                                         <h:outputText value="#{gestoresController.selected.pwdftp}" styleClass="outputLabel"/>
                                         
-                                        <h:outputText value="Contraseña del WMS: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_pwdwms}" />
                                         <h:outputText value="#{gestoresController.selected.pwdwms}" styleClass="outputLabel"/>
 
                                     </p:panelGrid>
                                     <p:panelGrid columns="2" layout="grid" >
-                                        <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
-                                        <h:outputText value="Dependencia:" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.InstitucionTitle}" /> </f:facet>
+                                        <h:outputText value="#{bundle.DependenciaLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.iddependencia.siglas}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Organismo:" />
+                                        <h:outputText value="#{bundle.OrganismoLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.nombre}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Institución:" />
+                                        <h:outputText value="#{bundle.InstitucionLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.nombre}" styleClass="outputLabel"/>                                                                            
 
                                     </p:panelGrid>
                                 </p:panelGrid>    
                             </p:fieldset>
-                            <p:fieldset legend="Personas" style="margin-bottom:20px">
+                        <p:fieldset legend="#{bundle.PersonaTitle}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
                                     <p:panelGrid columns="2" layout="grid" >
-                                        <f:facet name="header"> <h:outputText value="PERSONA GESTOR" /> </f:facet>
-                                        <h:outputText value="Curp :" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_idpersona}" /> </f:facet>
+                                        <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Nombre: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_nombre}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.grado} #{gestoresController.selected.idpersona.nombre} #{gestoresController.selected.idpersona.apellidop} #{gestoresController.selected.idpersona.apellidom}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Cargo: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_cargo}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
 
                                     </p:panelGrid>
                                     <p:panelGrid columns="2" layout="grid" >
-                                        <f:facet name="header"> <h:outputText value="PERSONA DESIGNADOR: " /> </f:facet>
-                                        <h:outputText value="Curp:" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_designador}" /> </f:facet>
+                                        <h:outputText value="#{bundle.PersonasLabel_curp}:" />
                                         <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Nombre: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_nombre}" />
                                         <h:outputText value="#{gestoresController.selected.designador.grado} #{gestoresController.selected.designador.nombre} #{gestoresController.selected.designador.apellidop} #{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
                                  
-                                        <h:outputText value="Cargo: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_cargo}" />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
 
                                     </p:panelGrid>
                                 </p:panelGrid>                                 
                             </p:fieldset>    
-                            <p:commandButton immediate="true" value="Crear" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false)"/>                           
+                            <p:commandButton immediate="true" value="#{bundle.Create}" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false)"/>                           
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                               
                         </p:tab>
                     </p:wizard> 
