@@ -11,16 +11,16 @@
             <h:form id="InstitucionesViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
-                        <h:outputText value="#{bundle.ViewInstitucionesLabel_idinstitucion}"/>
-                        <h:outputText value="#{institucionesController.selected.idinstitucion}" title="#{bundle.ViewInstitucionesTitle_idinstitucion}"/>
-                        <h:outputText value="Dependencia: "/>
-                        <h:outputText value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="#{bundle.ViewInstitucionesTitle_idorganismo}"/>
-                        <h:outputText value="Organismo: "/>
-                        <h:outputText value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.ViewInstitucionesTitle_idorganismo}"/>
-                        <h:outputText value="#{bundle.ViewInstitucionesLabel_nombre}"/>
-                        <h:outputText value="#{institucionesController.selected.nombre}" title="#{bundle.ViewInstitucionesTitle_nombre}"/>
-                        <h:outputText value="#{bundle.ViewInstitucionesLabel_tipo}"/>
-                        <h:outputText value="#{institucionesController.selected.tipo}" title="#{bundle.ViewInstitucionesTitle_tipo}"/>
+                        <h:outputText value="#{bundle.InstitucionesLabel_idinstitucion}"/>
+                        <h:outputText value="#{institucionesController.selected.idinstitucion}" title="#{bundle.InstitucionesTitle_idinstitucion}"/>
+                        <h:outputText value="#{bundle.DependenciaLabel}"/>
+                        <h:outputText value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="#{bundle.InstitucionesTitle_idorganismo}"/>
+                        <h:outputText value="#{bundle.OrganismoTitle} "/>
+                        <h:outputText value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_idorganismo}"/>
+                        <h:outputText value="#{bundle.InstitucionesLabel_nombre}"/>
+                        <h:outputText value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}"/>
+                        <h:outputText value="#{bundle.InstitucionesLabel_tipo}"/>
+                        <h:outputText value="#{institucionesController.selected.tipo}" title="#{bundle.InstitucionesTitle_tipo}"/>
                     </p:panelGrid>                 
                 </h:panelGroup>
             </h:form>

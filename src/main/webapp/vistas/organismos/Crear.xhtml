@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
@@ -12,10 +11,10 @@
             <h:form id="OrganismosCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{organismosController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateOrganismosLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.CreateOrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.CreateOrganismosRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateOrganismosLabel_iddependencia}" for="iddependencia" />
-                        <h:outputText id="iddependencia" value="#{organismosController.selected.iddependencia.siglas}" title="Dependencia del nuevo organismo"/>               
+                        <p:outputLabel value="#{bundle.OrganismosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.OrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.OrganismosRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.OrganismosLabel_iddependencia}" for="iddependencia" />
+                        <h:outputText id="iddependencia" value="#{organismosController.selected.iddependencia.siglas}" title="#{bundle.OrganismosTitle_dependencia}"/>               
                     </p:panelGrid>
                     <p:commandButton actionListener="#{organismosController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'OrganismosCreateDialog');"/>
                 </h:panelGroup>

@@ -10,51 +10,51 @@
         <p:dialog id="GestoresEditDlg" widgetVar="GestoresEditDialog" width="1000" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGestoresTitle}">
             <h:form id="GestoresEditForm" enctype="multipart/form-data">
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizardEditGestor" widgetVar="wizEditGestor" nextLabel="Siguiente" backLabel="Atras">
-                    <p:tab id="tabEditGestor" title="Gestor" >
+                <p:wizard id="wizardEditGestor" widgetVar="wizEditGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
+                    <p:tab id="tabEditGestor" title="#{bundle.GestorTitle}">
                         <p:panel>
                             <p:messages />
                             <p:panelGrid columns="2" layout="grid"> 
                                 <p:panelGrid columns="2" layout="grid">   
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_gestor}" for="gestor" />
-                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.EditGestoresTitle_gestor}" required="true" requiredMessage="#{bundle.EditGestoresRequiredMessage_gestor}" disabled="true"/>
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_oficio}" for="oficio" />
-                                    <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.EditGestoresTitle_oficio}" />
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_fechaOficio}" for="fechaOficio" />
-                                    <p:calendar id="fechaOficio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaOficio}" title="#{bundle.EditGestoresTitle_fechaOficio}"  showOn="button"/>
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_pwdftp}" for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="#{bundle.EditGestoresTitle_pwdftp}" />
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_pwdwms}" for="pwdwms" />
-                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="#{bundle.EditGestoresTitle_pwdwms}" />
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
-                                    <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.EditGestoresTitle_fechaEnviouser}"  showOn="button"/>
-                                    <p:outputLabel value="#{bundle.EditGestoresLabel_status}" for="status" />
-                                    <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="Estado del gestor" >
+                                    <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />
+                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresTitle_gestor}" disabled="true"/>
+                                    <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
+                                    <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresTitle_oficio}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaOficio}" for="fechaOficio" />
+                                    <p:calendar id="fechaOficio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaOficio}" title="#{bundle.GestoresTitle_fechaOficio}"  showOn="button"/>
+                                    <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="#{bundle.GestoresTitle_pwdftp}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
+                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="#{bundle.GestoresTitle_pwdwms}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
+                                    <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.GestoresTitle_fechaEnviouser}"  showOn="button"/>
+                                    <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
+                                    <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="#{bundle.GestoresInput_status}" >
                                         <f:selectItem itemLabel="activo" itemValue="activo" />
                                         <f:selectItems value="#{gestoresController.status}"/>
                                     </p:selectOneMenu>
                                     
                                 </p:panelGrid> 
-                                <p:fileUpload update="i" id="designacion" style="text-align:center" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
-                                        <p:graphicImage id="i" title="Designacion"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="150" width="350" />                                   
+                                <p:fileUpload update="imgdesignacion" id="designacion" style="text-align:center" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
+                                        <p:graphicImage id="imgdesignacion" title="#{bundle.GestoresInput_designacion}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
                                 </p:fileUpload>
                                 </p:panelGrid> 
                         </p:panel>                                                      
                     </p:tab>
-                    <p:tab id="tabEditInstitucion" title="Institución">                            
-                        <p:panel header="Detalles de la Institución">                                
+                    <p:tab id="tabEditInstitucion" title="#{bundle.InstitucionTitle}">                            
+                        <p:panel header="#{bundle.DetallesPanel}">                                
                                 <p:panelGrid columns="2" layout="grid" >       
-                                    <p:outputLabel value="Dependencia" for="dependencia" />
-                                    <h:outputText id="dependencia" value="#{gestoresController.selected.idpersona.idinstitucion.idorganismo.iddependencia.siglas}" title="Dependencia del gestor"/>
-                                    <p:outputLabel value="Organismo" for="organismo" />
-                                    <h:outputText id="organismo" value="#{gestoresController.selected.idpersona.idinstitucion.idorganismo.nombre}" title="Dependencia del gestor"/>
-                                    <p:outputLabel value="Institucion" for="institucion" />
-                                    <h:outputText id="institucion" value="#{gestoresController.selected.idpersona.idinstitucion.nombre}" title="Dependencia del gestor"/>
+                                    <p:outputLabel value="#{bundle.DependenciaLabel}" for="dependencia" />
+                                    <h:outputText id="dependencia" value="#{gestoresController.selected.idpersona.idinstitucion.idorganismo.iddependencia.siglas}" title="#{bundle.GestoresTitle_dependencia}"/>
+                                    <p:outputLabel value="#{bundle.OrganismoLabel}" for="organismo" />
+                                    <h:outputText id="organismo" value="#{gestoresController.selected.idpersona.idinstitucion.idorganismo.nombre}" title="#{bundle.GestoresTitle_organismo}"/>
+                                    <p:outputLabel value="#{bundle.InstitucionLabel}" for="institucion" />
+                                    <h:outputText id="institucion" value="#{gestoresController.selected.idpersona.idinstitucion.nombre}" title="#{bundle.GestoresTitle_institucion}"/>
                                 </p:panelGrid>                              
                         </p:panel> 
                     </p:tab>
-                    <p:tab id="tabEditPersonas" title="Personas">
-                            <p:panel header="Detalles del Designador y del Gestor">
+                    <p:tab id="tabEditPersonas" title="#{bundle.PersonasTitle}">
+                            <p:panel header="#{bundle.PersonasGDPanel}">
                                 <p:messages />
                                 <p:panelGrid >
                                     <p:row>
@@ -77,15 +77,15 @@
                                         <p:column>                                            
                                             <p:dataTable id="tablaDesignador" var="designador" selectionMode="single" rowKey="#{designador.idpersona}" selection="#{gestoresController.selected.designador}" value="#{gestoresController.getItemsfindGestorInstitucion('D')}">
                                                 <f:facet name="header">
-                                                    <h3>DESIGNADOR</h3>
+                                                    <h3>#{bundle.GestoresTitle_designador}</h3>
                                                 </f:facet>
-                                                <p:column headerText="Curp">
+                                                <p:column headerText="#{bundle.PersonasLabel_curp}">
                                                     <h:outputText value="#{designador.curp}" />
                                                 </p:column>
-                                                <p:column headerText="Nombre">
+                                                <p:column headerText="#{bundle.PersonasLabel_nombre}">
                                                     <h:outputText value="#{designador.grado} #{designador.nombre} #{designador.apellidop} #{designador.apellidom}" />
                                                 </p:column>
-                                                <p:column headerText="Cargo">
+                                                <p:column headerText="#{bundle.PersonasLabel_cargo}">
                                                     <h:outputText value="#{designador.cargo}" />
                                                 </p:column>
                                             </p:dataTable>
@@ -96,62 +96,62 @@
                                 
                             </p:panel>
                         </p:tab>
-                        <p:tab id="tabEditConfirmacion" title="Confirmación">
-                            <p:fieldset legend="Información" style="margin-bottom:20px">
+                        <p:tab id="tabEditConfirmacion" title="#{bundle.ConfirmacionTitle}">
+                            <p:fieldset legend="#{bundle.DetallesPanel}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
                                     <p:panelGrid columns="2" layout="grid" >
                   
-                                        <f:facet name="header"> <h:outputText value="GESTOR" /> </f:facet>
-                                        <h:outputText value="Gestor :" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.UsuarioTitle}" /> </f:facet>
+                                        <h:outputText value="#{bundle.GestoresLabel_gestor}" />
                                         <h:outputText value="#{gestoresController.selected.gestor}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Estado: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_status}" />
                                         <h:outputText value="#{gestoresController.selected.status}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Oficio: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_oficio}" />
                                         <h:outputText value="#{gestoresController.selected.oficio}" styleClass="outputLabel"/>
                                         
-                                        <h:outputText value="Contraseña del FTP: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_pwdftp}" />
                                         <h:outputText value="#{gestoresController.selected.pwdftp}" styleClass="outputLabel"/>
                                         
-                                        <h:outputText value="Contraseña del WMS: " />
+                                        <h:outputText value="#{bundle.GestoresLabel_pwdwms}" />
                                         <h:outputText value="#{gestoresController.selected.pwdwms}" styleClass="outputLabel"/>
                                     </p:panelGrid>                                        
                                     <p:panelGrid columns="2" layout="grid">    
-                                        <f:facet name="header"> <h:outputText value="INSTITUCIÓN" /> </f:facet>
-                                        <h:outputText value="Dependencia:" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.InstitucionTitle}" /> </f:facet>
+                                        <h:outputText value="#{bundle.DependenciaLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.iddependencia.siglas}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Organismo:" />
+                                        <h:outputText value="#{bundle.OrganismoLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.nombre}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Institución:" />
+                                        <h:outputText value="#{bundle.InstitucionLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.nombre}" styleClass="outputLabel"/>                                                                            
                                     </p:panelGrid>
                                     </p:panelGrid>
                                 </p:fieldset> 
-                                <p:fieldset legend="Personas" style="margin-bottom:20px">
+                                <p:fieldset legend="#{bundle.PersonaTitle}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
                                     <p:panelGrid columns="2" layout="grid" >
-                                        <f:facet name="header"> <h:outputText value="PERSONA GESTOR" /> </f:facet>
-                                        <h:outputText value="Curp :" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_idpersona}" /> </f:facet>
+                                        <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Nombre: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_nombre}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.grado} #{gestoresController.selected.idpersona.nombre} #{gestoresController.selected.idpersona.apellidop} #{gestoresController.selected.idpersona.apellidom}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Cargo: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_cargo}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
                                     </p:panelGrid>
                                     <p:panelGrid columns="2" layout="grid" >             
-                                        <f:facet name="header"> <h:outputText value="PERSONA DESIGNADOR: " /> </f:facet>
-                                        <h:outputText value="Curp:" />
+                                        <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_designador}" /> </f:facet>
+                                        <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                         <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 
-                                        <h:outputText value="Nombre: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_nombre}" />
                                         <h:outputText value="#{gestoresController.selected.designador.grado} #{gestoresController.selected.designador.nombre} #{gestoresController.selected.designador.apellidop} #{gestoresController.selected.designador.apellidom}" styleClass="outputLabel"/>
                                
-                                        <h:outputText value="Cargo: " />
+                                        <h:outputText value="#{bundle.PersonasLabel_cargo}" />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
                                     </p:panelGrid>  
                                 

@@ -100,56 +100,56 @@
                             </p:fieldset>
                             <p:fieldset legend="#{bundle.ImagenesTitle}" style="margin-bottom:20px">
                                 <p:panelGrid columns="5" layout="grid" >
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="foto" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_foto}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.foto)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>
+                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="imgcurp" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_imgcurp}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.imgcurp)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="idoficialanv" />
-                                            <p:graphicImage title="#{bundle.PersonasTitle_idoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialanv)}" cache="false" height="70" width="150" />
+                                            <p:graphicImage title="#{bundle.PersonasTitle_idoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialanv)}" cache="false" styleClass="imagenMini"/>
                                     </p:link>      
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="idoficialrev" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_idoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialrev)}" cache="false" height="70" width="150" />
-                                    </p:link>  
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                        <f:param  name="atributo" value="credoficialanv" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialanv)}" cache="false" height="70" width="150" />                                   
-                                    </p:link>      
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                        <f:param  name="atributo" value="credoficialrev" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialrev)}" cache="false" height="70" width="150" />                                  
-                                    </p:link>  
+                                        <p:graphicImage title="#{bundle.PersonasTitle_idoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.idoficialrev)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>                                   
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="huellamanoizq" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoizq}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoizq)}" cache="false" height="70" width="150" />               
-                                    </p:link>      
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                        <f:param  name="atributo" value="huellamanoder" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoder}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoder)}" cache="false" height="70" width="150" />                                  
-                                    </p:link>                                  
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoizq}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoizq)}" cache="false" styleClass="imagenMini"/>               
+                                    </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="huellapulgar" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_huellapulgar}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellapulgar)}" cache="false" height="70" width="150" />
-                                    </p:link>
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                        <f:param  name="atributo" value="foto" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_foto}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.foto)}" cache="false" height="70" width="150" />
-                                    </p:link>
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
-                                        <f:param  name="atributo" value="imgcurp" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_imgcurp}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.imgcurp)}" cache="false" height="70" width="150" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellapulgar}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellapulgar)}" cache="false" styleClass="imagenMini"/>
                                     </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="nombramiento" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_nombramiento}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.nombramiento)}" cache="false" height="70" width="150" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_nombramiento}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.nombramiento)}" cache="false" styleClass="imagenMini"/>
                                     </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialanv" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialanv)}" cache="false" styleClass="imagenMini"/>                                   
+                                    </p:link>  
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialrev" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.credoficialrev)}" cache="false" styleClass="imagenMini"/>                                  
+                                    </p:link>                                 
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoder" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoder}"  value="#{gestoresController.getImgMini(gestoresController.selected.idpersona.huellamanoder)}" cache="false" styleClass="imagenMini"/>                                  
+                                    </p:link>                                  
                                 </p:panelGrid>
                             </p:fieldset>                            
                         </p:tab>
@@ -189,56 +189,56 @@
                             </p:fieldset>
                             <p:fieldset legend="Imágenes" style="margin-bottom:20px">
                                 <p:panelGrid columns="5" layout="grid" >
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="idoficialanv" />
-                                            <p:graphicImage title="#{bundle.PersonasTitle_idoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialanv)}" cache="false" height="70" width="150" />
-                                    </p:link>      
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="idoficialrev" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_idoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialrev)}" cache="false" height="70" width="150" />
-                                    </p:link>  
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="credoficialanv" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialanv)}" cache="false" height="70" width="150" />                                   
-                                    </p:link>      
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="credoficialrev" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialrev)}" cache="false" height="70" width="150" />                                  
-                                    </p:link>  
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="huellamanoizq" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoizq}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoizq)}" cache="false" height="70" width="150" />               
-                                    </p:link>      
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="huellamanoder" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoder}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoder)}" cache="false" height="70" width="150" />                                  
-                                    </p:link>                                  
-                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
-                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="huellapulgar" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_ihuellapulgar}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellapulgar)}" cache="false" height="70" width="150" />
-                                    </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
                                         <f:param  name="atributo" value="foto" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_foto}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.foto)}" cache="false" height="70" width="150" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_foto}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.foto)}" cache="false" styleClass="imagenMini"/>
                                     </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
                                         <f:param  name="atributo" value="imgcurp" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_imgcurp}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.imgcurp)}" cache="false" height="70" width="150" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_imgcurp}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.imgcurp)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialanv" />
+                                            <p:graphicImage title="#{bundle.PersonasTitle_idoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialanv)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">    
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="idoficialrev" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_idoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.idoficialrev)}" cache="false" styleClass="imagenMini"/>
                                     </p:link>
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
-                                        <f:param  name="atributo" value="nombramiento" />
-                                        <p:graphicImage title="#{bundle.PersonasTitle_nombramiento}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.nombramiento)}" cache="false" height="70" width="150" />
+                                        <f:param  name="atributo" value="huellamanoizq" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoizq}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoizq)}" cache="false" styleClass="imagenMini"/>               
                                     </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="huellapulgar" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellapulgar}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellapulgar)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>                                   
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="nombramiento" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_nombramiento}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.nombramiento)}" cache="false" styleClass="imagenMini"/>
+                                    </p:link>
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialanv" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialanv}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialanv)}" cache="false" styleClass="imagenMini"/>                                   
+                                    </p:link>      
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="credoficialrev" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_credoficialrev}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.credoficialrev)}" cache="false" styleClass="imagenMini"/>                                  
+                                    </p:link>                                           
+                                    <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
+                                        <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
+                                        <f:param  name="atributo" value="huellamanoder" />
+                                        <p:graphicImage title="#{bundle.PersonasTitle_huellamanoder}"  value="#{gestoresController.getImgMini(gestoresController.selected.designador.huellamanoder)}" cache="false" styleClass="imagenMini"/>                                  
+                                    </p:link>                                                                      
                                 </p:panelGrid> 
                             </p:fieldset>
                         </p:tab>

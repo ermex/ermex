@@ -11,12 +11,12 @@
             <h:form id="DependenciasEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditDependenciasLabel_iddependencia}" for="iddependencia" />
-                        <p:inputText id="iddependencia" value="#{dependenciasController.selected.iddependencia}" title="#{bundle.EditDependenciasTitle_iddependencia}" disabled="true"/>
-                        <p:outputLabel value="#{bundle.EditDependenciasLabel_siglas}" for="siglas" />
-                        <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.EditDependenciasTitle_siglas}" required="true" requiredMessage="ES REQUERIDO EL CAMPO SIGLAS" />
-                        <p:outputLabel value="#{bundle.EditDependenciasLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.EditDependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.EditDependenciasRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.DependenciasLabel_iddependencia}" for="iddependencia" />
+                        <p:inputText id="iddependencia" value="#{dependenciasController.selected.iddependencia}" title="#{bundle.DependenciasTitle_iddependencia}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.DependenciasLabel_siglas}" for="siglas" />
+                        <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.DependenciasTitle_siglas}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_siglas}" />
+                        <p:outputLabel value="#{bundle.DependenciasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.DependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_nombre}"/>
                     </p:panelGrid>        
                     <p:commandButton actionListener="#{dependenciasController.update}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DependenciasEditDialog');"/>
                 </h:panelGroup>

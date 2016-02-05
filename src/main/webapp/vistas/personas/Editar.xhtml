@@ -54,6 +54,13 @@
                     <p:tab id="tabImagen" title="#{bundle.ImagenesTitle}">
                         <p:panel header="#{bundle.ImagenesPanel}" >
                             <p:panelGrid columns="5" style="text-align:center" >                                    
+                                <p:fileUpload label="#{bundle.PersonasTitle_foto}" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
+                                    <p:graphicImage id="nombrefoto" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" styleClass="imageSubir"/> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_imgcurp}" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
+                                    <p:graphicImage id="nombreimgcurp" value="#{gestoresController.getImgMini(personasController.selected.imgcurp)}" cache="false" styleClass="imageSubir"/> 
+                                </p:fileUpload>
                                 
                                 <p:fileUpload label="#{bundle.PersonasTitle_idoficialanv}" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
                                     <p:graphicImage id="nombreidoficialanv" value="#{gestoresController.getImgMini(personasController.selected.idoficialanv)}" cache="false" styleClass="imageSubir"/>                             
@@ -61,6 +68,18 @@
                                 
                                 <p:fileUpload label="#{bundle.PersonasTitle_idoficialrev}" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
                                     <p:graphicImage id="nombreidoficialrev" value="#{gestoresController.getImgMini(personasController.selected.idoficialrev)}" cache="false" styleClass="imageSubir"/>                                                             
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_huellamanoizq}" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
+                                    <p:graphicImage id="nombrehuellamanoizq" value="#{gestoresController.getImgMini(personasController.selected.huellamanoizq)}" cache="false" styleClass="imageSubir"/> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_huellapulgar}" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >                 
+                                    <p:graphicImage id="nombrehuellapulgar" value="#{gestoresController.getImgMini(personasController.selected.huellapulgar)}" cache="false" styleClass="imageSubir"/> 
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_nombramiento}" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
+                                    <p:graphicImage id="nombrenombramiento" value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" styleClass="imageSubir"/> 
                                 </p:fileUpload>
                                 
                                 <p:fileUpload label="#{bundle.PersonasTitle_credoficialanv}" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
@@ -75,25 +94,6 @@
                                     <p:graphicImage id="nombrehuellamanoder" value="#{gestoresController.getImgMini(personasController.selected.huellamanoder)}" cache="false" styleClass="imageSubir"/> 
                                 </p:fileUpload>
 
-                                <p:fileUpload label="#{bundle.PersonasTitle_huellamanoizq}" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
-                                    <p:graphicImage id="nombrehuellamanoizq" value="#{gestoresController.getImgMini(personasController.selected.huellamanoizq)}" cache="false" styleClass="imageSubir"/> 
-                                </p:fileUpload>
-                                
-                                <p:fileUpload label="#{bundle.PersonasTitle_huellapulgar}" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >                 
-                                    <p:graphicImage id="nombrehuellapulgar" value="#{gestoresController.getImgMini(personasController.selected.huellapulgar)}" cache="false" styleClass="imageSubir"/> 
-                                </p:fileUpload>
-                                
-                                <p:fileUpload label="#{bundle.PersonasTitle_imgcurp}" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
-                                    <p:graphicImage id="nombreimgcurp" value="#{gestoresController.getImgMini(personasController.selected.imgcurp)}" cache="false" styleClass="imageSubir"/> 
-                                </p:fileUpload>
-                                
-                                <p:fileUpload label="#{bundle.PersonasTitle_foto}" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
-                                    <p:graphicImage id="nombrefoto" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" styleClass="imageSubir"/> 
-                                </p:fileUpload>
-                                
-                                <p:fileUpload label="#{bundle.PersonasTitle_nombramiento}" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
-                                    <p:graphicImage id="nombrenombramiento" value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" styleClass="imageSubir"/> 
-                                </p:fileUpload>
                             </p:panelGrid>
                         </p:panel>                             
                         <p:commandButton value="#{bundle.Save}"   actionListener="#{personasController.update}" oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" immediate="true" />

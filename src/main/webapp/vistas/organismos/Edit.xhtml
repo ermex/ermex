@@ -12,13 +12,12 @@
             <h:form id="OrganismosEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{organismosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditOrganismosLabel_idorganismo}" for="idorganismo" />
-                        <p:inputText id="idorganismo" value="#{organismosController.selected.idorganismo}" title="#{bundle.EditOrganismosTitle_idorganismo}" required="true" requiredMessage="#{bundle.EditOrganismosRequiredMessage_idorganismo}" disabled="true"/>
-                        <p:outputLabel value="#{bundle.EditOrganismosLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.EditOrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.EditOrganismosRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.EditOrganismosLabel_iddependencia}" for="iddependencia" />
+                        <p:outputLabel value="#{bundle.OrganismosLabel_idorganismo}" for="idorganismo" />
+                        <p:inputText id="idorganismo" value="#{organismosController.selected.idorganismo}" title="#{bundle.OrganismosTitle_idorganismo}" required="true" requiredMessage="#{bundle.OrganismosRequiredMessage_idorganismo}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.OrganismosLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.OrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.OrganismosRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.OrganismosLabel_iddependencia}" for="iddependencia" />
                         <p:selectOneMenu id="iddependencia" value="#{organismosController.selected.iddependencia}" >
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{dependenciasController.itemsAvailableSelectOne}"
                                            var="iddependenciaItem"
                                            itemLabel="#{iddependenciaItem.siglas}"

@@ -11,10 +11,10 @@
             <h:form id="DependenciasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDependenciasLabel_siglas}" for="siglas" />
-                        <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.CreateDependenciasTitle_siglas}" required="true" requiredMessage="ES REQUERIDO EL CAMPO SIGLAS" />
-                        <p:outputLabel value="#{bundle.CreateDependenciasLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.CreateDependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.CreateDependenciasRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.DependenciasLabel_siglas}" for="siglas" />
+                        <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.DependenciasTitle_siglas}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_siglas}" />
+                        <p:outputLabel value="#{bundle.DependenciasLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.DependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_nombre}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{dependenciasController.create}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args,'DependenciasCreateDialog');"/>
                 </h:panelGroup>

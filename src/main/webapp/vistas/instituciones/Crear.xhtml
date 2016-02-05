@@ -12,16 +12,16 @@
             <h:form id="InstitucionesCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.CreateInstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.CreateInstitucionesRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_tipo}" for="tipo" />
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.InstitucionesRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_tipo}" for="tipo" />
                         <p:selectOneMenu id="tipo" value="#{institucionesController.selected.tipo}" >
                             <f:selectItems value="#{institucionesController.tipo}" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="id dependencia" for="dependencia" />
-                        <h:outputText id="dependencia" value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="Dependencia de la nueva institucion"/>                              
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_idorganismo}" for="idorganismo" />
-                        <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="Organismo del nuevo organismo"/>                           
+                        <p:outputLabel value="#{bundle.DependenciaLabel}" for="dependencia" />
+                        <h:outputText id="dependencia" value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="#{bundle.InstitucionesTitle_dependencia}"/>                              
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_idorganismo}" for="idorganismo" />
+                        <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_organismo}"/>                           
                     </p:panelGrid>
                     <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
                 </h:panelGroup>

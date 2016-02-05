@@ -55,7 +55,10 @@ a:link:hover, a:visited:hover  {
     border-color: #D20005;
     border: none;
 }
-
+.imagenMini{
+    height: 70px; 
+    width:  150px;
+}
 .imageSubir{
     height: 210px; 
     width:  280px;

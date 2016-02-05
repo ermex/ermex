@@ -49,7 +49,7 @@
                                     </p:selectOneMenu>
                                    <p:outputLabel value="#{bundle.OrganismoLabel}" for="selectedOrganismo" />
                                    <p:selectOneMenu id="selectedOrganismo" value="#{gestoresController.selectedOrganismos}" >
-                                       <f:selectItem itemLabel="Select One" itemValue="" />            
+                                       <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                        <f:selectItems value="#{gestoresController.itemOrganismosXDependencia}" 
                                                        var="organismo"
                                                        itemLabel="#{organismo.nombre}"
@@ -58,7 +58,7 @@
                                     </p:selectOneMenu>  
                                    <p:outputLabel value="#{bundle.InstitucionLabel}" for="selectedInstitucion" />
                                    <p:selectOneMenu id="selectedInstitucion" value="#{gestoresController.selectedInstitucion}" >
-                                       <f:selectItem itemLabel="Select One" itemValue="" /> 
+                                       <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                        <f:selectItems value="#{gestoresController.itemInstitucionXOrganismo}" 
                                                        var="institucion"
                                                        itemLabel="#{institucion.nombre}"

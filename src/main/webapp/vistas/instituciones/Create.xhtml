@@ -12,13 +12,13 @@
             <h:form id="InstitucionesCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.CreateInstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.CreateInstitucionesRequiredMessage_nombre}"/>
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_tipo}" for="tipo" />
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.InstitucionesRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_tipo}" for="tipo" />
                         <p:selectOneMenu id="tipo" value="#{institucionesController.selected.tipo}" >
                             <f:selectItems value="#{institucionesController.tipo}" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="id dependencia" for="dependencia" />
+                        <p:outputLabel value="#{bundle.DependenciaLabel}" for="dependencia" />
                         <p:selectOneMenu id="dependencia" value="#{institucionesController.dependencia}" >
                             <f:selectItems value="#{dependenciasController.items}"
                                            var="dependencia"
@@ -26,7 +26,7 @@
                                            itemValue="#{dependencia.iddependencia}"/>  
                             <p:ajax event="change" update="idorganismo" />
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateInstitucionesLabel_idorganismo}" for="idorganismo" />
+                        <p:outputLabel value="#{bundle.InstitucionesLabel_idorganismo}" for="idorganismo" />
                         <p:selectOneMenu id="idorganismo" value="#{institucionesController.selected.idorganismo}">
                             <f:selectItems value="#{institucionesController.itemsDependencia}"
                                            var="idorganismoItem"
