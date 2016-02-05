@@ -6,8 +6,10 @@
 package ermex.atc.entidad;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -107,40 +109,38 @@ public class SolicitudesInternet implements Serializable {
     private Date periodo3F;
     @Column(name = "fecha_captura")
     @Temporal(TemporalType.DATE)
-    private Date fechaCaptura;
+    private Date fechaCaptura=crearIdsolcitud().getTime();
     @Column(name = "fecha_ventanilla")
     @Temporal(TemporalType.DATE)
-    private Date fechaVentanilla;
+    private Date fechaVentanilla=crearIdsolcitud().getTime();
     @Size(max = 2147483647)
     @Column(name = "justificacion")
     private String justificacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
-    private int status;
+    private int status=2;
     @OneToOne(mappedBy = "solicitud")
     private Controlsolicitudes controlsolicitudes;
 
     public SolicitudesInternet() {
-        this.fechaVentanilla = Calendar.getInstance().getTime();
-        this.fechaCaptura=Calendar.getInstance().getTime();
-        this.status=2;
         
        }
 
     public SolicitudesInternet(String solicitud) {
-        this.fechaVentanilla = Calendar.getInstance().getTime();
         this.solicitud = solicitud;
     }
 
     public SolicitudesInternet(String solicitud, String gestor, int status) {
-        this.fechaVentanilla = Calendar.getInstance().getTime();
         this.solicitud = solicitud;
         this.gestor = gestor;
         this.status = status;
     }
 
     public String getSolicitud() {
+        //SimpleDateFormat fd= new SimpleDateFormat("yyyyMMddHHmmss");
+        //Calendar date=crearIdsolcitud();
+        //this.solicitud="solicitud-"+fd.format(date.getTime());
         return solicitud;
     }
 
@@ -331,6 +331,20 @@ public class SolicitudesInternet implements Serializable {
     @Override
     public String toString() {
         return solicitud ;
+    }
+
+    private Calendar crearIdsolcitud() {
+        String idsolicitud;
+        int hora;
+         SimpleDateFormat fd= new SimpleDateFormat("yyyyMMddHHmmss");
+        TimeZone tz= TimeZone.getTimeZone("America/Mexico_City");
+        Calendar calendar=  Calendar.getInstance();
+        hora=calendar.get(Calendar.HOUR_OF_DAY);
+        System.out.println("La hora es :" + hora);
+        if (hora>=18 && hora<0) {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        return calendar;
     }
     
 }
