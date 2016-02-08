@@ -3,6 +3,7 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Organismos;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Dependencias;
 import ermex.atc.sesion.OrganismosFacade;
 
 
@@ -59,9 +60,9 @@ public class OrganismosController implements Serializable {
     
     // Metodo del Programador
     // Prepara el organismo a crear asignando la dependencia enviada
-    public void preparate(Organismos organismo) {
+    public void preparate(Dependencias dependencia) {
         this.selected = new Organismos();
-        this.selected.setIddependencia(organismo.getIddependencia());
+        this.selected.setIddependencia(dependencia);
         initializeEmbeddableKey();
     }
     public void create() {

@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -59,7 +60,6 @@ public class GestoresController implements Serializable {
     private String nomgestor;
     private String idpersonas;
     private String atributo;
-    private String nombreidoficialanv;
     public GestoresController() {
         status = new HashMap<>();
         status.put("baja", "baja");
@@ -67,22 +67,19 @@ public class GestoresController implements Serializable {
         status.put("ratificacion", "ratificacion"); 
         status.put("activo", "activo"); 
     }
-
-    //*************************** Metodos del programador
-    public void subirIdOficialAnv(FileUploadEvent event) {  
-       UploadedFile imagen = event.getFile();
-       this.selected.getDesignador().setIdoficialanv(imagen.getContents()); 
-       this.nombreidoficialanv=event.getFile().getFileName();
-    }
-
-    public String getNombreidoficialanv() {
-        return nombreidoficialanv;
-    }
-
-    public void setNombreidoficialanv(String nombreidoficialanv) {
-        this.nombreidoficialanv = nombreidoficialanv;
-    }
     
+    //*************************** Metodos del programador
+    public void subirDesignacion(FileUploadEvent event) {  
+       Updesignacion = event.getFile();
+       this.selected.setDesignacion(Updesignacion.getContents());
+    }
+    public void quitarDesignacion() { 
+       this.selected.setDesignacion(null);
+    }
+    public void valueChangeMethod(ValueChangeEvent e) {
+        this.selectedOrganismos=null;
+        this.selectedInstitucion=null;
+    }
     public void reset()
     {
         //Metodo que resetea todos los valores
@@ -97,7 +94,7 @@ public class GestoresController implements Serializable {
         //Metodo que regresa una lista de todos los organismos de la dependencia seleccionada "selectedDependencia"
         
         if(selectedDependencia== null){
-            return ejbFacadeOrganismo.findorganismosdependencia(1);      
+            return null;      
         }
         return ejbFacadeOrganismo.findorganismosdependencia(selectedDependencia.getIddependencia()); 
     }
@@ -107,7 +104,7 @@ public class GestoresController implements Serializable {
         //Metodo que regresa una lista de todas las instituciones del organismo seleccionado "selectedOrganismo"
         
         if(selectedOrganismos== null){
-            return ejbFacadeInstitucion.findOrganismos(1);     
+            return null;     
         }
         return ejbFacadeInstitucion.findOrganismos(selectedOrganismos.getIdorganismo()); 
     }
@@ -285,11 +282,6 @@ public class GestoresController implements Serializable {
         this.Updesignacion = Updesignacion;
     }
 
-    public void subirDesignacion(FileUploadEvent event) {  
-       Updesignacion = event.getFile();
-       this.selected.setDesignacion(Updesignacion.getContents());
-    }
-    
     public Dependencias getSelectedDependencia() {
         return selectedDependencia;
     }
@@ -360,8 +352,6 @@ public class GestoresController implements Serializable {
 
     public Gestores prepareCreate() {
         selected = new Gestores();
-        selected.setFechaInicio(new Date());
-        selected.setStatus("activo");
         initializeEmbeddableKey();
         return selected;
     }
@@ -397,9 +387,15 @@ public class GestoresController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
-                } else {
+                }else if(persistAction == PersistAction.CREATE) 
+                {
+                    selected.setFechaInicio(new Date());
+                    selected.setStatus("activo");
+                    getFacade().create(selected);
+                }
+                else {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
@@ -408,6 +404,9 @@ public class GestoresController implements Serializable {
                 Throwable cause = ex.getCause();
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
+                    if("Bean Validation constraint(s) violated while executing Automatic Bean Validation on callback event:'prePersist'. Please refer to embedded ConstraintViolations for details.".equals(cause.getLocalizedMessage())){
+                        msg ="No se pudo crear el Gestor ya que falta algunos datos requeridos:Favor de revisar las restricciones";
+                    }
                 }
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);

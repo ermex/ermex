@@ -121,10 +121,46 @@ public class PersonasController implements Serializable {
        imagen = event.getFile();
        this.selected.setFoto(imagen.getContents());
     }
-    
     public void subirNombramiento(FileUploadEvent event) {  
        imagen = event.getFile();
        this.selected.setNombramiento(imagen.getContents());
+    }
+    
+    // Metodos para quitar la imagen en su respectivo campo 
+    public void quitarIdOficialAnv() {  
+       this.selected.setIdoficialanv(null); 
+    }
+    
+    public void quitarIdOficialRev() {  
+       this.selected.setIdoficialrev(null);
+    }
+    public void quitarCredOficialAnv() {
+       this.selected.setCredoficialanv(null);
+    }
+    
+    public void quitarCredOficialRev() { 
+       this.selected.setCredoficialrev(null);
+    }
+    public void quitarHuellaManoDer() { 
+       this.selected.setHuellamanoder(null);
+    }
+    
+    public void quitarHuellaManoIzq() { 
+       this.selected.setHuellamanoizq(null);
+    }
+    
+    public void quitarHuellaPulgar() { 
+       this.selected.setHuellapulgar(null);
+    }
+    public void quitarImgCurp() {  
+       this.selected.setImgcurp(null);
+    }
+    
+    public void quitarFoto() {
+       this.selected.setFoto(null);
+    }
+    public void quitarNombramiento() { 
+       this.selected.setNombramiento(null);
     }
     
     //***** Getter y Setter    

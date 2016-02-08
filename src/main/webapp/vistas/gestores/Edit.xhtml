@@ -35,9 +35,11 @@
                                     </p:selectOneMenu>
                                     
                                 </p:panelGrid> 
-                                <p:fileUpload update="imgdesignacion" id="designacion" style="text-align:center" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
-                                        <p:graphicImage id="imgdesignacion" title="#{bundle.GestoresInput_designacion}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
-                                </p:fileUpload>
+                                    <p:fileUpload id="designacion"  label="#{bundle.GestoresInput_designacion}" update="imgdesignacion" style="text-align:center" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
+                                        <p:commandLink update="imgdesignacion"  actionListener="#{gestoresController.quitarDesignacion()}">
+                                            <p:graphicImage id="imgdesignacion" title="#{bundle.MessageQuitarImagen}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
+                                        </p:commandLink>
+                                    </p:fileUpload>
                                 </p:panelGrid> 
                         </p:panel>                                                      
                     </p:tab>
@@ -156,12 +158,12 @@
                                     </p:panelGrid>  
                                 
                                 </p:panelGrid>
-                                </p:fieldset>      
-                                <p:commandButton actionListener="#{gestoresController.update}" value="#{bundle.Save}" update=":GestoresListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GestoresEditDialog');PF('wizEditGestor').loadStep('tabEditGestor',true);"/>                    
-                                                       
+                                </p:fieldset>         
                         </p:tab>
                     </p:wizard>                
-                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizEditGestor').loadStep('tabEditGestor',true);PF('GestoresEditDialog').hide();"/>                       
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizEditGestor').loadStep('tabEditGestor',true);PF('GestoresEditDialog').hide();"/>
+                <p:commandButton actionListener="#{gestoresController.update}" value="#{bundle.Save}" update=":GestoresListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GestoresEditDialog');PF('wizEditGestor').loadStep('tabEditGestor',true);"/>                    
+                                
             </h:form>
             <ui:include src="../personas/Editar.xhtml"/>
         </p:dialog>
