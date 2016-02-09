@@ -47,7 +47,7 @@
                                     <p:outputLabel value="#{bundle.PersonasLabel_grado}" for="grado" />
                                     <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}" />
                                     <p:outputLabel value="#{bundle.PersonasLabel_correo1}" for="correo1" />
-                                    <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" />                                    
+                                    <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" validatorMessage="Correo invalido"/>                                                                          
                                     <p:outputLabel value="#{bundle.PersonasLabel_nombre}" for="nombre" />
                                     <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_nombre}"/>
                                     <p:outputLabel value="#{bundle.PersonasLabel_correo2}" for="correo2" />

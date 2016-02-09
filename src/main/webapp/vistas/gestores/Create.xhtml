@@ -16,15 +16,11 @@
                                 <p:messages />
                                 <p:panelGrid columns="2" layout="grid" >       
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
-                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}">
-                                        <f:validateRegex pattern="((?=ermex).{9,9})"  />
-                                    </p:inputText>
+                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresInput_oficio}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}">
-                                       
-                                    </p:inputText>
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
                                     <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />

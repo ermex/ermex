@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -61,6 +62,7 @@ public class Gestores implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "gestor")
+    @Pattern(regexp="^ermex[0-9]{4}$")
     private String gestor;
     @Size(max = 2147483647)
     @Column(name = "oficio")
@@ -102,7 +104,6 @@ public class Gestores implements Serializable {
     private List<Procesoratificacion> procesoratificacionList;
     @OneToMany(mappedBy = "gestor")
     private List<Controlsolicitudes> controlsolicitudesList;
-    @NotNull
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @ManyToOne
     private Personas idpersona;
