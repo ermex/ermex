@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CatalogoimagenesViewDlg" widgetVar="CatalogoimagenesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{catalogoimg.ViewCatalogoimagenesTitle}">
+            <h:form id="CatalogoimagenesViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{catalogoimagenesController.selected != null}">
+                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_idcatalogoimg}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.idcatalogoimg}" title="#{catalogoimg.ViewCatalogoimagenesTitle_idcatalogoimg}"/>
+                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_satelite}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.satelite}" title="#{catalogoimg.ViewCatalogoimagenesTitle_satelite}"/>
+                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_modo}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.modo}" title="#{catalogoimg.ViewCatalogoimagenesTitle_modo}"/>
+                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_nivel}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.nivel}" title="#{catalogoimg.ViewCatalogoimagenesTitle_nivel}"/>
+                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_character}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.character}" title="#{catalogoimg.ViewCatalogoimagenesTitle_character}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{catalogoimg.Close}" onclick="CatalogoimagenesViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

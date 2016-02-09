@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CatalogoimagenesCreateDlg" widgetVar="CatalogoimagenesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{catalogoimg.CreateCatalogoimagenesTitle}">
+            <h:form id="CatalogoimagenesCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{catalogoimagenesController.selected != null}">
+                        <p:outputLabel value="#{catalogoimg.CreateCatalogoimagenesLabel_idcatalogoimg}" for="idcatalogoimg" />
+                        <p:inputText id="idcatalogoimg" value="#{catalogoimagenesController.selected.idcatalogoimg}" title="#{catalogoimg.CreateCatalogoimagenesTitle_idcatalogoimg}" required="true" requiredMessage="#{catalogoimg.CreateCatalogoimagenesRequiredMessage_idcatalogoimg}"/>
+                        <p:outputLabel value="#{catalogoimg.CreateCatalogoimagenesLabel_satelite}" for="satelite" />
+                        <p:inputText id="satelite" value="#{catalogoimagenesController.selected.satelite}" title="#{catalogoimg.CreateCatalogoimagenesTitle_satelite}" />
+                        <p:outputLabel value="#{catalogoimg.CreateCatalogoimagenesLabel_modo}" for="modo" />
+                        <p:inputText id="modo" value="#{catalogoimagenesController.selected.modo}" title="#{catalogoimg.CreateCatalogoimagenesTitle_modo}" />
+                        <p:outputLabel value="#{catalogoimg.CreateCatalogoimagenesLabel_nivel}" for="nivel" />
+                        <p:inputText id="nivel" value="#{catalogoimagenesController.selected.nivel}" title="#{catalogoimg.CreateCatalogoimagenesTitle_nivel}" />
+                        <p:outputLabel value="#{catalogoimg.CreateCatalogoimagenesLabel_character}" for="character" />
+                        <p:inputText id="character" value="#{catalogoimagenesController.selected.character}" title="#{catalogoimg.CreateCatalogoimagenesTitle_character}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{catalogoimagenesController.create}" value="#{catalogoimg.Save}" update="display,:CatalogoimagenesListForm:datalist,:growl" oncomplete="handleSubmit(args,'CatalogoimagenesCreateDialog');"/>
+                    <p:commandButton value="#{catalogoimg.Cancel}" onclick="CatalogoimagenesCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

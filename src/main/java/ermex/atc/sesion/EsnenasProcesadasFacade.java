@@ -18,7 +18,7 @@ import javax.persistence.Query;
  * @author ermex
  */
 @Stateless
-public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInternet> {
+public class EsnenasProcesadasFacade extends AbstractFacade<EscenasProcesadas> {
 
     @PersistenceContext(unitName = "ermex")
     private EntityManager em;
@@ -28,18 +28,18 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
         return em;
     }
 
-    public SolicitudesInternetFacade() {
-        super(SolicitudesInternet.class);
+    public EsnenasProcesadasFacade() {
+        super(EscenasProcesadas.class);
     }    
 
-    public List<Object> tiposimagens() {
-        List<Object> resultado=null;
+    public List<EscenasProcesadas> tiposimagens() {
+        List<EscenasProcesadas> resultado=null;
         String consulta="select satelite, modo, nivel from \n" +
                 "(\n" +
                 "select satelite, modo, nivel, count(tipo) contador from escenas_procesadas group by satelite, modo, nivel, tipo order by satelite desc\n" +
                     ") c1 where c1.contador > 15";
         try {
-            Query query = em.createNativeQuery(consulta);
+            Query query = em.createNativeQuery(consulta,EscenasProcesadas.class);
             resultado=query.getResultList();
         } catch (Exception e) {
         }

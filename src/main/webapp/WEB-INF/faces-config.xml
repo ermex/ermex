@@ -8,6 +8,10 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/catalogoimg</base-name>
+            <var>catalogoimg</var>
+        </resource-bundle>
     </application>
     <managed-bean>
         <managed-bean-name>loginController</managed-bean-name>

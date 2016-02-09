@@ -3,11 +3,14 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.SolicitudesInternet;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Catalogoimagenes;
 import ermex.atc.entidad.Gestores;
+import ermex.atc.sesion.CatalogoimagenesFacade;
 import ermex.atc.sesion.SolicitudesInternetFacade;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +18,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -24,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.DualListModel;
 
 @Named("solicitudesInternetController")
 @SessionScoped
@@ -46,10 +51,13 @@ public  class SolicitudesInternetController implements Serializable {
     private int radioS;
     private List<Object> tiposImg=null;
     private SolicitudesInternet selectedRespaldo;
-    
+    @EJB
+    private ermex.atc.sesion.CatalogoimagenesFacade facadeCatalogoImg;
     private Date periodo1IR;
     private Date periodo2IR;
-    private Date periodo3IR;
+    private Date periodo3IR;    
+    private DualListModel<Catalogoimagenes> tipos;
+    
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
@@ -57,13 +65,29 @@ public  class SolicitudesInternetController implements Serializable {
         this.noPeriodo3=null;
         radioS=periodosBase();
     }
+    @PostConstruct
+    public void init()
+    {
+        List<Catalogoimagenes> catalogoimgSource = getFacadeCatalogoImg().findAll();
+        List<Catalogoimagenes> catalogoimgTarget  = new ArrayList<>();
+        tipos= new DualListModel<>(catalogoimgSource, catalogoimgTarget);
+    }
     public SolicitudesInternet getSelectedRespaldo() {
         return selectedRespaldo;
     }
 
+    public DualListModel<Catalogoimagenes> getTipos() {
+        return tipos;
+    }
+
+    public void setTipos(DualListModel<Catalogoimagenes> tipos) {
+        this.tipos = tipos;
+    }
+    
     public void setSelectedRespaldo(SolicitudesInternet selectedRespaldo) {
         this.selectedRespaldo = selectedRespaldo;
     }
+    
 
    //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
@@ -86,6 +110,10 @@ public  class SolicitudesInternetController implements Serializable {
         return selctObject;
     }
 
+    public void setSelctObject(Object selctObject) {
+        this.selctObject = selctObject;
+    }
+    
     public void setNoPeriodo2(String noPeriodo2) {
         this.noPeriodo2 = noPeriodo2;
     }
@@ -100,6 +128,11 @@ public  class SolicitudesInternetController implements Serializable {
     public String getNoPeriodo1() {
         return noPeriodo1;
     }
+
+    public CatalogoimagenesFacade getFacadeCatalogoImg() {
+        return facadeCatalogoImg;
+    }
+    
     //metodo creado por el procramador para limbiar los periodos al crear una nueva solicitud
     public void setNoPeriodo1(String periodoS) {
         int radioSelec=0;
@@ -187,7 +220,7 @@ public  class SolicitudesInternetController implements Serializable {
     public void minDatePerio1F() {
         if (selected.getPeriodo1I() != null || periodo1IR != selected.getPeriodo1I()) {
           //  fechaMinima = selected.getPeriodo1I();
-            sumarDias(selected.getPeriodo1I());
+            obtenerFecha(selected.getPeriodo1I());
         }        
             periodo1IR = selected.getPeriodo1I();
     }
@@ -195,7 +228,7 @@ public  class SolicitudesInternetController implements Serializable {
     {
         if (selected.getPeriodo2I() != null || periodo2IR != selected.getPeriodo2I()) {
            // fechaMinima = selected.getPeriodo2I();
-            sumarDias(selected.getPeriodo2I());
+            obtenerFecha(selected.getPeriodo2I());
         } 
            periodo2IR = selected.getPeriodo2I();
     }
@@ -203,49 +236,46 @@ public  class SolicitudesInternetController implements Serializable {
     {
         if (selected.getPeriodo3I() != null || periodo3IR != selected.getPeriodo3I()) {
             //fechaMinima = selected.getPeriodo3I();
-             sumarDias(selected.getPeriodo3I());
+             obtenerFecha(selected.getPeriodo3I());
         } 
              periodo3IR = selected.getPeriodo3I();
     }
-    public void sumarDias(Date fecha)
+    //metodo para obtener la fecha minima de los periodos 
+    public void obtenerFecha(Date fecha)
      {
-         int mes=0;
-         int dia=0;
-         int years=0;
-         
-         String fecha1= fecha.toString();
-         StringTokenizer st= new StringTokenizer(fecha1,"/");        
-        mes= Integer.parseInt(st.nextToken());
-        dia=Integer.parseInt(st.nextToken());
-        years= Integer.parseInt(st.nextToken());
-         if (mes<12) {
-             mes=mes+1;
-         }else{
-             mes=1;
-             years=years+1;
+         int mes = 0;
+         int dia = 0;
+         int years = 0;
+         String fecha1;
+         SimpleDateFormat fd;
+         fd = new SimpleDateFormat("MM/dd/yyyy");
+         if (fecha != null) {
+             fecha1 = fd.format(fecha);
+             StringTokenizer st = new StringTokenizer(fecha1, "/");
+             mes = Integer.parseInt(st.nextToken());
+             dia = Integer.parseInt(st.nextToken());
+             years = Integer.parseInt(st.nextToken());
+             //sumamos el mes 
+             if (dia > 10) {
+                 if (mes < 12) {
+                     mes = mes + 1;
+                 } else {
+                     mes = 1;
+                     years = years + 1;
+                 }
+                 dia = dia - 10;
+             } else  {
+                 dia=28;
+             }
+             //restamos el dia, si esta es mayor a 3
          }
-         fechaMinima=String.valueOf(mes)+"/"+ String.valueOf(dia) +"/"+ String.valueOf(years);
-        
+         fechaMinima = String.valueOf(mes) + "/" + String.valueOf(dia) + "/" + String.valueOf(years);
+ 
     }
 
 
     public void setSelected(SolicitudesInternet selected) {
         this.selected = selected;
-    }
-//metodo para obtener la fecha actual apartir del sistema 
-    private Calendar crearIdsolcitud() {
-        int hora;
-         SimpleDateFormat fd= new SimpleDateFormat("yyyyMMddHHmmss");
-         //obtenemos la hora de la zona America/Mexico_City
-        TimeZone tz= TimeZone.getTimeZone("America/Mexico_City");
-        Calendar calendar=  Calendar.getInstance();
-        hora=calendar.get(Calendar.HOUR_OF_DAY);
-        System.out.println("La hora es :" + hora);
-        //Verificamos la hora para restar un dia al mes, por la diferercia de hora en el servidor (6 horas)
-        if (hora>=18 && hora<0) {
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-        }
-        return calendar;
     }
     protected void setEmbeddableKeys() {
     }
@@ -258,11 +288,12 @@ public  class SolicitudesInternetController implements Serializable {
     }
 
     public SolicitudesInternet prepareCreate() {
-        SimpleDateFormat fd= new SimpleDateFormat("yyyyMMddHHmmss");
-        Calendar date=crearIdsolcitud();
-        //this.solicitud="solicitud-"+fd.format(date.getTime());
+     //Obtiene la fecha de la zona GMT, para obtner la fecha actual.
+        Date timeLocal= new Date();
+        DateFormat converTime= new SimpleDateFormat("yyyy-MM-dd-HHmmss");
+        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
         selected = new SolicitudesInternet();
-        selected.setSolicitud("solicitud"+fd.format(crearIdsolcitud().getTime()));
+        selected.setSolicitud(converTime.format(timeLocal));
         initializeEmbeddableKey();
         return selected;
     }

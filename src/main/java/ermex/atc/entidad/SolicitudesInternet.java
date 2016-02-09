@@ -340,10 +340,7 @@ public class SolicitudesInternet implements Serializable {
         TimeZone tz= TimeZone.getTimeZone("America/Mexico_City");
         Calendar calendar=  Calendar.getInstance();
         hora=calendar.get(Calendar.HOUR_OF_DAY);
-        System.out.println("La hora es :" + hora);
-        if (hora>=18 && hora<0) {
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-        }
+
         return calendar;
     }
     

@@ -45,15 +45,14 @@
                                             <p:calendar id="fechaVentanilla" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaVentanilla}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaVentanilla}"  />                                                 
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
                                             <p:selectOneMenu id="gestor" filter="true" value="#{solicitudesInternetController.selectGestores}" >
-                                                <f:selectItems  value="#{gestoresController.getItemsActivos()}"
+                                            <f:selectItems  value="#{gestoresController.getItemsActivos()}"
                                                                 var="gestorItem"
-                                                                itemValue="#{solicitudesInternetController.selected.setGestor(gestorItem)}"/>
+                                                                itemValue="#{solicitudesInternetController.selected.gestor}"/>
                                             </p:selectOneMenu>
                                             <p:outputLabel  value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion"  />                                 
                                             <p:inputTextarea id="justificacion"  rows="10" cols="50" autoResize="false" style="resize: none" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" /> 
 
                                         </p:panelGrid>
-
 
                                         <p:panelGrid   class="panelGridNoBorder" > 
                                             <p:panelGrid columns="4"  class="panelGridNoBorder">
@@ -85,37 +84,37 @@
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1I}" for="periodo1I" />
                                                 <p:calendar id="periodo1I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
                                                             value="#{solicitudesInternetController.selected.periodo1I}" 
-                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo1I}" requiredMessage="Es necesario la fecha de inicio del primer">
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo1I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del primer">
                                                     <p:ajax event="dateSelect" update="periodo1F" listener="#{solicitudesInternetController.minDatePerio1F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1F}" for="periodo1F" />
 
                                                 <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
-                                                            value="#{solicitudesInternetController.selected.periodo1F}" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
+                                                            value="#{solicitudesInternetController.selected.periodo1F}" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
                                                             " requiredMessage="Es necesario la fecha final del primer periodo"
                                                             mindate="#{solicitudesInternetController.minPeriodo}">
                                                 </p:calendar>                                           
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
                                                 <p:calendar id="periodo2I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2 }"
-                                                            value="#{solicitudesInternetController.selected.periodo2I}"  requiredMessage="Es necesario la fecha de inicio del segundo periodo"
+                                                            value="#{solicitudesInternetController.selected.periodo2I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del segundo periodo"
                                                             title="#{bundle.EditSolicitudesInternetTitle_periodo2I}">
                                                     <p:ajax event="dateSelect" update="periodo2F" listener="#{solicitudesInternetController.minDatePeriodo2F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2F}" for="periodo2F" />
                                                 <p:calendar id="periodo2F" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2}" 
-                                                            value="#{solicitudesInternetController.selected.periodo2F}" requiredMessage="Es necesario la fecha final del segundo periodo"
+                                                            value="#{solicitudesInternetController.selected.periodo2F}" navigator="true" requiredMessage="Es necesario la fecha final del segundo periodo"
                                                             title="#{bundle.EditSolicitudesInternetTitle_periodo2F}"  mindate="#{solicitudesInternetController.minPeriodo}">
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3I}" for="periodo3I" />
                                                 <p:calendar id="periodo3I" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
-                                                            value="#{solicitudesInternetController.selected.periodo3I}"  requiredMessage="Es necesario la fecha de inicio del tercer periodo"
+                                                            value="#{solicitudesInternetController.selected.periodo3I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del tercer periodo"
                                                             title="#{bundle.EditSolicitudesInternetTitle_periodo3I}">
                                                     <p:ajax event="dateSelect" update="periodo3F" listener="#{solicitudesInternetController.minDatePeriodo3F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3F}" for="periodo3F" />
                                                 <p:calendar id="periodo3F" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
                                                             value="#{solicitudesInternetController.selected.periodo3F}" requiredMessage="Es necesario la fecha final del  tercer periodo"
-                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3F}"  mindate="#{solicitudesInternetController.minPeriodo}">                                            
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3F}" navigator="true" mindate="#{solicitudesInternetController.minPeriodo}">                                            
                                                 </p:calendar>
 
 
@@ -126,46 +125,19 @@
                             </p:panel>
                         </p:tab>
                         <p:tab title="Tipos de imagen">
-                            <p:panel header="Seleccione el tipo de imagenes">
-                              
-                                    <h:form id="form">
-                                    <p:growl id="msgs" showDetail="true" />
-                                            <p:dataTable value="#{solicitudesInternetController.tiposImg}"
-                                                         selection="#{solicitudesInternetController.selctObject}"
-                                                         rowKey="#{item[0]}"
-                                                         var="item"
-                                                         rows="15"
-                                                         paginator="true"
-                                                         >
-                                                
-                                                 <p:column selectionMode="single" style="width:16px;text-align:center"/>
-                                                <p:column filterBy="#{item[0]}">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Satelite"/>
-                                                    </f:facet>                                            
-                                                    <h:outputText value="#{item[0]}"/>
-                                                </p:column>
-                                                <p:column filterBy="#{item[1]}">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Modo"/>
-                                                    </f:facet>                                            
-                                                    <h:outputText value="#{item[1]}"/>
-                                                </p:column>
-                                                <p:column filterBy="#{item[2]}">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Nivel"/>
-                                                    </f:facet>                                            
-                                                    <h:outputText value="#{item[2]}"/>
-                                                </p:column> 
-                                                <p:column filterBy="#{item[3]}">
-                                                    <f:facet name="header">
-                                                        <h:outputText value="Tipo"/>
-                                                    </f:facet>                                            
-                                                    <h:outputText value="#{item[3]}"/>
-                                                </p:column>                                                    
-                                            </p:dataTable>
-                                    </h:form>
-                                </p:panel>
+                            <p:panel header="Seleccione el tipo de imagenes">                              
+                                    <h:form id="piclidtFor">                                            <p:growl id="msg" showDetail="true" escape="false" /> 
+                                            <h3 style="margin-top: 0"></h3>
+                                            <p:pickList id="pickList" showSourceFilter="true" value="#{solicitudesInternetController.tipos}" var="cities" itemLabel="#{cities.satelite} #{cities.modo} #{cities.nivel}"  itemValue="#{cities}">
+                                                <f:facet name="sourceCaption" >
+                                                    <h:outputText value="Satelite---Tipo---Nivel"/>
+                                                </f:facet>                                                
+                                                <f:facet name="targetCaption" class="left_content">
+                                                    <h:outputText value="Satelite---Tipo---Nivel"/>
+                                                </f:facet>
+                                            </p:pickList>                    `                </h:form>
+                                <p:commandButton id="#{catalogoimg.Create}" icon="ui-icon-plus"   value="Otro" actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()"/>                                        
+                                </p:panel>                            
                         </p:tab>
 
                         <p:tab title="Confirmar">
@@ -178,7 +150,7 @@
                                         <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_solicitud}"/>
                                         <h:outputText value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.ViewSolicitudesInternetTitle_solicitud}"/>
                                         <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_gestor}"/>
-                                        <h:outputText value="#{solicitudesInternetController.selected.gestor}" title="#{bundle.ViewSolicitudesInternetTitle_gestor}"/>
+                                        <h:outputText value="#{solicitudesInternetController.selectGestores.gestor}" title="#{bundle.ViewSolicitudesInternetTitle_gestor}"/>
                                         <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nombre}"/>
                                         <h:outputText value="#{solicitudesInternetController.selected.nombre}" title="#{bundle.ViewSolicitudesInternetTitle_nombre}"/>
                                         <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_dependencia}"/>
@@ -229,8 +201,7 @@
                                         <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo3F}"/>
                                         <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{solicitudesInternetController.selected.periodo3F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
                                         </p:calendar>
-                                    </p:panelGrid>                          
-
+                                    </p:panelGrid>
                                 </p:panelGrid> 
                                 <p:commandButton type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" onclick="SolicitudesInternetDialog.hide"/>
                                 <p:commandButton value="#{bundle.Cancel}" oncomplete="SolicitudesInternetCreateForm.hide()"/>
@@ -239,7 +210,7 @@
                     </p:wizard>
                 </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+            <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>
+        </p:dialog>        
     </ui:composition>
 </html>
