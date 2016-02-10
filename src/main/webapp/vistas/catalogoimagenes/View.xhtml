@@ -8,22 +8,24 @@
 
     <ui:composition>
 
-        <p:dialog id="CatalogoimagenesViewDlg" widgetVar="CatalogoimagenesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{catalogoimg.ViewCatalogoimagenesTitle}">
+        <p:dialog id="CatalogoimagenesViewDlg" widgetVar="CatalogoimagenesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleCatalogoImg.ViewCatalogoimagenesTitle}">
             <h:form id="CatalogoimagenesViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{catalogoimagenesController.selected != null}">
-                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_idcatalogoimg}"/>
-                        <h:outputText value="#{catalogoimagenesController.selected.idcatalogoimg}" title="#{catalogoimg.ViewCatalogoimagenesTitle_idcatalogoimg}"/>
-                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_satelite}"/>
-                        <h:outputText value="#{catalogoimagenesController.selected.satelite}" title="#{catalogoimg.ViewCatalogoimagenesTitle_satelite}"/>
-                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_modo}"/>
-                        <h:outputText value="#{catalogoimagenesController.selected.modo}" title="#{catalogoimg.ViewCatalogoimagenesTitle_modo}"/>
-                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_nivel}"/>
-                        <h:outputText value="#{catalogoimagenesController.selected.nivel}" title="#{catalogoimg.ViewCatalogoimagenesTitle_nivel}"/>
-                        <h:outputText value="#{catalogoimg.ViewCatalogoimagenesLabel_character}"/>
-                        <h:outputText value="#{catalogoimagenesController.selected.character}" title="#{catalogoimg.ViewCatalogoimagenesTitle_character}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_satelite}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.satelite}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_satelite}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_tipo}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.tipo}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_tipo}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_nivel}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.nivel}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_nivel}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_status}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.status}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_status}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_identificador}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.identificador}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_identificador}"/>
+                        <h:outputText value="#{bundleCatalogoImg.ViewCatalogoimagenesLabel_resolucion}"/>
+                        <h:outputText value="#{catalogoimagenesController.selected.resolucion}" title="#{bundleCatalogoImg.ViewCatalogoimagenesTitle_resolucion}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{catalogoimg.Close}" onclick="CatalogoimagenesViewDialog.hide()"/>
+                    <p:commandButton value="#{bundleCatalogoImg.Close}" onclick="CatalogoimagenesViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

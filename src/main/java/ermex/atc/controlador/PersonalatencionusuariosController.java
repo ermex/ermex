@@ -3,7 +3,9 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Personalatencionusuarios;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+
 import ermex.atc.sesion.PersonalatencionusuariosFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,21 +14,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.inject.Named;
+
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
-@Named("personalatencionusuariosController")
+@ManagedBean(name="personalatencionusuariosController", eager=true)
 @SessionScoped
 public class PersonalatencionusuariosController implements Serializable {
 
-    @EJB
+    @Inject
     private ermex.atc.sesion.PersonalatencionusuariosFacade ejbFacade;
     private List<Personalatencionusuarios> items = null;
     private Personalatencionusuarios selected;
+    
+   
 
     public PersonalatencionusuariosController() {
     }
@@ -124,6 +131,28 @@ public class PersonalatencionusuariosController implements Serializable {
 
     public List<Personalatencionusuarios> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public  void login(Personalatencionusuarios u){        
+        FacesContext context1= FacesContext.getCurrentInstance();
+        ExternalContext contExternal=context1.getExternalContext();
+        if (u!=null) {
+            System.out.println(u.getUsuario());
+            System.out.println(u.getPwd());
+            ejbFacade= new PersonalatencionusuariosFacade();
+            Personalatencionusuarios acceso = ejbFacade.acceso(u.getUsuario(), u.getPwd());
+            if (null!=acceso) {
+                try {
+                    contExternal.redirect("index.xhtml");
+                    System.out.println("Estamos adentro");
+                } catch (IOException ex) {
+                    Logger.getLogger(PersonalatencionusuariosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }else
+        {
+            System.out.println("El valor de U es nulo");
+        }
     }
 
     @FacesConverter(forClass = Personalatencionusuarios.class)

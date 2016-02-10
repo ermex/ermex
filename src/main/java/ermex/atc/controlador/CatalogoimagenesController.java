@@ -26,6 +26,7 @@ public class CatalogoimagenesController implements Serializable {
     @EJB
     private ermex.atc.sesion.CatalogoimagenesFacade ejbFacade;
     private List<Catalogoimagenes> items = null;
+    private List<Catalogoimagenes> imgSelect=null;
     private Catalogoimagenes selected;
 
     public CatalogoimagenesController() {
@@ -33,6 +34,14 @@ public class CatalogoimagenesController implements Serializable {
 
     public Catalogoimagenes getSelected() {
         return selected;
+    }
+
+    public List<Catalogoimagenes> getImgSelect() {
+        return imgSelect;
+    }
+
+    public void setImgSelect(List<Catalogoimagenes> imgSelect) {
+        this.imgSelect = imgSelect;
     }
 
     public void setSelected(Catalogoimagenes selected) {
@@ -54,20 +63,39 @@ public class CatalogoimagenesController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    
+    public void imgSeleccionada(Catalogoimagenes img)
+    {
+        if (img!=null) {
+            
+        }
+    }
+    public void onSeleccion()
+    {
+        if (imgSelect.size() > 0) {
+            System.out.println(imgSelect.size());
+        }
+        
+    }
+    public void offSeleccion()
+    {
+        if (imgSelect.size() > 0) {
+            System.out.println(imgSelect.size());
+        }   
+    }
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/catalogoimg").getString("CatalogoimagenesCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/catalogoimg").getString("CatalogoimagenesUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/catalogoimg").getString("CatalogoimagenesDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -100,16 +128,16 @@ public class CatalogoimagenesController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/catalogoimg").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleCatalogoImg").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/catalogoimg").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleCatalogoImg").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Catalogoimagenes getCatalogoimagenes(java.lang.Integer id) {
+    public Catalogoimagenes getCatalogoimagenes(java.lang.String id) {
         return getFacade().find(id);
     }
 
@@ -134,13 +162,13 @@ public class CatalogoimagenesController implements Serializable {
             return controller.getCatalogoimagenes(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -153,7 +181,7 @@ public class CatalogoimagenesController implements Serializable {
             }
             if (object instanceof Catalogoimagenes) {
                 Catalogoimagenes o = (Catalogoimagenes) object;
-                return getStringKey(o.getIdcatalogoimg());
+                return getStringKey(o.getIdentificador());
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Catalogoimagenes.class.getName()});
                 return null;

@@ -31,18 +31,4 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
     public SolicitudesInternetFacade() {
         super(SolicitudesInternet.class);
     }    
-
-    public List<Object> tiposimagens() {
-        List<Object> resultado=null;
-        String consulta="select satelite, modo, nivel from \n" +
-                "(\n" +
-                "select satelite, modo, nivel, count(tipo) contador from escenas_procesadas group by satelite, modo, nivel, tipo order by satelite desc\n" +
-                    ") c1 where c1.contador > 15";
-        try {
-            Query query = em.createNativeQuery(consulta);
-            resultado=query.getResultList();
-        } catch (Exception e) {
-        }
-        return resultado;
-    }
 }

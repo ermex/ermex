@@ -9,14 +9,10 @@
             <var>bundle</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>/catalogoimg</base-name>
-            <var>catalogoimg</var>
+            <base-name>/BundleCatalogoImg</base-name>
+            <var>bundleCatalogoImg</var>
         </resource-bundle>
+        
     </application>
-    <managed-bean>
-        <managed-bean-name>loginController</managed-bean-name>
-        <managed-bean-class>ermex.atc.controlador.loginController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
    
 </faces-config>

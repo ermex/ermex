@@ -16,8 +16,8 @@
                 <p:contextMenu for="datalist">
                     <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
                     <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" />
+                    <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
                 </p:contextMenu>
-                <p:commandButton id="createButtonSolicitud" icon="ui-icon-plus"   value="Create" actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()"/>
                 <p:panel header="#{bundle.ListSolicitudesInternetTitle}">
                     <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
                                  selectionMode="single" selection="#{solicitudesInternetController.selected}"
@@ -90,7 +90,7 @@
                             <h:outputText value="#{item.nivel}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" oncomplete="#{catalogoimagenesController.setImgSelect(null)}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

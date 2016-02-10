@@ -164,6 +164,31 @@ public  class SolicitudesInternetController implements Serializable {
              
       
     }
+public void ModoNivel(List<Catalogoimagenes> tipoM)
+
+{
+    String tipo="";
+    String nivel="";
+    if (tipoM!=null) {
+
+        System.out.println("Size de tiposM");
+        System.out.println(tipoM);
+        for (int i = 0; i < tipoM.size(); i++) {
+            tipo=tipo+tipoM.get(i).getTipo();
+            nivel=nivel+tipoM.get(i).getNivel();
+        }
+        
+    }else
+    {
+        System.out.println("los valores de tipoM son nulos");
+    }
+    System.out.println("valores de nivel y modo");
+    System.out.println(tipo);
+    System.out.println(nivel);
+   selected.setModo(tipo);
+   selected.setNivel(nivel);
+    
+}
     
     public Gestores getSelectGestores() {
         return selectGestores;
@@ -206,14 +231,6 @@ public  class SolicitudesInternetController implements Serializable {
 
     public String getMinPeriodo() {
         return fechaMinima;
-    }
-
-    public List<Object> getTiposImg() {
-        //se obtiene caracteristicas de las imagens , satelite, nivel, sipo , modo
-        if (tiposImg == null) {
-            tiposImg = ejbFacade.tiposimagens();
-        }
-        return tiposImg;
     }
     //los siguientes tres metodos es para validar los periodos 
 

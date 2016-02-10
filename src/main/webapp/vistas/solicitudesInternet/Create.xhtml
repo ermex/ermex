@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetCreateDlg" width="80%" height="50%" widgetVar="SolicitudesInternetCreate" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetCreateDlg"  widgetVar="SolicitudesInternetCreate" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetCreateForm"> 
                 <h:panelGroup id="display">
                     <p:growl id="growl1"  sticky="true" showDetail="true"/>
@@ -126,18 +126,53 @@
                         </p:tab>
                         <p:tab title="Tipos de imagen">
                             <p:panel header="Seleccione el tipo de imagenes">                              
-                                    <h:form id="piclidtFor">                                            <p:growl id="msg" showDetail="true" escape="false" /> 
-                                            <h3 style="margin-top: 0"></h3>
-                                            <p:pickList id="pickList" showSourceFilter="true" value="#{solicitudesInternetController.tipos}" var="cities" itemLabel="#{cities.satelite} #{cities.modo} #{cities.nivel}"  itemValue="#{cities}">
-                                                <f:facet name="sourceCaption" >
-                                                    <h:outputText value="Satelite---Tipo---Nivel"/>
-                                                </f:facet>                                                
-                                                <f:facet name="targetCaption" class="left_content">
-                                                    <h:outputText value="Satelite---Tipo---Nivel"/>
+
+                                <f:view>
+                                    <h:form id="craateForC">
+                                        <p:contextMenu for="ctlgImg">
+                                            <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"    actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()" />
+                                        </p:contextMenu>
+                                        <p:dataTable id="ctlgImg" value="#{catalogoimagenesController.items}" 
+                                                 var="item"
+                                                 paginator="true"
+                                                 rowsPerPageLabel="10,20,30"
+                                                 rows="10"
+                                                 rowKey="#{item.identificador}"
+                                                 selection="#{catalogoimagenesController.imgSelect}" 
+                                                 >
+                                            <p:ajax event="rowSelectCheckbox"    listener="#{catalogoimagenesController.onSeleccion()}" />
+                                            <p:ajax event="rowUnselectCheckbox" listener="#{catalogoimagenesController.offSeleccion()}"/>
+                                             <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Identificador"/>
                                                 </f:facet>
-                                            </p:pickList>                    `                </h:form>
-                                <p:commandButton id="#{catalogoimg.Create}" icon="ui-icon-plus"   value="Otro" actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()"/>                                        
-                                </p:panel>                            
+                                               <h:outputText value="#{item.identificador}"/>
+                                            </p:column>
+                                            <p:column filterBy="#{item.satelite}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Satelite"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.satelite}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.tipo}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.tipo}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.nivel}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:form>                                  
+                                </f:view>
+                                <p:commandButton id="idAceptarNT" value="Aceptar" actionListener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}"/>
+                                <p:commandButton id="idCrearCatalogoIMg" icon="ui-icon-plus"   value="Otro" actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()"/>                                        
+                               </p:panel>                            
                         </p:tab>
 
                         <p:tab title="Confirmar">
@@ -209,7 +244,9 @@
                         </p:tab>
                     </p:wizard>
                 </h:panelGroup>
+
             </h:form>
+
             <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>
         </p:dialog>        
     </ui:composition>
