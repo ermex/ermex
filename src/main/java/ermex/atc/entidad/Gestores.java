@@ -70,9 +70,11 @@ public class Gestores implements Serializable {
     @Column(name = "fecha_oficio")
     @Temporal(TemporalType.DATE)
     private Date fechaOficio;
+    @Pattern(regexp="(^[\\w]{9}$)|^\\s*$")
     @Size(max = 2147483647)
     @Column(name = "pwdftp")
     private String pwdftp;
+    @Pattern(regexp="(^[\\w]{9}$)|^\\s*$")
     @Size(max = 2147483647)
     @Column(name = "pwdwms")
     private String pwdwms;

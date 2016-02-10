@@ -20,9 +20,9 @@
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresInput_oficio}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>                                        
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
-                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" />
+                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdwms}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
                                     <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" /> 
                                 </p:panelGrid> 

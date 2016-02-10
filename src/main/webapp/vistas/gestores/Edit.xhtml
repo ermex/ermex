@@ -23,9 +23,9 @@
                                     <p:outputLabel value="#{bundle.GestoresLabel_fechaOficio}" for="fechaOficio" />
                                     <p:calendar id="fechaOficio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaOficio}" title="#{bundle.GestoresTitle_fechaOficio}"  showOn="button"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
-                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="#{bundle.GestoresTitle_pwdftp}" />
+                                    <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" title="#{bundle.GestoresTitle_pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
-                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="#{bundle.GestoresTitle_pwdwms}" />
+                                    <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" title="#{bundle.GestoresTitle_pwdwms}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
                                     <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.GestoresTitle_fechaEnviouser}"  showOn="button"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />

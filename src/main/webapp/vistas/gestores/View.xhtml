@@ -67,6 +67,9 @@
                         <p:tab id="ViewPersonaGestor" title="#{bundle.GestoresTitle_idpersona}">
                             <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
+                                    <h:outputText value="#{bundle.PersonasLabel_idpersona}"/>
+                                    <h:outputText value="#{gestoresController.selected.idpersona.idpersona}" title="#{bundle.PersonasTitle_idpersona}" styleClass="outputLabel"/>
+                                    
                                     <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                     <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
 
@@ -156,6 +159,9 @@
                         <p:tab id="ViewPersonaDesignacion" title="#{bundle.GestoresTitle_designador}">
                             <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
                                 <p:panelGrid columns="2" layout="grid">
+                                    <h:outputText value="#{bundle.PersonasLabel_idpersona}"/>
+                                    <h:outputText value="#{gestoresController.selected.designador.idpersona}" title="#{bundle.PersonasTitle_idpersona}" styleClass="outputLabel"/>
+                                    
                                     <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                     <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 

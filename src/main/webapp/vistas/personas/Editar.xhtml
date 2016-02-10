@@ -14,7 +14,7 @@
                 <p:growl id="growl1"  sticky="true" showDetail="true"/>
                 <p:wizard id="wizardEditarPersona" widgetVar="wizEditarPersona" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
                     <p:tab id="tabPersona" title="#{bundle.PersonasTitle}">
-                        <p:panel header="#{bundle.DetallesPanel}">
+                        <p:panel header="#{bundle.DetallesPanel} DE LA PERSONA #{personasController.selected.idpersona}">
                             <p:messages />
                             <p:panelGrid columns="4" layout="grid" >
                             <p:outputLabel value="#{bundle.PersonasLabel_tipo}" for="tipo" />
@@ -24,29 +24,29 @@
                             <p:outputLabel value="#{bundle.PersonasLabel_domicilioOficina}" for="domicilioOficina" />
                             <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}" size="40"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_curp}" for="curp" />
-                            <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" size="40"/>
+                            <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" validatorMessage="#{bundle.PersonasValidatorMessage_curp}" size="40" />
                             <p:outputLabel value="#{bundle.PersonasLabel_telefono}" for="telefono" />
                             <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_grado}" for="grado" />
                             <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo1}" for="correo1" />
-                            <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" size="40"/>                            
+                            <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_correo1}" validatorMessage="#{bundle.PersonasValidatorMessage_correo1}" size="40"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_nombre}" for="nombre" />
-                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" size="40"/>
+                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_nombre}" validatorMessage="#{bundle.PersonasValidatorMessage_nombre}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo2}" for="correo2" />
-                            <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.PersonasTitle_correo2}" size="40"/>                            
+                            <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.PersonasTitle_correo2}" validatorMessage="#{bundle.PersonasValidatorMessage_correo2}" size="40"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_apellidop}" for="apellidop" />
-                            <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.PersonasTitle_apellidop}" size="40"/>
+                            <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.PersonasTitle_apellidop}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidop}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidop}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_dompersonal}" for="dompersonal" />
                             <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.PersonasTitle_dompersonal}" size="40"/>                                
                             <p:outputLabel value="#{bundle.PersonasLabel_apellidom}" for="apellidom" />
-                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" size="40"/>
+                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_telpersonal}" for="telpersonal" />
                             <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.PersonasTitle_telpersonal}" size="40"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_cargo}" for="cargo" />
                             <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}" size="40"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo3}" for="correo3" />
-                            <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" size="40"/>
+                            <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}" size="40"/>
                                 </p:panelGrid>
                             </p:panel>
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />
