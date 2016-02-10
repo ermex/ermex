@@ -44,11 +44,11 @@ public class PersonasFacade extends AbstractFacade<Personas> {
             //return results;
     } 
     
-    public Personas findByPersonaGestor(String idpersona)
+    public Personas findByPersonaGestor(Long idpersona)
     {
     //Regresa a la persona que tenga el id  "parametro->idpersona"    
         TypedQuery<Personas> query =
-        em.createNamedQuery("Personas.findByIdpersona",Personas.class).setParameter("idpersona",Long.parseLong(idpersona));
+        em.createNamedQuery("Personas.findByIdpersona",Personas.class).setParameter("idpersona",idpersona);
         return (Personas) query.getSingleResult();
     }
 }

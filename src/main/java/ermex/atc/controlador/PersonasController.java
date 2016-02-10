@@ -256,7 +256,7 @@ public class PersonasController implements Serializable {
             tipo.put("Designador", "D");
             tipo.put("Gestor", "G");
             tipo.put("Designador y Gestor", "A");
-        selected = persona;
+        selected = ejbFacade.findByPersonaGestor(persona.getIdpersona());
         //initializeEmbeddableKey();
     }
     

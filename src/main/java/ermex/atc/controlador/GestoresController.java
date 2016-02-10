@@ -153,7 +153,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "idoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);                
+            case "idoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));                
                 if(personaGestor.getIdoficialanv()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialanv()));
@@ -162,7 +162,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "idoficialrev":personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+            case "idoficialrev":personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));
                 if(personaGestor.getIdoficialrev()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getIdoficialrev()));
@@ -171,7 +171,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "credoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
+            case "credoficialanv": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas)); 
                 if(personaGestor.getCredoficialanv()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialanv()));
@@ -180,7 +180,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "credoficialrev": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+            case "credoficialrev": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));
                 if(personaGestor.getCredoficialrev()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getCredoficialrev()));
@@ -189,7 +189,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "imgcurp": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
+            case "imgcurp": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas)); 
                 if(personaGestor.getImgcurp()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getImgcurp()));
@@ -198,7 +198,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;    
-            case "foto":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+            case "foto":  personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));
                 if(personaGestor.getFoto()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getFoto()));
@@ -207,7 +207,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellapulgar": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
+            case "huellapulgar": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas)); 
                 if(personaGestor.getHuellapulgar()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellapulgar()));
@@ -216,7 +216,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellamanoizq": personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas); 
+            case "huellamanoizq": personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas)); 
                 if(personaGestor.getHuellamanoizq()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoizq()));
@@ -225,7 +225,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "huellamanoder":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+            case "huellamanoder":  personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));
                 if(personaGestor.getHuellamanoder()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getHuellamanoder()));
@@ -234,7 +234,7 @@ public class GestoresController implements Serializable {
                     imagenAtributo=imagenError();
                 }
                 break;
-            case "nombramiento":  personaGestor=ejbFacadePersona.findByPersonaGestor(idpersonas);
+            case "nombramiento":  personaGestor=ejbFacadePersona.findByPersonaGestor(Long.parseLong(idpersonas));
                 if(personaGestor.getNombramiento()!=null)
                 {
                     imagenAtributo= new DefaultStreamedContent(new ByteArrayInputStream(personaGestor.getNombramiento()));
