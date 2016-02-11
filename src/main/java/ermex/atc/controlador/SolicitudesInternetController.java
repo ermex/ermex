@@ -5,12 +5,10 @@ import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Catalogoimagenes;
 import ermex.atc.entidad.Gestores;
-import ermex.atc.sesion.CatalogoimagenesFacade;
 import ermex.atc.sesion.SolicitudesInternetFacade;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -18,7 +16,6 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -39,6 +36,7 @@ public  class SolicitudesInternetController implements Serializable {
     private List<SolicitudesInternet> items = null;
     private List<SolicitudesInternet> itemsRespaldo = null;
     private SolicitudesInternet selected;
+    private CatalogoimagenesController controlerC;
     
     //Variables creadas por el programador 
     
@@ -49,14 +47,11 @@ public  class SolicitudesInternetController implements Serializable {
     private String noPeriodo3;
     private String fechaMinima;
     private int radioS;
-    private List<Object> tiposImg=null;
     private SolicitudesInternet selectedRespaldo;
-    @EJB
-    private ermex.atc.sesion.CatalogoimagenesFacade facadeCatalogoImg;
     private Date periodo1IR;
     private Date periodo2IR;
     private Date periodo3IR;    
-    private DualListModel<Catalogoimagenes> tipos;
+    private DualListModel<Catalogoimagenes> tipos;  
     
      
     public SolicitudesInternetController() {
@@ -65,13 +60,14 @@ public  class SolicitudesInternetController implements Serializable {
         this.noPeriodo3=null;
         radioS=periodosBase();
     }
-    @PostConstruct
-    public void init()
-    {
-        List<Catalogoimagenes> catalogoimgSource = getFacadeCatalogoImg().findAll();
-        List<Catalogoimagenes> catalogoimgTarget  = new ArrayList<>();
-        tipos= new DualListModel<>(catalogoimgSource, catalogoimgTarget);
+    public SolicitudesInternetFacade getEjbFacade() {
+        return ejbFacade;
     }
+
+    public void setEjbFacade(SolicitudesInternetFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+    
     public SolicitudesInternet getSelectedRespaldo() {
         return selectedRespaldo;
     }
@@ -101,7 +97,15 @@ public  class SolicitudesInternetController implements Serializable {
         selectedRespaldo=ejbFacade.find(selected.getSolicitud());
         }
     }
-
+    public void vaciarTipoNivel()
+    {
+    //tipo=" ";   
+     //nivel=" ";
+     System.out.println("Los valores de tipo son");
+     selected.setModo(null);
+     selected.setNivel(null);
+             
+    }
     public String getNoPeriodo2() {
         return noPeriodo2;
     }
@@ -129,9 +133,7 @@ public  class SolicitudesInternetController implements Serializable {
         return noPeriodo1;
     }
 
-    public CatalogoimagenesFacade getFacadeCatalogoImg() {
-        return facadeCatalogoImg;
-    }
+
     
     //metodo creado por el procramador para limbiar los periodos al crear una nueva solicitud
     public void setNoPeriodo1(String periodoS) {
@@ -161,33 +163,59 @@ public  class SolicitudesInternetController implements Serializable {
         }
       
         resetPeriodos(radioSelec);
-             
-      
     }
-public void ModoNivel(List<Catalogoimagenes> tipoM)
-
+    //metodo generado por el programador para obtener informacion del gestor.
+public void nombreOrganismo()
 {
+    String nombre;
+    String depenecia;
+    String organismo;
+    nombre =selectGestores.getIdpersona().getNombre()+ " " +selectGestores.getIdpersona().getApellidop() + " "+selectGestores.getIdpersona().getApellidom();
+    organismo= selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getNombre();
+    depenecia=selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getIddependencia().getNombre();
+    selected.setNombre(nombre);
+    selected.setOrganismo(organismo);
+    selected.setDependencia(depenecia);
+    
+}
+//metodo para generar el modo y nivel de las imagens solicitadas
+public void ModoNivel(List<Catalogoimagenes> tipoM)
+{
+    FacesMessage mensaje=null;
+    List<Catalogoimagenes>temp=tipoM;
     String tipo="";
     String nivel="";
-    if (tipoM!=null) {
-
-        System.out.println("Size de tiposM");
-        System.out.println(tipoM);
+    selected.setModo(null);
+    selected.setNivel(null);
+    boolean b=false;
+    if (tipoM!=null && tipoM.size()>0) {
+        System.out.println(tipoM.size());
         for (int i = 0; i < tipoM.size(); i++) {
-            tipo=tipo+tipoM.get(i).getTipo();
-            nivel=nivel+tipoM.get(i).getNivel();
+            
+            for (int j = 0; j < temp.size(); j++) {
+                if (j!=i) {
+                if (tipoM.get(i).getIdentificador().compareTo(temp.get(j).getIdentificador())==0) {
+                     b=true;
+                    System.out.println(temp.get(j).getIdentificador());
+                }                    
+                }
+            }
+            if (b==false) {
+            tipo=tipo+tipoM.get(i).getTipo() + " ";
+            nivel=nivel+tipoM.get(i).getNivel() + " ";                
+            }else
+            {
+                b=false;
+            }
+
         }
+        selected.setModo(tipo);
+        selected.setNivel(nivel);
         
     }else
     {
-        System.out.println("los valores de tipoM son nulos");
-    }
-    System.out.println("valores de nivel y modo");
-    System.out.println(tipo);
-    System.out.println(nivel);
-   selected.setModo(tipo);
-   selected.setNivel(nivel);
-    
+         mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciones el tipo de imagen"," ");
+    }    
 }
     
     public Gestores getSelectGestores() {
@@ -319,6 +347,8 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            System.out.println("Se  agrego correctamente");
+            
         }
     }
 

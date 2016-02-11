@@ -70,19 +70,6 @@ public class CatalogoimagenesController implements Serializable {
             
         }
     }
-    public void onSeleccion()
-    {
-        if (imgSelect.size() > 0) {
-            System.out.println(imgSelect.size());
-        }
-        
-    }
-    public void offSeleccion()
-    {
-        if (imgSelect.size() > 0) {
-            System.out.println(imgSelect.size());
-        }   
-    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesCreated"));
         if (!JsfUtil.isValidationFailed()) {
