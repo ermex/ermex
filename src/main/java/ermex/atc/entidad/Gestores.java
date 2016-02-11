@@ -106,9 +106,11 @@ public class Gestores implements Serializable {
     private List<Procesoratificacion> procesoratificacionList;
     @OneToMany(mappedBy = "gestor")
     private List<Controlsolicitudes> controlsolicitudesList;
+    @NotNull
     @JoinColumn(name = "idpersona", referencedColumnName = "idpersona")
     @ManyToOne
     private Personas idpersona;
+    @NotNull
     @JoinColumn(name = "designador", referencedColumnName = "idpersona")
     @ManyToOne
     private Personas designador;

@@ -143,7 +143,7 @@ public class PersonalatencionusuariosController implements Serializable {
             Personalatencionusuarios acceso = ejbFacade.acceso(u.getUsuario(), u.getPwd());
             if (null!=acceso) {
                 try {
-                    contExternal.redirect("index.xhtml");
+                    contExternal.redirect("ermex/ermex/vistas/gestores/List.xhtml");
                     System.out.println("Estamos adentro");
                 } catch (IOException ex) {
                     Logger.getLogger(PersonalatencionusuariosController.class.getName()).log(Level.SEVERE, null, ex);

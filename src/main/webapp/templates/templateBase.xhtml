@@ -6,33 +6,31 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <link rel="stylesheet" href="/webapp/resources/css/cssLayout.css"/>
-            <!--<link rel="stylesheet" href="/webapp/resources/css/default.css"/>  -->         
-        <title>Facelets Template</title>
+        <title>
+            <ui:insert name="title">Default Title</ui:insert>
+        </title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
     </h:head>
 
     <h:body>
         <p:growl id="growl" life="4000"/>        
         <p:layout fullPage="true" style="border-style: none">
+            
             <p:layoutUnit position="north" style="border-style: none">                        
-                    <div id="top" class="top" >
-                        <ui:include src="temaplteHeader.xhtml"/>
-                    </div>                
+                <div id="top" class="top" >
+                    <ui:include src="templateHeader.xhtml"/>
+                </div>                
             </p:layoutUnit>
             
-            <p:layoutUnit position="south" size="70" >
-                
-                <h5 align="center">
-                    #{bundle.PieErmex}<br/>
-                    #{bundle.PieDir}
-                </h5>
-                 
+            <p:layoutUnit position="south">
+                <ui:include src="templateFooter.xhtml"/>
             </p:layoutUnit>
+            
             <p:layoutUnit position="west" resizable="false" size="200" minSize="200" maxSize="200">
-                     <ui:include src="templateMenuP.xhtml"/>
+                <ui:include src="templateMenuP.xhtml"/>
              </p:layoutUnit>            
             
             <p:layoutUnit position="center" resizable="false" size="500" minSize="300" maxSize="300" >

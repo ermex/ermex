@@ -9,11 +9,11 @@
     <ui:composition>
         <p:dialog  width="1000" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
             <h:form id="GestoresCreateForm" enctype="multipart/form-data">
-                <p:growl id="growl1"  sticky="true" showDetail="true"/>
+                <p:growl id="growl1" sticky="true"/>
                 <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
                     <p:tab id="tabGestor" title="#{bundle.GestorTitle}">
                             <p:panel header="#{bundle.DetallesPanel}">
-                                <p:messages />
+                                <p:messages closable="true" />
                                 <p:panelGrid columns="2" layout="grid" >       
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>

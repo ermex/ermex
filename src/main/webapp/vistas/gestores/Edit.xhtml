@@ -9,11 +9,11 @@
     <ui:composition>
         <p:dialog id="GestoresEditDlg" widgetVar="GestoresEditDialog" width="1000" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGestoresTitle}">
             <h:form id="GestoresEditForm" enctype="multipart/form-data">
-                <p:growl id="growl1"  sticky="true" showDetail="true"/>
+                <p:growl id="growl1"/>
                 <p:wizard id="wizardEditGestor" widgetVar="wizEditGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
                     <p:tab id="tabEditGestor" title="#{bundle.GestorTitle}">
                         <p:panel>
-                            <p:messages />
+                            <p:messages closable="true"/>
                             <p:panelGrid columns="2" layout="grid"> 
                                 <p:panelGrid columns="2" layout="grid">   
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />
