@@ -23,40 +23,46 @@
                                         <f:facet name="header">
                                             <p:outputLabel value="Datos Generales"/>
                                         </f:facet>                                        
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_solicitud}" for="solicitud" />
-                                    <p:inputText id="solicitud" value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.CreateSolicitudesInternetTitle_solicitud}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_solicitud}"/>
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nombre}" for="nombre" />
-                                    <p:inputText id="nombre" value="#{solicitudesInternetController.selected.nombre}" title="#{bundle.CreateSolicitudesInternetTitle_nombre}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_dependencia}" for="dependencia" />
-                                    <p:inputText id="dependencia" value="#{solicitudesInternetController.selected.dependencia}" title="#{bundle.CreateSolicitudesInternetTitle_dependencia}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_organismo}" for="organismo" />
-                                    <p:inputText id="organismo" value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.CreateSolicitudesInternetTitle_organismo}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_tema}" for="tema" />
-                                    <p:inputText id="tema" value="#{solicitudesInternetController.selected.tema}" title="#{bundle.CreateSolicitudesInternetTitle_tema}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nubosidad}" for="nubosidad" />
-                                    <p:inputText id="nubosidad" value="#{solicitudesInternetController.selected.nubosidad}" title="#{bundle.CreateSolicitudesInternetTitle_nubosidad}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_modo}" for="modo" />
-                                    <p:inputText id="modo" value="#{solicitudesInternetController.selected.modo}" title="#{bundle.CreateSolicitudesInternetTitle_modo}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_resolucion}" for="resolucion" />
-                                    <p:inputText id="resolucion" value="#{solicitudesInternetController.selected.resolucion}" title="#{bundle.CreateSolicitudesInternetTitle_resolucion}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nivel}" for="nivel" />
-                                    <p:inputText id="nivel" value="#{solicitudesInternetController.selected.nivel}" title="#{bundle.CreateSolicitudesInternetTitle_nivel}" />
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_status}" for="status" />
-                                    <p:inputText id="status" value="#{solicitudesInternetController.selected.status}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
-                                     <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_fechaCaptura}" for="fechaCaptura" />
-                                     <p:calendar id="fechaCaptura" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaCaptura}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaCaptura}"  />
-                                     <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_fechaVentanilla}" for="fechaVentanilla" />
-                                     <p:calendar id="fechaVentanilla" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaVentanilla}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaVentanilla}"  />                                                 
-                                    <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
-                                    <p:selectOneMenu id="gestor" value="#{solicitudesInternetController.selectGestores}" >
-                                        <f:selectItems  value="#{gestoresController.getItemsActivos()}"
-                                                       var="gestorItem"
-                                                       itemValue="#{solicitudesInternetController.selected.setGestor(gestorItem)}"/>
-                                    </p:selectOneMenu>
-                                  <p:outputLabel  value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion"  />                                 
-                                 <p:inputTextarea id="justificacion"  rows="10" cols="50" autoResize="false" style="resize: none" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" /> 
-                                
-                                 </p:panelGrid>
+                                   <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_solicitud}" for="solicitud" />
+                                            <p:inputText id="solicitud" value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.CreateSolicitudesInternetTitle_solicitud}" readonly="true" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_solicitud}"/>
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
+                                            <p:selectOneMenu id="gestor" filter="true" value="#{solicitudesInternetController.selectGestores}" required="true" requiredMessage="Es necesarion un gestor" >
+                                            <f:selectItems  value="#{gestoresController.getItemsActivos()}"
+                                                                var="gestorItem"
+                                                                itemValue="#{gestorItem}"/>
+                                            <p:ajax  listener="#{solicitudesInternetController.nombreOrganismo()}" update="nombre dependencia organismo"/>
+                                            </p:selectOneMenu>                                            
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nombre}" for="nombre" />
+                                            <h:outputText id="nombre" value="#{solicitudesInternetController.selected.nombre}"  title="#{bundle.CreateSolicitudesInternetTitle_nombre}" />
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_dependencia}" for="dependencia" />
+                                            <h:outputText id="dependencia" value="#{solicitudesInternetController.selected.dependencia}"  title="#{bundle.CreateSolicitudesInternetTitle_dependencia}" />
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_organismo}" for="organismo" />
+                                            <h:outputText id="organismo" value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.CreateSolicitudesInternetTitle_organismo}" />
+                                            
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_tema}" for="tema" />
+                                            <p:selectOneMenu id="tema" filter="true" value="#{solicitudesInternetController.selected.tema}" required="true" requiredMessage="Elige un tema" >
+                                                <f:selectItems  value="#{solicitudesInternetController.temas}"
+                                                                var="temas"
+                                                                itemValue="#{temas}"/>
+                                            </p:selectOneMenu>
+                                            <h:outputText value="" />
+                                            <p:commandLink value="Nuevo Tema" oncomplete="PF('newTemaFormDialog').show()" />
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nubosidad}" for="nubosidad" />
+                                            <p:selectOneMenu id="nubosidad" filter="true"  value="#{solicitudesInternetController.selected.nubosidad}" required="true" requiredMessage="Elige la nubosidad" >
+                                                <f:selectItems  value="#{solicitudesInternetController.nubosidad}"
+                                                                var="selectNubosidad"
+                                                                itemValue="#{selectNubosidad}"/>
+                                            </p:selectOneMenu>                                             
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_status}" for="status" />
+                                            <p:inputText id="status" value="#{solicitudesInternetController.selected.status}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_fechaCaptura}" for="fechaCaptura" />
+                                            <p:calendar id="fechaCaptura" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaCaptura}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaCaptura}"  />
+                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_fechaVentanilla}" for="fechaVentanilla" />
+                                            <p:calendar id="fechaVentanilla" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaVentanilla}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaVentanilla}"  />                                                 
+                                            <p:outputLabel  value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion"  />                                 
+                                            <p:inputTextarea id="justificacion"  rows="10" cols="50" autoResize="false" style="resize: none" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" /> 
+
+                                           </p:panelGrid>
                                 
                                 
                                 <p:panelGrid   class="panelGridNoBorder" > 
@@ -125,7 +131,61 @@
                                 </center>
                         </p:panel>
                         </p:tab>
-                     
+<p:tab title="Tipos de imagen">
+                            <p:panel header="Seleccione el tipo de imagenes">                              
+
+                                <f:view>
+                                    <h:form id="craateForC">
+                                        <p:contextMenu for="ctlgImg">
+                                            <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"    actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()" />
+                                        </p:contextMenu>
+                                        <p:dataTable id="ctlgImg" value="#{catalogoimagenesController.items}" 
+                                                 var="item"
+                                                 paginator="true"
+                                                 rowsPerPageLabel="10,20,30"
+                                                 rows="10"
+                                                 rowKey="#{item.identificador}"
+                                                 selection="#{catalogoimagenesController.imgSelect}" 
+                                                 >
+                                            <p:ajax event="rowSelectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idCreateButton"/>
+                                            <p:ajax event="rowUnselectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idCreateButton"/>
+                                            <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id"/>
+                                                </f:facet>
+                                               <h:outputText value="#{item.identificador}"/>
+                                            </p:column>
+                                            <p:column filterBy="#{item.satelite}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Satélite"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.satelite}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.tipo}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.tipo}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.nivel}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.resolucion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Resolución"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </h:form>                                  
+                                </f:view>
+                               </p:panel>                            
+                        </p:tab>
+
                      <p:tab title="Confirmar">
                          <p:panel header="Informacion de la solicitud actualizada">
                              <p:panelGrid columns="2"  class="panelGridNoBorder" layout="grid">
