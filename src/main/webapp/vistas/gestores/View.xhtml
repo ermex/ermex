@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" maximizable="true" modal="true"  resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}">
+        <p:dialog id="GestoresViewDlg" widgetVar="GestoresViewDialog" modal="true"  resizable="false" appendTo="@(body)" header="#{bundle.ViewGestoresTitle}" maximizable="true" responsive="true">
             <h:form id="GestoresViewForm">
                 <h:panelGroup id="display">
                     <p:tabView id="ViewTab" onTabClose="ViewGestor">

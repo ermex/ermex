@@ -7,14 +7,15 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog  width="1000" id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}">
-            <h:form id="GestoresCreateForm" enctype="multipart/form-data">
-                <p:growl id="growl1" sticky="true"/>
-                <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
+        <p:dialog id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}"  closable="false" responsive="true" width="1000">
+            <h:form id="GestoresCreateForm" enctype="multipart/form-data">     
+                <h:panelGroup id="display" >
+                    <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}" flowListener="#{gestoresController.onFlowProcess}">
                     <p:tab id="tabGestor" title="#{bundle.GestorTitle}">
+                        <div class="ui-fluid">
                             <p:panel header="#{bundle.DetallesPanel}">
                                 <p:messages closable="true" />
-                                <p:panelGrid columns="2" layout="grid" >       
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-9" styleClass="ui-panelgrid-blank">      
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
@@ -27,20 +28,21 @@
                                     <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" /> 
                                 </p:panelGrid> 
                             </p:panel>
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                                
-                        </p:tab>
-                        <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">                            
+                        </div>    
+                    </p:tab>
+                    <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">
                             <p:panel header="#{bundle.DetallesPanel}">
-                                <p:messages />
-                                <p:panelGrid columns="2" layout="grid">       
+                                <p:messages closable="true"/>
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-10">       
                                     <p:outputLabel value="#{bundle.DependenciaLabel}" for="selectedDependencia" />
                                     <p:selectOneMenu id="selectedDependencia" value="#{gestoresController.selectedDependencia}"
                                         valueChangeListener="#{gestoresController.valueChangeMethod}">
+                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                         <f:selectItems value="#{dependenciasController.items}"
                                                        var="dependencia"
                                                        itemLabel="#{dependencia.siglas}"
                                                        itemValue="#{dependencia}"/>  
-                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion,createInstitucion" />
+                                        <p:ajax event="change" update="selectedOrganismo,selectedInstitucion,createInstitucion,createOrganismo" />
                                     </p:selectOneMenu>
                                    <p:outputLabel value="#{bundle.OrganismoLabel}" for="selectedOrganismo" />
                                    <p:selectOneMenu id="selectedOrganismo" value="#{gestoresController.selectedOrganismos}" >
@@ -49,31 +51,30 @@
                                                        var="organismo"
                                                        itemLabel="#{organismo.nombre}"
                                                        itemValue="#{organismo}"/>  
-                                        <p:ajax event="change" update="selectedInstitucion,createInstitucion" />
+                                        <p:ajax event="change" update="selectedInstitucion,createInstitucion,createOrganismo" />
                                     </p:selectOneMenu>  
-                                   <p:outputLabel value="#{bundle.InstitucionLabel}" for="selectedInstitucion" />
-                                   <p:selectOneMenu id="selectedInstitucion" value="#{gestoresController.selectedInstitucion}" >
+                                   <p:outputLabel value="#{bundle.InstitucionLabel} *" for="selectedInstitucion" />
+                                   <p:selectOneMenu id="selectedInstitucion" value="#{gestoresController.selectedInstitucion}">
                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                        <f:selectItems value="#{gestoresController.itemInstitucionXOrganismo}" 
                                                        var="institucion"
                                                        itemLabel="#{institucion.nombre}"
                                                        itemValue="#{institucion}"/>                                      
                                     </p:selectOneMenu>   
-                                   #{bundle.MessageRequired}
-                                </p:panelGrid> 
+                                </p:panelGrid>
+                                
                                 <p:commandButton id="createInstitucion" icon="ui-icon-plus"   value="Nueva Institución" action="#{institucionesController.preparate(gestoresController.selectedOrganismos)}" update=":InstitucionesCreateForm" oncomplete="PF('InstitucionesCreateDialog').show()" disabled="#{gestoresController.selectedOrganismos==null}" />
-                                <p:commandButton id="createOrganismo" icon="ui-icon-plus"   value="Nuevo Organismo" action="#{organismosController.preparate(gestoresController.selectedDependencia)}"  update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()"/>
-
-                            </p:panel> 
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
+                                <p:commandButton id="createOrganismo" icon="ui-icon-plus"   value="Nuevo Organismo" action="#{organismosController.preparate(gestoresController.selectedDependencia)}"  update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()" disabled="#{gestoresController.selectedDependencia==null}"/>
+                            </p:panel>
                         </p:tab>
                         <p:tab id="tabPersonas" title="#{bundle.PersonasTitle}">
+                            <div class="ui-fluid">
                             <p:panel header="#{bundle.PersonasGDPanel}">
-                                <p:messages />
-                                <p:panelGrid style="float:  top">
+                                <p:messages closable="true"/>
+                                <p:panelGrid style="float:  top" >
                                     <p:row>
                                         <p:column> 
-                                            <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}">
+                                            <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}" reflow="true" style="margin-top:20px">
                                                 <f:facet name="header">
                                                     <h3>#{bundle.GestoresTitle_idpersona}</h3>
                                                 </f:facet>
@@ -89,7 +90,7 @@
                                             </p:dataTable>  
                                         </p:column>
                                         <p:column>                                            
-                                            <p:dataTable id="tablaDesignador" var="designador" selectionMode="single" rowKey="#{designador.idpersona}" selection="#{gestoresController.selected.designador}" value="#{gestoresController.getItemsfindGestorInstitucion('D')}">
+                                            <p:dataTable id="tablaDesignador" var="designador" selectionMode="single" rowKey="#{designador.idpersona}" selection="#{gestoresController.selected.designador}" value="#{gestoresController.getItemsfindGestorInstitucion('D')}" reflow="true" style="margin-top:20px">
                                                 <f:facet name="header">
                                                     <h3>#{bundle.GestoresTitle_designador}</h3>
                                                 </f:facet>
@@ -106,10 +107,9 @@
                                         </p:column>
                                     </p:row> 
                                 </p:panelGrid>
-                                #{bundle.MessageRequired}
                                 <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selectedInstitucion,null)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
                                 </p:panel>
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
+                                </div>
                         </p:tab>
                         <p:tab id="tabImagen" title="#{bundle.ImagenTitle}">
                             <p:panel header="#{bundle.GestoresTitle_designacion}" style="text-align:center">
@@ -118,13 +118,12 @@
                                         <p:graphicImage id="imgdesignacion" title="#{bundle.MessageQuitarImagen}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
                                     </p:commandLink>
                                 </p:fileUpload>
-                            </p:panel>
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>
+                            </p:panel>    
                         </p:tab>
                     <p:tab id="tabConfirmacion" title="#{bundle.ConfirmacionTitle}">
                         <p:fieldset legend="#{bundle.DetallesPanel}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
-                                    <p:panelGrid columns="2" layout="grid" >
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-7,ui-grid-col-7">
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.UsuarioTitle}" /> </f:facet>
                                         <h:outputText value="#{bundle.GestoresLabel_gestor}" />
                                         <h:outputText value="#{gestoresController.selected.gestor}" styleClass="outputLabel"/>
@@ -157,7 +156,7 @@
                                 </p:panelGrid>    
                             </p:fieldset>
                         <p:fieldset legend="#{bundle.PersonaTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-7,ui-grid-col-7">
                                     <p:panelGrid columns="2" layout="grid" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_idpersona}" /> </f:facet>
                                         <h:outputText value="#{bundle.PersonasLabel_curp}" />
@@ -184,10 +183,12 @@
                                     </p:panelGrid>
                                 </p:panelGrid>                                 
                             </p:fieldset>    
-                            <p:commandButton immediate="true" value="#{bundle.Create}" update="@parent,:GestoresCreateForm:growl1,:GestoresListForm:datalist" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor', false);PF('GestoresCreateDialog').hide();"/>                           
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',true);PF('GestoresCreateDialog').hide();"/>                               
+                            <p:commandButton value="#{bundle.Create}" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor',false);PF('GestoresCreateDialog').hide();" immediate="true"  update=":GestoresListForm:datalist,:growl"/>                           
                         </p:tab>
-                    </p:wizard> 
+                    </p:wizard>
+                    
+                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{gestoresController.reset}"  oncomplete="PF('wizCreateGestor').loadStep('tabGestor',false);PF('GestoresCreateDialog').hide();" /> 
+                    </h:panelGroup>        
             </h:form>
             <ui:include src="../instituciones/Crear.xhtml"/>
             <ui:include src="../organismos/Crear.xhtml"/>

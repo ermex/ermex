@@ -7,14 +7,12 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog position="top" height="100%" width="100%" closable="false" id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}">
+        <p:dialog id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}" position="top" height="100%" width="100%" closable="false" >
             <h:form id="PersonasCreateForm">
-                <p:growl id="growl"  sticky="true" showDetail="true"/>
-                <p:wizard id="wizardCrearPersonas" widgetVar="wizCrearPersonas" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
-                    
+                <p:wizard id="wizardCrearPersonas" widgetVar="wizCrearPersonas" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">                    
                     <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">                            
                         <p:panel header="#{bundle.DetallesPanel}">
-                            <p:messages/>
+                            <p:messages closable="true"/>
                             <p:panelGrid columns="2"  columnClasses="label, value"   >                                 
                                 <p:outputLabel value="#{bundle.DependenciaLabel}" for="iddependencia" />
                                 <h:outputText id="iddependencia" value="#{personasController.selected.idinstitucion.idorganismo.iddependencia.siglas}" title="#{bundle.PersonasTitle_dependencia}"/>                                             
@@ -26,11 +24,10 @@
                                 <h:outputText id="idinstitucion" value="#{personasController.selected.idinstitucion.nombre}" title="#{bundle.PersonasTitle_institucion}" />                               
                             </p:panelGrid>
                         </p:panel>
-                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />                       
                     </p:tab> 
                     <p:tab id="tabPersona" title="#{bundle.PersonasTitle}">
                         <p:panel header="#{bundle.DetallesPanel}">
-                            <p:messages />
+                            <p:messages closable="true"/>
                             <p:panelGrid columns="4" layout="grid" >
 
                                     <p:outputLabel value="#{bundle.PersonasLabel_tipo}" for="tipo" />
@@ -66,7 +63,6 @@
                                     <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}" />
                            </p:panelGrid>
                         </p:panel>
-                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />
                     </p:tab>
                     <p:tab id="tabImagen" title="#{bundle.ImagenesTitle}">
                         <p:panel header="#{bundle.ImagenesPanel}" >
@@ -131,14 +127,11 @@
                                 </p:fileUpload>
  
                             </p:panelGrid>
-                        </p:panel>
-                               
-                        <p:commandButton value="#{bundle.Save}" actionListener="#{personasController.create}"       update=":GestoresCreateForm,:growl,:GestoresEditForm,:growl"             oncomplete="handleSubmit(args,'PersonasCreateDialog');PF('wizCrearPersonas').loadStep('tabInstitucion',true)"/>
-                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />
-                        
-                    </p:tab>    
-                        
+                        </p:panel>  
+                        <p:commandButton value="#{bundle.Save}"  actionListener="#{personasController.create}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" update=":GestoresCreateForm,:GestoresEditForm"/>                       
+                    </p:tab>  
                 </p:wizard> 
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />           
             </h:form>
         </p:dialog>
 

@@ -23,6 +23,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -30,6 +31,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.ServletContext;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -69,6 +71,24 @@ public class GestoresController implements Serializable {
     }
     
     //*************************** Metodos del programador
+    public String onFlowProcess(FlowEvent event) {
+        switch(event.getNewStep())
+        {
+            case "tabPersonas":
+                if(this.selectedInstitucion==null){
+                    FacesContext.getCurrentInstance().addMessage("successInfo", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Selecciona la Institución",null));
+                    return "tabInstitucion";
+                }
+                break;
+            case "tabImagen":
+                if(this.selected.getDesignador()==null || this.selected.getIdpersona()==null){
+                    FacesContext.getCurrentInstance().addMessage("successInfo", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Selecciona el gestor y designador",null));
+                    return "tabPersonas";
+                }
+                break;    
+        }
+        return event.getNewStep();
+    }
     public void subirDesignacion(FileUploadEvent event) {  
        Updesignacion = event.getFile();
        this.selected.setDesignacion(Updesignacion.getContents());
