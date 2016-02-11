@@ -38,12 +38,21 @@
                                             <h:outputText id="dependencia" value="#{solicitudesInternetController.selected.dependencia}"  title="#{bundle.CreateSolicitudesInternetTitle_dependencia}" />
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_organismo}" for="organismo" />
                                             <h:outputText id="organismo" value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.CreateSolicitudesInternetTitle_organismo}" />
+                                            
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_tema}" for="tema" />
-                                            <p:inputText id="tema" value="#{solicitudesInternetController.selected.tema}" title="#{bundle.CreateSolicitudesInternetTitle_tema}" />
+                                            <p:selectOneMenu id="tema" filter="true" value="#{solicitudesInternetController.selected.tema}" required="true" requiredMessage="Elige un tema" >
+                                                <f:selectItems  value="#{solicitudesInternetController.temas}"
+                                                                var="temas"
+                                                                itemValue="#{temas}"/>
+                                            </p:selectOneMenu>
+                                            <h:outputText value="" />
+                                            <p:commandLink value="Nuevo Tema" oncomplete="PF('newTemaFormDialog').show()" />
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nubosidad}" for="nubosidad" />
-                                            <p:inputText id="nubosidad" value="#{solicitudesInternetController.selected.nubosidad}" title="#{bundle.CreateSolicitudesInternetTitle_nubosidad}" />
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_resolucion}" for="resolucion" />
-                                            <p:inputText id="resolucion" value="#{solicitudesInternetController.selected.resolucion}" title="#{bundle.CreateSolicitudesInternetTitle_resolucion}" />
+                                            <p:selectOneMenu id="nubosidad" filter="true"  value="#{solicitudesInternetController.selected.nubosidad}" required="true" requiredMessage="Elige la nubosidad" >
+                                                <f:selectItems  value="#{solicitudesInternetController.nubosidad}"
+                                                                var="selectNubosidad"
+                                                                itemValue="#{selectNubosidad}"/>
+                                            </p:selectOneMenu>                                             
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_status}" for="status" />
                                             <p:inputText id="status" value="#{solicitudesInternetController.selected.status}"   readonly="true" title="#{bundle.CreateSolicitudesInternetTitle_status}" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_status}"/>
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_fechaCaptura}" for="fechaCaptura" />
@@ -69,7 +78,7 @@
                                                             <f:selectItem itemLabel="Un periodos"  itemValue="uno"/>
                                                             <f:selectItem itemLabel="Dos periodos"  itemValue="dos"/>
                                                             <f:selectItem itemLabel="Tres periodos" itemValue="tres"/>
-                                                            <p:ajax event="click" update="periodo1I periodo1F periodo2I periodo2F periodo3I periodo3F "/>
+                                                            <p:ajax event="click" update="periodo1I periodo1F periodo2I periodo2F periodo3I periodo3F" listener="#{solicitudesInternetController.validarPeriodo()}" />
                                                         </p:selectOneRadio>
                                                     </p:column>
                                                 </p:row>
@@ -93,7 +102,7 @@
                                                 <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
                                                             value="#{solicitudesInternetController.selected.periodo1F}" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
                                                             " requiredMessage="Es necesario la fecha final del primer periodo"
-                                                            mindate="#{solicitudesInternetController.minPeriodo}">
+                                                          >
                                                 </p:calendar>                                           
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
                                                 <p:calendar id="periodo2I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2 }"
@@ -146,13 +155,13 @@
                                             <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
                                             <p:column>
                                                 <f:facet name="header">
-                                                    <h:outputText value="Identificador"/>
+                                                    <h:outputText value="Id"/>
                                                 </f:facet>
                                                <h:outputText value="#{item.identificador}"/>
                                             </p:column>
                                             <p:column filterBy="#{item.satelite}">
                                                 <f:facet name="header">
-                                                    <h:outputText value="Satelite"/>
+                                                    <h:outputText value="Satélite"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.satelite}"/>
                                             </p:column>
@@ -165,6 +174,12 @@
                                             <p:column  filterBy="#{item.nivel}">
                                                 <f:facet name="header">
                                                     <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.resolucion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Resolución"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.nivel}"/>
                                             </p:column>
@@ -247,6 +262,7 @@
             </h:form>
 
             <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>
+            <ui:include src="temaNuevo.xhtml"/>
         </p:dialog>        
     </ui:composition>
 </html>

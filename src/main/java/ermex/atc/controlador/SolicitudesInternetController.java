@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -52,6 +54,9 @@ public  class SolicitudesInternetController implements Serializable {
     private Date periodo2IR;
     private Date periodo3IR;    
     private DualListModel<Catalogoimagenes> tipos;  
+    private HashMap<String, String> temas=null;
+    private HashMap<String, String> nubosidad=null;
+    private String nuevoT="";
     
      
     public SolicitudesInternetController() {
@@ -59,9 +64,35 @@ public  class SolicitudesInternetController implements Serializable {
         this.noPeriodo2=null;
         this.noPeriodo3=null;
         radioS=periodosBase();
+        if (temas==null) {
+        temas= new HashMap<>();
+        temas.put("AGRICULTURA","AGRICULTURA");
+        temas.put("RECURSOS NATURALES","RECURSOS NATURALES");
+        temas.put("ANÁLISIS METEOROLÓGICO","ANÁLISIS METEOROLÓGICO");
+        temas.put("DESASTRES NATURALES","DESASTRES NATURALES");
+        temas.put("USO DE SUELO","USO DE SUELO");
+        temas.put("SEGURIDAD NACIONAL","SEGURIDAD NACIONAL");
+        temas.put("INUNDACIÓN","INUNDACIÓN");
+        temas.put("GANADERÍA","GANADERÍA");
+        temas.put("CAPACITACIÓN","CAPACITACIÓN");
+        temas.put("CARTOGRAFÍA","CARTOGRAFÍA");
+        }
+        if (nubosidad==null) {
+            nubosidad= new LinkedHashMap<>();
+          nubosidad.put("SIN-NUBES","A");
+          nubosidad.put("MEMOR-10%","B");
+          nubosidad.put("MEMOR-20%","C");
+          nubosidad.put("MEMOR-75%","D");
+          nubosidad.put("MAYOR-76%","E");
+
+        }
     }
     public SolicitudesInternetFacade getEjbFacade() {
         return ejbFacade;
+    }
+
+    public HashMap<String, String> getTemas() {
+        return temas;
     }
 
     public void setEjbFacade(SolicitudesInternetFacade ejbFacade) {
@@ -74,6 +105,10 @@ public  class SolicitudesInternetController implements Serializable {
 
     public DualListModel<Catalogoimagenes> getTipos() {
         return tipos;
+    }
+
+    public HashMap<String, String> getNubosidad() {
+        return nubosidad;
     }
 
     public void setTipos(DualListModel<Catalogoimagenes> tipos) {
@@ -97,15 +132,8 @@ public  class SolicitudesInternetController implements Serializable {
         selectedRespaldo=ejbFacade.find(selected.getSolicitud());
         }
     }
-    public void vaciarTipoNivel()
-    {
-    //tipo=" ";   
-     //nivel=" ";
-     System.out.println("Los valores de tipo son");
-     selected.setModo(null);
-     selected.setNivel(null);
-             
-    }
+    //metodo para iniciar valores de los temas
+
     public String getNoPeriodo2() {
         return noPeriodo2;
     }
@@ -133,36 +161,69 @@ public  class SolicitudesInternetController implements Serializable {
         return noPeriodo1;
     }
 
+    public String getNuevoT() {
+        return nuevoT;
+    }
 
+    public void setNuevoT(String nuevoT) {
+        this.nuevoT = nuevoT;
+    }
+
+public void validarPeriodo()
+{
+    switch(noPeriodo1)
+    {
+        case "uno":
+            System.out.println("Estamos en el caso uno");
+                resetPeriodos(1);
+                noPeriodo2=null;
+                noPeriodo3=null;
+            break;
+        case "dos":
+            System.out.println("Estamos en el caso de dos ");
+                noPeriodo2="dos";
+                noPeriodo3=null;
+                resetPeriodos(2);
+            break;
+        case "tres":
+            System.out.println("Esamos en el caso 3");
+            noPeriodo3="tres";
+            resetPeriodos(3);
+            break;
+    }
+}
     
     //metodo creado por el procramador para limbiar los periodos al crear una nueva solicitud
-    public void setNoPeriodo1(String periodoS) {
-        int radioSelec=0;
-        if (periodoS!=null) {
-               if (periodoS.compareTo("dos")==0)
-               {
-                   noPeriodo2="dos";
-                   noPeriodo1="uno";
-                   noPeriodo3=null;
-                   radioSelec=2;
-               }else
-               {
-                   if (periodoS.compareTo("tres")==0) {
-                       noPeriodo3="tres";
-                       noPeriodo1="uno";
-                       noPeriodo2="dos";
-                       radioSelec=3;
-                   }else
-                   {
-                      this.noPeriodo1 = periodoS; 
-                       noPeriodo2=null;
-                       noPeriodo3=null;
-                       radioSelec=1;
-                   }
-               }
-        }
-      
-        resetPeriodos(radioSelec);
+ public void setNoPeriodo1(String periodoS) {
+     this.noPeriodo1=periodoS;
+//        int radioSelec=0;
+//        
+//        if (periodoS!=null) {
+//               if (periodoS.compareTo("dos")==0)
+//               {
+//                   noPeriodo2="dos";
+//                   noPeriodo1="uno";
+//                   noPeriodo3=null;
+//                   radioSelec=2;
+//               }else
+//               {
+//                   if (periodoS.compareTo("tres")==0) {
+//                       noPeriodo3="tres";
+//                       noPeriodo1="uno";
+//                       noPeriodo2="dos";
+//                       radioSelec=3;
+//                   }else
+//                   {
+//                      this.noPeriodo1 = periodoS; 
+//                       noPeriodo2=null;
+//                       noPeriodo3=null;
+//                       radioSelec=1;
+//                   }
+//               }
+//        }
+//      
+//        resetPeriodos(radioSelec);
+//        System.out.println("Valore de radio select " +  radioSelec);
     }
     //metodo generado por el programador para obtener informacion del gestor.
 public void nombreOrganismo()
@@ -185,66 +246,72 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     List<Catalogoimagenes>temp=tipoM;
     String tipo="";
     String nivel="";
+    String resolucion="";
     selected.setModo(null);
     selected.setNivel(null);
+    selected.setResolucion(null);
     boolean b=false;
     if (tipoM!=null && tipoM.size()>0) {
         System.out.println(tipoM.size());
         for (int i = 0; i < tipoM.size(); i++) {
-            
-            for (int j = 0; j < temp.size(); j++) {
-                if (j!=i) {
-                if (tipoM.get(i).getIdentificador().compareTo(temp.get(j).getIdentificador())==0) {
-                     b=true;
-                    System.out.println(temp.get(j).getIdentificador());
-                }                    
-                }
-            }
-            if (b==false) {
             tipo=tipo+tipoM.get(i).getTipo() + " ";
-            nivel=nivel+tipoM.get(i).getNivel() + " ";                
-            }else
-            {
-                b=false;
-            }
-
+            nivel=nivel+tipoM.get(i).getNivel() + " "; 
+            resolucion=resolucion+tipoM.get(i).getResolucion().toString();          
         }
         selected.setModo(tipo);
         selected.setNivel(nivel);
+        selected.setResolucion(resolucion);
         
     }else
     {
          mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciones el tipo de imagen"," ");
     }    
-}
-    
+}    
     public Gestores getSelectGestores() {
         return selectGestores;
     }
     //los periodos se pasan a nulos 
     private void  resetPeriodos(int datos)
     {
-        if (radioS==3 && datos==1 || datos==1 && radioS==2 
-                ) {
-            selected.setPeriodo3I(null);
-            selected.setPeriodo3F(null);
-            selected.setPeriodo2I(null);
-            selected.setPeriodo2F(null);
-        }else
+        System.out.println("Valor de radioS " + radioS);
+        System.out.println("Valor de datos "+ datos);
+        switch(datos)
         {
-            if (radioS==3 && datos==2) {
-                selected.setPeriodo3I(null);
-                selected.setPeriodo3F(null);
-            }
-            else
-            {
-                if (datos==1) {
-                    selected.setPeriodo3I(null);
-                    selected.setPeriodo3F(null);
+            case 1:
+                if (radioS==2) {
                     selected.setPeriodo2I(null);
                     selected.setPeriodo2F(null);
+                    System.out.println("reset valores en 1-2");
+                }else
+                {
+                    if (radioS==3) {
+                        System.out.println("reset valores en 1-3");
+                    selected.setPeriodo2I(null);
+                    selected.setPeriodo2F(null);
+                    selected.setPeriodo3I(null);
+                    selected.setPeriodo3F(null);                        
+                    }else{
+                        if (radioS==1) {
+                            
+                        }
+                    }
+                       
                 }
-            }
+                break;
+            case 2:
+                if (radioS==3) {
+                    System.out.println("reset valores en 2-3");
+                    selected.setPeriodo3I(null);
+                    selected.setPeriodo3F(null);
+                } 
+                else
+                {
+                    if (radioS==2) {
+                        
+                    }
+                }
+                break;
+            default:                
         }
         radioS=datos;
         
@@ -265,7 +332,9 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     public void minDatePerio1F() {
         if (selected.getPeriodo1I() != null || periodo1IR != selected.getPeriodo1I()) {
           //  fechaMinima = selected.getPeriodo1I();
-            obtenerFecha(selected.getPeriodo1I());
+            if (radioS!=1) {
+                obtenerFecha(selected.getPeriodo1I());    
+            }           
         }        
             periodo1IR = selected.getPeriodo1I();
     }
@@ -273,7 +342,9 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     {
         if (selected.getPeriodo2I() != null || periodo2IR != selected.getPeriodo2I()) {
            // fechaMinima = selected.getPeriodo2I();
-            obtenerFecha(selected.getPeriodo2I());
+             if (radioS!=2) {
+                obtenerFecha(selected.getPeriodo2I());    
+            }
         } 
            periodo2IR = selected.getPeriodo2I();
     }
@@ -281,7 +352,9 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     {
         if (selected.getPeriodo3I() != null || periodo3IR != selected.getPeriodo3I()) {
             //fechaMinima = selected.getPeriodo3I();
-             obtenerFecha(selected.getPeriodo3I());
+           if (radioS!=3) {
+                obtenerFecha(selected.getPeriodo3I());    
+            }
         } 
              periodo3IR = selected.getPeriodo3I();
     }
@@ -325,6 +398,13 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     protected void setEmbeddableKeys() {
     }
 
+    public void agregarTema()
+    {
+        if (!"".equals(nuevoT)) {
+            temas.put(nuevoT, nuevoT);
+            nuevoT="";
+        }
+    }
     protected void initializeEmbeddableKey() {
     }
 
