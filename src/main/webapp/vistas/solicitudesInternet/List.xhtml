@@ -14,8 +14,8 @@
         <ui:define name="body">                                     
             <h:form id="SolicitudesInternetListForm">  
                 <p:contextMenu for="datalist">
-                    <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
-                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" />
+                    <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" />
+                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" action="#{solicitudesInternetController.iniciarValores()}" />
                     <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
                 </p:contextMenu>
                 <p:panel header="#{bundle.ListSolicitudesInternetTitle}">

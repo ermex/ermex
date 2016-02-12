@@ -5,6 +5,8 @@ import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Catalogoimagenes;
 import ermex.atc.entidad.Gestores;
+import ermex.atc.entidad.Imagnesolicitudes;
+import ermex.atc.sesion.ImagnesSolicitudFacade;
 import ermex.atc.sesion.SolicitudesInternetFacade;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -57,7 +59,8 @@ public  class SolicitudesInternetController implements Serializable {
     private HashMap<String, String> temas=null;
     private HashMap<String, String> nubosidad=null;
     private String nuevoT="";
-    
+    private List<Imagnesolicitudes> imgSolitud;
+    private ImagnesSolicitudFacade jsImgSol;
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
@@ -118,18 +121,33 @@ public  class SolicitudesInternetController implements Serializable {
     public void setSelectedRespaldo(SolicitudesInternet selectedRespaldo) {
         this.selectedRespaldo = selectedRespaldo;
     }
+
+    public ImagnesSolicitudFacade getJsImgSol() {
+        return jsImgSol;
+    }
+
+    public void setJsImgSol(ImagnesSolicitudFacade jsImgSol) {
+        this.jsImgSol = jsImgSol;
+    }
+
+    public List<Imagnesolicitudes> getImgSolitud() {
+        return imgSolitud;
+    }
     
 
    //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
     {
+        System.out.println("Estamos en niciar valores");
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
+        Imagnesolicitudes ctlimg;
         radioS=periodosBase(); 
         itemsRespaldo=getFacade().findAll();
         if (selected!=null) {
-        selectedRespaldo=ejbFacade.find(selected.getSolicitud());
+            selectedRespaldo=ejbFacade.find(selected.getSolicitud());
+            imgSolitud=selected.getImagnesolicitudesList();
         }
     }
     //metodo para iniciar valores de los temas
@@ -196,35 +214,7 @@ public void validarPeriodo()
     //metodo creado por el procramador para limbiar los periodos al crear una nueva solicitud
  public void setNoPeriodo1(String periodoS) {
      this.noPeriodo1=periodoS;
-//        int radioSelec=0;
-//        
-//        if (periodoS!=null) {
-//               if (periodoS.compareTo("dos")==0)
-//               {
-//                   noPeriodo2="dos";
-//                   noPeriodo1="uno";
-//                   noPeriodo3=null;
-//                   radioSelec=2;
-//               }else
-//               {
-//                   if (periodoS.compareTo("tres")==0) {
-//                       noPeriodo3="tres";
-//                       noPeriodo1="uno";
-//                       noPeriodo2="dos";
-//                       radioSelec=3;
-//                   }else
-//                   {
-//                      this.noPeriodo1 = periodoS; 
-//                       noPeriodo2=null;
-//                       noPeriodo3=null;
-//                       radioSelec=1;
-//                   }
-//               }
-//        }
-//      
-//        resetPeriodos(radioSelec);
-//        System.out.println("Valore de radio select " +  radioSelec);
-    }
+ }
     //metodo generado por el programador para obtener informacion del gestor.
 public void nombreOrganismo()
 {
