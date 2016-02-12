@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}"  closable="false" responsive="true" width="1000">
+        <p:dialog id="GestoresCreateDlg" widgetVar="GestoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGestoresTitle}"  closable="false" responsive="true">
             <h:form id="GestoresCreateForm" enctype="multipart/form-data">     
                 <h:panelGroup id="display" >
                     <p:wizard id="wizardCreateGestor" widgetVar="wizCreateGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}" flowListener="#{gestoresController.onFlowProcess}">
@@ -15,7 +15,7 @@
                         <div class="ui-fluid">
                             <p:panel header="#{bundle.DetallesPanel}">
                                 <p:messages closable="true" />
-                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-9" styleClass="ui-panelgrid-blank">      
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-10" styleClass="ui-panelgrid-blank">      
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
@@ -25,7 +25,10 @@
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
                                     <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdwms}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
-                                    <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" /> 
+                                    <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaInicio}" for="fechaInicio" />
+                                    <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaInicio}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaCaptura}"  />
+                                            
                                 </p:panelGrid> 
                             </p:panel>
                         </div>    
@@ -33,7 +36,7 @@
                     <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">
                             <p:panel header="#{bundle.DetallesPanel}">
                                 <p:messages closable="true"/>
-                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-10">       
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10">       
                                     <p:outputLabel value="#{bundle.DependenciaLabel}" for="selectedDependencia" />
                                     <p:selectOneMenu id="selectedDependencia" value="#{gestoresController.selectedDependencia}"
                                         valueChangeListener="#{gestoresController.valueChangeMethod}">
@@ -68,10 +71,11 @@
                             </p:panel>
                         </p:tab>
                         <p:tab id="tabPersonas" title="#{bundle.PersonasTitle}">
-                            <div class="ui-fluid">
                             <p:panel header="#{bundle.PersonasGDPanel}">
                                 <p:messages closable="true"/>
                                 <p:panelGrid style="float:  top" >
+                                    
+                                    <div class="ui-fluid">
                                     <p:row>
                                         <p:column> 
                                             <p:dataTable id="tablaGestor" var="gestores" selectionMode="single" rowKey="#{gestores.idpersona}" selection="#{gestoresController.selected.idpersona}" value="#{gestoresController.getItemsfindGestorInstitucion('G')}" reflow="true" style="margin-top:20px">
@@ -106,10 +110,10 @@
                                             </p:dataTable>
                                         </p:column>
                                     </p:row> 
+                                        </div>
                                 </p:panelGrid>
                                 <p:commandButton id="createPersona" icon="ui-icon-plus"   value="NuevaPersona" action="#{personasController.prepare(gestoresController.selectedInstitucion,null)}" update=":PersonasCreateForm" oncomplete="PF('PersonasCreateDialog').show()"/>
                                 </p:panel>
-                                </div>
                         </p:tab>
                         <p:tab id="tabImagen" title="#{bundle.ImagenTitle}">
                             <p:panel header="#{bundle.GestoresTitle_designacion}" style="text-align:center">
@@ -122,8 +126,8 @@
                         </p:tab>
                     <p:tab id="tabConfirmacion" title="#{bundle.ConfirmacionTitle}">
                         <p:fieldset legend="#{bundle.DetallesPanel}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-7,ui-grid-col-7">
-                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-" >
+                                <p:panelGrid columns="2" layout="grid">
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-6,ui-grid-col-8" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.UsuarioTitle}" /> </f:facet>
                                         <h:outputText value="#{bundle.GestoresLabel_gestor}" />
                                         <h:outputText value="#{gestoresController.selected.gestor}" styleClass="outputLabel"/>
@@ -141,7 +145,7 @@
                                         <h:outputText value="#{gestoresController.selected.pwdwms}" styleClass="outputLabel"/>
 
                                     </p:panelGrid>
-                                    <p:panelGrid columns="2" layout="grid" >
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-10" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.InstitucionTitle}" /> </f:facet>
                                         <h:outputText value="#{bundle.DependenciaLabel}" />
                                         <h:outputText value="#{gestoresController.selectedInstitucion.idorganismo.iddependencia.siglas}" styleClass="outputLabel"/>
@@ -156,8 +160,8 @@
                                 </p:panelGrid>    
                             </p:fieldset>
                         <p:fieldset legend="#{bundle.PersonaTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-7,ui-grid-col-7">
-                                    <p:panelGrid columns="2" layout="grid" >
+                                <p:panelGrid columns="2" layout="grid">
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-10" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_idpersona}" /> </f:facet>
                                         <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                         <h:outputText value="#{gestoresController.selected.idpersona.curp}" styleClass="outputLabel"/>
@@ -169,9 +173,9 @@
                                         <h:outputText value="#{gestoresController.selected.idpersona.cargo}" styleClass="outputLabel"/>
 
                                     </p:panelGrid>
-                                    <p:panelGrid columns="2" layout="grid" >
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-10"  >
                                         <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_designador}" /> </f:facet>
-                                        <h:outputText value="#{bundle.PersonasLabel_curp}:" />
+                                        <h:outputText value="#{bundle.PersonasLabel_curp}" />
                                         <h:outputText value="#{gestoresController.selected.designador.curp}" styleClass="outputLabel"/>
 
                                         <h:outputText value="#{bundle.PersonasLabel_nombre}" />
@@ -180,8 +184,8 @@
                                         <h:outputText value="#{bundle.PersonasLabel_cargo}" />
                                         <h:outputText value="#{gestoresController.selected.designador.cargo}" styleClass="outputLabel"/>
 
-                                    </p:panelGrid>
-                                </p:panelGrid>                                 
+                                    </p:panelGrid>  
+                                </p:panelGrid>    
                             </p:fieldset>    
                             <p:commandButton value="#{bundle.Create}" actionListener="#{gestoresController.create}" oncomplete="PF('wizCreateGestor').loadStep('tabGestor',false);PF('GestoresCreateDialog').hide();" immediate="true"  update=":GestoresListForm:datalist,:growl"/>                           
                         </p:tab>

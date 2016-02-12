@@ -8,50 +8,54 @@
 
     <ui:composition>
 
-        <p:dialog id="PersonasEditarDlg" widgetVar="PersonasEditarDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}" position="top" height="100%" width="100%" closable="false" >
+        <p:dialog id="PersonasEditarDlg" widgetVar="PersonasEditarDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonasTitle}" position="left,top" closable="false"  responsive="true">
             <h:form id="PersonasEditarForm">
                 <h:panelGroup id="display" >
                 <p:wizard id="wizardEditarPersona" widgetVar="wizEditarPersona" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
                     <p:tab id="tabPersona" title="#{bundle.PersonasTitle}">
                         <p:panel header="#{bundle.DetallesPanel} DE LA PERSONA #{personasController.selected.idpersona}">
+                            <div class="ui-fluid">
                             <p:messages closable="true"/>
-                            <p:panelGrid columns="4" layout="grid" >
+                            <p:panelGrid columns="4" layout="grid"  styleClass="ui-panelgrid-blank" >
                             <p:outputLabel value="#{bundle.PersonasLabel_tipo}" for="tipo" />
                             <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}" >
                                 <f:selectItems value="#{personasController.tipo}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="#{bundle.PersonasLabel_domicilioOficina}" for="domicilioOficina" />
-                            <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}" size="40"/>                            
+                            <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_curp}" for="curp" />
-                            <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" validatorMessage="#{bundle.PersonasValidatorMessage_curp}" size="40" />
+                            <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" validatorMessage="#{bundle.PersonasValidatorMessage_curp}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}" size="40"/>
+                            <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_grado}" for="grado" />
-                            <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}" size="40"/>
+                            <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo1}" for="correo1" />
-                            <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_correo1}" validatorMessage="#{bundle.PersonasValidatorMessage_correo1}" size="40"/>                            
+                            <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_correo1}" validatorMessage="#{bundle.PersonasValidatorMessage_correo1}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_nombre}" for="nombre" />
-                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_nombre}" validatorMessage="#{bundle.PersonasValidatorMessage_nombre}" size="40"/>
+                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_nombre}" validatorMessage="#{bundle.PersonasValidatorMessage_nombre}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo2}" for="correo2" />
-                            <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.PersonasTitle_correo2}" validatorMessage="#{bundle.PersonasValidatorMessage_correo2}" size="40"/>                            
+                            <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.PersonasTitle_correo2}" validatorMessage="#{bundle.PersonasValidatorMessage_correo2}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_apellidop}" for="apellidop" />
-                            <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.PersonasTitle_apellidop}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidop}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidop}" size="40"/>
+                            <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.PersonasTitle_apellidop}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidop}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidop}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_dompersonal}" for="dompersonal" />
-                            <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.PersonasTitle_dompersonal}" size="40"/>                                
+                            <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.PersonasTitle_dompersonal}"/>                                
                             <p:outputLabel value="#{bundle.PersonasLabel_apellidom}" for="apellidom" />
-                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}" size="40"/>
+                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_telpersonal}" for="telpersonal" />
-                            <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.PersonasTitle_telpersonal}" size="40"/>                            
+                            <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.PersonasTitle_telpersonal}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_cargo}" for="cargo" />
-                            <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}" size="40"/>
+                            <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo3}" for="correo3" />
-                            <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}" size="40"/>
+                            <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}"/>
                                 </p:panelGrid>
+                            </div>
                             </p:panel>
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />
                     </p:tab>
                     <p:tab id="tabImagen" title="#{bundle.ImagenesTitle}">
+                        <div class="ui-fluid">
                         <p:panel header="#{bundle.ImagenesPanel}" >
+                            
                             #{bundle.MessageQuitarImagen}
                             <p:panelGrid columns="5" style="text-align:center" >                                    
                                 <p:fileUpload label="#{bundle.PersonasTitle_foto}" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
@@ -115,7 +119,9 @@
                                 </p:fileUpload>
                                 
                             </p:panelGrid>
-                        </p:panel>                             
+                                
+                        </p:panel> 
+                        </div>
                         <p:commandButton value="#{bundle.Save}"   actionListener="#{personasController.update}" oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" immediate="true" update=":growl"/>
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />      
                     </p:tab>                            

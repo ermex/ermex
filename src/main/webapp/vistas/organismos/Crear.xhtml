@@ -16,7 +16,7 @@
                         <p:outputLabel value="#{bundle.OrganismosLabel_iddependencia}" for="iddependencia" />
                         <h:outputText id="iddependencia" value="#{organismosController.selected.iddependencia.siglas}" title="#{bundle.OrganismosTitle_dependencia}"/>               
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{organismosController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'OrganismosCreateDialog');"/>
+                    <p:commandButton actionListener="#{organismosController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm" oncomplete="handleSubmit(args,'OrganismosCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

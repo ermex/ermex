@@ -23,7 +23,7 @@
                         <p:outputLabel value="#{bundle.InstitucionesLabel_idorganismo}" for="idorganismo" />
                         <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_organismo}"/>                           
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm,:growl" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
+                    <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
