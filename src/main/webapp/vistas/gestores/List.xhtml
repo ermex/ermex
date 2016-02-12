@@ -15,9 +15,9 @@
             <h:form id="GestoresListForm">
                 <p:panel header="#{bundle.ListGestoresTitle}">
                     <p:contextMenu for="datalist">                       
-                        <p:menuitem value="#{bundle.Create}" icon="ui-icon-plus" update=":GestoresCreateForm" actionListener="#{gestoresController.prepareCreate}" oncomplete="PF('GestoresCreateDialog').show()"/>
-                        <p:menuitem value="#{bundle.View}" icon="ui-icon-search" update=":GestoresViewForm" oncomplete="PF('GestoresViewDialog').show()"/>
-                        <p:menuitem value="#{bundle.Edit}" icon="ui-icon-pencil" update=":GestoresEditForm" oncomplete="PF('GestoresEditDialog').show()"/>
+                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":GestoresCreateForm"    oncomplete="PF('GestoresCreateDialog').show()" actionListener="#{gestoresController.prepareCreate}" />
+                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/>
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":GestoresViewForm"      oncomplete="PF('GestoresViewDialog').show()"/>                       
                     </p:contextMenu>
                     <p:dataTable  widgetVar="datalist" id="datalist" value="#{gestoresController.items}" var="item"
                                  selectionMode="single" selection="#{gestoresController.selected}"
@@ -31,10 +31,10 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>                           
                             <p:commandButton update="datalist" value="Update" icon="ui-icon-refresh" oncomplete="PF('datalist').clearFilters()"/>
                         </f:facet>
-                        <p:column headerText="#{bundle.GestoresTitle_gestor}" width="8%" filterBy="#{item.gestor}" filterMatchMode="contains">       
+                        <p:column headerText="#{bundle.GestoresTitle_gestor}" width="8%" filterBy="#{item.gestor}" filterMatchMode="startsWith" footerText="#{bundle.FilterStartsWith}">       
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
-                        <p:column headerText="#{bundle.GestoresTitle_status}"  width="10%" filterBy="#{item.status}" filterMatchMode="contains" >                                
+                        <p:column headerText="#{bundle.GestoresTitle_status}"  width="10%" filterBy="#{item.status}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">                                
                             <f:facet name="filter">
                                 <p:selectOneButton onchange="PF('datalist').filter()" style="">
                                     <f:selectItem itemLabel="T"  itemValue="" />
@@ -45,7 +45,7 @@
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column> 
-                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains">
+                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
                             <h:outputText value="#{item.idpersona.idinstitucion.nombre}"/>
                         </p:column>
                         <p:column headerText="#{bundle.GestoresTitle_idpersona}">

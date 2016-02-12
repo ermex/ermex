@@ -57,7 +57,7 @@
                         <p:panel header="#{bundle.ImagenesPanel}" >
                             
                             #{bundle.MessageQuitarImagen}
-                            <p:panelGrid columns="5" style="text-align:center" >                                    
+                            <p:panelGrid columns="5" style="text-align:center" styleClass="ui-panelgrid-blank">                                    
                                 <p:fileUpload label="#{bundle.PersonasTitle_foto}" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
                                     <p:commandLink update="nombrefoto"  actionListener="#{personasController.quitarFoto()}">
                                         <p:graphicImage id="nombrefoto" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" styleClass="imageSubir"/>                                     

@@ -7,17 +7,19 @@
 
     <ui:composition>
 
-        <p:dialog id="DependenciasEditDlg" widgetVar="DependenciasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDependenciasTitle}">
+        <p:dialog id="DependenciasEditDlg" widgetVar="DependenciasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDependenciasTitle}" responsive="true">
             <h:form id="DependenciasEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.DependenciasLabel_iddependencia}" for="iddependencia" />
                         <p:inputText id="iddependencia" value="#{dependenciasController.selected.iddependencia}" title="#{bundle.DependenciasTitle_iddependencia}" disabled="true"/>
                         <p:outputLabel value="#{bundle.DependenciasLabel_siglas}" for="siglas" />
                         <p:inputText id="siglas" value="#{dependenciasController.selected.siglas}" title="#{bundle.DependenciasTitle_siglas}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_siglas}" />
                         <p:outputLabel value="#{bundle.DependenciasLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.DependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_nombre}"/>
-                    </p:panelGrid>        
+                    </p:panelGrid>
+                    </div>    
                     <p:commandButton actionListener="#{dependenciasController.update}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DependenciasEditDialog');"/>
                 </h:panelGroup>
             </h:form>

@@ -16,40 +16,38 @@
         <ui:define name="body">
             <h:form id="OrganismosListForm">
                 <p:panel header="#{bundle.ListOrganismosTitle}">
-                    <p:dataTable id="datalist" value="#{organismosController.items}" var="item"
+                    <p:contextMenu for="datalist"> 
+                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":OrganismosCreateForm"    oncomplete="PF('OrganismosCreateDialog').show()" actionListener="#{organismosController.prepareCreate}" />
+                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":OrganismosEditForm"      oncomplete="PF('OrganismosEditDialog').show()"/>
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":OrganismosViewForm"      oncomplete="PF('OrganismosViewDialog').show()"/>                       
+                    </p:contextMenu>
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{organismosController.items}" var="item"
                                  selectionMode="single" selection="#{organismosController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idorganismo}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
-
                         <p:column width="10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.OrganismosTitle_idorganismo}"/>
                             </f:facet>
                             <h:outputText value="#{item.idorganismo}"/>
                         </p:column>
-                        <p:column width="25%">
-                            <f:facet name="header" >
-                                <h:outputText value="#{bundle.OrganismosTitle_iddependencia}"/>
+                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="25%" filterBy="#{item.iddependencia.siglas}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('datalist').filter()" >
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{dependenciasController.itemsAvailableSelectOne}" 
+                                                   var="iddependenciaItem" 
+                                                   itemLabel="#{iddependenciaItem.siglas}" itemValue="#{iddependenciaItem.siglas}"/>
+                                </p:selectOneMenu>                         
                             </f:facet>
                             <h:outputText value="#{item.iddependencia.siglas}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.OrganismosTitle_nombre}"/>
-                            </f:facet>
+                        <p:column headerText="#{bundle.OrganismosTitle_nombre}" filterBy="#{item.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">                            
                             <h:outputText value="#{item.nombre}"/>
-                        </p:column>                        
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{organismosController.prepareCreate}" update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":OrganismosViewForm" oncomplete="PF('OrganismosViewDialog').show()" disabled="#{empty organismosController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":OrganismosEditForm" oncomplete="PF('OrganismosEditDialog').show()" disabled="#{empty organismosController.selected}"/>                            
-                        </f:facet>
+                        </p:column> 
                     </p:dataTable>
                 </p:panel>
             </h:form>

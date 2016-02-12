@@ -8,10 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="OrganismosCreateDlg" widgetVar="OrganismosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrganismosTitle}">
+        <p:dialog id="OrganismosCreateDlg" widgetVar="OrganismosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOrganismosTitle}" responsive="true">
             <h:form id="OrganismosCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.OrganismosLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{organismosController.selected.nombre}" title="#{bundle.OrganismosTitle_nombre}" required="true" requiredMessage="#{bundle.OrganismosRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.OrganismosLabel_iddependencia}" for="iddependencia" />
@@ -24,6 +25,7 @@
                            
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    </div>    
                     <p:commandButton actionListener="#{organismosController.create}" value="#{bundle.Save}" update="display,:OrganismosListForm:datalist,:growl" oncomplete="handleSubmit(args,'OrganismosCreateDialog');"/>                    
                 </h:panelGroup>
             </h:form>

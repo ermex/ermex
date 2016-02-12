@@ -7,18 +7,19 @@
 
     <ui:composition>
 
-        <p:dialog id="OrganismosViewDlg" widgetVar="OrganismosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrganismosTitle}">
+        <p:dialog id="OrganismosViewDlg" widgetVar="OrganismosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOrganismosTitle}" responsive="true">
             <h:form id="OrganismosViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.OrganismosLabel_idorganismo}"/>
                         <h:outputText value="#{organismosController.selected.idorganismo}" title="#{bundle.OrganismosTitle_idorganismo}"/>
                         <h:outputText value="#{bundle.OrganismosLabel_iddependencia}"/>
                         <h:outputText value="#{organismosController.selected.iddependencia.siglas}" title="#{bundle.OrganismosTitle_iddependencia}"/>
                         <h:outputText value="#{bundle.OrganismosLabel_nombre}"/>
-                        <h:outputText value="#{organismosController.selected.nombre}" title="#{bundle.OrganismosTitle_nombre}"/>
-                        
-                    </p:panelGrid>                 
+                        <h:outputText value="#{organismosController.selected.nombre}" title="#{bundle.OrganismosTitle_nombre}"/>                        
+                    </p:panelGrid>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

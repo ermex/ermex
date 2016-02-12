@@ -7,10 +7,11 @@
 
     <ui:composition>
 
-        <p:dialog id="InstitucionesViewDlg" widgetVar="InstitucionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInstitucionesTitle}">
+        <p:dialog id="InstitucionesViewDlg" widgetVar="InstitucionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInstitucionesTitle}" responsive="true">
             <h:form id="InstitucionesViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.InstitucionesLabel_idinstitucion}"/>
                         <h:outputText value="#{institucionesController.selected.idinstitucion}" title="#{bundle.InstitucionesTitle_idinstitucion}"/>
                         <h:outputText value="#{bundle.DependenciaLabel}"/>
@@ -20,8 +21,9 @@
                         <h:outputText value="#{bundle.InstitucionesLabel_nombre}"/>
                         <h:outputText value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}"/>
                         <h:outputText value="#{bundle.InstitucionesLabel_tipo}"/>
-                        <h:outputText value="#{institucionesController.selected.tipo}" title="#{bundle.InstitucionesTitle_tipo}"/>
-                    </p:panelGrid>                 
+                        <h:outputText value="#{institucionesController.selected.tipo}" title="#{bundle.InstitucionesTitle_tipo}"/>                   
+                    </p:panelGrid>
+                        </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -8,10 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="InstitucionesCreateDlg" widgetVar="InstitucionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitucionesTitle}">
+        <p:dialog id="InstitucionesCreateDlg" widgetVar="InstitucionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitucionesTitle}" responsive="true">
             <h:form id="InstitucionesCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.InstitucionesLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.InstitucionesRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.InstitucionesLabel_tipo}" for="tipo" />
@@ -21,8 +22,9 @@
                         <p:outputLabel value="#{bundle.DependenciaLabel}" for="dependencia" />
                         <h:outputText id="dependencia" value="#{institucionesController.selected.idorganismo.iddependencia.siglas}" title="#{bundle.InstitucionesTitle_dependencia}"/>                              
                         <p:outputLabel value="#{bundle.InstitucionesLabel_idorganismo}" for="idorganismo" />
-                        <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_organismo}"/>                           
+                        <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_organismo}"/>                                               
                     </p:panelGrid>
+                    </div>    
                     <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
                 </h:panelGroup>
             </h:form>

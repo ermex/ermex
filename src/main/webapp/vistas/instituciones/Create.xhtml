@@ -8,10 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="InstitucionesCreateDlg" widgetVar="InstitucionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitucionesTitle}">
+        <p:dialog id="InstitucionesCreateDlg" widgetVar="InstitucionesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInstitucionesTitle}" responsive="true">
             <h:form id="InstitucionesCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{institucionesController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">                        
                         <p:outputLabel value="#{bundle.InstitucionesLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{institucionesController.selected.nombre}" title="#{bundle.InstitucionesTitle_nombre}" required="true" requiredMessage="#{bundle.InstitucionesRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundle.InstitucionesLabel_tipo}" for="tipo" />
@@ -33,8 +34,9 @@
                                            itemLabel="#{idorganismoItem.nombre}"
                                            itemValue="#{idorganismoItem}"/>  
                             
-                        </p:selectOneMenu>       
-                    </p:panelGrid>
+                        </p:selectOneMenu>
+                    </p:panelGrid>       
+                    </div>
                     <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:InstitucionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
                 </h:panelGroup>
             </h:form>

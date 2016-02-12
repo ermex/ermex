@@ -8,10 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="OrganismosEditDlg" widgetVar="OrganismosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrganismosTitle}">
+        <p:dialog id="OrganismosEditDlg" widgetVar="OrganismosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditOrganismosTitle}" responsive="true">
             <h:form id="OrganismosEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{organismosController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.OrganismosLabel_idorganismo}" for="idorganismo" />
                         <p:inputText id="idorganismo" value="#{organismosController.selected.idorganismo}" title="#{bundle.OrganismosTitle_idorganismo}" required="true" requiredMessage="#{bundle.OrganismosRequiredMessage_idorganismo}" disabled="true"/>
                         <p:outputLabel value="#{bundle.OrganismosLabel_nombre}" for="nombre" />
@@ -24,6 +25,7 @@
                                            itemValue="#{iddependenciaItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    </div>    
                     <p:commandButton actionListener="#{organismosController.update}" value="#{bundle.Save}" update="display,:OrganismosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganismosEditDialog');"/>
                 </h:panelGroup>
             </h:form>

@@ -11,8 +11,8 @@
             <h:form id="GestoresEditForm" enctype="multipart/form-data">
                 <p:wizard id="wizardEditGestor" widgetVar="wizEditGestor" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">
                     <p:tab id="tabEditGestor" title="#{bundle.GestorTitle}">
-                        <p:panelGrid columns="2" layout="grid"> 
-                            <p:panelGrid columns="1" layout="grid"> 
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
+                            <p:panelGrid columns="1" layout="grid" > 
                                 <p:fieldset legend="#{bundle.InstitucionTitle}">
                                     <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">       
                                     <p:outputLabel value="#{bundle.DependenciaLabel}" for="dependencia" />

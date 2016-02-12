@@ -13,8 +13,9 @@
                 <h:panelGroup id="display">
                     <p:tabView id="ViewTab" onTabClose="ViewGestor">
                         <p:tab id="ViewGestor" title="#{bundle.UsuarioTitle}">
+                            <div class="ui-fluid">
                             <p:fieldset legend="#{bundle.InstitucionTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                                 <h:outputText value="#{bundle.DependenciaLabel}" />
                                 <h:outputText value="#{gestoresController.selected.designador.idinstitucion.idorganismo.iddependencia.nombre}" styleClass="outputLabel"/>
 
@@ -26,8 +27,8 @@
                                 </p:panelGrid>                                        
                             </p:fieldset>
                             <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
-                                    <p:panelGrid columns="2" layout="grid" >
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
+                                    <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-10">
 
                                         <h:outputText value="#{bundle.GestoresLabel_gestor}"/>
                                         <h:outputText value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresTitle_gestor}"/>
@@ -59,14 +60,15 @@
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                         <f:param  name="nomgestor" value="#{gestoresController.selected.gestor}" />
                                         <f:param  name="atributo" value="nomgestor" />
-                                        <p:graphicImage title="#{bundle.GestoresInput_designacion}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="200" width="260" />
+                                        <p:graphicImage title="#{bundle.GestoresInput_designacion}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" height="220" width="100%" />
                                     </p:link>             
                                 </p:panelGrid>   
                             </p:fieldset>
+                            </div>    
                         </p:tab>                     
                         <p:tab id="ViewPersonaGestor" title="#{bundle.GestoresTitle_idpersona}">
                             <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                                     <h:outputText value="#{bundle.PersonasLabel_idpersona}"/>
                                     <h:outputText value="#{gestoresController.selected.idpersona.idpersona}" title="#{bundle.PersonasTitle_idpersona}" styleClass="outputLabel"/>
                                     
@@ -102,7 +104,7 @@
                                 </p:panelGrid>
                             </p:fieldset>
                             <p:fieldset legend="#{bundle.ImagenesTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="5" layout="grid" >
+                                <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank">
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.idpersona.idpersona}" />
                                         <f:param  name="atributo" value="foto" />
@@ -158,7 +160,7 @@
                         </p:tab>
                         <p:tab id="ViewPersonaDesignacion" title="#{bundle.GestoresTitle_designador}">
                             <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                                     <h:outputText value="#{bundle.PersonasLabel_idpersona}"/>
                                     <h:outputText value="#{gestoresController.selected.designador.idpersona}" title="#{bundle.PersonasTitle_idpersona}" styleClass="outputLabel"/>
                                     
@@ -174,7 +176,7 @@
                                     <h:outputText value="#{bundle.PersonasLabel_correo1}" />
                                     <h:outputText value="#{gestoresController.selected.designador.correo1}" styleClass="outputLabel"/>
 
-                                    <h:outputText value="#{bundle.PersonasLabel_correo3}" />
+                                    <h:outputText value="#{bundle.PersonasLabel_correo2}" />
                                     <h:outputText value="#{gestoresController.selected.designador.correo2}" styleClass="outputLabel"/>                               
 
                                     <h:outputText value="#{bundle.PersonasLabel_telefono}" />
@@ -194,7 +196,7 @@
                                 </p:panelGrid>
                             </p:fieldset>
                             <p:fieldset legend="Imágenes" style="margin-bottom:20px">
-                                <p:panelGrid columns="5" layout="grid" >
+                                <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank">
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                         <f:param  name="idpersonas" value="#{gestoresController.selected.designador.idpersona}" />
                                         <f:param  name="atributo" value="foto" />

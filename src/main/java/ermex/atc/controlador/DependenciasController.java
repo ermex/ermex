@@ -25,12 +25,10 @@ public class DependenciasController implements Serializable {
     @EJB
     private ermex.atc.sesion.DependenciasFacade ejbFacade;
     private List<Dependencias> items = null;
-    private Dependencias selected;
+    private Dependencias selected;    
     
-    //*************************** Metodos por default
-    public DependenciasController() {
-    }
-
+//*************************** Metodos por default
+ 
     public Dependencias getSelected() {
         return selected;
     }

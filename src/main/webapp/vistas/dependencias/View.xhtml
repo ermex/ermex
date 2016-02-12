@@ -7,10 +7,11 @@
 
     <ui:composition>
 
-        <p:dialog id="DependenciasViewDlg" widgetVar="DependenciasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDependenciasTitle}">
+        <p:dialog id="DependenciasViewDlg" widgetVar="DependenciasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDependenciasTitle}" responsive="true">
             <h:form id="DependenciasViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{dependenciasController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.DependenciasLabel_iddependencia}"/>
                         <h:outputText value="#{dependenciasController.selected.iddependencia}" title="#{bundle.DependenciasTitle_iddependencia}"/>
                         <h:outputText value="#{bundle.DependenciasLabel_siglas}"/>
@@ -18,6 +19,7 @@
                         <h:outputText value="#{bundle.DependenciasLabel_nombre}"/>
                         <h:outputText value="#{dependenciasController.selected.nombre}" title="#{bundle.DependenciasTitle_nombre}"/>
                     </p:panelGrid>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

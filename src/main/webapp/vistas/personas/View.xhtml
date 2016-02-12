@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="PersonasViewDlg" widgetVar="PersonasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonasTitle}">
+        <p:dialog id="PersonasViewDlg" widgetVar="PersonasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonasTitle}" responsive="true">
             <h:form id="PersonasViewForm">
                 <h:panelGroup id="display">
                     <p:panel header="#{bundle.DetallesPanel}">
                         <p:fieldset legend="#{bundle.InstitucionTitle}" style="margin-bottom:20px">
-                            <p:panelGrid columns="2" layout="grid">
+                            <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                                 <h:outputText value="#{bundle.DependenciaLabel}"/>
                                 <h:outputText value="#{personasController.selected.idinstitucion.idorganismo.iddependencia.siglas}" title="DEPENDENCIA"/>
                                 <h:outputText value="#{bundle.OrganismoLabel}"/>
@@ -23,7 +23,7 @@
                             </p:panelGrid>                                        
                         </p:fieldset>
                         <p:fieldset legend="#{bundle.InformacionTitle}" style="margin-bottom:20px">
-                            <p:panelGrid columns="2" layout="grid">
+                            <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">
                                 
                                 <h:outputText value="#{bundle.PersonasLabel_idpersona}"/>
                                 <h:outputText value="#{personasController.selected.idpersona}" title="#{bundle.PersonasTitle_idpersona}"/>
@@ -60,7 +60,7 @@
                             </p:fieldset>
                             
                         <p:fieldset legend="#{bundle.ImagenesTitle}" style="margin-bottom:20px">
-                            <p:panelGrid columns="5" layout="grid">
+                            <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">                  
                                     <f:param  name="idpersonas" value="#{personasController.selected.idpersona}" />
                                     <f:param  name="atributo" value="foto" />

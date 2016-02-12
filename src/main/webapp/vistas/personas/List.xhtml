@@ -16,45 +16,36 @@
         <ui:define name="body">
             <h:form id="PersonasListForm">
                 <p:panel header="#{bundle.ListPersonasTitle}">
-                    <p:dataTable id="datalist" value="#{personasController.items}" var="item"
+                    <p:contextMenu for="datalist">
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":PersonasViewForm"      oncomplete="PF('PersonasViewDialog').show()"/>                       
+                    </p:contextMenu>
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{personasController.items}" var="item"
                                  selectionMode="single" selection="#{personasController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idpersona}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="viewButton"/>
-                        <p:ajax event="rowUnselect" update="viewButton"/>
-
-                        
-                        <p:column width="5%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.PersonasTitle_tipo}"/>
+                        <p:column width="5%" headerText="#{bundle.PersonasTitle_tipo}" filterBy="#{item.tipo}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('datalist').filter()" >
+                                    <f:selectItem itemLabel="T"  itemValue="" />
+                                    <f:selectItem itemLabel="A" itemValue="A"  />
+                                    <f:selectItem itemLabel="G" itemValue="G" /> 
+                                    <f:selectItem itemLabel="D"  itemValue="D" />
+                                </p:selectOneMenu>                                
                             </f:facet>
                             <h:outputText value="#{item.tipo}"/>
                         </p:column>
-                        <p:column width="15%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.PersonasTitle_curp}"/>
-                            </f:facet>
+                        <p:column width="15%" headerText="#{bundle.PersonasTitle_curp}" filterBy="#{item.curp}" filterMatchMode="startsWith" footerText="#{bundle.FilterStartsWith}">
                             <h:outputText value="#{item.curp}"/>
                         </p:column>
-                        <p:column width="25%">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.PersonasTitle_nombre}"/>
-                            </f:facet>
+                        <p:column width="25%" headerText="#{bundle.PersonasTitle_nombre}" filterBy="#{item.grado} #{item.nombre} #{item.apellidop} #{item.apellidom}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
                             <h:outputText value="#{item.grado} #{item.nombre} #{item.apellidop} #{item.apellidom}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.InstitucionTitle}"/>
-                            </f:facet>
+                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idinstitucion.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
                             <h:outputText value="#{item.idinstitucion.nombre}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PersonasViewForm" oncomplete="PF('PersonasViewDialog').show()" disabled="#{empty personasController.selected}"/>
-                        </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>

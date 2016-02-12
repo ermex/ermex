@@ -35,8 +35,9 @@
                     </p:tab>
                     <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">
                             <p:panel header="#{bundle.DetallesPanel}">
+                                <div class="ui-fluid">
                                 <p:messages closable="true"/>
-                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10">       
+                                <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-3,ui-grid-col-10" styleClass="ui-panelgrid-blank">       
                                     <p:outputLabel value="#{bundle.DependenciaLabel}" for="selectedDependencia" />
                                     <p:selectOneMenu id="selectedDependencia" value="#{gestoresController.selectedDependencia}"
                                         valueChangeListener="#{gestoresController.valueChangeMethod}">
@@ -65,7 +66,7 @@
                                                        itemValue="#{institucion}"/>                                      
                                     </p:selectOneMenu>   
                                 </p:panelGrid>
-                                
+                                </div>
                                 <p:commandButton id="createInstitucion" icon="ui-icon-plus"   value="Nueva Institución" action="#{institucionesController.preparate(gestoresController.selectedOrganismos)}" update=":InstitucionesCreateForm" oncomplete="PF('InstitucionesCreateDialog').show()" disabled="#{gestoresController.selectedOrganismos==null}" />
                                 <p:commandButton id="createOrganismo" icon="ui-icon-plus"   value="Nuevo Organismo" action="#{organismosController.preparate(gestoresController.selectedDependencia)}"  update=":OrganismosCreateForm" oncomplete="PF('OrganismosCreateDialog').show()" disabled="#{gestoresController.selectedDependencia==null}"/>
                             </p:panel>
@@ -73,7 +74,7 @@
                         <p:tab id="tabPersonas" title="#{bundle.PersonasTitle}">
                             <p:panel header="#{bundle.PersonasGDPanel}">
                                 <p:messages closable="true"/>
-                                <p:panelGrid style="float:  top" >
+                                <p:panelGrid style="float:  top">
                                     
                                     <div class="ui-fluid">
                                     <p:row>
@@ -117,6 +118,7 @@
                         </p:tab>
                         <p:tab id="tabImagen" title="#{bundle.ImagenTitle}">
                             <p:panel header="#{bundle.GestoresTitle_designacion}" style="text-align:center">
+                                
                                 <p:fileUpload id="designacion" label="#{bundle.GestoresInput_designacion}" update="imgdesignacion"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{gestoresController.subirDesignacion}" auto="true">                              
                                     <p:commandLink update="imgdesignacion"  actionListener="#{gestoresController.quitarDesignacion()}">
                                         <p:graphicImage id="imgdesignacion" title="#{bundle.MessageQuitarImagen}"  value="#{gestoresController.getImgMini(gestoresController.selected.designacion)}" cache="false" styleClass="imageSubirr"/>                                   
@@ -160,7 +162,7 @@
                                 </p:panelGrid>    
                             </p:fieldset>
                         <p:fieldset legend="#{bundle.PersonaTitle}" style="margin-bottom:20px">
-                                <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" layout="grid" >
                                     <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2,ui-grid-col-10" >
                                         <f:facet name="header"> <h:outputText value="#{bundle.GestoresTitle_idpersona}" /> </f:facet>
                                         <h:outputText value="#{bundle.PersonasLabel_curp}" />
