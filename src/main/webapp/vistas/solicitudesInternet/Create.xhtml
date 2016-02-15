@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetCreateDlg"  widgetVar="SolicitudesInternetCreate" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetCreateDlg"  widgetVar="SolicitudesInternetCreate" modal="true" closable="false" responsive="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetCreateForm"> 
                 <h:panelGroup id="display">
                     <p:growl id="growl1"  sticky="true" showDetail="true"/>
-                    <p:wizard id="wizard" widgetVar="wiz" >
-                        <p:tab id="newsolictud" title="Solicitud">
+                    <p:wizard id="wizard" widgetVar="createSolicitud" >
+                        <p:tab id="newsolicitud" title="Solicitud">
                             <p:panel header="Detalles de solicitud" toggleOrientation="center">   
                                 <p:messages/>
                                 <center>
@@ -27,7 +27,8 @@
                                             <p:inputText id="solicitud" value="#{solicitudesInternetController.selected.solicitud}" title="#{bundle.CreateSolicitudesInternetTitle_solicitud}" readonly="true" required="true" requiredMessage="#{bundle.CreateSolicitudesInternetRequiredMessage_solicitud}"/>
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
                                             <p:selectOneMenu id="gestor" filter="true" value="#{solicitudesInternetController.selectGestores}" required="true" requiredMessage="Es necesarion un gestor" >
-                                            <f:selectItems  value="#{gestoresController.getItemsActivos()}"
+                                                <f:selectItem itemLabel="Seleccione un gestor" itemValue=""/>
+                                                <f:selectItems  value="#{gestoresController.getItemsActivos()}"
                                                                 var="gestorItem"
                                                                 itemValue="#{gestorItem}"/>
                                             <p:ajax  listener="#{solicitudesInternetController.nombreOrganismo()}" update="nombre dependencia organismo"/>
@@ -41,6 +42,7 @@
                                             
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_tema}" for="tema" />
                                             <p:selectOneMenu id="tema" filter="true" value="#{solicitudesInternetController.selected.tema}" required="true" requiredMessage="Elige un tema" >
+                                                <f:selectItem itemLabel="Seleccione un tema" itemValue=""/>
                                                 <f:selectItems  value="#{solicitudesInternetController.temas}"
                                                                 var="temas"
                                                                 itemValue="#{temas}"/>
@@ -49,6 +51,7 @@
                                             <p:commandLink value="Nuevo Tema" oncomplete="PF('newTemaFormDialog').show()" />
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_nubosidad}" for="nubosidad" />
                                             <p:selectOneMenu id="nubosidad" filter="true"  value="#{solicitudesInternetController.selected.nubosidad}" required="true" requiredMessage="Elige la nubosidad" >
+                                                <f:selectItem itemLabel="Seleccione la nubosidad" itemValue=""/>
                                                 <f:selectItems  value="#{solicitudesInternetController.nubosidad}"
                                                                 var="selectNubosidad"
                                                                 itemValue="#{selectNubosidad}"/>
@@ -256,8 +259,8 @@
                         </p:tab>
                     </p:wizard>
                 </h:panelGroup>
-               <p:commandButton id="idCreateButton" type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl" onclick="SolicitudesInternetDialog.hide"/>
-              <p:commandButton value="#{bundle.Cancel}" oncomplete="SolicitudesInternetCreateForm.hide()"/>
+               <p:commandButton id="idCreateButton" type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
+              <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
             </h:form>
 
             <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>

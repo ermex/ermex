@@ -82,11 +82,11 @@ public  class SolicitudesInternetController implements Serializable {
         }
         if (nubosidad==null) {
             nubosidad= new LinkedHashMap<>();
-          nubosidad.put("SIN-NUBES","A");
-          nubosidad.put("MEMOR-10%","B");
-          nubosidad.put("MEMOR-20%","C");
-          nubosidad.put("MEMOR-75%","D");
-          nubosidad.put("MAYOR-76%","E");
+          nubosidad.put("SIN NUBES","SIN NUBES");
+          nubosidad.put("MEMOR A 10%","MEMOR A 10%");
+          nubosidad.put("MEMOR A 20%","MEMOR A 20%");
+          nubosidad.put("MEMOR A 75%","MEMOR A 75%");
+          nubosidad.put("MAYOR A 76%","MAYOR A 76%");
 
         }
     }
@@ -218,12 +218,15 @@ public void validarPeriodo()
     //metodo generado por el programador para obtener informacion del gestor.
 public void nombreOrganismo()
 {
-    String nombre;
-    String depenecia;
-    String organismo;
-    nombre =selectGestores.getIdpersona().getNombre()+ " " +selectGestores.getIdpersona().getApellidop() + " "+selectGestores.getIdpersona().getApellidom();
-    organismo= selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getNombre();
-    depenecia=selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getIddependencia().getNombre();
+    String nombre=" ";
+    String depenecia="Sin dependencia";
+    String organismo=" Sin organismo";
+    try {
+         nombre =selectGestores.getIdpersona().getNombre()+ " " +selectGestores.getIdpersona().getApellidop() + " "+selectGestores.getIdpersona().getApellidom();
+         organismo= selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getNombre();
+         depenecia=selectGestores.getIdpersona().getIdinstitucion().getIdorganismo().getIddependencia().getNombre();   
+    } catch (Exception e) {
+    }
     selected.setNombre(nombre);
     selected.setOrganismo(organismo);
     selected.setDependencia(depenecia);
@@ -322,9 +325,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     public void minDatePerio1F() {
         if (selected.getPeriodo1I() != null || periodo1IR != selected.getPeriodo1I()) {
           //  fechaMinima = selected.getPeriodo1I();
-            if (radioS!=1) {
                 obtenerFecha(selected.getPeriodo1I());    
-            }           
         }        
             periodo1IR = selected.getPeriodo1I();
     }
@@ -332,9 +333,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     {
         if (selected.getPeriodo2I() != null || periodo2IR != selected.getPeriodo2I()) {
            // fechaMinima = selected.getPeriodo2I();
-             if (radioS!=2) {
                 obtenerFecha(selected.getPeriodo2I());    
-            }
         } 
            periodo2IR = selected.getPeriodo2I();
     }
@@ -342,9 +341,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     {
         if (selected.getPeriodo3I() != null || periodo3IR != selected.getPeriodo3I()) {
             //fechaMinima = selected.getPeriodo3I();
-           if (radioS!=3) {
                 obtenerFecha(selected.getPeriodo3I());    
-            }
         } 
              periodo3IR = selected.getPeriodo3I();
     }

@@ -16,7 +16,8 @@
                            <p:outputLabel value="TEMA:" for="idtemanuevo" />
                            <p:inputText id="idtemanuevo" value="#{solicitudesInternetController.nuevoT}" />
                     </p:panel>
-                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.agregarTema()}" update="SolicitudesInternetCreateForm"/>
+                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.agregarTema()}" update="SolicitudesInternetCreateForm:wizard" oncomplete="PF('newTemaFormDialog').hide();"/>
+                    <p:commandButton value="Cancelar"  oncomplete="PF('newTemaFormDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>        

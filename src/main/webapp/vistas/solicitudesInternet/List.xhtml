@@ -35,7 +35,7 @@
                             </f:facet>
                             <h:outputText value="#{item.solicitud}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.gestor}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSolicitudesInternetTitle_gestor}"/>
                             </f:facet>
@@ -47,7 +47,7 @@
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.dependencia}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSolicitudesInternetTitle_dependencia}"/>
                             </f:facet>
