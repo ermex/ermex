@@ -62,7 +62,7 @@ public class Gestores implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "gestor")
-    @Pattern(regexp="^ermex[0-9]{4}$")
+    @Pattern(regexp="(^ermex[0-9]{4}$)|^sola0024$")
     private String gestor;
     @Size(max = 2147483647)
     @Column(name = "oficio")

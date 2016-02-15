@@ -397,10 +397,7 @@ public class GestoresController implements Serializable {
     }
 
     public List<Gestores> getItems() {
-        if (items == null) {
-            items = getFacade().findByNoStatus("prueba","compra","antiguo");
-        }
-        return items;
+        return getFacade().findByNoStatus("prueba","compra","antiguo");
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -411,8 +408,6 @@ public class GestoresController implements Serializable {
                     getFacade().edit(selected);
                 }else if(persistAction == PersistAction.CREATE) 
                 {
-                    selected.setFechaInicio(new Date());
-                    selected.setStatus("activo");
                     getFacade().create(selected);
                 }
                 else {

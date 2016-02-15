@@ -131,10 +131,7 @@ public class InstitucionesController implements Serializable {
     }
 
     public List<Instituciones> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
+        return getFacade().findAll();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
