@@ -8,6 +8,7 @@ package ermex.atc.sesion;
 import ermex.atc.entidad.EscenasProcesadas;
 import ermex.atc.entidad.Imagnesolicitudes;
 import ermex.atc.entidad.SolicitudesInternet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,6 +50,22 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
       getEntityManager().flush();
       getEntityManager().refresh(img);
   }  
+  //metodo para eliminar un registro de la tabla imagnesolicitudes
+  public void deletaImgSoli(Imagnesolicitudes id)
+  {
+     int id1=id.getIdmagenesolicitud();
+     String query="delete from imagnesolicitudes where idmagenesolicitud=?";
+      try {
+          Query query1= em.createNativeQuery(query);
+          query1.setParameter(1, id1);
+          query1.executeUpdate();
+          em.flush();
+      } catch (Exception e) {
+          
+      }
+
+      
+  }
     public List<Imagnesolicitudes> updateRegistro(String id)
     {
         String query="Select * from imagnesolicitudes where solicitud=?";
