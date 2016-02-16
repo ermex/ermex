@@ -36,6 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Controlsolicitudes.findByGestor", query = "SELECT c FROM Controlsolicitudes c WHERE c.gestor = :gestor"),
     @NamedQuery(name = "Controlsolicitudes.findByFechaasignacion", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechaasignacion = :fechaasignacion"),
     @NamedQuery(name = "Controlsolicitudes.findByTema", query = "SELECT c FROM Controlsolicitudes c WHERE c.tema = :tema"),
+    @NamedQuery(name = "Controlsolicitudes.findBySolicitud", query = "SELECT c FROM Controlsolicitudes c WHERE c.solicitud = :solicitud"),
     @NamedQuery(name = "Controlsolicitudes.findByObservaciones", query = "SELECT c FROM Controlsolicitudes c WHERE c.observaciones = :observaciones"),
     @NamedQuery(name = "Controlsolicitudes.findByStatus", query = "SELECT c FROM Controlsolicitudes c WHERE c.status = :status"),
     @NamedQuery(name = "Controlsolicitudes.findByFechatermino", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechatermino = :fechatermino"),

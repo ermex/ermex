@@ -118,7 +118,7 @@
                         </p:panel>
                         </p:tab>
                         <p:tab title="Tipos de imagen">
-                                                        <p:panel header="Imagenes selecciondas">                              
+                                  <p:panel header="Imagenes selecciondas">                              
                                     <h:form id="updateForC">
                                         <p:commandButton value="Agregar"   oncomplete="PF('agregarFormDialog').show()" />
                                         <p:dataTable id="ctlgImg" value="#{solicitudesInternetController.imgSolitud}" 
@@ -154,7 +154,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Nivel"/>
                                                 </f:facet>
-                                                <h:outputText value="#{item.identificador.satelite}"/>
+                                                <h:outputText value="#{item.identificador.nivel}"/>
                                             </p:column>
                                             <p:column>
                                                 <f:facet name="header">
@@ -173,9 +173,11 @@
                                                  paginator="true"
                                                  rowsPerPageLabel="10,20,30"
                                                  rows="10"
+                                                 selectionMode="single"
                                                  rowKey="#{item.identificador}"
-                                                 selection="#{catalogoimagenesController.imgSelect}" 
+                                                 selection="#{solicitudesInternetController.selectCa}" 
                                                  >
+                                            <p:ajax event="rowSelect" oncomplete="PF('confirmCataloFormDialog').show()"/>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Id"/>
@@ -288,5 +290,6 @@
         </p:dialog>
         <ui:include src="dialogConfir.xhtml"/>
         <ui:include src="agregarImagen.xhtml"/>
+        <ui:include src="dialogConfirEliminarCatalogo.xhtml"/>
     </ui:composition>
 </html>
