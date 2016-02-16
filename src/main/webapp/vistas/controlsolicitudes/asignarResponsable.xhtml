@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="asignarSolicitud" widgetVar="asignarSolicitud"  modal="true" resizable="true" appendTo="@(body)" header="#{bundle.EditControlsolicitudesAsignarResponsable}">
+            <h:form id="asignarSolictudForm">
+                <h:panelGroup id="display">
+                    <p:growl id="growlasignarSolictud"  sticky="true" showDetail="true"/>
+                       <p:tab  id="tabasignarSolictud" title="Asignar responsable">
+                            <p:panel id="panelEditCS" >
+                                <p:messages/>
+                                    <p:panelGrid columns="2" columnClasses="label,value" class="panelGridNoBorder" >
+                                        <f:facet name="header">
+                                        <h:outputText value="Solicitud"/>
+                                        </f:facet>
+                                        <p:outputLabel value="Solicitud"/>
+                                        <h:outputText value="#{solicitudesInternetController.selected.solicitud}"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion"  />
+                                        <p:selectOneMenu id="idpersonalatencion" filter="true">
+                                            <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
+                                                           var="idpersonalatencionItem"
+                                                           itemValue="#{idpersonalatencionItem}"/>
+                                            <p:ajax event="change" update="idpersonalatencion"/>
+                                        </p:selectOneMenu>                                                                              
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                </h:panelGroup>
+                <p:commandButton value="#{bundle.Aceptar}"  actionListener="#{controlsolicitudesController.asignarResponsable(solicitudesInternetController.selected, idpersonalatencionItem)}" update="SolicitudesInternetEditForm:agregarForCa:agregarImg,:growl" oncomplete="PF('agregarFormDialog').hide();"/>
+                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('agregarFormDialog').hide();"/>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

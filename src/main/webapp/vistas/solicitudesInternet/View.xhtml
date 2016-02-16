@@ -8,10 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetViewDlg" widgetVar="SolicitudesInternetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetViewDlg" widgetVar="SolicitudesInternetViewDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetViewForm">
-                <h:panelGroup id="display">
-                   
+                <h:panelGroup id="display">    
+                    <p:growl id="growlViewSolici"  sticky="true" showDetail="true"/>
+                    <p:wizard id="wizardViewSoli" widgetVar="wizardViewSoli" >
+                        <p:tab id="verSolici" title="Detalles de la solicitus">
                             <p:panelGrid columns="2" layout="grid">
                                 <p:panelGrid columns="2" class="panelGridNoBorder" rendered="#{solicitudesInternetController.selected != null}">
                                     <f:facet name="header">
@@ -72,9 +74,57 @@
                                     <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{solicitudesInternetController.selected.periodo3F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
                                    </p:calendar>
                                 </p:panelGrid>
-                         <p:commandButton value="#{bundle.Close}" onclick="SolicitudesInternetViewDialog.hide()"/>
                     </p:panelGrid>
-                   
+                        </p:tab>
+                  <p:tab title="Imagenes Solicitadas">
+                                  <p:panel>                              
+                                    <h:form id="updateForC">
+                                        <p:dataTable id="ctlgImg" value="#{solicitudesInternetController.imgSolitud}" 
+                                                 var="item"
+                                                 paginator="true"
+                                                 rowsPerPageLabel="10,20,30"
+                                                 rows="10"
+                                                 selectionMode="single"
+                                                 rowKey="#{item.identificador}"
+                                                 selection="#{solicitudesInternetController.selectImgSol}"
+                                                 editable="true"
+                                                 >
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.identificador}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Satélite"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.satelite}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.tipo}"/>
+                                            </p:column>
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.nivel}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Resolución"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.resolucion}"/>
+                                            </p:column>
+                                        </p:dataTable>                                        
+                                    </h:form>                           
+                               </p:panel> 
+                  </p:tab>                  
+                </p:wizard>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('wizardViewSoli').loadStep('verSolici',false);PF('SolicitudesInternetViewDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

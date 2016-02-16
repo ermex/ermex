@@ -3,6 +3,8 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Controlsolicitudes;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Personalatencionusuarios;
+import ermex.atc.entidad.SolicitudesInternet;
 import ermex.atc.sesion.ControlsolicitudesFacade;
 
 import java.io.Serializable;
@@ -54,7 +56,23 @@ public class ControlsolicitudesController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+public void asignarResponsable(SolicitudesInternet solicitud, Personalatencionusuarios responsable)
+{
+    System.out.println("Estamos en el metodo asignar responsable");
+    selected= new Controlsolicitudes();
+    ejbFacade= new ControlsolicitudesFacade();
+   initializeEmbeddableKey();
+    if (solicitud!=null) {
+   selected=ejbFacade.findBySolicitud(solicitud);     
+        if (selected!=null) {
+               selected.setIdpersonalatencion(responsable);
+                  update(); 
+        }else
+        {
+            System.out.println("No se encontro el resultado ");
+        }
+    }
+}
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ControlsolicitudesCreated"));
         if (!JsfUtil.isValidationFailed()) {

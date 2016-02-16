@@ -184,12 +184,14 @@ public  class SolicitudesInternetController implements Serializable {
         selected.setModo(null);
         selected.setNivel(null);
         selected.setResolucion(null);
-        if (imgSolitud.size() > 0 && imgSolitud!=null) {            
-            for (int i = 0; i < imgSolitud.size(); i++) {
+        if (imgSolitud!=null) {    
+            if (imgSolitud.size() > 0 ) {
+                for (int i = 0; i < imgSolitud.size(); i++) {
                  nivel=nivel + imgSolitud.get(i).getIdentificador().getNivel()+ " ";
                  tipo=tipo+ imgSolitud.get(i).getIdentificador().getTipo()+" ";
                  resolucion=resolucion+imgSolitud.get(i).getIdentificador().getResolucion()+" ";
             }   
+            }            
         }
         if (itemsCimg!=null) {
             if (itemsCimg.size() > 0) {
@@ -226,7 +228,6 @@ public  class SolicitudesInternetController implements Serializable {
    //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
     {
-        System.out.println("Estamos en niciar valores");
         SolicitudesInternet solici= new SolicitudesInternet();
         this.noPeriodo1="uno";
         this.noPeriodo2=null;

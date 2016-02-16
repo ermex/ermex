@@ -6,9 +6,13 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Controlsolicitudes;
+import ermex.atc.entidad.SolicitudesInternet;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +32,12 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
     public ControlsolicitudesFacade() {
         super(Controlsolicitudes.class);
     }
-    
+    public Controlsolicitudes findBySolicitud(SolicitudesInternet solicitud)
+    {
+        EntityManagerFactory emf= Persistence.createEntityManagerFactory("ermex");
+        EntityManager em1= emf.createEntityManager();
+        Query query= em1.createNamedQuery("Controlsolicitudes.findBySolicitud", Controlsolicitudes.class);
+        query.setParameter("solicitud", solicitud);  
+        return  (Controlsolicitudes) query.getSingleResult();
+    }
 }
