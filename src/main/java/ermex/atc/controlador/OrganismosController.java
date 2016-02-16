@@ -85,7 +85,7 @@ public class OrganismosController implements Serializable {
     }
 
     public List<Organismos> getItems() {
-        return getFacade().findAll();
+        return getFacade().findAllOrder();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

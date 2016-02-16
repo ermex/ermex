@@ -39,8 +39,7 @@
                                     <p:outputLabel value="#{bundle.GestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
                                     <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.GestoresTitle_fechaEnviouser}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
-                                    <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="#{bundle.GestoresInput_status}" >
-                                        <f:selectItem itemLabel="activo" itemValue="activo" />
+                                    <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="#{bundle.GestoresInput_status}" disabled="#{gestoresController.selected.status=='ratificacion'}">                          
                                         <f:selectItems value="#{gestoresController.status}"/>
                                     </p:selectOneMenu>
                                 </p:panelGrid> 

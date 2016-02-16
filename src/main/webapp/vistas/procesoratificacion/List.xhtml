@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateBase.xhtml">
 
 
         <ui:define name="title">
@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="ProcesoratificacionListForm">
                 <p:panel header="#{bundle.ListProcesoratificacionTitle}">
-                    <p:dataTable id="datalist" value="#{procesoratificacionController.items}" var="item"
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{procesoratificacionController.items}" var="item"
                                  selectionMode="single" selection="#{procesoratificacionController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idprocesor}"
@@ -24,18 +24,18 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_idprocesor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idprocesor}"/>
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_idratificacion}" filterBy="#{item.idratificacion}" filterMatchMode="startsWith">
+                            <h:outputText value="#{item.idratificacion}"/>
+                        </p:column>
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_gestor}" filterBy="#{item.gestor}" filterMatchMode="startsWith">
+                            <h:outputText value="#{item.gestor}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_freceprati}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_freceprati}"/>
                             </f:facet>
                             <h:outputText value="#{item.freceprati}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -43,25 +43,30 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_cambios}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_cambios}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.cambios}" disabled="true"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_status}"/>
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('datalist').filter()" style="">
+                                    <f:selectItem itemLabel="T"  itemValue="" />
+                                    <f:selectItem itemLabel="A" itemValue="activo"  />
+                                    <f:selectItem itemLabel="B" itemValue="baja" /> 
+                                    <f:selectItem itemLabel="P"  itemValue="pendiente" />
+                                </p:selectOneButton>                             
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_comentarios}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_comentarios}"/>
                             </f:facet>
                             <h:outputText value="#{item.comentarios}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_fechaEnvioclaves}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaEnvioclaves}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -69,7 +74,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_fechaConficlaves}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_fechaConficlaves}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaConficlaves}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -77,33 +82,20 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_proceso}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_proceso}"/>
                             </f:facet>
                             <h:outputText value="#{item.proceso}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_documentacion}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_documentacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.documentacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_idratificacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idratificacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProcesoratificacionTitle_gestor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gestor}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{procesoratificacionController.prepareCreate}" update=":ProcesoratificacionCreateForm" oncomplete="PF('ProcesoratificacionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProcesoratificacionViewForm" oncomplete="PF('ProcesoratificacionViewDialog').show()" disabled="#{empty procesoratificacionController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProcesoratificacionEditForm" oncomplete="PF('ProcesoratificacionEditDialog').show()" disabled="#{empty procesoratificacionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{procesoratificacionController.destroy}" update=":growl,datalist" disabled="#{empty procesoratificacionController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

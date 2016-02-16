@@ -28,8 +28,7 @@
                                                                
                                  >
                         <f:facet name="header">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>                           
-                            <p:commandButton update="datalist" value="Update" icon="ui-icon-refresh" oncomplete="PF('datalist').clearFilters()"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>
                         </f:facet>
                         <p:column headerText="#{bundle.GestoresTitle_gestor}" width="8%" filterBy="#{item.gestor}" filterMatchMode="startsWith" footerText="#{bundle.FilterStartsWith}">       
                             <h:outputText value="#{item.gestor}"/>
@@ -41,6 +40,7 @@
                                     <f:selectItem itemLabel="A" itemValue="activo"  />
                                     <f:selectItem itemLabel="B" itemValue="baja" /> 
                                     <f:selectItem itemLabel="P"  itemValue="pendiente" />
+                                    <f:selectItem itemLabel="R"  itemValue="ratificacion" />
                                 </p:selectOneButton>                             
                             </f:facet>
                             <h:outputText value="#{item.status}"/>

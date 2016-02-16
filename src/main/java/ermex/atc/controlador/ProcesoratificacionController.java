@@ -75,10 +75,7 @@ public class ProcesoratificacionController implements Serializable {
     }
 
     public List<Procesoratificacion> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
+        return items = getFacade().findAllOrder();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

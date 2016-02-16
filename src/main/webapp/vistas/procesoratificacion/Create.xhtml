@@ -8,43 +8,42 @@
 
     <ui:composition>
 
-        <p:dialog id="ProcesoratificacionCreateDlg" widgetVar="ProcesoratificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcesoratificacionTitle}">
+        <p:dialog id="ProcesoratificacionCreateDlg" widgetVar="ProcesoratificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProcesoratificacionTitle}" responsive="true">
             <h:form id="ProcesoratificacionCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_idprocesor}" for="idprocesor" />
-                        <p:inputText id="idprocesor" value="#{procesoratificacionController.selected.idprocesor}" title="#{bundle.CreateProcesoratificacionTitle_idprocesor}" required="true" requiredMessage="#{bundle.CreateProcesoratificacionRequiredMessage_idprocesor}"/>
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_freceprati}" for="freceprati" />
-                        <p:calendar id="freceprati" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.EditProcesoratificacionTitle_freceprati}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_cambios}" for="cambios" />
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_freceprati}" for="freceprati" />
+                        <p:calendar id="freceprati" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ProcesoratificacionTitle_freceprati}"/>
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_cambios}" for="cambios" />
                         <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}" />
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{procesoratificacionController.selected.status}" title="#{bundle.CreateProcesoratificacionTitle_status}" />
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_comentarios}" for="comentarios" />
-                        <p:inputText id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.CreateProcesoratificacionTitle_comentarios}" />
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_fechaEnvioclaves}" for="fechaEnvioclaves" />
-                        <p:calendar id="fechaEnvioclaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.EditProcesoratificacionTitle_fechaEnvioclaves}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_fechaConficlaves}" for="fechaConficlaves" />
-                        <p:calendar id="fechaConficlaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.EditProcesoratificacionTitle_fechaConficlaves}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_proceso}" for="proceso" />
-                        <p:inputText id="proceso" value="#{procesoratificacionController.selected.proceso}" title="#{bundle.CreateProcesoratificacionTitle_proceso}" />
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_documentacion}" for="documentacion" />
-                        <p:inputText id="documentacion" value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.CreateProcesoratificacionTitle_documentacion}" />
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_idratificacion}" for="idratificacion" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_comentarios}" for="comentarios" />
+                        <p:inputText id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}" for="fechaEnvioclaves" />
+                        <p:calendar id="fechaEnvioclaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}"/>
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaConficlaves}" for="fechaConficlaves" />
+                        <p:calendar id="fechaConficlaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}"/>
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_proceso}" for="proceso" />
+                        <p:inputText id="proceso" value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ProcesoratificacionTitle_proceso}" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_documentacion}" for="documentacion" />
+                        <p:inputText id="documentacion" value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ProcesoratificacionTitle_documentacion}" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_idratificacion}" for="idratificacion" />
                         <p:selectOneMenu id="idratificacion" value="#{procesoratificacionController.selected.idratificacion}" >
                             <f:selectItems value="#{ratificacionesController.itemsAvailableSelectOne}"
                                            var="idratificacionItem"
                                            itemValue="#{idratificacionItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateProcesoratificacionLabel_gestor}" for="gestor" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_gestor}" for="gestor" />
                         <p:selectOneMenu id="gestor" value="#{procesoratificacionController.selected.gestor}" >
                             <f:selectItems value="#{gestoresController.itemsAvailableSelectOne}"
                                            var="gestorItem"
                                            itemValue="#{gestorItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
+                    </div>    
                     <p:commandButton actionListener="#{procesoratificacionController.create}" value="#{bundle.Save}" update="display,:ProcesoratificacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProcesoratificacionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProcesoratificacionCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

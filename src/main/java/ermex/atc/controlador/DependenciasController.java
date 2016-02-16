@@ -73,7 +73,7 @@ public class DependenciasController implements Serializable {
     }
 
     public List<Dependencias> getItems() {
-        return getFacade().findAll();
+        return getFacade().findAllOrder();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

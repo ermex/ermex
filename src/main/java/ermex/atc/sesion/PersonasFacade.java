@@ -33,6 +33,13 @@ public class PersonasFacade extends AbstractFacade<Personas> {
     }
     
     //Metodos del programador
+    public List<Personas> findAllOrder()
+    {
+        TypedQuery<Personas> query =
+        em.createNamedQuery("Personas.findAll",Personas.class);
+        List<Personas> results = query.getResultList();
+        return results;
+    }
     
     public List<Personas> findTipoInstitucion(String tipo,Long idinstitucion)
     {

@@ -8,34 +8,35 @@
 
     <ui:composition>
 
-        <p:dialog id="RatificacionesViewDlg" widgetVar="RatificacionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRatificacionesTitle}">
+        <p:dialog id="RatificacionesViewDlg" widgetVar="RatificacionesViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRatificacionesTitle}" responsive="true">
             <h:form id="RatificacionesViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}">
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_idratificacion}"/>
-                        <h:outputText value="#{ratificacionesController.selected.idratificacion}" title="#{bundle.ViewRatificacionesTitle_idratificacion}"/>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_anio}"/>
-                        <h:outputText value="#{ratificacionesController.selected.anio}" title="#{bundle.ViewRatificacionesTitle_anio}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                        <h:outputText value="#{bundle.RatificacionesLabel_idratificacion}"/>
+                        <h:outputText value="#{ratificacionesController.selected.idratificacion}" title="#{bundle.RatificacionesTitle_idratificacion}"/>
+                        <h:outputText value="#{bundle.RatificacionesLabel_anio}"/>
+                        <h:outputText value="#{ratificacionesController.selected.anio}" title="#{bundle.RatificacionesTitle_anio}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_inicio}"/>
-                        <h:outputText value="#{ratificacionesController.selected.inicio}" title="#{bundle.ViewRatificacionesTitle_inicio}">
+                        <h:outputText value="#{bundle.RatificacionesLabel_inicio}"/>
+                        <h:outputText value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_fin}"/>
-                        <h:outputText value="#{ratificacionesController.selected.fin}" title="#{bundle.ViewRatificacionesTitle_fin}">
+                        <h:outputText value="#{bundle.RatificacionesLabel_fin}"/>
+                        <h:outputText value="#{ratificacionesController.selected.fin}" title="#{bundle.RatificacionesTitle_fin}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_responsables}"/>
-                        <h:outputText value="#{ratificacionesController.selected.responsables}" title="#{bundle.ViewRatificacionesTitle_responsables}"/>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_responsablee}"/>
-                        <h:outputText value="#{ratificacionesController.selected.responsablee}" title="#{bundle.ViewRatificacionesTitle_responsablee}"/>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_comentarios}"/>
-                        <h:outputText value="#{ratificacionesController.selected.comentarios}" title="#{bundle.ViewRatificacionesTitle_comentarios}"/>
-                        <h:outputText value="#{bundle.ViewRatificacionesLabel_status}"/>
+                        <h:outputText value="#{bundle.RatificacionesLabel_responsables}"/>
+                        <h:outputText value="#{ratificacionesController.selected.responsables}" title="#{bundle.RatificacionesTitle_responsables}"/>
+                        <h:outputText value="#{bundle.RatificacionesLabel_responsablee}"/>
+                        <h:outputText value="#{ratificacionesController.selected.responsablee}" title="#{bundle.RatificacionesTitle_responsablee}"/>
+                        <h:outputText value="#{bundle.RatificacionesLabel_comentarios}"/>
+                        <h:outputText value="#{ratificacionesController.selected.comentarios}" title="#{bundle.RatificacionesTitle_comentarios}"/>
+                        <h:outputText value="#{bundle.RatificacionesLabel_status}"/>
                         <p:selectBooleanCheckbox value="#{ratificacionesController.selected.status}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="RatificacionesViewDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

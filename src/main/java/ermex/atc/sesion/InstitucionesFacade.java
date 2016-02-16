@@ -31,6 +31,13 @@ public class InstitucionesFacade extends AbstractFacade<Instituciones> {
     }
     
     //Metodos del programador
+    public List<Instituciones> findAllOrder()
+    {
+        TypedQuery<Instituciones> query =
+        em.createNamedQuery("Instituciones.findAll",Instituciones.class);
+        List<Instituciones> results = query.getResultList();
+        return results;
+    }
     
     public List<Instituciones> findOrganismos(long idorganismo)
     {

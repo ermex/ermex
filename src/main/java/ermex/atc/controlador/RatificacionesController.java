@@ -75,19 +75,19 @@ public class RatificacionesController implements Serializable {
     }
 
     public List<Ratificaciones> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-        return items;
+        return items = getFacade().findAllOrder();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction != PersistAction.DELETE) {
+                if (persistAction == PersistAction.UPDATE) {
                     getFacade().edit(selected);
-                } else {
+                }if(persistAction == PersistAction.CREATE){
+                    getFacade().create(selected);
+                } 
+                else {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);

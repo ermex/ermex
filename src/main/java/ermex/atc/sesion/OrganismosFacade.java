@@ -31,6 +31,13 @@ public class OrganismosFacade extends AbstractFacade<Organismos> {
         super(Organismos.class);
     }
     //Metodos del programador
+    public List<Organismos> findAllOrder()
+    {
+        TypedQuery<Organismos> query =
+        em.createNamedQuery("Organismos.findAll",Organismos.class);
+        List<Organismos> results = query.getResultList();
+        return results;
+    }
     
     public List<Organismos> findorganismosdependencia(long iddependencia)
     { 

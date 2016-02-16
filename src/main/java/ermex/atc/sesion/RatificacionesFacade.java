@@ -6,9 +6,11 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Ratificaciones;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,11 @@ public class RatificacionesFacade extends AbstractFacade<Ratificaciones> {
         super(Ratificaciones.class);
     }
     
+    public List<Ratificaciones> findAllOrder()
+    {
+        TypedQuery<Ratificaciones> query =
+        em.createNamedQuery("Ratificaciones.findAll",Ratificaciones.class);
+        List<Ratificaciones> results = query.getResultList();
+        return results;
+    }
 }

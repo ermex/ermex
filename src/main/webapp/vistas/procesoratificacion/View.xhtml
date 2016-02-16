@@ -8,39 +8,41 @@
 
     <ui:composition>
 
-        <p:dialog id="ProcesoratificacionViewDlg" widgetVar="ProcesoratificacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProcesoratificacionTitle}">
+        <p:dialog id="ProcesoratificacionViewDlg" widgetVar="ProcesoratificacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProcesoratificacionTitle}" responsive="true">
             <h:form id="ProcesoratificacionViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}">
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_idprocesor}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.idprocesor}" title="#{bundle.ViewProcesoratificacionTitle_idprocesor}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_freceprati}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ViewProcesoratificacionTitle_freceprati}">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_idprocesor}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.idprocesor}" title="#{bundle.ProcesoratificacionTitle_idprocesor}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_idratificacion}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.idratificacion}" title="#{bundle.ProcesoratificacionTitle_idratificacion}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_gestor}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.gestor}" title="#{bundle.ProcesoratificacionTitle_gestor}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_freceprati}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ProcesoratificacionTitle_freceprati}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_cambios}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_cambios}"/>
                         <p:selectBooleanCheckbox value="#{procesoratificacionController.selected.cambios}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_status}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ViewProcesoratificacionTitle_status}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_comentarios}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ViewProcesoratificacionTitle_comentarios}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_fechaEnvioclaves}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ViewProcesoratificacionTitle_fechaEnvioclaves}">
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_status}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_comentarios}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_fechaConficlaves}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ViewProcesoratificacionTitle_fechaConficlaves}">
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_fechaConficlaves}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_proceso}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ViewProcesoratificacionTitle_proceso}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_documentacion}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ViewProcesoratificacionTitle_documentacion}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_idratificacion}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.idratificacion}" title="#{bundle.ViewProcesoratificacionTitle_idratificacion}"/>
-                        <h:outputText value="#{bundle.ViewProcesoratificacionLabel_gestor}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.gestor}" title="#{bundle.ViewProcesoratificacionTitle_gestor}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_proceso}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ProcesoratificacionTitle_proceso}"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_documentacion}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ProcesoratificacionTitle_documentacion}"/>                        
                     </p:panelGrid>
+                    </div>    
                     <p:commandButton value="#{bundle.Close}" onclick="ProcesoratificacionViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

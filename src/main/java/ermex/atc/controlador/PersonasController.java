@@ -282,7 +282,7 @@ public class PersonasController implements Serializable {
     }
 
     public List<Personas> getItems() {
-        return getFacade().findAll();
+        return getFacade().findAllOrder();
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

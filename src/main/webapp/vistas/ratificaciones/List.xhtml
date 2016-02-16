@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/templates/templateBase.xhtml">
 
 
         <ui:define name="title">
@@ -24,18 +24,18 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_idratificacion}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_idratificacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idratificacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_anio}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_anio}"/>
                             </f:facet>
                             <h:outputText value="#{item.anio}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -43,7 +43,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_inicio}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_inicio}"/>
                             </f:facet>
                             <h:outputText value="#{item.inicio}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -51,7 +51,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_fin}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_fin}"/>
                             </f:facet>
                             <h:outputText value="#{item.fin}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -59,25 +59,25 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_responsables}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_responsables}"/>
                             </f:facet>
                             <h:outputText value="#{item.responsables}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_responsablee}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_responsablee}"/>
                             </f:facet>
                             <h:outputText value="#{item.responsablee}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_comentarios}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_comentarios}"/>
                             </f:facet>
                             <h:outputText value="#{item.comentarios}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRatificacionesTitle_status}"/>
+                                <h:outputText value="#{bundle.RatificacionesTitle_status}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.status}" disabled="true"/>
                         </p:column>
@@ -85,7 +85,6 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ratificacionesController.prepareCreate}" update=":RatificacionesCreateForm" oncomplete="PF('RatificacionesCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RatificacionesViewForm" oncomplete="PF('RatificacionesViewDialog').show()" disabled="#{empty ratificacionesController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RatificacionesEditForm" oncomplete="PF('RatificacionesEditDialog').show()" disabled="#{empty ratificacionesController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ratificacionesController.destroy}" update=":growl,datalist" disabled="#{empty ratificacionesController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

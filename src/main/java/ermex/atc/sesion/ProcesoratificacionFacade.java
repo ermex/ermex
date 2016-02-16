@@ -6,9 +6,11 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Procesoratificacion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,11 @@ public class ProcesoratificacionFacade extends AbstractFacade<Procesoratificacio
         super(Procesoratificacion.class);
     }
     
+    public List<Procesoratificacion> findAllOrder()
+    {
+        TypedQuery<Procesoratificacion> query =
+        em.createNamedQuery("Procesoratificacion.findAll",Procesoratificacion.class);
+        List<Procesoratificacion> results = query.getResultList();
+        return results;
+    }
 }
