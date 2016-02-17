@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Imagnesolicitudes.findAll", query = "SELECT i FROM Imagnesolicitudes i"),
+    @NamedQuery(name = "Imagnesolicitudes.findSolicitud", query = "SELECT i FROM Imagnesolicitudes i where i.solicitud= :solicitud"),
     @NamedQuery(name = "Imagnesolicitudes.findByIdmagenesolicitud", query = "SELECT i FROM Imagnesolicitudes i WHERE i.idmagenesolicitud = :idmagenesolicitud")})
 public class Imagnesolicitudes implements Serializable {
 
@@ -41,7 +42,7 @@ public class Imagnesolicitudes implements Serializable {
     @ManyToOne
     private SolicitudesInternet solicitud;
     @JoinColumn(name = "identificador", referencedColumnName = "identificador")
-    @ManyToOne
+    @ManyToOne 
     private Catalogoimagenes identificador;
 
     public Imagnesolicitudes() {

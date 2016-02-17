@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <ui:composition>
+        <p:dialog id="agregarFrom" widgetVar="agregarFormDialog" modal="true" resizable="false" appendTo="@(body)">
+            <h:form id="agregarImgForm"> 
+                <p:dataTable id="agregarTaBImgN" value="#{catalogoimagenesController.items}" 
+                             var="item"
+                             paginator="true"
+                             rowsPerPageLabel="10,20,30"
+                             rows="10"
+                             rowKey="#{item.identificador}"
+                             selection="#{catalogoimagenesController.imgSelect}" 
+                             >
+                    <p:ajax event="rowSelect"/>
+                    <p:ajax event="rowUnselect"/>
+                    <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.identificador}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.satelite}">
+                        <f:facet name="header">
+                            <h:outputText value="Satélite"/>
+                        </f:facet>
+                        <h:outputText value="#{item.satelite}"/>
+                    </p:column>
+                    <p:column  filterBy="#{item.tipo}">
+                        <f:facet name="header">
+                            <h:outputText value="Modo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tipo}"/>
+                    </p:column>
+                    <p:column  filterBy="#{item.nivel}">
+                        <f:facet name="header">
+                            <h:outputText value="Nivel"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nivel}"/>
+                    </p:column>
+                    <p:column  filterBy="#{item.resolucion}">
+                        <f:facet name="header">
+                            <h:outputText value="Resolución"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nivel}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Aceptar"  actionListener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetEditForm:agregarForCa:agregarImg,:growl" oncomplete="PF('agregarFormDialog').hide();"/>
+                <p:commandButton value="Cancelar" oncomplete="PF('agregarFormDialog').hide();"/>
+            </h:form>
+        </p:dialog>        
+    </ui:composition>
+</html>

@@ -60,7 +60,13 @@ public  class SolicitudesInternetController implements Serializable {
     private HashMap<String, String> nubosidad=null;
     private String nuevoT="";
     private List<Imagnesolicitudes> imgSolitud;
-    private ImagnesSolicitudFacade jsImgSol;
+    @EJB
+    private ImagnesSolicitudFacade imgSoliFacde;
+    private List<Catalogoimagenes> itemsCimg;
+    private Imagnesolicitudes selectImgSol;
+    private String tipo="";
+    private String nivel="";
+    private String resolucion="";
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
@@ -122,32 +128,67 @@ public  class SolicitudesInternetController implements Serializable {
         this.selectedRespaldo = selectedRespaldo;
     }
 
-    public ImagnesSolicitudFacade getJsImgSol() {
-        return jsImgSol;
+    public ImagnesSolicitudFacade getImgSoliFacde() {
+        return imgSoliFacde;
     }
 
-    public void setJsImgSol(ImagnesSolicitudFacade jsImgSol) {
-        this.jsImgSol = jsImgSol;
+    public void setImgSoliFacde(ImagnesSolicitudFacade imgSoliFacde) {
+        this.imgSoliFacde = imgSoliFacde;
     }
 
     public List<Imagnesolicitudes> getImgSolitud() {
         return imgSolitud;
     }
+
+    public Imagnesolicitudes getSelectImgSol() {
+        return selectImgSol;
+    }
+
+    public void setSelectImgSol(Imagnesolicitudes selectImgSol) {
+        this.selectImgSol = selectImgSol;
+    }
     
+    
+   //Metodo para actualizar las imagenes solicitas
+    public void modiImgSolicitud()
+    {
+        int id= selectImgSol.getIdmagenesolicitud();
+        System.out.println("Estamos en el metodo update");
+        if (imgSolitud.size()> 0) {
+          for (int i = 0; i < imgSolitud.size(); i++) {
+              if (imgSolitud.get(i).getIdmagenesolicitud()==id) {
+                  imgSolitud.remove(i);
+                  i=imgSolitud.size();
+              }
+              for (int j = 0; j < imgSolitud.size(); j++) {
+                  nivel=nivel + imgSolitud.get(i).getIdentificador().getNivel()+ " ";
+                  tipo=tipo+ imgSolitud.get(i).getIdentificador().getTipo()+" ";
+                  resolucion=resolucion+imgSolitud.get(i).getIdentificador().getResolucion()+" ";
+                   
+              }
+        }   
+        }
+    }
 
    //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
     {
         System.out.println("Estamos en niciar valores");
+        SolicitudesInternet solici= new SolicitudesInternet();
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
+        itemsCimg=null;
         Imagnesolicitudes ctlimg;
         radioS=periodosBase(); 
+        tipo="";
+        resolucion="";
+        nivel="";
         itemsRespaldo=getFacade().findAll();
         if (selected!=null) {
             selectedRespaldo=ejbFacade.find(selected.getSolicitud());
-            imgSolitud=selected.getImagnesolicitudesList();
+            imgSolitud=getEjbFacade().updateRegistro(selected.getSolicitud());
+            //imgSolitud= imgSoliFacde.imgSolBayidsol(selected.getSolicitud());
         }
     }
     //metodo para iniciar valores de los temas
@@ -236,10 +277,6 @@ public void nombreOrganismo()
 public void ModoNivel(List<Catalogoimagenes> tipoM)
 {
     FacesMessage mensaje=null;
-    List<Catalogoimagenes>temp=tipoM;
-    String tipo="";
-    String nivel="";
-    String resolucion="";
     selected.setModo(null);
     selected.setNivel(null);
     selected.setResolucion(null);
@@ -254,7 +291,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         selected.setModo(tipo);
         selected.setNivel(nivel);
         selected.setResolucion(resolucion);
-        
+        itemsCimg=tipoM;
     }else
     {
          mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciones el tipo de imagen"," ");
@@ -315,6 +352,14 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     }
     public SolicitudesInternet getSelected() {
         return selected;
+    }
+
+    public List<Catalogoimagenes> getItemsCimg() {
+        return itemsCimg;
+    }
+
+    public void setItemsCimg(List<Catalogoimagenes> itemsCimg) {
+        this.itemsCimg = itemsCimg;
     }
 
     public String getMinPeriodo() {
@@ -378,7 +423,6 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
  
     }
 
-
     public void setSelected(SolicitudesInternet selected) {
         this.selected = selected;
     }
@@ -398,6 +442,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     private SolicitudesInternetFacade getFacade() {
         return ejbFacade;
     }
+    
 
     public SolicitudesInternet prepareCreate() {
      //Obtiene la fecha de la zona GMT, para obtner la fecha actual.
@@ -413,10 +458,21 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SolicitudesInternetCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-            System.out.println("Se  agrego correctamente");
-            
+            items = null;    // Invalidate list of items to trigger re-query.            
         }
+        if (JsfUtil.isValidationFailed()==false) {
+            imgSoliFacde= new ImagnesSolicitudFacade();
+            selectImgSol= new Imagnesolicitudes();
+            if (itemsCimg!=null && selected!=null) {
+                for (int i = 0; i < itemsCimg.size(); i++) {
+                    selectImgSol.setSolicitud(selected);
+                    selectImgSol.setIdentificador(itemsCimg.get(i));
+                    ejbFacade.creatImgsoliv(selectImgSol);
+                    
+                }
+            }
+        }
+        itemsCimg=null;
     }
 
     public void update() {

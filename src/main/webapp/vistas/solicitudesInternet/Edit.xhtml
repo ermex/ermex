@@ -117,50 +117,94 @@
                                 </center>
                         </p:panel>
                         </p:tab>
-<p:tab title="Tipos de imagen">
-                            <p:panel header="Seleccione el tipo de imagenes">                              
-
-                                <f:view>
-                                    <h:form id="craateForC">
-                                        <p:contextMenu for="ctlgImg">
-                                            <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"    actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()" />
-                                        </p:contextMenu>
+                        <p:tab title="Tipos de imagen">
+                                                        <p:panel header="Imagenes selecciondas">                              
+                                    <h:form id="updateForC">
+                                        <p:commandButton value="Agregar"   oncomplete="PF('agregarFormDialog').show()" />
                                         <p:dataTable id="ctlgImg" value="#{solicitudesInternetController.imgSolitud}" 
                                                  var="item"
                                                  paginator="true"
                                                  rowsPerPageLabel="10,20,30"
                                                  rows="10"
-                                                 rowKey="#{item.identificador.identificador}"
+                                                 selectionMode="single"
+                                                 rowKey="#{item.identificador}"
+                                                 selection="#{solicitudesInternetController.selectImgSol}"
+                                                 editable="true"
                                                  >
+                                             <p:ajax event="rowSelect" oncomplete="PF('confirmFormDialog').show()"/>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Id"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.identificador.identificador}"/>
                                             </p:column>
-                                            <p:column filterBy="#{item.identificador.satelite}">
+                                            <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Satélite"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.identificador.satelite}"/>
                                             </p:column>
-                                            <p:column  filterBy="#{item.identificador.tipo}">
+                                            <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Modo"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.identificador.tipo}"/>
                                             </p:column>
-                                            <p:column  filterBy="#{item.identificador.nivel}">
+                                            <p:column >
                                                 <f:facet name="header">
                                                     <h:outputText value="Nivel"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.identificador.satelite}"/>
                                             </p:column>
-                                            <p:column  filterBy="#{item.identificador.resolucion}">
+                                            <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Resolución"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.identificador.resolucion}"/>
+                                            </p:column>
+                                        </p:dataTable>                                        
+                                    </h:form>                           
+                               </p:panel>                            
+                            <p:panel header="Nuevas imagenes">
+                                <f:view>
+                                    <h:form id="agregarForCa">
+                                        <p:dataTable id="agregarImg" value="#{solicitudesInternetController.itemsCimg}" 
+                                                 var="item"
+                                                 paginator="true"
+                                                 rowsPerPageLabel="10,20,30"
+                                                 rows="10"
+                                                 rowKey="#{item.identificador}"
+                                                 selection="#{catalogoimagenesController.imgSelect}" 
+                                                 >
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id"/>
+                                                </f:facet>
+                                               <h:outputText value="#{item.identificador}"/>
+                                            </p:column>
+                                            <p:column filterBy="#{item.satelite}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Satélite"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.satelite}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.tipo}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.tipo}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.nivel}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
+                                            </p:column>
+                                            <p:column  filterBy="#{item.resolucion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="Resolución"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nivel}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:form>                                  
@@ -234,6 +278,7 @@
                          </p:panelGrid> 
                              <p:commandButton actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"/>
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{solicitudesInternetController.cancelarEdit()}" onclick="SolicitudesInternetDialog.hide"/>
+                            
                          </p:panel>
                     </p:tab>
                 </p:wizard>
@@ -241,6 +286,7 @@
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
+        <ui:include src="dialogConfir.xhtml"/>
+        <ui:include src="agregarImagen.xhtml"/>
     </ui:composition>
 </html>

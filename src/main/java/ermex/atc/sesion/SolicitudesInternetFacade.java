@@ -6,10 +6,13 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.EscenasProcesadas;
+import ermex.atc.entidad.Imagnesolicitudes;
 import ermex.atc.entidad.SolicitudesInternet;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -30,5 +33,31 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
 
     public SolicitudesInternetFacade() {
         super(SolicitudesInternet.class);
-    }    
+    }  
+  public void createImgS(String solicitud, String identificador){
+        String sentences="insert into imagnesolicitudes(solicitud,identificador) values(?,?)";
+        Query query= em.createNativeQuery(sentences);
+        query.setParameter(1, solicitud);
+        query.setParameter(2, identificador);
+        query.executeUpdate();
+        em.flush();
+        
+    }
+  public void creatImgsoliv(Imagnesolicitudes img)
+  {
+      getEntityManager().persist(img);
+      getEntityManager().flush();
+      getEntityManager().refresh(img);
+  }  
+    public List<Imagnesolicitudes> updateRegistro(String id)
+    {
+        String query="Select * from imagnesolicitudes where solicitud=?";
+        List<Imagnesolicitudes> solicitud;
+        EntityManagerFactory emf= Persistence.createEntityManagerFactory("ermex");
+        EntityManager manager= emf.createEntityManager();
+        Query consulta= manager.createNativeQuery(query, Imagnesolicitudes.class);
+        consulta.setParameter(1, id);
+        
+        return consulta.getResultList();                
+    }
 }
