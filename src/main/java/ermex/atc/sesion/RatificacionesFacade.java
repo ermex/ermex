@@ -38,4 +38,11 @@ public class RatificacionesFacade extends AbstractFacade<Ratificaciones> {
         List<Ratificaciones> results = query.getResultList();
         return results;
     }
+    public List<Ratificaciones> findByStatus(boolean status)
+    {
+        TypedQuery<Ratificaciones> query =
+        em.createNamedQuery("Ratificaciones.findByStatus",Ratificaciones.class).setParameter("status",status);
+        List<Ratificaciones> results = query.getResultList();
+        return results;
+    }
 }

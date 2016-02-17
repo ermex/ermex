@@ -11,11 +11,9 @@
             <h:form id="RatificacionesEditForm">
                 <h:panelGroup id="display">
                     <div class="ui-fluid">
-                    <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                    <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.RatificacionesLabel_idratificacion}" for="idratificacion" />
                         <p:inputText id="idratificacion" value="#{ratificacionesController.selected.idratificacion}" title="#{bundle.RatificacionesTitle_idratificacion}" required="true" requiredMessage="#{bundle.RatificacionesRequiredMessage_idratificacion}" disabled="true"/>
-                        <p:outputLabel value="#{bundle.RatificacionesLabel_anio}" for="anio" />
-                        <p:calendar id="anio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.anio}" title="#{bundle.RatificacionesTitle_anio}" required="true" requiredMessage="#{bundle.RatificacionesRequiredMessage_anio}"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_inicio}" for="inicio" />
                         <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_fin}" for="fin" />
@@ -25,7 +23,7 @@
                         <p:outputLabel value="#{bundle.RatificacionesLabel_responsablee}" for="responsablee" />
                         <p:inputText id="responsablee" value="#{ratificacionesController.selected.responsablee}" title="#{bundle.RatificacionesTitle_responsablee}" />
                         <p:outputLabel value="#{bundle.RatificacionesLabel_comentarios}" for="comentarios" />
-                        <p:inputText id="comentarios" value="#{ratificacionesController.selected.comentarios}" title="#{bundle.RatificacionesTitle_comentarios}" />
+                        <p:inputTextarea id="comentarios" value="#{ratificacionesController.selected.comentarios}" title="#{bundle.RatificacionesTitle_comentarios}" />
                         <p:outputLabel value="#{bundle.RatificacionesLabel_status}" for="status" />
                         <p:selectBooleanCheckbox id="status" value="#{ratificacionesController.selected.status}" />
                     </p:panelGrid>

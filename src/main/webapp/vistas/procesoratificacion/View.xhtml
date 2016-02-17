@@ -12,7 +12,7 @@
             <h:form id="ProcesoratificacionViewForm">
                 <h:panelGroup id="display">
                     <div class="ui-fluid">
-                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_idprocesor}"/>
                         <h:outputText value="#{procesoratificacionController.selected.idprocesor}" title="#{bundle.ProcesoratificacionTitle_idprocesor}"/>
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_idratificacion}"/>
@@ -28,7 +28,7 @@
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_status}"/>
                         <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}"/>
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_comentarios}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}"/>
+                        <p:inputTextarea value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" disabled="true"/>
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}"/>
                         <h:outputText value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -42,8 +42,7 @@
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_documentacion}"/>
                         <h:outputText value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ProcesoratificacionTitle_documentacion}"/>                        
                     </p:panelGrid>
-                    </div>    
-                    <p:commandButton value="#{bundle.Close}" onclick="ProcesoratificacionViewDialog.hide()"/>
+                    </div> 
                 </h:panelGroup>
             </h:form>
         </p:dialog>

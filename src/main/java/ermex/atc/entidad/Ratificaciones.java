@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,7 +47,6 @@ public class Ratificaciones implements Serializable {
     @Column(name = "idratificacion")
     private Long idratificacion;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "anio")
     @Temporal(TemporalType.DATE)
     private Date anio;

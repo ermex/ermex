@@ -12,7 +12,7 @@
             <h:form id="ProcesoratificacionEditForm">
                 <h:panelGroup id="display">
                     <div class="ui-fluid">
-                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" columnClasses="ui-grid-col-5,ui-grid-col-14" styleClass="ui-panelgrid-blank">
+                    <p:panelGrid columns="2" rendered="#{procesoratificacionController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_idratificacion}" for="idratificacion" />
                         <p:inputText id="idratificacion" value="#{procesoratificacionController.selected.idratificacion}" title="#{bundle.ProcesoratificacionTitle_idratificacion}" disabled="true" />                      
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_gestor}" for="gestor" />
@@ -28,7 +28,7 @@
                             <f:selectItem itemLabel="pendiente" itemValue="pendiente" />
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_comentarios}" for="comentarios" />
-                        <p:inputText id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" />
+                        <p:inputTextarea id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" />
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}" for="fechaEnvioclaves" />
                         <p:calendar id="fechaEnvioclaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}"/>
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaConficlaves}" for="fechaConficlaves" />

@@ -32,7 +32,15 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
     }
     
     //Metodos del programador
-    
+    public List<Gestores> findByStatusActivo(String status)
+    {
+    //Regresa la lista de los gestores que no tenga el status  "parametro->nostatus"  
+            
+        TypedQuery<Gestores> query =
+        em.createNamedQuery("Gestores.findByStatus",Gestores.class).setParameter("status",status);
+        List<Gestores> results = query.getResultList();
+        return results;
+    }
     public List<Gestores> findByNoStatus(String nostatus)
     {
     //Regresa la lista de los gestores que no tenga el status  "parametro->nostatus"  

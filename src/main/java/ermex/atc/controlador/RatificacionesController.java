@@ -74,6 +74,10 @@ public class RatificacionesController implements Serializable {
         }
     }
 
+    public List<Ratificaciones> getfindByStatus() {
+        return items = getFacade().findByStatus(true);
+    }
+    
     public List<Ratificaciones> getItems() {
         return items = getFacade().findAllOrder();
     }

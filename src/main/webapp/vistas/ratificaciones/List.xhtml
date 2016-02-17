@@ -16,6 +16,11 @@
         <ui:define name="body">
             <h:form id="RatificacionesListForm">
                 <p:panel header="#{bundle.ListRatificacionesTitle}">
+                    <p:contextMenu for="datalist">                       
+                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" />
+                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()"/>
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":RatificacionesViewForm"      oncomplete="PF('RatificacionesViewDialog').show()"/>                       
+                    </p:contextMenu>
                     <p:dataTable id="datalist" value="#{ratificacionesController.items}" var="item"
                                  selectionMode="single" selection="#{ratificacionesController.selected}"
                                  paginator="true"
@@ -23,23 +28,11 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton"/>
-
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.RatificacionesTitle_idratificacion}"/>
                             </f:facet>
                             <h:outputText value="#{item.idratificacion}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.RatificacionesTitle_anio}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.anio}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -71,21 +64,10 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.RatificacionesTitle_comentarios}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.comentarios}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.RatificacionesTitle_status}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.status}" disabled="true"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ratificacionesController.prepareCreate}" update=":RatificacionesCreateForm" oncomplete="PF('RatificacionesCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RatificacionesViewForm" oncomplete="PF('RatificacionesViewDialog').show()" disabled="#{empty ratificacionesController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RatificacionesEditForm" oncomplete="PF('RatificacionesEditDialog').show()" disabled="#{empty ratificacionesController.selected}"/>
-                        </f:facet>
+                        </p:column>                        
                     </p:dataTable>
                 </p:panel>
             </h:form>
