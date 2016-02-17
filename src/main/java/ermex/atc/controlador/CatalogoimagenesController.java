@@ -59,7 +59,8 @@ public class CatalogoimagenesController implements Serializable {
     }
 
     public Catalogoimagenes prepareCreate() {
-        selected = new Catalogoimagenes();
+        this.selected = new Catalogoimagenes();
+        System.out.println("Estamos en preparetCA");
         initializeEmbeddableKey();
         return selected;
     }

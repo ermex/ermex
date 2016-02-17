@@ -10,6 +10,7 @@ import ermex.atc.sesion.ImagnesSolicitudFacade;
 import ermex.atc.sesion.SolicitudesInternetFacade;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -233,11 +234,11 @@ public  class SolicitudesInternetController implements Serializable {
         this.noPeriodo2=null;
         this.noPeriodo3=null;
         itemsCimg=null;
-        radioS=periodosBase(); 
+        
         tipo="";
         resolucion="";
         nivel="";
-        itemsRespaldo=getFacade().findAll();
+        //itemsRespaldo=getFacade().findAll();
         if (selected!=null) {
             selectedRespaldo=ejbFacade.find(selected.getSolicitud());
             imgSolitud=getEjbFacade().updateRegistro(selected.getSolicitud());
@@ -300,6 +301,7 @@ public void validarPeriodo()
         case "tres":
             System.out.println("Esamos en el caso 3");
             noPeriodo3="tres";
+            noPeriodo2="dos";
             resetPeriodos(3);
             break;
     }
@@ -423,37 +425,42 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     }
     //los siguientes tres metodos es para validar los periodos 
 
-    public void minDatePerio1F() {
+    public void minDatePerio1F() throws ParseException {
         if (selected.getPeriodo1I() != null || periodo1IR != selected.getPeriodo1I()) {
           //  fechaMinima = selected.getPeriodo1I();
-                obtenerFecha(selected.getPeriodo1I());    
+                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                //obtenerFecha(selected.getPeriodo1I());
+                selected.setPeriodo1F(obtenerFecha(selected.getPeriodo1I()));
         }        
             periodo1IR = selected.getPeriodo1I();
     }
-    public void minDatePeriodo2F()
+    public void minDatePeriodo2F() throws ParseException
     {
         if (selected.getPeriodo2I() != null || periodo2IR != selected.getPeriodo2I()) {
            // fechaMinima = selected.getPeriodo2I();
-                obtenerFecha(selected.getPeriodo2I());    
+                obtenerFecha(selected.getPeriodo2I());
+                selected.setPeriodo2F(obtenerFecha(selected.getPeriodo2I()));
         } 
            periodo2IR = selected.getPeriodo2I();
     }
-    public void minDatePeriodo3F()
+    public void minDatePeriodo3F() throws ParseException
     {
         if (selected.getPeriodo3I() != null || periodo3IR != selected.getPeriodo3I()) {
             //fechaMinima = selected.getPeriodo3I();
-                obtenerFecha(selected.getPeriodo3I());    
+                obtenerFecha(selected.getPeriodo3I()); 
+                selected.setPeriodo3F(obtenerFecha(selected.getPeriodo3I()));
         } 
              periodo3IR = selected.getPeriodo3I();
     }
     //metodo para obtener la fecha minima de los periodos 
-    public void obtenerFecha(Date fecha)
+    public Date obtenerFecha(Date fecha) throws ParseException
      {
          int mes = 0;
          int dia = 0;
          int years = 0;
          String fecha1;
          SimpleDateFormat fd;
+         Date date = null;
          fd = new SimpleDateFormat("MM/dd/yyyy");
          if (fecha != null) {
              fecha1 = fd.format(fecha);
@@ -476,6 +483,8 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
              //restamos el dia, si esta es mayor a 3
          }
          fechaMinima = String.valueOf(mes) + "/" + String.valueOf(dia) + "/" + String.valueOf(years);
+        date = fd.parse(fechaMinima);
+        return date;
  
     }
 
@@ -506,7 +515,13 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         DateFormat converTime= new SimpleDateFormat("yyyy-MM-dd-HHmmss");
         converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
         selected = new SolicitudesInternet();
+        selectGestores=null;
         selected.setSolicitud(converTime.format(timeLocal));
+        itemsCimg=null;
+        this.noPeriodo1="uno";
+        this.noPeriodo2=null;
+        this.noPeriodo3=null;
+        
         initializeEmbeddableKey();
         return selected;
     }
@@ -557,7 +572,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
             mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO, "Solicitud Actualizada","Se ha modifica la solicitud" + selected.getSolicitud());
         }else
         {
-            items=itemsRespaldo;
+           // items=itemsRespaldo;
              mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Solicitud no Actualizada","La solicitud no se puede actualizar" + selected.getSolicitud());
         }
         
@@ -592,6 +607,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
                     if (persistAction==PersistAction.CREATE) {
                         selected.setGestor(selectGestores.getGestor());
                         getFacade().create(selected);
+                        selectGestores=null;
                     }else
                     {
                     selectGestores=null;
@@ -649,11 +665,13 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
             }
         return contadorPeriodo;
     }
+    //resetea los valores como al inicio de editar
     public void cancelarEdit()
     {
+        System.out.println("Estamos en cancelar");
         selected = selectedRespaldo;
         items=null;
-        items=itemsRespaldo;
+        items= getFacade().findAll();
         selectedRespaldo=null;
         
     }

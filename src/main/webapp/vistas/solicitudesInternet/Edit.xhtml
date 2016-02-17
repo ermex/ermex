@@ -65,11 +65,10 @@
                                                     <f:selectItem itemLabel="Un periodos"  itemValue="uno"/>
                                                     <f:selectItem itemLabel="Dos periodos"  itemValue="dos"/>
                                                     <f:selectItem itemLabel="Tres periodos" itemValue="tres"/>
-                                                    <p:ajax event="click" update="periodo1I periodo1F periodo2I periodo2F periodo3I periodo3F "/>
+                                                    <p:ajax event="click" update="periodo1I periodo1F periodo2I periodo2F periodo3I periodo3F " listener="#{solicitudesInternetController.validarPeriodo()}"/>
                                                </p:selectOneRadio>
                                                     </p:column>
-                                        </p:row>
-     
+                                        </p:row>    
                                     
                                     </p:panelGrid>
                                     <br/>
@@ -78,37 +77,41 @@
                                     <f:facet name="header">
                                         <p:outputLabel value="Periodos solicitados"/>
                                     </f:facet>
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1I}" for="periodo1I" />
-                                            <p:calendar id="periodo1I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
-                                                        value="#{solicitudesInternetController.selected.periodo1I}" 
-                                                        title="#{bundle.EditSolicitudesInternetTitle_periodo1I}" requiredMessage="Es necesario la fecha de inicio del primer">
-                                            </p:calendar>
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1F}" for="periodo1F" />
-                                            
-                                            <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
-                                                        value="#{solicitudesInternetController.selected.periodo1F}" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
-                                                        " requiredMessage="Es necesario la fecha final del primer periodo">
-                                            </p:calendar>                                           
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
-                                            <p:calendar id="periodo2I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2 }"
-                                                        value="#{solicitudesInternetController.selected.periodo2I}"  requiredMessage="Es necesario la fecha de inicio del segundo periodo"
-                                                        title="#{bundle.EditSolicitudesInternetTitle_periodo2I}">
-                                            </p:calendar>
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2F}" for="periodo2F" />
-                                            <p:calendar id="periodo2F" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2}" 
-                                                        value="#{solicitudesInternetController.selected.periodo2F}" requiredMessage="Es necesario la fecha final del segundo periodo"
-                                                        title="#{bundle.EditSolicitudesInternetTitle_periodo2F}">
-                                            </p:calendar>
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3I}" for="periodo3I" />
-                                            <p:calendar id="periodo3I" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
-                                                        value="#{solicitudesInternetController.selected.periodo3I}"  requiredMessage="Es necesario la fecha de inicio del tercer periodo"
-                                                        title="#{bundle.EditSolicitudesInternetTitle_periodo3I}">
-                                            </p:calendar>
-                                            <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3F}" for="periodo3F" />
-                                            <p:calendar id="periodo3F" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
-                                                        value="#{solicitudesInternetController.selected.periodo3F}" requiredMessage="Es necesario la fecha final del  tercer periodo"
-                                                        title="#{bundle.EditSolicitudesInternetTitle_periodo3F}">                                            
-                                            </p:calendar>
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1I}" for="periodo1I" />
+                                                <p:calendar id="periodo1I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
+                                                            value="#{solicitudesInternetController.selected.periodo1I}" 
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo1I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del primer">
+                                                    <p:ajax event="dateSelect" update="periodo1F" listener="#{solicitudesInternetController.minDatePerio1F()}" />
+                                                </p:calendar>
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1F}" for="periodo1F" />
+
+                                                <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
+                                                            value="#{solicitudesInternetController.selected.periodo1F}" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
+                                                            " requiredMessage="Es necesario la fecha final del primer periodo"  mindate="#{solicitudesInternetController.minPeriodo}"
+                                                          >
+                                                </p:calendar>                                           
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
+                                                <p:calendar id="periodo2I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2 }"
+                                                            value="#{solicitudesInternetController.selected.periodo2I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del segundo periodo"
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2I}">
+                                                    <p:ajax event="dateSelect" update="periodo2F" listener="#{solicitudesInternetController.minDatePeriodo2F()}" />
+                                                </p:calendar>
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2F}" for="periodo2F" />
+                                                <p:calendar id="periodo2F" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2}" 
+                                                            value="#{solicitudesInternetController.selected.periodo2F}" navigator="true" requiredMessage="Es necesario la fecha final del segundo periodo"
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2F}"  mindate="#{solicitudesInternetController.minPeriodo}">
+                                                </p:calendar>
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3I}" for="periodo3I" />
+                                                <p:calendar id="periodo3I" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
+                                                            value="#{solicitudesInternetController.selected.periodo3I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del tercer periodo"
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3I}">
+                                                    <p:ajax event="dateSelect" update="periodo3F" listener="#{solicitudesInternetController.minDatePeriodo3F()}" />
+                                                </p:calendar>
+                                                <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3F}" for="periodo3F" />
+                                                <p:calendar id="periodo3F" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
+                                                            value="#{solicitudesInternetController.selected.periodo3F}" requiredMessage="Es necesario la fecha final del  tercer periodo"
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3F}" navigator="true" mindate="#{solicitudesInternetController.minPeriodo}">                                            
+                                                </p:calendar>
                                                 
                                                 
                             </p:panelGrid>
@@ -131,7 +134,7 @@
                                                  selection="#{solicitudesInternetController.selectImgSol}"
                                                  editable="true"
                                                  >
-                                             <p:ajax event="rowSelect" oncomplete="PF('confirmFormDialog').show()"/>
+                                            <p:ajax event="rowSelect" oncomplete="PF('confirmFormDialog').show()" />
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Id"/>
@@ -215,7 +218,7 @@
                         </p:tab>
 
                      <p:tab title="Confirmar">
-                         <p:panel header="Informacion de la solicitud actualizada">
+                         <p:panel id="idconfirmarUpdate" header="Informacion de la solicitud actualizada">
                              <p:panelGrid columns="2"  class="panelGridNoBorder" layout="grid">
                                 <p:panelGrid columns="2" class="panelGridNoBorder" rendered="#{solicitudesInternetController.selected != null}">
                                     <f:facet name="header">
@@ -278,7 +281,8 @@
                                 </p:panelGrid>                          
                              
                          </p:panelGrid> 
-                             <p:commandButton actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"/>
+                             <p:commandButton id="idupdateSolicitud" disabled="#{empty solicitudesInternetController.selected.modo}" actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl " oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"
+                                              />
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{solicitudesInternetController.cancelarEdit()}" onclick="SolicitudesInternetDialog.hide"/>
                             
                          </p:panel>

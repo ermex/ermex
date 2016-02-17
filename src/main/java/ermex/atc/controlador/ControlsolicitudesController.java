@@ -68,9 +68,11 @@ public class ControlsolicitudesController implements Serializable {
 
     public Controlsolicitudes prepareCreate() {
         selected = new Controlsolicitudes();
+        System.out.println("Estamos en preparete");
         initializeEmbeddableKey();
         return selected;
     }
+    //metodo para asignar responsable de atender la solicitud
 public void asignarResponsable(SolicitudesInternet solicitud) throws ParseException
 {
     System.out.println("Estamos en el metodo asignar responsable");
@@ -97,6 +99,10 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
     }
 }
 
+public void resetResponsable()
+{
+    responsable=null;
+}
 public String obtenerFecha()
 {
         Date date= new Date();

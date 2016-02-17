@@ -17,23 +17,24 @@
                                 <p:messages/>
                                     <p:panelGrid columns="2" columnClasses="label,value" class="panelGridNoBorder" >
                                         <f:facet name="header">
-                                        <h:outputText value="Solicitud"/>
+                                            <h:outputText value="#{bundle.AsignarSolicitud}"/>
                                         </f:facet>
-                                        <p:outputLabel value="Solicitud"/>
+                                        <p:outputLabel value="#{bundle.Solicitud}"/>
                                         <h:outputText value="#{solicitudesInternetController.selected.solicitud}"/>
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion"  />
                                         <p:selectOneMenu id="idpersonalatencion" filter="true" value="#{controlsolicitudesController.responsable}">
                                             <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
                                                            var="idpersonalatencionItem"
                                                            itemValue="#{idpersonalatencionItem}"/>
-                                            <p:ajax event="change" update="idpersonalatencion"/>
+                                            <p:ajax event="change" update="idpersonalatencion idAceptar"/>
                                         </p:selectOneMenu>                                                                              
                                 </p:panelGrid>
                             </p:panel>
                         </p:tab>
                 </h:panelGroup>
-                <p:commandButton value="#{bundle.Aceptar}"  actionListener="#{controlsolicitudesController.asignarResponsable(solicitudesInternetController.selected)}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="PF('asignarSolicitud').hide();"/>
-                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('asignarSolicitud').hide();"/>
+                <p:commandButton id="idAceptar" value="#{bundle.Aceptar}"  actionListener="#{controlsolicitudesController.asignarResponsable(solicitudesInternetController.selected)}" update="display,:SolicitudesInternetListForm:datalist,:growl" 
+                                 oncomplete="PF('asignarSolicitud').hide();" disabled="#{empty controlsolicitudesController.responsable}"/>
+                <p:commandButton value="#{bundle.Cancel}" actionListener="#{controlsolicitudesController.resetResponsable()}" oncomplete="PF('asignarSolicitud').hide();"/>
             </h:form>
         </p:dialog>
     </ui:composition>

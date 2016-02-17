@@ -358,5 +358,9 @@ public class SolicitudesInternet implements Serializable {
     public void setImagnesolicitudesList(List<Imagnesolicitudes> imagnesolicitudesList) {
         this.imagnesolicitudesList = imagnesolicitudesList;
     }
+
+    public void setPeriodo1F(String fechaMinima) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

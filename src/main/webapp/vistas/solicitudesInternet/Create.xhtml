@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetCreateDlg"  widgetVar="SolicitudesInternetCreate" modal="true" closable="false" responsive="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetCreateDlg"  widgetVar="SolicitudesInternetCreate" modal="true" closable="false"  resizable="false" appendTo="@(body)" header="#{bundle.CreateSolicitudesInternetTitle}">
             <h:form id="SolicitudesInternetCreateForm"> 
                 <h:panelGroup id="display">
                     <p:growl id="growl1"  sticky="true" showDetail="true"/>
@@ -28,7 +28,7 @@
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
                                             <p:selectOneMenu id="gestor" filter="true" value="#{solicitudesInternetController.selectGestores}" required="true" requiredMessage="Es necesarion un gestor" >
                                                 <f:selectItem itemLabel="Seleccione un gestor" itemValue=""/>
-                                                <f:selectItems  value="#{gestoresController.getItemsActivos()}"
+                                                <f:selectItems  value="#{gestoresController.getItemsfindByStatusActivo()}"
                                                                 var="gestorItem"
                                                                 itemValue="#{gestorItem}"/>
                                             <p:ajax  listener="#{solicitudesInternetController.nombreOrganismo()}" update="nombre dependencia organismo"/>
@@ -104,7 +104,7 @@
 
                                                 <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
                                                             value="#{solicitudesInternetController.selected.periodo1F}" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
-                                                            " requiredMessage="Es necesario la fecha final del primer periodo"
+                                                            " requiredMessage="Es necesario la fecha final del primer periodo"  mindate="#{solicitudesInternetController.minPeriodo}"
                                                           >
                                                 </p:calendar>                                           
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
@@ -137,14 +137,12 @@
                                 </center>
                             </p:panel>
                         </p:tab>
-                        <p:tab title="Tipos de imagen">
+                        <p:tab id="tipoImagen" title="Tipos de imagen">
                             <p:panel header="Seleccione el tipo de imagenes">                           
 
                                 <f:view>
                                     <h:form id="craateForC">
-                                        <p:contextMenu for="ctlgImg">
-                                            <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"    actionListener="#{catalogoimagenesController.prepareCreate()}" update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()" />
-                                        </p:contextMenu>
+
                                         <p:dataTable id="ctlgImg" value="#{catalogoimagenesController.items}" 
                                                  var="item"
                                                  paginator="true"
@@ -153,9 +151,14 @@
                                                  rowKey="#{item.identificador}"
                                                  selection="#{catalogoimagenesController.imgSelect}" 
                                                  >
-                                            <p:ajax event="rowSelectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idCreateButton"/>
-                                            <p:ajax event="rowUnselectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idCreateButton"/>
+                                            <p:ajax event="rowSelectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idconfirmarpanel"/>
+                                            <p:ajax event="rowUnselectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idconfirmarpanel "/>
                                             <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
+                                            <f:facet name="header">
+                                        <p:commandButton  id="createButton" icon="ui-icon-plus" value="#{bundleCatalogoImg.Create}"  update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()">
+                                            <p:ajax event="click" listener="#{catalogoimagenesController.prepareCreate}"/>
+                                        </p:commandButton>
+                                                </f:facet>
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Id"/>
@@ -192,8 +195,8 @@
                                </p:panel>                            
                         </p:tab>
 
-                        <p:tab title="Confirmar">
-                            <p:panel header="Información    de la nueva solicitud">
+                        <p:tab id="idconfirmar" title="Confirmar">
+                            <p:panel id="idconfirmarpanel" header="Información    de la nueva solicitud">
                                 <p:panelGrid columns="2"  class="panelGridNoBorder" layout="grid">
                                     <p:panelGrid columns="2" class="panelGridNoBorder" rendered="#{solicitudesInternetController.selected != null}">
                                         <f:facet name="header">
@@ -255,12 +258,12 @@
                                         </p:calendar>
                                     </p:panelGrid>
                                 </p:panelGrid> 
-                            </p:panel>
+                               <p:commandButton id="idCreateButton" type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
+                               <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
+                             </p:panel>
                         </p:tab>
                     </p:wizard>
                 </h:panelGroup>
-               <p:commandButton id="idCreateButton" type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
-              <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
             </h:form>
 
             <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>
