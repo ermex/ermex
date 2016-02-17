@@ -22,7 +22,7 @@
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":ProcesoratificacionViewForm"      oncomplete="PF('ProcesoratificacionViewDialog').show()"/>                       
                     </p:contextMenu>
                     <p:dataTable widgetVar="datalist" id="datalist" value="#{procesoratificacionController.items}" var="item"
-                                 selectionMode="single" selection="#{procesoratificacionController.selected}"
+                                 selectionMode="single" selection="#{procesoratificacionController.selected}" 
                                  paginator="true"
                                  rowKey="#{item.idprocesor}"
                                  rows="10"
@@ -50,11 +50,12 @@
                         </p:column>
                         <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}" filterMatchMode="exact">
                             <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('datalist').filter()" style="">
+                                <p:selectOneButton onchange="PF('datalist').filter()">
                                     <f:selectItem itemLabel="T"  itemValue="" />
                                     <f:selectItem itemLabel="A" itemValue="activo"  />
                                     <f:selectItem itemLabel="B" itemValue="baja" /> 
                                     <f:selectItem itemLabel="P"  itemValue="pendiente" />
+                                    <f:selectItem itemLabel="PR"  itemValue="proceso" />
                                 </p:selectOneButton>                             
                             </f:facet>
                             <h:outputText value="#{item.status}"/>

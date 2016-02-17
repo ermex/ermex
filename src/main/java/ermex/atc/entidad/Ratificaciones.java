@@ -66,7 +66,7 @@ public class Ratificaciones implements Serializable {
     @Column(name = "comentarios")
     private String comentarios;
     @Column(name = "status")
-    private Boolean status;
+    private Boolean status=true;
     @OneToMany(mappedBy = "idratificacion")
     private List<Procesoratificacion> procesoratificacionList;
 

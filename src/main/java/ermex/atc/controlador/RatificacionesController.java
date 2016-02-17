@@ -86,11 +86,11 @@ public class RatificacionesController implements Serializable {
         if (selected != null) {
             setEmbeddableKeys();
             try {
-                if (persistAction == PersistAction.UPDATE) {
-                    getFacade().edit(selected);
-                }if(persistAction == PersistAction.CREATE){
+                if (persistAction == PersistAction.CREATE) {
                     getFacade().create(selected);
-                } 
+                }if (persistAction == PersistAction.UPDATE) {
+                    getFacade().edit(selected);
+                }
                 else {
                     getFacade().remove(selected);
                 }
