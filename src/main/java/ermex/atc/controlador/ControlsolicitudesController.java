@@ -8,8 +8,13 @@ import ermex.atc.entidad.SolicitudesInternet;
 import ermex.atc.sesion.ControlsolicitudesFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -30,6 +35,8 @@ public class ControlsolicitudesController implements Serializable {
     private List<Controlsolicitudes> items = null;
     private Controlsolicitudes selected;
 
+    private Personalatencionusuarios responsable;
+    
     public ControlsolicitudesController() {
     }
 
@@ -51,27 +58,51 @@ public class ControlsolicitudesController implements Serializable {
         return ejbFacade;
     }
 
+    public Personalatencionusuarios getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Personalatencionusuarios responsable) {
+        this.responsable = responsable;
+    }
+
     public Controlsolicitudes prepareCreate() {
         selected = new Controlsolicitudes();
         initializeEmbeddableKey();
         return selected;
     }
-public void asignarResponsable(SolicitudesInternet solicitud, Personalatencionusuarios responsable)
+public void asignarResponsable(SolicitudesInternet solicitud) throws ParseException
 {
     System.out.println("Estamos en el metodo asignar responsable");
-    selected= new Controlsolicitudes();
-    ejbFacade= new ControlsolicitudesFacade();
-   initializeEmbeddableKey();
+   
     if (solicitud!=null) {
-   selected=ejbFacade.findBySolicitud(solicitud);     
+   selected=solicitud.getControlsolicitudes();
         if (selected!=null) {
-               selected.setIdpersonalatencion(responsable);
-                  update(); 
+               if (responsable!=null) {
+                   SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+                   Date date= new Date();
+                   selected.setIdpersonalatencion(responsable);
+                   selected.setFechaasignacion(formatter.parse(obtenerFecha()));
+                   update();
+                   responsable=null;
+                   items=getFacade().findAll();
+            }else
+               {
+                   System.out.println("responsable es nulo");
+               }
         }else
         {
             System.out.println("No se encontro el resultado ");
         }
     }
+}
+
+public String obtenerFecha()
+{
+        Date date= new Date();
+        DateFormat converTime= new SimpleDateFormat("MM-dd-yyyy");
+        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        return converTime.format(date);
 }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ControlsolicitudesCreated"));

@@ -40,4 +40,8 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
         query.setParameter("solicitud", solicitud);  
         return  (Controlsolicitudes) query.getSingleResult();
     }
+    public void actualizar()
+    {
+        
+    }
 }

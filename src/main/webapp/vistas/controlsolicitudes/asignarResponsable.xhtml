@@ -22,7 +22,7 @@
                                         <p:outputLabel value="Solicitud"/>
                                         <h:outputText value="#{solicitudesInternetController.selected.solicitud}"/>
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion"  />
-                                        <p:selectOneMenu id="idpersonalatencion" filter="true">
+                                        <p:selectOneMenu id="idpersonalatencion" filter="true" value="#{controlsolicitudesController.responsable}">
                                             <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
                                                            var="idpersonalatencionItem"
                                                            itemValue="#{idpersonalatencionItem}"/>
@@ -32,8 +32,8 @@
                             </p:panel>
                         </p:tab>
                 </h:panelGroup>
-                <p:commandButton value="#{bundle.Aceptar}"  actionListener="#{controlsolicitudesController.asignarResponsable(solicitudesInternetController.selected, idpersonalatencionItem)}" update="SolicitudesInternetEditForm:agregarForCa:agregarImg,:growl" oncomplete="PF('agregarFormDialog').hide();"/>
-                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('agregarFormDialog').hide();"/>
+                <p:commandButton value="#{bundle.Aceptar}"  actionListener="#{controlsolicitudesController.asignarResponsable(solicitudesInternetController.selected)}" update="display,:SolicitudesInternetListForm:datalist,:growl" oncomplete="PF('asignarSolicitud').hide();"/>
+                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('asignarSolicitud').hide();"/>
             </h:form>
         </p:dialog>
     </ui:composition>
