@@ -26,12 +26,11 @@
 
                         <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
-
-                        <p:column>
+                        <p:column filterBy="#{item.solicitud}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_idcontrolsolicitud}"/>
+                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_solicitud}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idcontrolsolicitud}"/>
+                            <h:outputText value="#{item.solicitud}"/>
                         </p:column>
                         <p:column filterBy="#{item.gestor}">
                             <f:facet name="header">
@@ -39,6 +38,12 @@
                             </f:facet>
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>
+                        <p:column filterBy="#{item.idpersonalatencion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_idpersonalatencion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idpersonalatencion}"/>
+                        </p:column>                        
                         <p:column filterBy="#{item.fechaasignacion}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_fechaasignacion}"/>
@@ -58,12 +63,6 @@
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_observaciones}"/>
                             </f:facet>
                             <h:outputText value="#{item.observaciones}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_status}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
                         </p:column>
                         <p:column filterBy="#{item.fechatermino}">
                             <f:facet name="header">
@@ -87,23 +86,17 @@
                             </f:facet>
                             <h:outputText value="#{item.totalimagenes}"/>
                         </p:column>
-                        <p:column filterBy="#{item.solicitud}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_solicitud}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.solicitud}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.idpersonalatencion}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_idpersonalatencion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idpersonalatencion}"/>
-                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_proyecto}"/>
                             </f:facet>
                             <h:outputText value="#{item.proyecto}"/>
+                        </p:column>
+                        -<p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ControlsolicitudesViewForm" oncomplete="PF('ControlsolicitudesViewDialog').show()" disabled="#{empty controlsolicitudesController.selected}"/>

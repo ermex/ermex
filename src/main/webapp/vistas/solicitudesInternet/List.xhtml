@@ -17,7 +17,9 @@
                     <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
                     <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" action="#{solicitudesInternetController.iniciarValores()}" />
                     <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
-                    <p:menuitem icon="ui-icon-plus" value="Asignar Responsable" actionListener="#{controlsolicitudesController.prepareCreate}" update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
+                    <p:menuitem icon="ui-icon-plus" value="Asignar" actionListener="#{controlsolicitudesController.prepareCreate}" update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
+                    <p:menuitem icon="ui-icon-plus" value="Estdo"  update=":ControlsolicitudesEditForm" oncomplete="PF('ControlsolicitudesEditDialog').show()" action="#{controlsolicitudesController.asignarSolictud(solicitudesInternetController.selected)}">
+                    </p:menuitem>
                 </p:contextMenu>
                     <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
                                  selectionMode="single" selection="#{solicitudesInternetController.selected}"
@@ -43,24 +45,6 @@
                                 <h:outputText value="#{bundle.ListSolicitudesInternetTitle_gestor}"/>
                             </f:facet>
                             <h:outputText value="#{item.gestor}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_nombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nombre}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.dependencia}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_dependencia}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dependencia}"/>
-                        </p:column>
-                        <p:column filterBy="#{item.organismo}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_organismo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.organismo}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -98,6 +82,21 @@
                             </f:facet>
                             <h:outputText value="#{item.controlsolicitudes.idpersonalatencion.usuario}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Justificacion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.justificacion}"/>
+                        </p:column>  
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opciones"/>
+                            </f:facet>
+                            <p:commandLink value="Cancelar"/>
+                            <br/>
+                            <p:commandLink value="Terminar"/>
+                        </p:column>                         
+                        
                         <f:facet name="footer">
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" oncomplete="#{catalogoimagenesController.setImgSelect(null)}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
@@ -107,6 +106,7 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>    
             <ui:include src="../controlsolicitudes/asignarResponsable.xhtml"/>
+            <ui:include src="../controlsolicitudes/controlSolicitud.xhtml"/>
             </ui:define>
         <ui:define name="footer">
             

@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -221,5 +222,16 @@ public String obtenerFecha()
         }
 
     }
-
+    //metodos del programador
+    public void asignarSolictud(SolicitudesInternet sol)
+    {
+        
+        selected=sol.getControlsolicitudes();
+        if (this.selected!=null) {
+    System.out.println("Control solicitudes no es nulo");
+        }else
+        System.out.println("Control solicitudes es nulo");
+        
+    }
+        
 }

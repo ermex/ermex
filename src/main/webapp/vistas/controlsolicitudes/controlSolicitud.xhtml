@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ControlsolicitudesEditDlg" widgetVar="ControlsolicitudesEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditControlsolicitudesTitle}">
+            <h:form id="ControlsolicitudesEditForm">
+                <h:panelGroup id="display">
+                    <p:growl id="growlEditControlSolicitud"  sticky="true" showDetail="true"/>
+                    <p:wizard id="wizarEdiControlSoli" widgetVar="WEDC">
+                        <p:tab  id="tabEditCS" title="Actualoizar solicitud">
+                            <p:panel id="panelEditCS" header="Infornacion Solicitud">
+                                <p:messages/>
+                                <p:panelGrid columns="1" class="panelGridNoBorderDefaul" layout="grid" rendered="#{controlsolicitudesController.selected!=null}">
+                                    <p:panelGrid columns="2" columnClasses="label,value" class="panelGridNoBorder" >
+                                        <f:facet name="header">
+                                            <h:outputText value="Solicitud"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_solicitud}"/>
+                                        <h:outputText value="#{controlsolicitudesController.selected.solicitud}"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_tema}"/>
+                                        <h:outputText value="#{controlsolicitudesController.selected.tema}" title="#{bundle.EditControlsolicitudesTitle_tema}" />
+                                        <p:outputLabel value="#{bundle.CreateControlsolicitudesLabel_gestor}" />
+                                        <h:outputText id="gestor" value="#{controlsolicitudesController.selected.gestor}"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechaasignacion}" for="fechaasignacion" />
+                                        <p:calendar id="fechaasignacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechaasignacion}" title="#{bundle.EditControlsolicitudesTitle_fechaasignacion}" readonly="true"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_observaciones}" for="observaciones" />
+                                        <p:inputText id="observaciones" value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.EditControlsolicitudesTitle_observaciones}" />
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_status}" for="status" />
+                                        <p:inputText id="status" value="#{controlsolicitudesController.selected.status}" readonly="true" title="#{bundle.EditControlsolicitudesTitle_status}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_status}"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechatermino}" for="fechatermino" />
+                                        <p:calendar id="fechatermino" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechatermino}" title="#{bundle.EditControlsolicitudesTitle_fechatermino}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechacancelacion}" for="fechacancelacion" />
+                                        <p:calendar id="fechacancelacion" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.EditControlsolicitudesTitle_fechacancelacion}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_totalimagenes}" for="totalimagenes"/>
+                                        <p:inputText id="totalimagenes" value="#{controlsolicitudesController.selected.observaciones}"  readonly="true" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}" required="true" requiredMessage="#{bundle.EditControlsolicitudesRequiredMessage_totalimagenes}"/>
+
+                                        <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_proyecto}" for="proyecto" />
+                                        <p:selectOneMenu id="proyecto" filter="true" value="#{controlsolicitudesController.selected.proyecto}" >
+                                            
+                                            <f:selectItems value="#{nomProyectosController.itemsAvailableSelectOne}"
+                                                           var="proyectoItem"
+                                                           itemValue="#{proyectoItem}"
+                                                           itemLabel="#{proyectoItem.getNombre()}"/>
+                                            <p:ajax event="change" update="proyecto"/>
+                                        </p:selectOneMenu>                                        
+                                     <p:commandButton id="createButtonProyecto" icon="ui-icon-plus"   value="Nuevo Proyecto" actionListener="#{nomProyectosController.prepareCreate}" update=":NomProyectosCreateForm" oncomplete="PF('NomProyectosCreateDialog').show()"/>                                        
+                                     <p:commandButton id="createButtonNotas" icon="ui-icon-plus"   value="Crear Nota" actionListener="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()"/>
+                                    </p:panelGrid>                                       
+                                </p:panelGrid>
+                            </p:panel>    
+                        </p:tab>
+                    </p:wizard>
+                        <p:commandButton actionListener="#{controlsolicitudesController.update}" value="#{bundle.Save}" oncomplete="handleSubmit(args, 'ControlsolicitudesEditDialog');"/>
+                        <p:commandButton value="#{bundle.Cancel}" onclick="ControlsolicitudesEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+            <ui:include src="../nomProyectos/CreateCS.xhtml"/>
+            <ui:include src="../notas/CreateCS.xhtml"/>
+        </p:dialog>
+    </ui:composition>
+</html>
