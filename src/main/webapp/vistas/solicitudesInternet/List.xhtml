@@ -19,7 +19,6 @@
                     <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
                     <p:menuitem icon="ui-icon-plus" value="Asignar Responsable" actionListener="#{controlsolicitudesController.prepareCreate}" update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
                 </p:contextMenu>
-                <p:panel header="#{bundle.ListSolicitudesInternetTitle}">
                     <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
                                  selectionMode="single" selection="#{solicitudesInternetController.selected}"
                                  resizableColumns="false"
@@ -29,7 +28,10 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  editable="true"
                                  >
-
+                            <f:facet name="header">
+                                 <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                 <p:columnToggler datasource="datalist" trigger="toggler" />
+                             </f:facet>
                         <p:column filterBy="#{item.solicitud}" resizable="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSolicitudesInternetTitle_solicitud}"/>
@@ -92,7 +94,7 @@
                         </p:column>
                         <p:column filterBy="#{item.controlsolicitudes.idpersonalatencion.usuario}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSolicitudesInternetTitle_nivel}"/>
+                                <h:outputText value="Responsable"/>
                             </f:facet>
                             <h:outputText value="#{item.controlsolicitudes.idpersonalatencion.usuario}"/>
                         </p:column>
@@ -100,7 +102,6 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" oncomplete="#{catalogoimagenesController.setImgSelect(null)}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
             </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

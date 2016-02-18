@@ -11,7 +11,7 @@
     <ui:composition>
         <p:dialog id="agregarFrom" widgetVar="agregarFormDialog" modal="true" resizable="false" appendTo="@(body)">
             <h:form id="agregarImgForm"> 
-                <p:dataTable id="agregarTaBImgN" value="#{catalogoimagenesController.items}" 
+                <p:dataTable id="agregarTaBImgN" value="#{catalogoimagenesController.itemsActivos()}" 
                              var="item"
                              paginator="true"
                              rowsPerPageLabel="10,20,30"

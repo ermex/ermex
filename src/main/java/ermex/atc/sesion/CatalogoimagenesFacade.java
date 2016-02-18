@@ -6,9 +6,12 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Catalogoimagenes;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import org.eclipse.persistence.config.QueryType;
 
 /**
  *
@@ -27,6 +30,14 @@ public class CatalogoimagenesFacade extends AbstractFacade<Catalogoimagenes> {
 
     public CatalogoimagenesFacade() {
         super(Catalogoimagenes.class);
+    }
+    public List<Catalogoimagenes> itemxActivos()
+    {
+        List<Catalogoimagenes>  result;
+        TypedQuery <Catalogoimagenes> query= em.createNamedQuery("Catalogoimagenes.findByStatus", Catalogoimagenes.class);
+        query.setParameter("status", "activo");
+        result= query.getResultList();
+        return  result;
     }
     
 }

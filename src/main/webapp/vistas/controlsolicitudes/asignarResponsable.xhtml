@@ -23,7 +23,7 @@
                                         <h:outputText value="#{solicitudesInternetController.selected.solicitud}"/>
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_idpersonalatencion}" for="idpersonalatencion"  />
                                         <p:selectOneMenu id="idpersonalatencion" filter="true" value="#{controlsolicitudesController.responsable}">
-                                            <f:selectItems value="#{personalatencionusuariosController.itemsAvailableSelectOne}"
+                                            <f:selectItems value="#{personalatencionusuariosController.usuariosActivos()}"
                                                            var="idpersonalatencionItem"
                                                            itemValue="#{idpersonalatencionItem}"/>
                                             <p:ajax event="change" update="idpersonalatencion idAceptar"/>

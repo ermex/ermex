@@ -195,5 +195,11 @@ public class PersonalatencionusuariosController implements Serializable {
         }
 
     }
+    public List<Personalatencionusuarios> usuariosActivos()
+    {
+        List<Personalatencionusuarios> activos;
+        activos= ejbFacade.usuariosActivos();
+        return activos;
+    }
 
 }

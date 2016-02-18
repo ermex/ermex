@@ -26,6 +26,7 @@ public class CatalogoimagenesController implements Serializable {
     @EJB
     private ermex.atc.sesion.CatalogoimagenesFacade ejbFacade;
     private List<Catalogoimagenes> items = null;
+   // private List<Catalogoimagenes> itemsActivos = null;
     private List<Catalogoimagenes> imgSelect=null;
     private Catalogoimagenes selected;
 
@@ -70,6 +71,12 @@ public class CatalogoimagenesController implements Serializable {
         if (img!=null) {
             
         }
+    }
+    public List<Catalogoimagenes> itemsActivos()
+    {
+        List <Catalogoimagenes> imgActivos;
+        imgActivos=ejbFacade.itemxActivos();
+        return imgActivos;
     }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesCreated"));

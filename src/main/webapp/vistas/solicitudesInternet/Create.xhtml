@@ -96,37 +96,37 @@
                                                 </f:facet>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1I}" for="periodo1I" />
                                                 <p:calendar id="periodo1I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
-                                                            value="#{solicitudesInternetController.selected.periodo1I}" 
+                                                            value="#{solicitudesInternetController.selected.periodo1I}" onkeypress="return  fecha()"
                                                             title="#{bundle.EditSolicitudesInternetTitle_periodo1I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del primer">
                                                     <p:ajax event="dateSelect" update="periodo1F" listener="#{solicitudesInternetController.minDatePerio1F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo1F}" for="periodo1F" />
 
                                                 <p:calendar id="periodo1F" pattern="MM/dd/yyyy"   required="true" disabled="#{empty solicitudesInternetController.noPeriodo1}" 
-                                                            value="#{solicitudesInternetController.selected.periodo1F}" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
+                                                            value="#{solicitudesInternetController.selected.periodo1F}" onkeypress="return  fecha()" navigator="true" title="#{bundle.EditSolicitudesInternetTitle_periodo1F}
                                                             " requiredMessage="Es necesario la fecha final del primer periodo"  mindate="#{solicitudesInternetController.minPeriodo}"
                                                           >
                                                 </p:calendar>                                           
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2I}" for="periodo2I" />
                                                 <p:calendar id="periodo2I" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2 }"
                                                             value="#{solicitudesInternetController.selected.periodo2I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del segundo periodo"
-                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2I}">
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2I}" onkeypress="return  fecha()"> 
                                                     <p:ajax event="dateSelect" update="periodo2F" listener="#{solicitudesInternetController.minDatePeriodo2F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo2F}" for="periodo2F" />
                                                 <p:calendar id="periodo2F" pattern="MM/dd/yyyy" required="true" disabled="#{empty solicitudesInternetController.noPeriodo2}" 
                                                             value="#{solicitudesInternetController.selected.periodo2F}" navigator="true" requiredMessage="Es necesario la fecha final del segundo periodo"
-                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2F}"  mindate="#{solicitudesInternetController.minPeriodo}">
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo2F}" onkeypress="return  fecha()" mindate="#{solicitudesInternetController.minPeriodo}">
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3I}" for="periodo3I" />
                                                 <p:calendar id="periodo3I" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
                                                             value="#{solicitudesInternetController.selected.periodo3I}" navigator="true" requiredMessage="Es necesario la fecha de inicio del tercer periodo"
-                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3I}">
+                                                            title="#{bundle.EditSolicitudesInternetTitle_periodo3I}" onkeypress="return  fecha()">
                                                     <p:ajax event="dateSelect" update="periodo3F" listener="#{solicitudesInternetController.minDatePeriodo3F()}" />
                                                 </p:calendar>
                                                 <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_periodo3F}" for="periodo3F" />
                                                 <p:calendar id="periodo3F" pattern="MM/dd/yyyy" disabled="#{empty solicitudesInternetController.noPeriodo3}"
-                                                            value="#{solicitudesInternetController.selected.periodo3F}" requiredMessage="Es necesario la fecha final del  tercer periodo"
+                                                            value="#{solicitudesInternetController.selected.periodo3F}" onkeypress="return  fecha()" requiredMessage="Es necesario la fecha final del  tercer periodo"
                                                             title="#{bundle.EditSolicitudesInternetTitle_periodo3F}" navigator="true" mindate="#{solicitudesInternetController.minPeriodo}">                                            
                                                 </p:calendar>
 
@@ -143,7 +143,7 @@
                                 <f:view>
                                     <h:form id="craateForC">
 
-                                        <p:dataTable id="ctlgImg" value="#{catalogoimagenesController.items}" 
+                                        <p:dataTable id="ctlgImg" value="#{catalogoimagenesController.itemsActivos()}" 
                                                  var="item"
                                                  paginator="true"
                                                  rowsPerPageLabel="10,20,30"

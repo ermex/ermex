@@ -7,6 +7,7 @@ package ermex.atc.sesion;
 
 import ermex.atc.entidad.Personalatencionusuarios;
 import java.sql.ResultSet;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,7 +43,7 @@ public class PersonalatencionusuariosFacade extends AbstractFacade<Personalatenc
              TypedQuery<Personalatencionusuarios> query = emLogin.createNamedQuery("Personalatencionusuarios.findByPwdAndUsuario", Personalatencionusuarios.class).setParameter("usuario",usuario)
             .setParameter("pwd", pwd);
              System.out.println("Estamos en el try");
-            usuarioBD = query.getSingleResult();
+            usuarioBD = (Personalatencionusuarios)query.getSingleResult();
         } catch (Exception e) {
                         System.out.println("Usuario:" +usuario);
             System.out.println("PWD:" +pwd);
@@ -52,4 +53,13 @@ public class PersonalatencionusuariosFacade extends AbstractFacade<Personalatenc
 
         return usuarioBD;
     }    
+    
+    public List<Personalatencionusuarios> usuariosActivos()
+    {
+        List <Personalatencionusuarios> activos;
+        TypedQuery query= em.createNamedQuery("Personalatencionusuarios.findByStatus", Personalatencionusuarios.class);
+        query.setParameter("status",1);
+        activos=query.getResultList();
+        return activos;        
+    }
 }
