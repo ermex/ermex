@@ -17,17 +17,20 @@
             <h:form id="DependenciasListForm">
                 <p:panel header="#{bundle.ListDependenciasTitle}">
                     <p:contextMenu for="datalist">       
-                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":DependenciasCreateForm"    oncomplete="PF('DependenciasCreateDialog').show()" actionListener="#{dependenciasController.prepareCreate}" />
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":DependenciasEditForm"      oncomplete="PF('DependenciasEditDialog').show()"/>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":DependenciasViewForm"      oncomplete="PF('DependenciasViewDialog').show()"/>                       
                     </p:contextMenu>
-                    <p:dataTable id="datalist" value="#{dependenciasController.items}" var="item"
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{dependenciasController.items}" var="item"
                                  selectionMode="single" selection="#{dependenciasController.selected}"
                                  paginator="true"
                                  rowKey="#{item.iddependencia}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="#{bundle.ListDependenciasEmpty}"
                     >
+                    <f:facet name="header">
+                        <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":DependenciasCreateForm"    oncomplete="PF('DependenciasCreateDialog').show()" actionListener="#{dependenciasController.prepareCreate}" />                       
+                    </f:facet>    
                         <p:column width="10%">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.DependenciasTitle_iddependencia}"/>

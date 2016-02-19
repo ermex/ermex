@@ -16,8 +16,7 @@
         <ui:define name="body">
             <h:form id="RatificacionesListForm">
                 <p:panel header="#{bundle.ListRatificacionesTitle}">
-                    <p:contextMenu for="datalist">                       
-                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" />
+                    <p:contextMenu for="datalist">
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()"/>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":RatificacionesViewForm"      oncomplete="PF('RatificacionesViewDialog').show()"/>                       
                     </p:contextMenu>
@@ -27,7 +26,11 @@
                                  rowKey="#{item.idratificacion}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="#{bundle.ListRatificacionesEmpty}"
                                  >
+                    <f:facet name="header">                       
+                        <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" />
+                    </f:facet>    
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.RatificacionesTitle_idratificacion}"/>

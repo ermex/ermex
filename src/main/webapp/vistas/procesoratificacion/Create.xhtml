@@ -30,7 +30,7 @@
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_cambios}" for="cambios" />
                         <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}" />
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}" />
+                        <p:inputText id="status" value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}"  disabled="true"/>
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_comentarios}" for="comentarios" />
                         <p:inputTextarea id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" />
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}" for="fechaEnvioclaves" />

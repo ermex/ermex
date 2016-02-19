@@ -50,7 +50,7 @@
                                 </p:panelGrid>
                             </div>
                             </p:panel>
-                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />
+                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />
                     </p:tab>
                     <p:tab id="tabImagen" title="#{bundle.ImagenesTitle}">
                         <div class="ui-fluid">
@@ -121,12 +121,11 @@
                             </p:panelGrid>
                                 
                         </p:panel> 
-                        </div>
+                        </div>                        
                         <p:commandButton value="#{bundle.Save}"   actionListener="#{personasController.update}" oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" immediate="true" update=":growl,GestoresListForm:datalist"/>
-                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizEditarPersona').loadStep('tabPersona',true);PF('PersonasEditarDialog').hide();" />      
-                    </p:tab>                            
-                </p:wizard> 
-                </h:panelGroup>
+                    </p:tab>
+                </p:wizard>
+            </h:panelGroup>
             </h:form>
         </p:dialog>
 

@@ -3,6 +3,7 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Ratificaciones;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Procesoratificacion;
 import ermex.atc.sesion.RatificacionesFacade;
 
 import java.io.Serializable;
@@ -30,7 +31,9 @@ public class RatificacionesController implements Serializable {
 
     public RatificacionesController() {
     }
-
+    public List<Ratificaciones> getByStatus() {
+        return getFacade().findByStatus(true);
+    }
     public Ratificaciones getSelected() {
         return selected;
     }

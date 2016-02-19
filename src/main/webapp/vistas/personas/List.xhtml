@@ -25,25 +25,26 @@
                                  rowKey="#{item.idpersona}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="#{bundle.ListPersonasEmpty}"
                                  >
-                        <p:column width="5%" headerText="#{bundle.PersonasTitle_tipo}" filterBy="#{item.tipo}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">
+                        <p:column width="5%" headerText="#{bundle.PersonasTitle_tipo}" filterBy="#{item.tipo}">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('datalist').filter()" >
-                                    <f:selectItem itemLabel="T"  itemValue="" />
-                                    <f:selectItem itemLabel="A" itemValue="A"  />
-                                    <f:selectItem itemLabel="G" itemValue="G" /> 
-                                    <f:selectItem itemLabel="D"  itemValue="D" />
+                                    <f:selectItem itemLabel="Todos"  itemValue="" />
+                                    <f:selectItem itemLabel="Ambos" itemValue="A"  />
+                                    <f:selectItem itemLabel="Gestor" itemValue="G" /> 
+                                    <f:selectItem itemLabel="Designador"  itemValue="D" />
                                 </p:selectOneMenu>                                
                             </f:facet>
                             <h:outputText value="#{item.tipo}"/>
                         </p:column>
-                        <p:column width="15%" headerText="#{bundle.PersonasTitle_curp}" filterBy="#{item.curp}" filterMatchMode="startsWith" footerText="#{bundle.FilterStartsWith}">
+                        <p:column width="15%" headerText="#{bundle.PersonasTitle_curp}" filterBy="#{item.curp}">
                             <h:outputText value="#{item.curp}"/>
                         </p:column>
-                        <p:column width="25%" headerText="#{bundle.PersonasTitle_nombre}" filterBy="#{item.grado} #{item.nombre} #{item.apellidop} #{item.apellidom}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
+                        <p:column width="25%" headerText="#{bundle.PersonasTitle_nombre}" filterBy="#{item.grado} #{item.nombre} #{item.apellidop} #{item.apellidom}" filterMatchMode="contains">
                             <h:outputText value="#{item.grado} #{item.nombre} #{item.apellidop} #{item.apellidom}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idinstitucion.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
+                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idinstitucion.nombre}" filterMatchMode="contains">
                             <h:outputText value="#{item.idinstitucion.nombre}"/>
                         </p:column>
                     </p:dataTable>

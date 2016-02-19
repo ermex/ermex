@@ -19,33 +19,33 @@
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":GestoresViewForm"      oncomplete="PF('GestoresViewDialog').show()"/>                       
                     </p:contextMenu>
-                    <p:dataTable  widgetVar="datalist" id="datalist" value="#{gestoresController.items}" var="item"
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{gestoresController.items}" var="item"
                                  selectionMode="single" selection="#{gestoresController.selected}"
                                  paginator="true"
                                  rowKey="#{item.gestor}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"                               
-                                                               
+                                 emptyMessage="#{bundle.ListGestoresEmpty}"                              
                                  >
                         <f:facet name="header">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>
                         </f:facet>
-                        <p:column headerText="#{bundle.GestoresTitle_gestor}" width="8%" filterBy="#{item.gestor}" filterMatchMode="startsWith" footerText="#{bundle.FilterStartsWith}">       
+                        <p:column headerText="#{bundle.GestoresTitle_gestor}" width="8%" filterBy="#{item.gestor}">       
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
-                        <p:column headerText="#{bundle.GestoresTitle_status}"  width="10%" filterBy="#{item.status}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">                                
+                        <p:column headerText="#{bundle.GestoresTitle_status}"  width="10%" filterBy="#{item.status}">                                
                             <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('datalist').filter()" style="">
-                                    <f:selectItem itemLabel="T"  itemValue="" />
-                                    <f:selectItem itemLabel="A" itemValue="activo"  />
-                                    <f:selectItem itemLabel="B" itemValue="baja" /> 
-                                    <f:selectItem itemLabel="P"  itemValue="pendiente" />
-                                    <f:selectItem itemLabel="R"  itemValue="ratificacion" />
-                                </p:selectOneButton>                             
+                                <p:selectOneMenu onchange="PF('datalist').filter()" >
+                                    <f:selectItem itemLabel="Todos"  itemValue="" />
+                                    <f:selectItem itemLabel="Activo" itemValue="activo"  />
+                                    <f:selectItem itemLabel="Baja" itemValue="baja" /> 
+                                    <f:selectItem itemLabel="Pendiente"  itemValue="pendiente" />
+                                    <f:selectItem itemLabel="Ratificacion"  itemValue="ratificacion" />
+                                </p:selectOneMenu>     
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column> 
-                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
+                        <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains">
                             <h:outputText value="#{item.idpersona.idinstitucion.nombre}"/>
                         </p:column>
                         <p:column headerText="#{bundle.GestoresTitle_idpersona}">

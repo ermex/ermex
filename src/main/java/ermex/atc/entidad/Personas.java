@@ -114,6 +114,7 @@ public class Personas implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "apellidom")
     private String apellidom;
+    @Pattern(regexp="^\\s*$")
     @Size(max = 2147483647)
     @Column(name = "grado")
     private String grado;
@@ -211,8 +212,13 @@ public class Personas implements Serializable {
         return grado;
     }
 
-    public void setGrado(String grado) {
-        this.grado = grado;
+    public void setGrado(String grado) {   
+        if(grado=="")
+        {
+            this.grado=null;
+        }else{
+            this.grado = grado;
+        }
     }
 
     public String getCargo() {

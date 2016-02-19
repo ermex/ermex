@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -55,7 +56,7 @@ public class Procesoratificacion implements Serializable {
     private Boolean cambios;
     @Size(max = 10)
     @Column(name = "status")
-    private String status;
+    private String status="activo";
     @Size(max = 2147483647)
     @Column(name = "comentarios")
     private String comentarios;
@@ -72,9 +73,11 @@ public class Procesoratificacion implements Serializable {
     private String documentacion;
     @JoinColumn(name = "idratificacion", referencedColumnName = "idratificacion")
     @ManyToOne
+    @NotNull
     private Ratificaciones idratificacion;
     @JoinColumn(name = "gestor", referencedColumnName = "gestor")
     @ManyToOne
+    @NotNull
     private Gestores gestor;
 
     public Procesoratificacion() {

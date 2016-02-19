@@ -17,7 +17,6 @@
             <h:form id="ProcesoratificacionListForm">
                 <p:panel header="#{bundle.ListProcesoratificacionTitle}">
                     <p:contextMenu for="datalist">                       
-                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":ProcesoratificacionCreateForm"    oncomplete="PF('ProcesoratificacionCreateDialog').show()" actionListener="#{procesoratificacionController.prepareCreate}" />
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":ProcesoratificacionEditForm"      oncomplete="PF('ProcesoratificacionEditDialog').show()"/>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":ProcesoratificacionViewForm"      oncomplete="PF('ProcesoratificacionViewDialog').show()"/>                       
                     </p:contextMenu>
@@ -27,11 +26,15 @@
                                  rowKey="#{item.idprocesor}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="#{bundle.ListProcesoratificacionEmpty}"
                                  >
-                        <p:column headerText="#{bundle.ProcesoratificacionTitle_idratificacion}">                                                     
-                            <h:outputText value="#{item.idratificacion}"/>
+                        <f:facet name="header">
+                            <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":ProcesoratificacionCreateForm"    oncomplete="PF('ProcesoratificacionCreateDialog').show()" actionListener="#{procesoratificacionController.prepareCreate}" />
+                        </f:facet>
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_idratificacion}" filterBy="#{item.idratificacion.idratificacion}">                
+                            <h:outputText value="#{item.idratificacion.idratificacion}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.ProcesoratificacionTitle_gestor}" filterBy="#{item.gestor}" filterMatchMode="startsWith">
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_gestor}" filterBy="#{item.gestor}">
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>
                         <p:column>
@@ -48,15 +51,15 @@
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.cambios}" disabled="true"/>
                         </p:column>
-                        <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}" filterMatchMode="exact">
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}">
                             <f:facet name="filter">
-                                <p:selectOneButton onchange="PF('datalist').filter()">
-                                    <f:selectItem itemLabel="T"  itemValue="" />
-                                    <f:selectItem itemLabel="A" itemValue="activo"  />
-                                    <f:selectItem itemLabel="B" itemValue="baja" /> 
-                                    <f:selectItem itemLabel="P"  itemValue="pendiente" />
-                                    <f:selectItem itemLabel="PR"  itemValue="proceso" />
-                                </p:selectOneButton>                             
+                                <p:selectOneMenu onchange="PF('datalist').filter()" >
+                                    <f:selectItem itemLabel="Todos"  itemValue="" />
+                                    <f:selectItem itemLabel="Activo" itemValue="activo"  />
+                                    <f:selectItem itemLabel="Baja" itemValue="baja" /> 
+                                    <f:selectItem itemLabel="Pendiente"  itemValue="pendiente" />
+                                    <f:selectItem itemLabel="Ratificacion"  itemValue="ratificacion" />
+                                </p:selectOneMenu>     
                             </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column>

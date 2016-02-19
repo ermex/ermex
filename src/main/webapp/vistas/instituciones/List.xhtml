@@ -16,8 +16,7 @@
         <ui:define name="body">
             <h:form id="InstitucionesListForm">
                 <p:panel header="#{bundle.ListInstitucionesTitle}">
-                    <p:contextMenu for="datalist"> 
-                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"    oncomplete="PF('InstitucionesCreateDialog').show()" actionListener="#{institucionesController.prepareCreate}" />
+                    <p:contextMenu for="datalist">
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":InstitucionesEditForm"      oncomplete="PF('InstitucionesEditDialog').show()"/>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":InstitucionesViewForm"      oncomplete="PF('InstitucionesViewDialog').show()"/>                       
                     </p:contextMenu>
@@ -27,6 +26,7 @@
                                  rowKey="#{item.idinstitucion}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="#{bundle.ListInstitucionesEmpty}"
                                  >
                         <f:facet name="header">
                             <p:commandButton value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"/>
@@ -37,11 +37,11 @@
                             </f:facet>
                             <h:outputText value="#{item.idinstitucion}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="12%" filterBy="#{item.idorganismo.iddependencia.siglas}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">
+                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="12%" filterBy="#{item.idorganismo.iddependencia.siglas}">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('datalist').filter()" >
                                     <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
-                                    <f:selectItems value="#{dependenciasController.itemsAvailableSelectOne}" 
+                                    <f:selectItems value="#{dependenciasController.items}" 
                                                    var="iddependenciaItem" 
                                                    itemLabel="#{iddependenciaItem.siglas}" itemValue="#{iddependenciaItem.siglas}"/>
                                 </p:selectOneMenu>                         
@@ -51,10 +51,10 @@
                         <p:column headerText="#{bundle.InstitucionesTitle_idorganismo}" width="15%">                   
                             <h:outputText value="#{item.idorganismo.nombre}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.InstitucionesTitle_nombre}" filterBy="#{item.nombre}" filterMatchMode="contains" footerText="#{bundle.FilterContains}">
+                        <p:column headerText="#{bundle.InstitucionesTitle_nombre}" filterBy="#{item.nombre}" filterMatchMode="contains">
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.InstitucionesTitle_tipo}" width="20%" filterBy="#{item.tipo}" filterMatchMode="exact" footerText="#{bundle.FilterExact}">
+                        <p:column headerText="#{bundle.InstitucionesTitle_tipo}" width="20%" filterBy="#{item.tipo}">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('datalist').filter()" >
                                     <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
