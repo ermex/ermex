@@ -258,7 +258,7 @@
                                         </p:calendar>
                                     </p:panelGrid>
                                 </p:panelGrid> 
-                               <p:commandButton id="idCreateButton" type="Submit" actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
+                                <p:commandButton id="idCreateButton" type="Submit"  actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" action="#{solicitudesInternetController.actualizarItems}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
                                <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
                              </p:panel>
                         </p:tab>

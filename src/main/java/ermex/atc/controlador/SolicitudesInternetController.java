@@ -71,6 +71,7 @@ public  class SolicitudesInternetController implements Serializable {
     private String tipo="";
     private String nivel="";
     private String resolucion="";
+    private String updateAceptar="Acpectar";
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
@@ -159,6 +160,10 @@ public  class SolicitudesInternetController implements Serializable {
     public void setSelectImgSol(Imagnesolicitudes selectImgSol) {
         this.selectImgSol = selectImgSol;
     }
+
+    public String getUpdateAceptar() {
+        return updateAceptar;
+    }
     
     
    //Metodo para actualizar la lista de las imagenes solicitadas anteriormente
@@ -174,6 +179,9 @@ public  class SolicitudesInternetController implements Serializable {
               }
             }
           variables();
+        }
+        if (imgSolitud.size()< 1 && imgSolitud.size()< 1) {
+            updateAceptar=null;
         }
     }
 //metodo para obtener los valores de las variables modo, tipo, resolucion
@@ -219,12 +227,11 @@ public  class SolicitudesInternetController implements Serializable {
               }
             }
           variables();
-        }else
-         {
-             System.out.println("valores nulos");
-             System.out.println(selectCa.getIdentificador());
-         }
-        
+        }
+         //la variable updateAceptar nos permite validar que se eliga por lo menos una imagen a la solicitud, cuando se edta
+         if (itemsCimg.size() < 1 && imgSolitud.size()< 1) {
+            updateAceptar=null;
+        }
     }
    //metodo creado por el programador para iniciar los valores de las variables
     public  void iniciarValores()
@@ -238,11 +245,9 @@ public  class SolicitudesInternetController implements Serializable {
         tipo="";
         resolucion="";
         nivel="";
-        //itemsRespaldo=getFacade().findAll();
+        updateAceptar="aceptar";
         if (selected!=null) {
-            selectedRespaldo=ejbFacade.find(selected.getSolicitud());
             imgSolitud=getEjbFacade().updateRegistro(selected.getSolicitud());
-            //imgSolitud= imgSoliFacde.imgSolBayidsol(selected.getSolicitud());
         }
     }
     //metodo para iniciar valores de los temas
@@ -287,19 +292,16 @@ public void validarPeriodo()
     switch(noPeriodo1)
     {
         case "uno":
-            System.out.println("Estamos en el caso uno");
                 resetPeriodos(1);
                 noPeriodo2=null;
                 noPeriodo3=null;
             break;
         case "dos":
-            System.out.println("Estamos en el caso de dos ");
                 noPeriodo2="dos";
                 noPeriodo3=null;
                 resetPeriodos(2);
             break;
         case "tres":
-            System.out.println("Esamos en el caso 3");
             noPeriodo3="tres";
             noPeriodo2="dos";
             resetPeriodos(3);
@@ -349,7 +351,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         selected.setNivel(nivel);
         selected.setResolucion(resolucion);
         itemsCimg=tipoM;
-        variables();        
+        variables(); 
     }else
     {
          mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selecciones el tipo de imagen"," ");
@@ -361,19 +363,15 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     //los periodos se pasan a nulos 
     private void  resetPeriodos(int datos)
     {
-        System.out.println("Valor de radioS " + radioS);
-        System.out.println("Valor de datos "+ datos);
         switch(datos)
         {
             case 1:
                 if (radioS==2) {
                     selected.setPeriodo2I(null);
                     selected.setPeriodo2F(null);
-                    System.out.println("reset valores en 1-2");
                 }else
                 {
                     if (radioS==3) {
-                        System.out.println("reset valores en 1-3");
                     selected.setPeriodo2I(null);
                     selected.setPeriodo2F(null);
                     selected.setPeriodo3I(null);
@@ -388,7 +386,6 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
                 break;
             case 2:
                 if (radioS==3) {
-                    System.out.println("reset valores en 2-3");
                     selected.setPeriodo3I(null);
                     selected.setPeriodo3F(null);
                 } 
@@ -563,6 +560,11 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
             imgSolitud=null;
         }
     }
+    public void actualizarItems()
+    {
+        items=ejbFacade.findByActivos();
+        System.out.println("Stamos actualziandp");
+    }
     public void update() {
         FacesMessage mensaje=null;
         if (selected.getStatus()==2) {
@@ -593,10 +595,11 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
 
     public List<SolicitudesInternet> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findByActivos();
         }
         return items;
     }
+    
 
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
@@ -668,12 +671,13 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     //resetea los valores como al inicio de editar
     public void cancelarEdit()
     {
-        System.out.println("Estamos en cancelar");
-        selected = selectedRespaldo;
-        items=null;
-        items= getFacade().findAll();
-        selectedRespaldo=null;
-        
+        selected = ejbFacade.find(selected.getSolicitud());
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).equals(selected)) {
+                items.set(i, selected);
+                i=items.size();
+            }
+        }
     }
 
     @FacesConverter(forClass = SolicitudesInternet.class)

@@ -13,10 +13,10 @@
         </ui:define> 
         <ui:define name="body">                                     
             <h:form id="SolicitudesInternetListForm">  
+                <p:panel header="#{bundle.ListRatificacionesTitle}">
                 <p:contextMenu for="datalist">
                     <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
-                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" action="#{solicitudesInternetController.iniciarValores()}" />
-                    <p:menuitem icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
+                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" actionListener="#{solicitudesInternetController.iniciarValores()}" />
                     <p:menuitem icon="ui-icon-plus" value="Asignar" actionListener="#{controlsolicitudesController.prepareCreate}" update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
                     <p:menuitem icon="ui-icon-plus" value="Estdo"  update=":ControlsolicitudesEditForm" oncomplete="PF('ControlsolicitudesEditDialog').show()" action="#{controlsolicitudesController.asignarSolictud(solicitudesInternetController.selected)}">
                     </p:menuitem>
@@ -31,7 +31,9 @@
                                  editable="true"
                                  >
                             <f:facet name="header">
-                                 <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+                                <p:commandButton value="Actualizar" actionListener="#{solicitudesInternetController.actualizarItems}" update="SolicitudesInternetListForm:datalist,:growl"/>
+                                 <p:commandButton  icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
+                                 <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
                                  <p:columnToggler datasource="datalist" trigger="toggler" />
                              </f:facet>
                         <p:column filterBy="#{item.solicitud}" resizable="false">
@@ -101,6 +103,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" oncomplete="#{catalogoimagenesController.setImgSelect(null)}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
                     </p:dataTable>
+                    </p:panel>
             </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

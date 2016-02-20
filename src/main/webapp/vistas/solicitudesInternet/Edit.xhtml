@@ -281,7 +281,9 @@
                                 </p:panelGrid>                          
                              
                          </p:panelGrid> 
-                             <p:commandButton id="idupdateSolicitud" disabled="#{empty solicitudesInternetController.selected.modo}" actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}" update="display,:SolicitudesInternetListForm:datalist,:growl " oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"
+                             <p:commandButton id="idupdateSolicitud" actionListener="#{solicitudesInternetController.update}" value="#{bundle.Save}"
+                                              disabled="#{empty solicitudesInternetController.updateAceptar}" 
+                                              update="display,:SolicitudesInternetListForm:datalist,:growl " oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"
                                               />
                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{solicitudesInternetController.cancelarEdit()}" onclick="SolicitudesInternetDialog.hide"/>
                             

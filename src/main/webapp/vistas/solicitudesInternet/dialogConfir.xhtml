@@ -20,7 +20,7 @@
                             <h:outputText value="#{solicitudesInternetController.selectImgSol.identificador}"/>
                         </p:column>
                     </p:panel>
-                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.modiImgSolicitud()}" update="SolicitudesInternetEditForm:updateForC:ctlgImg,:growl" oncomplete="PF('confirmFormDialog').hide();"/>
+                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.modiImgSolicitud()}" update="SolicitudesInternetEditForm:wizardEditSoli" oncomplete="PF('confirmFormDialog').hide();"/>
                     <p:commandButton value="Cancelar"  oncomplete="PF('confirmFormDialog').hide();"/>
                 </h:panelGroup>
             </h:form>

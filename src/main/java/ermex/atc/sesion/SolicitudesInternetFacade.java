@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -76,5 +77,13 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
         consulta.setParameter(1, id);
         
         return consulta.getResultList();                
+    }
+   
+    //metodo para obtener las solictudes activas 
+    public List<SolicitudesInternet> findByActivos()
+    {
+        TypedQuery query =em.createNamedQuery("SolicitudesInternet.findByActivos", SolicitudesInternet.class);
+         query.setParameter("status", 1);
+         return query.getResultList();
     }
 }

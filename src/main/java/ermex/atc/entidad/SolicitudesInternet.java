@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SolicitudesInternet.findByFechaCaptura", query = "SELECT s FROM SolicitudesInternet s WHERE s.fechaCaptura = :fechaCaptura"),
     @NamedQuery(name = "SolicitudesInternet.findByFechaVentanilla", query = "SELECT s FROM SolicitudesInternet s WHERE s.fechaVentanilla = :fechaVentanilla"),
     @NamedQuery(name = "SolicitudesInternet.findByJustificacion", query = "SELECT s FROM SolicitudesInternet s WHERE s.justificacion = :justificacion"),
-    @NamedQuery(name = "SolicitudesInternet.findByStatus", query = "SELECT s FROM SolicitudesInternet s WHERE s.status = :status")})
+    @NamedQuery(name = "SolicitudesInternet.findByActivos", query = "SELECT s FROM SolicitudesInternet s WHERE s.status = :status")})
 public class SolicitudesInternet implements Serializable {
 
     @OneToMany(mappedBy = "solicitud")
@@ -125,7 +125,7 @@ public class SolicitudesInternet implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
-    private int status=2;
+    private int status=1;
     @OneToOne(mappedBy = "solicitud")
     private Controlsolicitudes controlsolicitudes;
 
