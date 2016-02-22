@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templates/templateBase.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHistdesignagestorTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="HistdesignagestorListForm">
+                <p:panel header="#{bundle.ListHistdesignagestorTitle}">
+                    <p:contextMenu for="datalist">
+                       <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":HistdesignagestorViewForm"      oncomplete="PF('HistdesignagestorViewDialog').show()"/>                       
+                    </p:contextMenu>
+                    <p:dataTable id="datalist" value="#{histdesignagestorController.items}" var="item"
+                                 selectionMode="single" selection="#{histdesignagestorController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idhdg}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_idhdg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idhdg}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_fechaInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaInicio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_fechaFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_status}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.status}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_iddesigna}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iddesigna}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_gestor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.gestor}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

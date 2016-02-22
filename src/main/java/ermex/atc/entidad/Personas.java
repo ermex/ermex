@@ -88,6 +88,10 @@ public class Personas implements Serializable {
     @Lob
     @Column(name = "nombramiento")
     private byte[] nombramiento;
+    @OneToMany(mappedBy = "idpersona")
+    private List<Cambiopersona> cambiopersonaList;
+    @OneToMany(mappedBy = "iddesigna")
+    private List<Histdesignagestor> histdesignagestorList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -477,6 +481,22 @@ public class Personas implements Serializable {
 
     public void setNombramiento(byte[] nombramiento) {
         this.nombramiento = nombramiento;
+    }
+
+    public List<Cambiopersona> getCambiopersonaList() {
+        return cambiopersonaList;
+    }
+
+    public void setCambiopersonaList(List<Cambiopersona> cambiopersonaList) {
+        this.cambiopersonaList = cambiopersonaList;
+    }
+
+    public List<Histdesignagestor> getHistdesignagestorList() {
+        return histdesignagestorList;
+    }
+
+    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
+        this.histdesignagestorList = histdesignagestorList;
     }
     
 }

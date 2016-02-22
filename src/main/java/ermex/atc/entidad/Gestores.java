@@ -55,6 +55,8 @@ public class Gestores implements Serializable {
     @Lob
     @Column(name = "designacion")
     private byte[] designacion;
+    @OneToMany(mappedBy = "gestor")
+    private List<Histdesignagestor> histdesignagestorList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -300,6 +302,14 @@ public class Gestores implements Serializable {
 
     public void setDesignacion(byte[] designacion) {
         this.designacion = designacion;
+    }
+
+    public List<Histdesignagestor> getHistdesignagestorList() {
+        return histdesignagestorList;
+    }
+
+    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
+        this.histdesignagestorList = histdesignagestorList;
     }
     
 }

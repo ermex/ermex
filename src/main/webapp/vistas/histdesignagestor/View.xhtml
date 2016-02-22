@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistdesignagestorViewDlg" widgetVar="HistdesignagestorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ListHistdesignagestorTitle}" responsive="true">
+            <h:form id="HistdesignagestorViewForm">
+                <h:panelGroup id="display">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{histdesignagestorController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_idhdg}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.idhdg}" title="#{bundle.HistdesignagestorTitle_idhdg}"/>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_fechaInicio}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.fechaInicio}" title="#{bundle.HistdesignagestorTitle_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_fechaFin}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.fechaFin}" title="#{bundle.HistdesignagestorTitle_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_status}"/>
+                        <p:selectBooleanCheckbox value="#{histdesignagestorController.selected.status}" disabled="true"/>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_iddesigna}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.iddesigna}" title="#{bundle.HistdesignagestorTitle_iddesigna}"/>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_gestor}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.gestor}" title="#{bundle.HistdesignagestorTitle_gestor}"/>
+                    </p:panelGrid>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

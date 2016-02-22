@@ -36,6 +36,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Instituciones.findByTipo", query = "SELECT i FROM Instituciones i WHERE i.tipo = :tipo")})
 public class Instituciones implements Serializable {
 
+    @OneToMany(mappedBy = "idinstitucion")
+    private List<Cambiopersona> cambiopersonaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,6 +137,14 @@ public class Instituciones implements Serializable {
     @Override
     public String toString() {
         return "ermex.atc.entidad.Instituciones[ idinstitucion=" + idinstitucion + " ]";
+    }
+
+    public List<Cambiopersona> getCambiopersonaList() {
+        return cambiopersonaList;
+    }
+
+    public void setCambiopersonaList(List<Cambiopersona> cambiopersonaList) {
+        this.cambiopersonaList = cambiopersonaList;
     }
     
 }

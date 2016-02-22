@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CambiopersonaViewDlg" widgetVar="CambiopersonaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ListCambiopersonaTitle}" responsive="true">
+            <h:form id="CambiopersonaViewForm">
+                <h:panelGroup id="display">
+                    <div class="ui-fluid">
+                    <p:panelGrid columns="2" rendered="#{cambiopersonaController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
+                        <h:outputText value="#{bundle.CambiopersonaLabel_idcp}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.idcp}" title="#{bundle.CambiopersonaTitle_idcp}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_operation}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.operation}" title="#{bundle.CambiopersonaTitle_operation}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_fecha}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.fecha}" title="#{bundle.CambiopersonaTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_tipo}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.tipo}" title="#{bundle.CambiopersonaTitle_tipo}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_curp}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.curp}" title="#{bundle.CambiopersonaTitle_curp}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_nombre}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.nombre}" title="#{bundle.CambiopersonaTitle_nombre}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_apellidop}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.apellidop}" title="#{bundle.CambiopersonaTitle_apellidop}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_apellidom}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.apellidom}" title="#{bundle.CambiopersonaTitle_apellidom}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_grado}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.grado}" title="#{bundle.CambiopersonaTitle_grado}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_cargo}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.cargo}" title="#{bundle.CambiopersonaTitle_cargo}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_correo1}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.correo1}" title="#{bundle.CambiopersonaTitle_correo1}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_correo2}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.correo2}" title="#{bundle.CambiopersonaTitle_correo2}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_correo3}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.correo3}" title="#{bundle.CambiopersonaTitle_correo3}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_telefono}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.telefono}" title="#{bundle.CambiopersonaTitle_telefono}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_domicilioOficina}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.domicilioOficina}" title="#{bundle.CambiopersonaTitle_domicilioOficina}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_telpersonal}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.telpersonal}" title="#{bundle.CambiopersonaTitle_telpersonal}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_dompersonal}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.dompersonal}" title="#{bundle.CambiopersonaTitle_dompersonal}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_idpersona}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.idpersona}" title="#{bundle.CambiopersonaTitle_idpersona}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_idinstitucion}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.idinstitucion}" title="#{bundle.CambiopersonaTitle_idinstitucion}"/>
+                    </p:panelGrid>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/templates/templateBase.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCambiopersonaTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CambiopersonaListForm">
+                <p:panel header="#{bundle.ListCambiopersonaTitle}">
+                    <p:contextMenu for="datalist">
+                       <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":CambiopersonaViewForm"      oncomplete="PF('CambiopersonaViewDialog').show()"/>                       
+                    </p:contextMenu>
+                    <p:dataTable id="datalist" value="#{cambiopersonaController.items}" var="item"
+                                 selectionMode="single" selection="#{cambiopersonaController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idcp}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_idcp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idcp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_operation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.operation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_fecha}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fecha}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_tipo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_curp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.curp}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_apellidop}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidop}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_apellidom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.apellidom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_grado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_cargo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cargo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_correo1}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo1}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_correo2}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_correo3}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo3}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_telefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_domicilioOficina}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.domicilioOficina}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_telpersonal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telpersonal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_dompersonal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dompersonal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_idpersona}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idpersona}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_idinstitucion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idinstitucion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
