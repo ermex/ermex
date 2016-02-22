@@ -13,8 +13,13 @@
                 <h:panelGroup id="display">
                     <div class="ui-fluid">
                     <p:panelGrid columns="2" rendered="#{histdesignagestorController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
+                        
                         <h:outputText value="#{bundle.HistdesignagestorLabel_idhdg}"/>
                         <h:outputText value="#{histdesignagestorController.selected.idhdg}" title="#{bundle.HistdesignagestorTitle_idhdg}"/>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_gestor}"/>
+                        <h:outputText value="#{histdesignagestorController.selected.gestor}" title="#{bundle.HistdesignagestorTitle_gestor}"/>
+                        <h:outputText value="#{bundle.HistdesignagestorLabel_iddesigna}"/>
+                        <h:outputText value="Id #{histdesignagestorController.selected.iddesigna.idpersona} : #{histdesignagestorController.selected.iddesigna.cargo} #{histdesignagestorController.selected.iddesigna.nombre}#{histdesignagestorController.selected.iddesigna.apellidop} #{histdesignagestorController.selected.iddesigna.apellidom}" title="#{bundle.HistdesignagestorTitle_iddesigna}"/>                       
                         <h:outputText value="#{bundle.HistdesignagestorLabel_fechaInicio}"/>
                         <h:outputText value="#{histdesignagestorController.selected.fechaInicio}" title="#{bundle.HistdesignagestorTitle_fechaInicio}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -25,11 +30,7 @@
                         </h:outputText>
                         <h:outputText value="#{bundle.HistdesignagestorLabel_status}"/>
                         <p:selectBooleanCheckbox value="#{histdesignagestorController.selected.status}" disabled="true"/>
-                        <h:outputText value="#{bundle.HistdesignagestorLabel_iddesigna}"/>
-                        <h:outputText value="#{histdesignagestorController.selected.iddesigna}" title="#{bundle.HistdesignagestorTitle_iddesigna}"/>
-                        <h:outputText value="#{bundle.HistdesignagestorLabel_gestor}"/>
-                        <h:outputText value="#{histdesignagestorController.selected.gestor}" title="#{bundle.HistdesignagestorTitle_gestor}"/>
-                    </p:panelGrid>
+                        </p:panelGrid>
                     </div>
                 </h:panelGroup>
             </h:form>

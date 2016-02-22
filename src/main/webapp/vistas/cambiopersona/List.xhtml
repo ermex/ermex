@@ -26,17 +26,27 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                        <p:column>
+                        <f:facet name="header">
+                            <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="datalist" trigger="toggler" />
+                        </f:facet>
+                        <p:column filterBy="#{item.idpersona.idpersona}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.CambiopersonaTitle_idcp}"/>
+                                <h:outputText value="#{bundle.CambiopersonaTitle_idpersona}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idcp}"/>
+                            <h:outputText value="#{item.idpersona}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.operation}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.CambiopersonaTitle_operation}"/>
                             </f:facet>
                             <h:outputText value="#{item.operation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CambiopersonaTitle_idinstitucion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idinstitucion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -129,18 +139,6 @@
                                 <h:outputText value="#{bundle.CambiopersonaTitle_dompersonal}"/>
                             </f:facet>
                             <h:outputText value="#{item.dompersonal}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.CambiopersonaTitle_idpersona}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idpersona}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.CambiopersonaTitle_idinstitucion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idinstitucion}"/>
                         </p:column>
                     </p:dataTable>
                 </p:panel>

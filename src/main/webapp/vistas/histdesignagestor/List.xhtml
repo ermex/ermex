@@ -19,19 +19,25 @@
                     <p:contextMenu for="datalist">
                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":HistdesignagestorViewForm"      oncomplete="PF('HistdesignagestorViewDialog').show()"/>                       
                     </p:contextMenu>
-                    <p:dataTable id="datalist" value="#{histdesignagestorController.items}" var="item"
+                    <p:dataTable widgetVar="datalist" id="datalist" value="#{histdesignagestorController.items}" var="item"
                                  selectionMode="single" selection="#{histdesignagestorController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idhdg}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                        <p:column>
+                        <p:column filterBy="#{item.gestor}">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.HistdesignagestorTitle_idhdg}"/>
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_gestor}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idhdg}"/>
+                            <h:outputText value="#{item.gestor}"/>
                         </p:column>
+                        <p:column filterBy="#{item.iddesigna.cargo} #{item.iddesigna.apellidop} #{item.iddesigna.apellidom}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.HistdesignagestorTitle_iddesigna}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iddesigna.cargo} #{item.iddesigna.nombre}#{item.iddesigna.apellidop} #{item.iddesigna.apellidom}"/>
+                        </p:column>    
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.HistdesignagestorTitle_fechaInicio}"/>
@@ -48,24 +54,20 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.status}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.HistdesignagestorTitle_status}"/>
                             </f:facet>
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('datalist').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="All" itemValue="" />
+                                    <f:selectItem itemLabel="T" itemValue="true" />
+                                    <f:selectItem itemLabel="F" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
                             <p:selectBooleanCheckbox value="#{item.status}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.HistdesignagestorTitle_iddesigna}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.iddesigna}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.HistdesignagestorTitle_gestor}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.gestor}"/>
-                        </p:column>
+                        </p:column>                 
                     </p:dataTable>
                 </p:panel>
             </h:form>

@@ -14,7 +14,11 @@
                     <div class="ui-fluid">
                     <p:panelGrid columns="2" rendered="#{cambiopersonaController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <h:outputText value="#{bundle.CambiopersonaLabel_idcp}"/>
-                        <h:outputText value="#{cambiopersonaController.selected.idcp}" title="#{bundle.CambiopersonaTitle_idcp}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.idcp}" title="#{bundle.CambiopersonaTitle_idcp}"/>                        
+                        <h:outputText value="#{bundle.CambiopersonaLabel_idpersona}"/>
+                        <h:outputText value="#{cambiopersonaController.selected.idpersona}" title="#{bundle.CambiopersonaTitle_idpersona}"/>
+                        <h:outputText value="#{bundle.CambiopersonaLabel_idinstitucion}"/>
+                        <h:outputText value="Id #{cambiopersonaController.selected.idinstitucion.idinstitucion} : #{cambiopersonaController.selected.idinstitucion.nombre}" title="#{bundle.CambiopersonaTitle_idinstitucion}"/>
                         <h:outputText value="#{bundle.CambiopersonaLabel_operation}"/>
                         <h:outputText value="#{cambiopersonaController.selected.operation}" title="#{bundle.CambiopersonaTitle_operation}"/>
                         <h:outputText value="#{bundle.CambiopersonaLabel_fecha}"/>
@@ -49,10 +53,6 @@
                         <h:outputText value="#{cambiopersonaController.selected.telpersonal}" title="#{bundle.CambiopersonaTitle_telpersonal}"/>
                         <h:outputText value="#{bundle.CambiopersonaLabel_dompersonal}"/>
                         <h:outputText value="#{cambiopersonaController.selected.dompersonal}" title="#{bundle.CambiopersonaTitle_dompersonal}"/>
-                        <h:outputText value="#{bundle.CambiopersonaLabel_idpersona}"/>
-                        <h:outputText value="#{cambiopersonaController.selected.idpersona}" title="#{bundle.CambiopersonaTitle_idpersona}"/>
-                        <h:outputText value="#{bundle.CambiopersonaLabel_idinstitucion}"/>
-                        <h:outputText value="#{cambiopersonaController.selected.idinstitucion}" title="#{bundle.CambiopersonaTitle_idinstitucion}"/>
                     </p:panelGrid>
                     </div>
                 </h:panelGroup>
