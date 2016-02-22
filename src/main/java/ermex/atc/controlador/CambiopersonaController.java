@@ -3,6 +3,7 @@ package ermex.atc.controlador;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Cambiopersona;
+import ermex.atc.entidad.Personas;
 import ermex.atc.sesion.CambiopersonaFacade;
 
 import java.io.Serializable;
@@ -27,10 +28,28 @@ public class CambiopersonaController implements Serializable {
     private ermex.atc.sesion.CambiopersonaFacade ejbFacade;
     private List<Cambiopersona> items = null;
     private Cambiopersona selected;
+    private Personas selectedPersona;
 
     public CambiopersonaController() {
     }
 
+    public Personas getSelectedPersona() {
+        return selectedPersona;
+    }
+
+    public void setSelectedPersona(Personas selectedPersona) {
+        this.selectedPersona = selectedPersona;
+    }
+    public void seleccionarPersona(Personas selectedPersona)
+    {
+        this.selectedPersona=selectedPersona;
+    }
+    public List<Cambiopersona> getItemsByPersona() {
+        if(selectedPersona == null)
+        {return getFacade().findAllByPersona(Long.parseLong("1"));
+        }
+        return getFacade().findAllByPersona(selectedPersona.getIdpersona());
+    }
     public Cambiopersona getSelected() {
         return selected;
     }

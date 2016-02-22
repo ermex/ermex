@@ -14,18 +14,18 @@
         <ui:define name="body">
             <h:form id="GestoresListForm">
                 <p:panel header="#{bundle.ListGestoresTitle}">
-                    <p:contextMenu for="datalist">                       
-                        <p:menuitem id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":GestoresCreateForm"    oncomplete="PF('GestoresCreateDialog').show()" actionListener="#{gestoresController.prepareCreate}" />
+                    <p:contextMenu for="datalist">                      
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/>
-                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":GestoresViewForm"      oncomplete="PF('GestoresViewDialog').show()"/>                       
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":GestoresViewForm"      oncomplete="PF('GestoresViewDialog').show()"/>                 
+                        <p:menuitem id="histButton"     value="#{bundle.ViewHD}"    icon="ui-icon-note"   update=":GestoresHistForm"      oncomplete="PF('GestoresHistDialog').show()" action="#{histdesignagestorController.seleccionarGestor(gestoresController.selected)}" title="#{bundle.BotonHistorialDesignador}"/>
                     </p:contextMenu>
-                    <p:dataTable widgetVar="datalist" id="datalist" value="#{gestoresController.items}" var="item"
+                    <p:dataTable id="datalist" value="#{gestoresController.items}" var="item"
                                  selectionMode="single" selection="#{gestoresController.selected}"
                                  paginator="true"
                                  rowKey="#{item.gestor}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"                               
-                                 emptyMessage="#{bundle.ListGestoresEmpty}"                              
+                                 emptyMessage="#{bundle.ListGestoresEmpty}"
                                  >
                         <f:facet name="header">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>
@@ -34,26 +34,19 @@
                             <h:outputText value="#{item.gestor}"/>
                         </p:column>                       
                         <p:column headerText="#{bundle.GestoresTitle_status}"  width="10%" filterBy="#{item.status}">                                
-                            <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('datalist').filter()" >
-                                    <f:selectItem itemLabel="Todos"  itemValue="" />
-                                    <f:selectItem itemLabel="Activo" itemValue="activo"  />
-                                    <f:selectItem itemLabel="Baja" itemValue="baja" /> 
-                                    <f:selectItem itemLabel="Pendiente"  itemValue="pendiente" />
-                                    <f:selectItem itemLabel="Ratificacion"  itemValue="ratificacion" />
-                                </p:selectOneMenu>     
-                            </f:facet>
                             <h:outputText value="#{item.status}"/>
                         </p:column> 
                         <p:column headerText="#{bundle.InstitucionTitle}" filterBy="#{item.idpersona.idinstitucion.nombre}" filterMatchMode="contains">
                             <h:outputText value="#{item.idpersona.idinstitucion.nombre}"/>
                         </p:column>
                         <p:column headerText="#{bundle.GestoresTitle_idpersona}">
-                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
+                            <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.idpersona)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaGestor}"/>                                                            
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaGestor}"/>
                             <h:outputText value=" #{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
                         </p:column>                        
                         <p:column headerText="#{bundle.GestoresTitle_designador}">
-                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()"/>    
+                            <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.designador)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaDesignador}"/>                                                            
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaDesignador}"/>    
                             <h:outputText value=" #{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
                         </p:column>            
                     </p:dataTable>                   
@@ -63,7 +56,8 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
-           
+            <ui:include src="../histdesignagestor/HistorialDesigna.xhtml"/>
+            <ui:include src="../cambiopersona/CambioPersona.xhtml"/>
         </ui:define>
     </ui:composition>
 

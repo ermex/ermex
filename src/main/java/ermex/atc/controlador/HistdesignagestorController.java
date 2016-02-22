@@ -2,6 +2,7 @@ package ermex.atc.controlador;
 
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Gestores;
 import ermex.atc.entidad.Histdesignagestor;
 import ermex.atc.sesion.HistdesignagestorFacade;
 
@@ -27,10 +28,21 @@ public class HistdesignagestorController implements Serializable {
     private ermex.atc.sesion.HistdesignagestorFacade ejbFacade;
     private List<Histdesignagestor> items = null;
     private Histdesignagestor selected;
-
+    private Gestores selectedGestor=null;
     public HistdesignagestorController() {
     }
 
+    public Gestores getSelectedGestor() {
+        return selectedGestor;
+    }
+
+    public void setSelectedGestor(Gestores selectedGestor) {
+        this.selectedGestor = selectedGestor;
+    }
+    public void seleccionarGestor(Gestores selectedGestor)
+    {
+        this.selectedGestor=selectedGestor;
+    }
     public Histdesignagestor getSelected() {
         return selected;
     }
@@ -77,7 +89,12 @@ public class HistdesignagestorController implements Serializable {
     public List<Histdesignagestor> getItems() {
         return items = getFacade().findAll();
     }
-
+    public List<Histdesignagestor> getItemsByGestor() {
+        if(selectedGestor == null)
+        {return getFacade().findAllByGestor("ermex0001");
+        }
+        return getFacade().findAllByGestor(selectedGestor.getGestor());
+    }
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

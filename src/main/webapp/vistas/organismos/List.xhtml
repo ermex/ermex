@@ -37,7 +37,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idorganismo}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="25%" filterBy="#{item.iddependencia.siglas}">
+                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="25%" filterBy="#{item.iddependencia.siglas}" filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('datalist').filter()" >
                                     <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />

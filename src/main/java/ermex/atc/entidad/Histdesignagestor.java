@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 @Table(name = "histdesignagestor", catalog = "gestor", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Histdesignagestor.findAll", query = "SELECT h FROM Histdesignagestor h"),
+    @NamedQuery(name = "Histdesignagestor.findByGestor", query = "SELECT h FROM Histdesignagestor h WHERE h.gestor.gestor = :gestor"),
     @NamedQuery(name = "Histdesignagestor.findByIdhdg", query = "SELECT h FROM Histdesignagestor h WHERE h.idhdg = :idhdg"),
     @NamedQuery(name = "Histdesignagestor.findByFechaInicio", query = "SELECT h FROM Histdesignagestor h WHERE h.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "Histdesignagestor.findByFechaFin", query = "SELECT h FROM Histdesignagestor h WHERE h.fechaFin = :fechaFin"),

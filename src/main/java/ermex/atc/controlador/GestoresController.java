@@ -414,7 +414,7 @@ public class GestoresController implements Serializable {
     public List<Gestores> getItems() {
         return items=getFacade().findByNoStatus("prueba","compra","antiguo");
     }
-
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

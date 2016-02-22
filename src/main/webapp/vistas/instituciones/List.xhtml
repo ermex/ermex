@@ -29,7 +29,7 @@
                                  emptyMessage="#{bundle.ListInstitucionesEmpty}"
                                  >
                         <f:facet name="header">
-                            <p:commandButton value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"/>
+                            <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"    oncomplete="PF('InstitucionesCreateDialog').show()" actionListener="#{institucionesController.prepareCreate}" />
                         </f:facet>
                         <p:column width="5%">
                             <f:facet name="header">
@@ -37,7 +37,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idinstitucion}"/>
                         </p:column>
-                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="12%" filterBy="#{item.idorganismo.iddependencia.siglas}">
+                        <p:column headerText="#{bundle.OrganismosTitle_iddependencia}" width="12%" filterBy="#{item.idorganismo.iddependencia.siglas}" filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('datalist').filter()" >
                                     <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />

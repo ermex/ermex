@@ -30,7 +30,7 @@
                                 action="#{controlsolicitudesController.asignarSolictud(solicitudesInternetController.selected)}">
                     </p:menuitem>
                 </p:contextMenu>
-                    <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
+            <p:dataTable widgetVar="datalist" id="datalist" value="#{solicitudesInternetController.items}" var="item"
                                  selectionMode="single" selection="#{solicitudesInternetController.selected}"
                                  resizableColumns="false"
                                  paginator="true"

@@ -6,9 +6,11 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Histdesignagestor;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,11 @@ public class HistdesignagestorFacade extends AbstractFacade<Histdesignagestor> {
         super(Histdesignagestor.class);
     }
     
+    public List<Histdesignagestor> findAllByGestor(String gestor)
+    {
+        TypedQuery<Histdesignagestor> query =
+        em.createNamedQuery("Histdesignagestor.findByGestor",Histdesignagestor.class).setParameter("gestor",gestor);
+        List<Histdesignagestor> results = query.getResultList();
+        return results;
+    }
 }

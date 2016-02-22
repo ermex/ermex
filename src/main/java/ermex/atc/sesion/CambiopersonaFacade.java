@@ -6,9 +6,11 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Cambiopersona;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,11 @@ public class CambiopersonaFacade extends AbstractFacade<Cambiopersona> {
         super(Cambiopersona.class);
     }
     
+    public List<Cambiopersona> findAllByPersona(Long idpersona)
+    {
+        TypedQuery<Cambiopersona> query =
+        em.createNamedQuery("Cambiopersona.findByPersona",Cambiopersona.class).setParameter("idpersona",idpersona);
+        List<Cambiopersona> results = query.getResultList();
+        return results;
+    }
 }

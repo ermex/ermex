@@ -3,23 +3,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/templates/templateBase.xhtml">
+    <ui:composition>
 
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListCambiopersonaTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="CambiopersonaListForm">
-                <p:panel>
-                    <p:contextMenu for="datalist">
-                       <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":CambiopersonaViewForm"      oncomplete="PF('CambiopersonaViewDialog').show()"/>                       
-                    </p:contextMenu>
-                    <p:dataTable id="datalist" value="#{cambiopersonaController.items}" var="item"
+        <p:dialog id="CambioPersonaDlg" widgetVar="CambioPersonaDialog" modal="true"  resizable="false" appendTo="@(body)" header="#{bundle.ListCambiopersonaTitle}" maximizable="true" responsive="true">
+            <h:form id="CambioPersonaForm">
+                <h:panelGroup id="display">
+                    <p:panel header="#{bundle.ListCambiopersonaTitle}">
+                        <p:contextMenu for="datalist">
+                            <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":CambiopersonaViewForm"      oncomplete="PF('CambiopersonaViewDialog').show()"/>                       
+                         </p:contextMenu>
+                        <p:dataTable id="datalist" value="#{cambiopersonaController.itemsByPersona}" var="item"
                                  selectionMode="single" selection="#{cambiopersonaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idcp}"
@@ -30,13 +26,13 @@
                             <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
                             <p:columnToggler datasource="datalist" trigger="toggler" />
                         </f:facet>
-                        <p:column filterBy="#{item.idpersona.idpersona}">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.CambiopersonaTitle_idpersona}"/>
                             </f:facet>
                             <h:outputText value="#{item.idpersona}"/>
                         </p:column>
-                        <p:column filterBy="#{item.operation}">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.CambiopersonaTitle_operation}"/>
                             </f:facet>
@@ -142,10 +138,10 @@
                         </p:column>
                     </p:dataTable>
                 </p:panel>
+                </h:panelGroup>
             </h:form>
+            <ui:include src="../cambiopersona/View.xhtml"/>
+        </p:dialog>
 
-            <ui:include src="View.xhtml"/>
-        </ui:define>
     </ui:composition>
-
 </html>
