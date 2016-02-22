@@ -56,7 +56,7 @@ public class Procesoratificacion implements Serializable {
     private Boolean cambios;
     @Size(max = 10)
     @Column(name = "status")
-    private String status="activo";
+    private String status="proceso";
     @Size(max = 2147483647)
     @Column(name = "comentarios")
     private String comentarios;

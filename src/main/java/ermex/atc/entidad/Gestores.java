@@ -42,7 +42,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Gestores.findByFechaEnviouser", query = "SELECT g FROM Gestores g WHERE g.fechaEnviouser = :fechaEnviouser"),
     @NamedQuery(name = "Gestores.findByFechaInicio", query = "SELECT g FROM Gestores g WHERE g.fechaInicio = :fechaInicio"),
     @NamedQuery(name = "Gestores.findByFechaFin", query = "SELECT g FROM Gestores g WHERE g.fechaFin = :fechaFin"),
-    @NamedQuery(name = "Gestores.findByStatus", query = "SELECT g FROM Gestores g WHERE g.status = :status"),
+    @NamedQuery(name = "Gestores.findByStatus", query = "SELECT g FROM Gestores g WHERE g.status = :status order by g.gestor"),
     @NamedQuery(name = "Gestores.findByIdorganismo", query = "SELECT g FROM Gestores g WHERE g.idorganismo = :idorganismo"),
     @NamedQuery(name = "Gestores.findByDescripcion1", query = "SELECT g FROM Gestores g WHERE g.descripcion1 = :descripcion1"),
     @NamedQuery(name = "Gestores.findByDescripcion2", query = "SELECT g FROM Gestores g WHERE g.descripcion2 = :descripcion2"),

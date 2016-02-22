@@ -372,9 +372,21 @@ public class GestoresController implements Serializable {
     private GestoresFacade getFacade() {
         return ejbFacade;
     }
-
+    public String nuevoGestor(){
+        List<Gestores> ermex=ejbFacade.findByErmex();
+        int mayor=0;
+        for (int i = 0; i < ermex.size(); i++) {
+            int a=Integer.parseInt(ermex.get(i).getGestor().substring(5));
+            if(mayor<a)
+            {
+                mayor=a;
+            }    
+        }
+        return "ermex"+String.format("%04d",(mayor+1));
+    }
     public Gestores prepareCreate() {
         selected = new Gestores();
+        selected.setGestor(nuevoGestor());
         initializeEmbeddableKey();
         return selected;
     }
@@ -400,7 +412,7 @@ public class GestoresController implements Serializable {
     }
 
     public List<Gestores> getItems() {
-        return getFacade().findByNoStatus("prueba","compra","antiguo");
+        return items=getFacade().findByNoStatus("prueba","compra","antiguo");
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

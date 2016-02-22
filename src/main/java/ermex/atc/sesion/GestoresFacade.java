@@ -56,14 +56,14 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
     
     public List<Gestores> findByNoStatus(String status1,String status2,String status3)
     {
-    //Regresa la lista de los gestores que no tenga el status  "parametro->nostatus"  
-            
-//        TypedQuery<Gestores> query =
-//        em.createNamedQuery("Gestores.findByNoStatus",Gestores.class).setParameter("status",nostatus);
-//        List<Gestores> results = query.getResultList();
-//        return results;
         
         Query query = em.createQuery("SELECT g FROM Gestores g WHERE g.status != :status1 and g.status != :status2 and g.status != :status3 order by g.gestor desc ").setParameter("status1", status1).setParameter("status2", status2).setParameter("status3", status3);
+        return (List<Gestores>) query.getResultList();
+    }
+    public List<Gestores> findByErmex()
+    {
+        
+        Query query = em.createQuery("SELECT g FROM Gestores g WHERE g.gestor LIKE 'ermex____'");
         return (List<Gestores>) query.getResultList();
     }
     public Gestores findByGestor(String gestor)

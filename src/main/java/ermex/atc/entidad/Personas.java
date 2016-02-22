@@ -114,7 +114,6 @@ public class Personas implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "apellidom")
     private String apellidom;
-    @Pattern(regexp="^\\s*$")
     @Size(max = 2147483647)
     @Column(name = "grado")
     private String grado;
@@ -173,7 +172,12 @@ public class Personas implements Serializable {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+         if(tipo.length()==0)
+        {
+            this.tipo=null;
+        }else{
+            this.tipo = tipo;
+        }
     }
 
     public String getCurp() {
@@ -181,7 +185,12 @@ public class Personas implements Serializable {
     }
 
     public void setCurp(String curp) {
-        this.curp = curp;
+        if(curp.length()==0)
+        {
+            this.curp=null;
+        }else{
+            this.curp = curp;
+        }  
     }
 
     public String getNombre() {
@@ -189,7 +198,12 @@ public class Personas implements Serializable {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if(nombre.length()==0)
+        {
+            this.nombre=null;
+        }else{
+            this.nombre = nombre;
+        }
     }
 
     public String getApellidop() {
@@ -197,7 +211,12 @@ public class Personas implements Serializable {
     }
 
     public void setApellidop(String apellidop) {
-        this.apellidop = apellidop;
+        if(apellidop.length()==0)
+        {
+            this.apellidop=null;
+        }else{
+            this.apellidop = apellidop;
+        }   
     }
 
     public String getApellidom() {
@@ -205,15 +224,20 @@ public class Personas implements Serializable {
     }
 
     public void setApellidom(String apellidom) {
-        this.apellidom = apellidom;
+        if(apellidom.length()==0)
+        {
+            this.apellidom=null;
+        }else{
+            this.apellidom = apellidom;
+        } 
     }
 
     public String getGrado() {
         return grado;
     }
 
-    public void setGrado(String grado) {   
-        if(grado=="")
+    public void setGrado(String grado) {  
+        if(grado.length()==0)
         {
             this.grado=null;
         }else{
@@ -226,7 +250,12 @@ public class Personas implements Serializable {
     }
 
     public void setCargo(String cargo) {
-        this.cargo = cargo;
+        if(cargo.length()==0)
+        {
+            this.cargo=null;
+        }else{
+            this.cargo = cargo;
+        } 
     }
 
     public String getCorreo1() {
@@ -234,7 +263,12 @@ public class Personas implements Serializable {
     }
 
     public void setCorreo1(String correo1) {
-        this.correo1 = correo1;
+        if(correo1.length()==0)
+        {
+            this.correo1=null;
+        }else{
+            this.correo1 = correo1;
+        } 
     }
 
     public String getCorreo2() {
@@ -242,7 +276,12 @@ public class Personas implements Serializable {
     }
 
     public void setCorreo2(String correo2) {
-        this.correo2 = correo2;
+        if(correo2.length()==0)
+        {
+            this.correo2=null;
+        }else{
+            this.correo2 = correo2;
+        } 
     }
 
     public String getCorreo3() {
@@ -250,7 +289,12 @@ public class Personas implements Serializable {
     }
 
     public void setCorreo3(String correo3) {
-        this.correo3 = correo3;
+        if(correo3.length()==0)
+        {
+            this.correo3=null;
+        }else{
+            this.correo3 = correo3;
+        } 
     }
 
     public String getTelefono() {
@@ -258,7 +302,12 @@ public class Personas implements Serializable {
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        if(telefono.length()==0)
+        {
+            this.telefono=null;
+        }else{
+            this.telefono = telefono;
+        }
     }
 
     public String getDomicilioOficina() {
@@ -266,7 +315,12 @@ public class Personas implements Serializable {
     }
 
     public void setDomicilioOficina(String domicilioOficina) {
-        this.domicilioOficina = domicilioOficina;
+        if(domicilioOficina.length()==0)
+        {
+            this.domicilioOficina=null;
+        }else{
+            this.domicilioOficina = domicilioOficina;
+        } 
     }
 
     public String getTelpersonal() {
@@ -274,7 +328,12 @@ public class Personas implements Serializable {
     }
 
     public void setTelpersonal(String telpersonal) {
-        this.telpersonal = telpersonal;
+        if(telpersonal.length()==0)
+        {
+            this.telpersonal=null;
+        }else{
+            this.telpersonal = telpersonal;
+        }
     }
 
     public String getDompersonal() {
@@ -282,7 +341,12 @@ public class Personas implements Serializable {
     }
 
     public void setDompersonal(String dompersonal) {
-        this.dompersonal = dompersonal;
+        if(dompersonal.length()==0)
+        {
+            this.dompersonal=null;
+        }else{
+            this.dompersonal = dompersonal;
+        } 
     }
 
 
