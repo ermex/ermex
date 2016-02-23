@@ -1,5 +1,6 @@
 package ermex.atc.controlador;
 
+import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Personalatencionusuarios;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.ejb.SessionBean;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name="personalatencionusuariosController", eager=true)
 @SessionScoped
@@ -143,8 +146,8 @@ public class PersonalatencionusuariosController implements Serializable {
             Personalatencionusuarios acceso = ejbFacade.acceso(u.getUsuario(), u.getPwd());
             if (null!=acceso) {
                 try {
+                    
                     contExternal.redirect("./vistas/gestores/List.xhtml");
-                    System.out.println("Estamos adentro");
                 } catch (IOException ex) {
                     Logger.getLogger(PersonalatencionusuariosController.class.getName()).log(Level.SEVERE, null, ex);
                 }

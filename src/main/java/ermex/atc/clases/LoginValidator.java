@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.SessionBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpSession;
 
 
 //@ManagedBean(name = "loginv")
@@ -55,6 +57,8 @@ public class LoginValidator implements Validator {
 
         user = value.toString();
         HtmlInputSecret uiInputPwd= (HtmlInputSecret) component.getAttributes().get("pwd");
+        HttpSession session = sessionBean.getSession();
+        session.setAttribute("username", user);
         pwd=uiInputPwd.getSubmittedValue().toString();
         Personalatencionusuarios u = new Personalatencionusuarios();
         u.setUsuario(user);

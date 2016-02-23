@@ -7,12 +7,14 @@ package ermex.atc.sesion;
 
 import ermex.atc.entidad.Controlsolicitudes;
 import ermex.atc.entidad.SolicitudesInternet;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -40,8 +42,12 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
         query.setParameter("solicitud", solicitud);  
         return  (Controlsolicitudes) query.getSingleResult();
     }
-    public void actualizar()
-    {
+   public List<Controlsolicitudes> findByUsuario(String usuario)
+   {
+       String sentencia="Select * from controlsolicitudes where idpersonalatencion=?";
+         Query query= em.createNativeQuery(sentencia, Controlsolicitudes.class);
         
-    }
+        query.setParameter(1, usuario);
+        return (List<Controlsolicitudes>) query.getResultList();
+   }
 }

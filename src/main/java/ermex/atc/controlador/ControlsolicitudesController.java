@@ -1,5 +1,6 @@
 package ermex.atc.controlador;
 
+import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Controlsolicitudes;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
@@ -26,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpSession;
 
 @Named("controlsolicitudesController")
 @SessionScoped
@@ -35,10 +37,14 @@ public class ControlsolicitudesController implements Serializable {
     private ermex.atc.sesion.ControlsolicitudesFacade ejbFacade;
     private List<Controlsolicitudes> items = null;
     private Controlsolicitudes selected;
+    private String usuario;
 
     private Personalatencionusuarios responsable;
     
     public ControlsolicitudesController() {
+        this.usuario=sessionBean.getUserName();
+        System.out.println("El usuario logeado es");
+        System.out.println(usuario);
     }
 
     public Controlsolicitudes getSelected() {
@@ -132,7 +138,7 @@ public String obtenerFecha()
 
     public List<Controlsolicitudes> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findByUsuario(usuario);
         }
         return items;
     }
