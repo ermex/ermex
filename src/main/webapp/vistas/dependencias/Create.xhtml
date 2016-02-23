@@ -18,7 +18,13 @@
                         <p:inputText id="nombre" value="#{dependenciasController.selected.nombre}" title="#{bundle.DependenciasTitle_nombre}" required="true" requiredMessage="#{bundle.DependenciasRequiredMessage_nombre}"/>
                     </p:panelGrid>
                     </div>    
-                    <p:commandButton actionListener="#{dependenciasController.create}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args,'DependenciasCreateDialog');"/>
+                    <p:commandButton actionListener="#{dependenciasController.create}" value="#{bundle.Save}" update="display,:DependenciasListForm:datalist,:growl" oncomplete="handleSubmit(args,'DependenciasCreateDialog');">
+                        <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                        <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

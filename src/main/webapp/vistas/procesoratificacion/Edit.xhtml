@@ -40,7 +40,13 @@
                         
                     </p:panelGrid>
                     </div>  
-                    <p:commandButton actionListener="#{procesoratificacionController.update}" value="#{bundle.Save}" update="display,:ProcesoratificacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcesoratificacionEditDialog');"/>
+                    <p:commandButton actionListener="#{procesoratificacionController.update}" value="#{bundle.Save}" update="display,:ProcesoratificacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProcesoratificacionEditDialog');">
+                        <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                        <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                     </h:panelGroup>
             </h:form>
         </p:dialog>

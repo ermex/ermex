@@ -26,7 +26,13 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     </div>    
-                    <p:commandButton actionListener="#{organismosController.update}" value="#{bundle.Save}" update="display,:OrganismosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganismosEditDialog');"/>
+                    <p:commandButton actionListener="#{organismosController.update}" value="#{bundle.Save}" update="display,:OrganismosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'OrganismosEditDialog');">
+                        <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                        <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

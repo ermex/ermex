@@ -134,7 +134,13 @@
                             </p:panelGrid>
                         </p:panel>  
                         </div>    
-                        <p:commandButton value="#{bundle.Save}"  actionListener="#{personasController.create}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" update=":GestoresCreateForm,:GestoresEditForm"/>                       
+                        <p:commandButton value="#{bundle.Save}"  actionListener="#{personasController.create}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" update=":GestoresCreateForm,:GestoresEditForm">
+                            <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                            <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </p:tab>  
                 </p:wizard> 
                         <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />           

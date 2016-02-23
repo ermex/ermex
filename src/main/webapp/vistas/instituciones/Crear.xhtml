@@ -25,7 +25,13 @@
                         <h:outputText id="idorganismo" value="#{institucionesController.selected.idorganismo.nombre}" title="#{bundle.InstitucionesTitle_organismo}"/>                                               
                     </p:panelGrid>
                     </div>    
-                    <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');"/>
+                    <p:commandButton actionListener="#{institucionesController.create}" value="#{bundle.Save}" update="display,:GestoresCreateForm" oncomplete="handleSubmit(args,'InstitucionesCreateDialog');">
+                        <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                        <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
