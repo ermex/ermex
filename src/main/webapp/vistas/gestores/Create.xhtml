@@ -20,15 +20,17 @@
                                     <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresInput_oficio}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaOficio}" for="fechaOficio" />
+                                    <p:calendar id="fechaOficio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaOficio}" title="#{bundle.GestoresTitle_fechaOficio}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdftp}" for="pwdftp" />
                                     <p:inputText id="pwdftp" value="#{gestoresController.selected.pwdftp}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdftp}"/>                                        
                                     <p:outputLabel value="#{bundle.GestoresLabel_pwdwms}" for="pwdwms" />
                                     <p:inputText id="pwdwms" value="#{gestoresController.selected.pwdwms}" validatorMessage="#{bundle.GestoresValidatorMessage_pwdwms}" />
+                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaEnviouser}" for="fechaEnviouser" />
+                                    <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.GestoresTitle_fechaEnviouser}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
                                     <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" />
-                                    <p:outputLabel value="#{bundle.GestoresLabel_fechaInicio}" for="fechaInicio" />
-                                    <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaInicio}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaCaptura}"  />
-                                            
+                                                                                
                                 </p:panelGrid> 
                             </p:panel>
                         </div>    
