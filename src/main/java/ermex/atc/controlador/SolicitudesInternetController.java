@@ -72,12 +72,15 @@ public  class SolicitudesInternetController implements Serializable {
     private String nivel="";
     private String resolucion="";
     private String updateAceptar="Acpectar";
+    private int tiposConsulta=1;
+    private String tituloTabla="Lista de Solicitudes Activas";
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;
         radioS=periodosBase();
+        tiposConsulta=1;
         if (temas==null) {
         temas= new HashMap<>();
         temas.put("AGRICULTURA","AGRICULTURA");
@@ -184,6 +187,14 @@ public  class SolicitudesInternetController implements Serializable {
             updateAceptar=null;
         }
     }
+    public void itemsCancelados()
+    {
+        items=ejbFacade.findByCancelados();
+    }
+    public void itemsTerminados()
+    {
+        items=ejbFacade.findByTerminados();
+    }
 //metodo para obtener los valores de las variables modo, tipo, resolucion
     public void variables()
     {
@@ -286,6 +297,19 @@ public  class SolicitudesInternetController implements Serializable {
     public void setNuevoT(String nuevoT) {
         this.nuevoT = nuevoT;
     }
+
+    public int getTiposConsulta() {
+        return tiposConsulta;
+    }
+
+    public void setTiposConsulta(int tiposConsulta) {
+        this.tiposConsulta = tiposConsulta;
+    }
+
+    public String getTituloTabla() {
+        return tituloTabla;
+    }
+    
 
 public void validarPeriodo()
 {
@@ -562,8 +586,23 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     }
     public void actualizarItems()
     {
-        items=ejbFacade.findByActivos();
-        System.out.println("Stamos actualziandp");
+        System.out.println(tiposConsulta);
+        if (tiposConsulta==1) {
+           items=ejbFacade.findByActivos();   
+           tituloTabla="Lista de Solicitudes Activas";
+        }else
+        {
+            if (tiposConsulta==2) {
+                items=ejbFacade.findByTerminados();
+                tituloTabla="Lista de Solicitudes Terminadas";
+            }else
+            {
+                if (tiposConsulta==3) {
+                    items=ejbFacade.findByCancelados();
+                    tituloTabla="Lista de Solicitudes Canceladas";
+                }
+            }
+        }
     }
     public void update() {
         FacesMessage mensaje=null;

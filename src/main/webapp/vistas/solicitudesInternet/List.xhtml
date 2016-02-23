@@ -13,12 +13,21 @@
         </ui:define> 
         <ui:define name="body">                                     
             <h:form id="SolicitudesInternetListForm">  
-                <p:panel header="#{bundle.ListRatificacionesTitle}">
-                <p:contextMenu for="datalist">
+        <h:outputText value="Solicitudes:" />
+        <br/>
+        <p:commandButton value="Activas"  actionListener="#{solicitudesInternetController.setTiposConsulta(1)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/>                  
+        <p:commandButton value="Terminadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(2)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        <p:commandButton value="Canceladas"  actionListener="#{solicitudesInternetController.setTiposConsulta(3)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        <p:panel id="idpanelMenu" header="#{solicitudesInternetController.tituloTabla}">
+                    <p:contextMenu for="datalist">
                     <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
-                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" actionListener="#{solicitudesInternetController.iniciarValores()}" />
-                    <p:menuitem icon="ui-icon-plus" value="Asignar" actionListener="#{controlsolicitudesController.prepareCreate}" update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
-                    <p:menuitem icon="ui-icon-plus" value="Estdo"  update=":ControlsolicitudesEditForm" oncomplete="PF('ControlsolicitudesEditDialog').show()" action="#{controlsolicitudesController.asignarSolictud(solicitudesInternetController.selected)}">
+                    <p:menuitem icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SolicitudesInternetEditForm  " oncomplete="PF('SolicitudesInternetEditDialog').show()" actionListener="#{solicitudesInternetController.iniciarValores()}" 
+                                disabled="#{ solicitudesInternetController.tiposConsulta!=1}"/>
+                    <p:menuitem icon="ui-icon-plus" value="Asignar" actionListener="#{controlsolicitudesController.prepareCreate}" 
+                                disabled="#{ solicitudesInternetController.tiposConsulta!=1}"
+                                update=":asignarSolictudForm" oncomplete="PF('asignarSolicitud').show()" />
+                    <p:menuitem icon="ui-icon-plus" value="Estdo"  update=":ControlsolicitudesEditForm" oncomplete="PF('ControlsolicitudesEditDialog').show()" 
+                                action="#{controlsolicitudesController.asignarSolictud(solicitudesInternetController.selected)}">
                     </p:menuitem>
                 </p:contextMenu>
                     <p:dataTable id="datalist" value="#{solicitudesInternetController.items}" var="item"
@@ -31,11 +40,11 @@
                                  editable="true"
                                  >
                             <f:facet name="header">
-                                <p:commandButton value="Actualizar" actionListener="#{solicitudesInternetController.actualizarItems}" update="SolicitudesInternetListForm:datalist,:growl"/>
                                  <p:commandButton  icon="ui-icon-plus" value="#{bundle.Create}"  actionListener="#{solicitudesInternetController.prepareCreate}" update=":SolicitudesInternetCreateForm" oncomplete="PF('SolicitudesInternetCreate').show()" />
                                  <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
                                  <p:columnToggler datasource="datalist" trigger="toggler" />
                              </f:facet>
+                        <p:ajax event="rowSelect" update=":SolicitudesInternetListForm:idpanelMenu"/>
                         <p:column filterBy="#{item.solicitud}" resizable="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSolicitudesInternetTitle_solicitud}"/>

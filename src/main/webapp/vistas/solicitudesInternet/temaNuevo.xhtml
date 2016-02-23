@@ -9,14 +9,19 @@
         <title>Facelet Title</title>
     </h:head>
     <ui:composition>
-        <p:dialog id="newTemaFrom" widgetVar="newTemaFormDialog" width="500" height="150"  modal="true" resizable="false" appendTo="@(body)">
+        <p:dialog id="newTemaFrom" widgetVar="newTemaFormDialog" modal="true" resizable="false" appendTo="@(body)">
             <h:form id="calendarForm"> 
                 <h:panelGroup id="newTemaPanel">                    
-                    <p:panel header="INGRESE EL TEMA">
+                    <p:panel header="INGRESE EL NUEVO TEMA">
+                        <p:messages escape="true"/>
                            <p:outputLabel value="TEMA:" for="idtemanuevo" />
-                           <p:inputText id="idtemanuevo" value="#{solicitudesInternetController.nuevoT}" />
+                           <p:inputText id="idtemanuevo" value="#{solicitudesInternetController.nuevoT}" validatorMessage="Datos incorrectos: Minimo de 5 caracteres y solo mayusculas">
+                               <f:validateLength minimum="5" />
+                               <f:validateRegex pattern="^[A-Z]+$"/>
+                           </p:inputText>
+                           <p:message for="idtemanuevo"/>
                     </p:panel>
-                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.agregarTema()}" update="SolicitudesInternetCreateForm:wizard" oncomplete="PF('newTemaFormDialog').hide();"/>
+                    <p:commandButton value="Aceptar" action="#{solicitudesInternetController.agregarTema()}" update="SolicitudesInternetCreateForm:panelG2"  oncomplete="PF('newTemaFormDialog').hide();"/>
                     <p:commandButton value="Cancelar"  oncomplete="PF('newTemaFormDialog').hide();"/>
                 </h:panelGroup>
             </h:form>

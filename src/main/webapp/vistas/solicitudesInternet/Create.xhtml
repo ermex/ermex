@@ -14,12 +14,12 @@
                     <p:growl id="growl1"  sticky="true" showDetail="true"/>
                     <p:wizard id="wizard" widgetVar="createSolicitud" >
                         <p:tab id="newsolicitud" title="Solicitud">
-                            <p:panel header="Detalles de solicitud" toggleOrientation="center">   
-                                <p:messages/>
+                            <p:panel id="idpanelWi" header="Detalles de solicitud" toggleOrientation="center">   
+                                <p:messages />
                                 <center>
-                                    <p:panelGrid columns="2" columnClasses="grid,grid" layout="grid"  >
+                                    <p:panelGrid id="panelG1" columns="2" columnClasses="grid,grid" layout="grid"  >
 
-                                        <p:panelGrid columns="2" columnClasses="label,value"  class="panelGridNoBorder" >
+                                        <p:panelGrid id="panelG2" columns="2" columnClasses="label,value"  class="panelGridNoBorder" >
                                             <f:facet name="header">
                                                 <p:outputLabel value="Datos Generales"/>
                                             </f:facet>                                        
@@ -41,7 +41,7 @@
                                             <h:outputText id="organismo" value="#{solicitudesInternetController.selected.organismo}" title="#{bundle.CreateSolicitudesInternetTitle_organismo}" />
                                             
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_tema}" for="tema" />
-                                            <p:selectOneMenu id="tema" filter="true" value="#{solicitudesInternetController.selected.tema}" required="true" requiredMessage="Elige un tema" >
+                                            <p:selectOneMenu id="tema" filter="true"  value="#{solicitudesInternetController.selected.tema}" required="true" requiredMessage="Elige un tema" >
                                                 <f:selectItem itemLabel="Seleccione un tema" itemValue=""/>
                                                 <f:selectItems  value="#{solicitudesInternetController.temas}"
                                                                 var="temas"
@@ -151,8 +151,8 @@
                                                  rowKey="#{item.identificador}"
                                                  selection="#{catalogoimagenesController.imgSelect}" 
                                                  >
-                                            <p:ajax event="rowSelectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idconfirmarpanel"/>
-                                            <p:ajax event="rowUnselectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update="SolicitudesInternetCreateForm:idconfirmarpanel "/>
+                                            <p:ajax event="rowSelectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update=":SolicitudesInternetCreateForm:idconfirmarpanel "/>
+                                            <p:ajax event="rowUnselectCheckbox" listener="#{solicitudesInternetController.ModoNivel(catalogoimagenesController.imgSelect)}" update=":SolicitudesInternetCreateForm:idconfirmarpanel "/>
                                             <p:column selectionMode="multiple" styleClass="selectionCheckBox" />
                                             <f:facet name="header">
                                         <p:commandButton  id="createButton" icon="ui-icon-plus" value="#{bundleCatalogoImg.Create}"  update=":CatalogoimagenesCreateForm" oncomplete="PF('CatalogoimagenesCreateDialog').show()">
@@ -258,14 +258,13 @@
                                         </p:calendar>
                                     </p:panelGrid>
                                 </p:panelGrid> 
-                                <p:commandButton id="idCreateButton" type="Submit"  actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" action="#{solicitudesInternetController.actualizarItems}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
-                               <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
                              </p:panel>
+                               <p:commandButton id="idCreateButton" type="Submit"  actionListener="#{solicitudesInternetController.create}" value="#{bundle.Save}" action="#{solicitudesInternetController.actualizarItems}" disabled="#{empty solicitudesInternetController.selected.modo}" update="display,:SolicitudesInternetListForm:datalist,:growl"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>
+                               <p:commandButton value="#{bundle.Cancel}"  oncomplete="PF('createSolicitud').loadStep('newsolicitud',false);PF('SolicitudesInternetCreate').hide();"/>                        
                         </p:tab>
                     </p:wizard>
                 </h:panelGroup>
             </h:form>
-
             <ui:include src="../catalogoimagenes/CreateSolic.xhtml"/>
             <ui:include src="temaNuevo.xhtml"/>
         </p:dialog>        
