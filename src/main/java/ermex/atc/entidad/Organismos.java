@@ -50,6 +50,7 @@ public class Organismos implements Serializable {
     private List<Instituciones> institucionesList;
     @JoinColumn(name = "iddependencia", referencedColumnName = "iddependencia")
     @ManyToOne
+    @NotNull
     private Dependencias iddependencia;
 
     public Organismos() {

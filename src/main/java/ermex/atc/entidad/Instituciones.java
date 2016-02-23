@@ -57,6 +57,7 @@ public class Instituciones implements Serializable {
     private String tipo;
     @JoinColumn(name = "idorganismo", referencedColumnName = "idorganismo")
     @ManyToOne
+    @NotNull
     private Organismos idorganismo;
     @OneToMany(mappedBy = "idinstitucion")
     private List<Personas> personasList;

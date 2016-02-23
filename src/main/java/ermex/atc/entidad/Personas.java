@@ -20,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -150,6 +151,7 @@ public class Personas implements Serializable {
     private String dompersonal;
     @JoinColumn(name = "idinstitucion", referencedColumnName = "idinstitucion")
     @ManyToOne
+    @NotNull
     private Instituciones idinstitucion;
     @OneToMany(mappedBy = "idpersona")
     private List<Gestores> gestoresList;

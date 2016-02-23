@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -39,13 +40,15 @@ public class Dependencias implements Serializable {
     @Basic(optional = false)
     @Column(name = "iddependencia")
     private Long iddependencia;
-    @Size(max = 30)
+    @Size(min = 2,max = 30)
     @Column(name = "siglas")
+    @Pattern(regexp="^[A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð _,.-]+$")
     private String siglas;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 8, max = 2147483647)
     @Column(name = "nombre")
+    @Pattern(regexp="^[A-ZÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð _,.-]+$")
     private String nombre;
     @OneToMany(mappedBy = "iddependencia")
     private List<Organismos> organismosList;
