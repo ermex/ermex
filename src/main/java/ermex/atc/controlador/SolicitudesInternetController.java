@@ -73,7 +73,7 @@ public  class SolicitudesInternetController implements Serializable {
     private String resolucion="";
     private String updateAceptar="Acpectar";
     private int tiposConsulta=1;
-    private String tituloTabla="Lista de Solicitudes Activas";
+    private String tituloTabla="Lista de Solicitudes Pendientes";
      
     public SolicitudesInternetController() {
         this.noPeriodo1="uno";
@@ -589,7 +589,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         System.out.println(tiposConsulta);
         if (tiposConsulta==1) {
            items=ejbFacade.findByActivos();   
-           tituloTabla="Lista de Solicitudes Activas";
+           tituloTabla="Lista de Solicitudes Pendientes";
         }else
         {
             if (tiposConsulta==2) {
@@ -600,6 +600,13 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
                 if (tiposConsulta==3) {
                     items=ejbFacade.findByCancelados();
                     tituloTabla="Lista de Solicitudes Canceladas";
+                }
+                else
+                {
+                    if (tiposConsulta==4) {
+                        items=ejbFacade.findByAsignados();
+                        tituloTabla="Lista de Solicitudes Asignadas";
+                    }
                 }
             }
         }

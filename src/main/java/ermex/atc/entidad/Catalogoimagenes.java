@@ -49,7 +49,7 @@ public class Catalogoimagenes implements Serializable {
     private String nivel;
     @Size(max = 15)
     @Column(name = "status")
-    private String status;
+    private String status="activo";
     @Id
     @Basic(optional = false)
     @NotNull

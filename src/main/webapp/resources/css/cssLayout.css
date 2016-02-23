@@ -57,5 +57,18 @@
   font-weight : bold;
   text-decoration : underline;
 }
+.title_Page{
+    padding: 10px;
+    align-content: center;
+    text-align: start left;
+    text-transform: capitalize;
+    color: #000000;
+    margin: auto;
+    font-family: "Times New Roman", Times, serif;
+    font-size:24px;
+}
+.listBotn{
+    margin: auto;
+}
 
 

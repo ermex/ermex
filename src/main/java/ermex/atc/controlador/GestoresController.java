@@ -141,6 +141,10 @@ public class GestoresController implements Serializable {
         //Metodo que regresa una lista de todas las personas de la institucion seleccionada "selectedInstitucion" y cierto tipo
         return ejbFacade.findByStatusActivo("activo");
     }
+    public List<Gestores> getItemsfindByStatusActivoCompra()
+    {
+        return ejbFacade.findByStatusActivoCompra("antiguo","prueba", "pendiente", "baja");
+    }
     public DefaultStreamedContent imagenError()throws IOException
     {
         //Regresa la imagen de error

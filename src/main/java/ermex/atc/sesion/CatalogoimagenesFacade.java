@@ -54,7 +54,7 @@ public class CatalogoimagenesFacade extends AbstractFacade<Catalogoimagenes> {
     public List<String> obtenerModo(int satelite)
     {
         List<String> modonivel;
-        String senetencia="select modo from escenas_procesadas where satelite=? group by modo";
+        String senetencia="select tipo from escenas_procesadas where satelite=? group by tipo";
         Query query=em.createNativeQuery(senetencia);
         query.setParameter(1, satelite);
         modonivel=query.getResultList();

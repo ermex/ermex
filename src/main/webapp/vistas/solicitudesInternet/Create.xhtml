@@ -28,7 +28,7 @@
                                             <p:outputLabel value="#{bundle.CreateSolicitudesInternetLabel_gestor}" for="gestor" />
                                             <p:selectOneMenu id="gestor" filter="true" value="#{solicitudesInternetController.selectGestores}" required="true" requiredMessage="Es necesarion un gestor" >
                                                 <f:selectItem itemLabel="Seleccione un gestor" itemValue=""/>
-                                                <f:selectItems  value="#{gestoresController.getItemsfindByStatusActivo()}"
+                                                <f:selectItems  value="#{gestoresController.getItemsfindByStatusActivoCompra()}"
                                                                 var="gestorItem"
                                                                 itemValue="#{gestorItem}"/>
                                             <p:ajax  listener="#{solicitudesInternetController.nombreOrganismo()}" update="nombre dependencia organismo"/>
@@ -187,7 +187,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Resolución"/>
                                                 </f:facet>
-                                                <h:outputText value="#{item.nivel}"/>
+                                                <h:outputText value="#{item.resolucion}"/>
                                             </p:column>
                                         </p:dataTable>
                                     </h:form>                                  

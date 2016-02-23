@@ -74,6 +74,18 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
         em.createNamedQuery("Gestores.findByGestor",Gestores.class).setParameter("gestor",gestor);
         return query.getSingleResult();
     }
+    
+   public List<Gestores> findByStatusActivoCompra(String status, String status1, String status2, String status3)
+    {
+        //Regresa los gestores activos y los de compra
+        String senetencia="SELECT g FROM Gestores g WHERE g.status !=:status and g.status !=:status1 and g.status !=:status2 and g.status !=:status3 order by g.gestor desc";
+        Query query =   em.createQuery(senetencia,Gestores.class);
+        query.setParameter("status", status);
+        query.setParameter("status1", status1);
+        query.setParameter("status2", status);
+        query.setParameter("status3", status1);
+        return (List<Gestores>) query.getResultList();
+    }
   
     public List<Object> reporteMensualProcesadas()
     {

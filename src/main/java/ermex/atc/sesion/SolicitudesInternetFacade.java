@@ -100,4 +100,10 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
          query.setParameter("status", 3);
          return query.getResultList();
     }
+        public List<SolicitudesInternet> findByAsignados()
+    {
+        TypedQuery query =em.createNamedQuery("SolicitudesInternet.findByActivos", SolicitudesInternet.class);
+         query.setParameter("status", 4);
+         return query.getResultList();
+    }
 }

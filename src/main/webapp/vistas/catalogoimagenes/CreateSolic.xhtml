@@ -18,24 +18,30 @@
                             <f:selectItems  value="#{catalogoimagenesController.satelites}"
                                             var="selecsatelite"
                                             itemValue="#{selecsatelite}"/>
-                            <p:ajax  listener="#{catalogoimagenesController.obtenerMoVi()}" update="tipo nivel"/>
+                            <p:ajax  listener="#{catalogoimagenesController.obtenerMoVi()}" update="tipo"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_tipo}" for="tipo" />
-                        <p:selectOneMenu id="tipo" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el modo" >
+                        <p:selectOneMenu id="tipo" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el modo" 
+                                         disabled="#{empty catalogoimagenesController.selected.satelite}">
                             <f:selectItem itemLabel="Seleccione el modo" itemValue=""/>
                             <f:selectItems  value="#{catalogoimagenesController.modo}"
                                             var="selectipo"
                                             itemValue="#{selectipo}"/>
+                            <p:ajax update="nivel"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_nivel}" for="nivel" />
-                        <p:selectOneMenu id="nivel" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el nivel" >
+                        <p:selectOneMenu id="nivel" filter="true"  value="#{catalogoimagenesController.selected.nivel}" required="true" requiredMessage="Elige el nivel"
+                                         disabled="#{empty catalogoimagenesController.selected.tipo}">
                             <f:selectItem itemLabel="Seleccione el nivel" itemValue=""/>
                             <f:selectItems  value="#{catalogoimagenesController.nivel}"
                                             var="selectnivel"
                                             itemValue="#{selectnivel}"/>
+                            <p:ajax listener="#{catalogoimagenesController.obtenerResolucion()}" update="resolucion"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_resolucion}" for="resolucion" />
-                        <p:inputText id="resolucion" value="#{catalogoimagenesController.selected.resolucion}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_resolucion}" />
+                        <p:inputText id="resolucion" value="#{catalogoimagenesController.selected.resolucion}" onkeypress="return  false" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_resolucion}"
+                                     required="true" requiredMessage="Se necesita una resolucion">
+                        </p:inputText>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{catalogoimagenesController.create}"  value="#{bundleCatalogoImg.Save}" update="display,:SolicitudesInternetCreateForm:craateForC:ctlgImg,:growl" oncomplete="handleSubmit(args,'CatalogoimagenesCreateDialog');"/>
                     <p:commandButton value="#{bundleCatalogoImg.Cancel}" oncomplete="handleSubmit(args,'CatalogoimagenesCreateDialog');"/>

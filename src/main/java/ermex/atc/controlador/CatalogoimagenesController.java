@@ -104,7 +104,83 @@ public class CatalogoimagenesController implements Serializable {
         imgActivos=ejbFacade.itemxActivos();
         return imgActivos;
     }
+    public void obtenerResolucion()
+    {
+        String sateliteR;
+        String nivelR;
+        if (selected!=null) {
+            sateliteR=selected.getSatelite();
+            selected.setResolucion(null);
+            selected.setTipo(null);
+            nivelR=selected.getTipo();
+
+            
+            
+            if (sateliteR.compareTo("7")==0 || sateliteR.compareTo("6")==0) {
+                if (nivelR.compareTo("G")==0 ||nivelR.compareTo("C")==0) {
+                    selected.setResolucion(1.5);
+                }else
+                {
+                    selected.setResolucion(6.0);
+                }
+                
+            }else	
+            {
+                if (sateliteR.compareTo("5")==0) {
+                    if (nivelR.compareTo("F")==0 ||nivelR.compareTo("T")==0 ) {
+                        selected.setResolucion(2.5);
+                    }else
+                    {
+                        if (nivelR.compareTo("HM")==0 ||nivelR.compareTo("A")==0 ||nivelR.compareTo("B")==0) {
+                            selected.setResolucion(5.0);
+                        }
+                        else
+                        {
+                            if (nivelR.compareTo("X")==0 ||nivelR.compareTo("J")==0 ) {
+                                selected.setResolucion(10.0);
+                            }else
+                            {
+                                System.out.println("no se encontro el nivel en sateliet 5");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (sateliteR.compareTo("4")==0) {
+                        if (nivelR.compareTo("I")==0 ||nivelR.compareTo("X")==0  ) {
+                             selected.setResolucion(20.0);
+                        }else
+                        {
+                            if (nivelR.compareTo("M")==0) {
+                             selected.setResolucion(10.0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (sateliteR.compareTo("2")==0) {
+                            if (nivelR.compareTo("X")==0) {
+                                selected.setResolucion(20.0);
+                            }else
+                            {
+                                if (nivelR.compareTo("P")==0) {
+                                    selected.setResolucion(10.0);
+                                }
+                            }
+                        }
+                    }
+                           
+                }
+            }
+        }
+    }
     public void create() {
+        if (selected!=null) {
+            String idcatalosoli;
+            idcatalosoli= selected.getSatelite() + selected.getTipo()+ selected.getNivel();
+            selected.setIdentificador(idcatalosoli);
+        }
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleCatalogoImg").getString("CatalogoimagenesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

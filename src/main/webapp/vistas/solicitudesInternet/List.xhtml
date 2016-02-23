@@ -13,11 +13,14 @@
         </ui:define> 
         <ui:define name="body">                                     
             <h:form id="SolicitudesInternetListForm">  
-        <h:outputText value="Solicitudes:" />
+                <h:outputText value="Solicitudes:" class="title_Page" />
         <br/>
-        <p:commandButton value="Activas"  actionListener="#{solicitudesInternetController.setTiposConsulta(1)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/>                  
-        <p:commandButton value="Terminadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(2)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
-        <p:commandButton value="Canceladas"  actionListener="#{solicitudesInternetController.setTiposConsulta(3)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        <p:commandButton  value="Pendientes"  actionListener="#{solicitudesInternetController.setTiposConsulta(1)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/>                  
+        <p:commandButton  value="Asignadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(4)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        <p:commandButton  value="Terminadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(2)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        <p:commandButton  value="Canceladas"  actionListener="#{solicitudesInternetController.setTiposConsulta(3)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+          <br/>
+          <br/>
         <p:panel id="idpanelMenu" header="#{solicitudesInternetController.tituloTabla}">
                     <p:contextMenu for="datalist">
                     <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":SolicitudesInternetViewForm" oncomplete="PF('SolicitudesInternetViewDialog').show()" action="#{solicitudesInternetController.iniciarValores()}"/>
@@ -98,18 +101,8 @@
                                 <h:outputText value="Justificacion"/>
                             </f:facet>
                             <h:outputText value="#{item.justificacion}"/>
-                        </p:column>  
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Opciones"/>
-                            </f:facet>
-                            <p:commandLink value="Cancelar"/>
-                            <br/>
-                            <p:commandLink value="Terminar"/>
-                        </p:column>                         
-                        
+                        </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{solicitudesInternetController.destroy}" oncomplete="#{catalogoimagenesController.setImgSelect(null)}" update=":growl,datalist" disabled="#{empty solicitudesInternetController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                     </p:panel>
