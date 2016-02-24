@@ -7,40 +7,30 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-        <h:head>
-            <link rel="stylesheet" href="/JSFSession/public/css/cssFormulario.css"/>
-        </h:head>
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="/JSFSession/public/css/cssFormulario.css"/>
+    </h:head>
    
         <ui:composition template="/templates/templateLogin.xhtml">
-            <ui:define name="title">
-                <h:outputText value="#{bundle.AccesoTitle}"></h:outputText>
-            </ui:define>
-            <ui:define name="body">                 
-                <h:form >
-                <div align="center">
-                    <p:panel header="Login"> 
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="Usuario: " for="usu" />
-                            <p:inputText id="usu" label="Usuario" required="true" >
-                                <p:tooltip for="usu" value="Introduzca su Usuario"></p:tooltip>
-                                <f:validator validatorId="LoginValidator"></f:validator>
-                                <f:attribute name="user" value="#{user}"/>
-                                <f:attribute name="pwd" value="#{pwd}" />
-                            </p:inputText>
-                            <p:outputLabel value="Contraseña: " for="pwd" />
-                            <h:inputSecret id="pwd" label="pwd" required="true" binding="#{pwd}">
-                                <p:tooltip for="pwd" value="Introduzca su Contraseña"></p:tooltip>
-                            </h:inputSecret>
-                        </p:panelGrid>
-                    </p:panel>
-
-                    <h:form>
-                        <p:messages showDetail="true"/>
-                        <p:captcha label="Captcha" />
-                        <p:commandButton value="Check" actionListener="#{captcha.submit}" ajax="false" icon="ui-icon-check" />
-                    </h:form>
-                </div> 
-                </h:form>
+            <ui:define name="body">
+               <h:form>                 
+                 <p:panel header="LOGIN">
+                   <center>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Usuario: " for="usuario" />
+                        <p:inputText   id="usuario" label="usuario" required="true" requiredMessage="Se requiere Usuario" value="#{loginController.user}">
+                            <p:tooltip for="usuario" value="Introduzca su Usuario"></p:tooltip>                            
+                        </p:inputText>
+                        <p:outputLabel value="Contraseña: " for="pwd" />
+                        <h:inputSecret id="pwd" label="pwd" required="true" binding="#{pwd}" requiredMessage="Se requiere password" value="#{loginController.pwd}">
+                            <p:tooltip for="pwd" value="Introduzca su Contraseña"></p:tooltip>
+                        </h:inputSecret>
+                    </p:panelGrid>
+                       <p:commandButton value="Check" type="Sumbit" actionListener="#{loginController.autenticar()}"  oncomplete="handleLoginRequest(xhr, status, args)"  ajax="false" />
+                  </center>          
+                </p:panel>
+              </h:form>
             </ui:define>
         </ui:composition>
 </html>

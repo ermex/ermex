@@ -136,26 +136,24 @@ public class PersonalatencionusuariosController implements Serializable {
         return getFacade().findAll();
     }
 
-    public  void login(Personalatencionusuarios u){        
+    public  boolean login(String user, String pwd){        
         FacesContext context1= FacesContext.getCurrentInstance();
         ExternalContext contExternal=context1.getExternalContext();
-        if (u!=null) {
-            System.out.println(u.getUsuario());
-            System.out.println(u.getPwd());
+        boolean log=false;
+        if (user!=null && pwd!=null) {
             ejbFacade= new PersonalatencionusuariosFacade();
-            Personalatencionusuarios acceso = ejbFacade.acceso(u.getUsuario(), u.getPwd());
+           Personalatencionusuarios  acceso = ejbFacade.acceso(user,pwd);
             if (null!=acceso) {
-                try {
-                    
-                    contExternal.redirect("./vistas/gestores/List.xhtml");
-                } catch (IOException ex) {
-                    Logger.getLogger(PersonalatencionusuariosController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                log=true;                
+            }else
+            {
+                log=false;
             }
         }else
         {
             System.out.println("El valor de U es nulo");
         }
+        return log;
     }
 
     @FacesConverter(forClass = Personalatencionusuarios.class)

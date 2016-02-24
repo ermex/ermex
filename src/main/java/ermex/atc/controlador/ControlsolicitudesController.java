@@ -40,7 +40,7 @@ public class ControlsolicitudesController implements Serializable {
     private Controlsolicitudes selected;
     private final String usuario;
     private Personalatencionusuarios responsable;
-    private Imagnesolicitudes imagensolicitud;
+    private List<Imagnesolicitudes> imagensolicitud;
     
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
@@ -56,7 +56,10 @@ public class ControlsolicitudesController implements Serializable {
         this.selected = selected;
     }
 
-    public Imagnesolicitudes getImagensolicitud() {
+    public List<Imagnesolicitudes> getImagensolicitud() {
+        if (selected!=null) {
+            this.imagensolicitud=selected.getSolicitud().getImagnesolicitudesList();
+        }
         return imagensolicitud;
     }
 
@@ -88,15 +91,12 @@ public class ControlsolicitudesController implements Serializable {
 
     public Controlsolicitudes prepareCreate() {
         selected = new Controlsolicitudes();
-        System.out.println("Estamos en preparete");
         initializeEmbeddableKey();
         return selected;
     }
     //metodo para asignar responsable de atender la solicitud
 public void asignarResponsable(SolicitudesInternet solicitud) throws ParseException
 {
-    System.out.println("Estamos en el metodo asignar responsable");
-   
     if (solicitud!=null) {
    selected=solicitud.getControlsolicitudes();
         if (selected!=null) {

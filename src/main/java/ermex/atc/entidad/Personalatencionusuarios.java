@@ -38,7 +38,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Personalatencionusuarios.findByStatus", query = "SELECT p FROM Personalatencionusuarios p WHERE p.status = :status")})
 public class Personalatencionusuarios implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1094801825228386363L;
     @Size(max = 30)
     @Column(name = "nombre")
     private String nombre;
