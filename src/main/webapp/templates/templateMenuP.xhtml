@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">  
     <h:body>
         <h:form >
             <p:panelMenu>
@@ -17,15 +18,17 @@
                    </p:submenu>
                     <p:submenu label="Personas" icon="ui-icon-check">
                           <p:menuitem value="Ver Personas" outcome="/vistas/personas/List.xhtml" />
-                          <p:menuitem value="Cambios" outcome="/vistas/cambiopersona/List.xhtml" />
+                          <p:menuitem value="Todos los Cambios" outcome="/vistas/cambiopersona/List.xhtml" />
                    </p:submenu>
                     <p:submenu label="Gestores" icon="ui-icon-check">
                         <p:menuitem value="Ver a Gestores" outcome="/vistas/gestores/List.xhtml" />
                         <p:menuitem value="Historial Designador" outcome="/vistas/histdesignagestor/List.xhtml" />
                    </p:submenu>
-                    <p:submenu label="Ratificaciones" icon="ui-icon-check">
+                    <p:submenu label="Ratificacion" icon="ui-icon-check">
                         <p:menuitem value="Ver Ratificacion" outcome="/vistas/ratificaciones/List.xhtml" />
-                        <p:menuitem value="Ver Proceso" outcome="/vistas/procesoratificacion/List.xhtml" />
+                        <p:menuitem value="Todos los Procesos" outcome="/vistas/procesoratificacion/List.xhtml" >
+                            <f:param  name="ratificacion" value="todos" />
+                        </p:menuitem>
                    </p:submenu>
                     <p:submenu label="Solicitudes" icon="ui-icon-check">
                         <p:menuitem value="Ver Solicitudes" outcome="/vistas/solicitudesInternet/List.xhtml" />

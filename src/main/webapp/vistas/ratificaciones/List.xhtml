@@ -17,8 +17,8 @@
             <h:form id="RatificacionesListForm">
                 <p:panel header="#{bundle.ListRatificacionesTitle}">
                     <p:contextMenu for="datalist">
-                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()"/>
-                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":RatificacionesViewForm"      oncomplete="PF('RatificacionesViewDialog').show()"/>                       
+                        <p:menuitem id="editButton"    value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()"/>
+                        <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":RatificacionesViewForm"      oncomplete="PF('RatificacionesViewDialog').show()"/>                                               
                     </p:contextMenu>
                     <p:dataTable id="datalist" value="#{ratificacionesController.items}" var="item"
                                  selectionMode="single" selection="#{ratificacionesController.selected}"
@@ -30,7 +30,12 @@
                                  >
                     <f:facet name="header">                       
                         <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" />
-                    </f:facet>    
+                    </f:facet>   
+                        <p:column width="4%">
+                            <p:button icon="ui-icon-newwin" outcome="/vistas/procesoratificacion/List.xhtml" style=" float: left">
+                                <f:param  name="ratificacion" value="#{item.idratificacion}" />
+                            </p:button>
+                        </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.RatificacionesTitle_idratificacion}"/>
@@ -70,7 +75,7 @@
                                 <h:outputText value="#{bundle.RatificacionesTitle_status}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.status}" disabled="true"/>
-                        </p:column>                        
+                        </p:column>                   
                     </p:dataTable>
                 </p:panel>
             </h:form>

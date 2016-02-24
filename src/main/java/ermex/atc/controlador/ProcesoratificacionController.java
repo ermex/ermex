@@ -27,8 +27,17 @@ public class ProcesoratificacionController implements Serializable {
     private ermex.atc.sesion.ProcesoratificacionFacade ejbFacade;
     private List<Procesoratificacion> items = null;
     private Procesoratificacion selected;
+    private String idratificacion="todos";
 
     public ProcesoratificacionController() {
+    }
+
+    public String getIdratificacion() {
+        return idratificacion;
+    }
+
+    public void setIdratificacion(String idratificacion) {
+        this.idratificacion = idratificacion;
     }
 
     public Procesoratificacion getSelected() {
@@ -73,11 +82,17 @@ public class ProcesoratificacionController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    
     public List<Procesoratificacion> getItems() {
-        return items = getFacade().findAllOrder();
+        if("todos".equals(idratificacion))
+        {
+            return items = getFacade().findAllOrder();
+        }else
+        {
+            return items = getFacade().findAllByRatificacion(Long.parseLong(idratificacion));
+        }     
     }
-
+    
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();

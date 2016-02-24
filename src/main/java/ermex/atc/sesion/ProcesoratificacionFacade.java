@@ -38,6 +38,13 @@ public class ProcesoratificacionFacade extends AbstractFacade<Procesoratificacio
         List<Procesoratificacion> results = query.getResultList();
         return results;
     }
+    public List<Procesoratificacion> findAllByRatificacion(long idratificacion)
+    {
+        TypedQuery<Procesoratificacion> query =
+        em.createNamedQuery("Procesoratificacion.findByRatificacion",Procesoratificacion.class).setParameter("idratificacion",idratificacion);
+        List<Procesoratificacion> results = query.getResultList();
+        return results;
+    }
     public List<Procesoratificacion> findByStatus(boolean status)
     {
         TypedQuery<Procesoratificacion> query =
