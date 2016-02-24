@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.http.HttpSession;
+import org.primefaces.event.RowEditEvent;
 
 @Named("controlsolicitudesController")
 @SessionScoped
@@ -38,7 +39,7 @@ public class ControlsolicitudesController implements Serializable {
     private ermex.atc.sesion.ControlsolicitudesFacade ejbFacade;
     private List<Controlsolicitudes> items = null;
     private Controlsolicitudes selected;
-    private final String usuario;
+    private  String usuario;
     private Personalatencionusuarios responsable;
     private List<Imagnesolicitudes> imagensolicitud;
     
@@ -71,6 +72,10 @@ public class ControlsolicitudesController implements Serializable {
 
     private ControlsolicitudesFacade getFacade() {
         return ejbFacade;
+    }
+
+    public String getUsuario() {
+        return usuario;
     }
 
     public Personalatencionusuarios getResponsable() {
@@ -118,7 +123,24 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
         }
     }
 }
-
+ public void cancelarEdit(RowEditEvent event)
+ {
+     selected=ejbFacade.find(selected.getIdcontrolsolicitud());
+     for (int i = 0; i < items.size(); i++) {
+         if (items.get(i).equals(selected)) {
+             items.set(i, selected);
+             i=items.size();
+         }
+     }
+ }
+ 
+ public void actualizarItems(int i)
+ {
+     if (usuario!=null) {
+         items=ejbFacade.findByUsuariostatus(usuario, i);
+         System.out.println("Estamos acualizando el control solicitues");
+     }
+ }
 public void resetResponsable()
 {
     responsable=null;
@@ -151,7 +173,7 @@ public String obtenerFecha()
 
     public List<Controlsolicitudes> getItems() {
         if (items == null) {
-            items = getFacade().findByUsuario(usuario);
+            items = getFacade().findByUsuariostatus(usuario, 1);
         }
         return items;
     }

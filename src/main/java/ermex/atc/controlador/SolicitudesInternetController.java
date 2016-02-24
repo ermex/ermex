@@ -539,6 +539,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         selectGestores=null;
         selected.setSolicitud(converTime.format(timeLocal));
         itemsCimg=null;
+        imgSolitud=null;
         this.noPeriodo1="uno";
         this.noPeriodo2=null;
         this.noPeriodo3=null;

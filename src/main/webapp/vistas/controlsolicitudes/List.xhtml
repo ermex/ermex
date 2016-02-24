@@ -15,6 +15,15 @@
 
         <ui:define name="body">
             <h:form id="ControlsolicitudesListForm">
+                <h:outputText value="Responsable de atender la solicitud:" class="title_Page" />
+                <h:outputText value="#{controlsolicitudesController.usuario}" class="title_Page" />
+                <br/>
+                <p:commandButton  value="Pendientes"  action="#{controlsolicitudesController.actualizarItems(4)}" update="@form"/>                  
+                <p:commandButton  value="Asignadas"  update="@form"/> 
+                <p:commandButton  value="Terminadas" update="@form"/> 
+                <p:commandButton  value="Canceladas" update="@form"/> 
+                <br/>
+                <br/>
                 <p:panel header="#{bundle.ListControlsolicitudesTitle}">
                        <p:contextMenu for="datalist">
                             <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":CtlSolicitudesInternetViewForm" oncomplete="PF('CtlSolicitudesInternetViewDialog').show()"/>
@@ -27,7 +36,11 @@
                                  rowKey="#{item.idcontrolsolicitud}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 editable="true"
                                  >
+                        <p:ajax event="rowEdit" listener="#{controlsolicitudesController.update()}"/>
+                        <p:ajax event="rowEditCancel" listener="#{controlsolicitudesController.cancelarEdit}"/>
+                        <p:ajax event="rowSelect" update="proyecto"/>
                         <p:column filterBy="#{item.solicitud}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_solicitud}"/>
@@ -42,11 +55,20 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_tema}"/>
+                         <p:column headerText="Tema">
+                            <p:cellEditor>
+                            <f:facet name="output">
+                              <h:outputText value="#{item.tema}"/>
                             </f:facet>
-                            <h:outputText value="#{item.tema}"/>
+                            <f:facet name="input">
+                                <p:selectOneMenu id="tema" filter="true"  value="#{controlsolicitudesController.selected.tema}" required="true" requiredMessage="Elige un tema" >
+                                    <f:selectItem itemLabel="Seleccione un tema" itemValue=""/>
+                                    <f:selectItems  value="#{solicitudesInternetController.temas}"
+                                                    var="temas"
+                                                    itemValue="#{temas}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            </p:cellEditor>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -76,17 +98,29 @@
                             </f:facet>
                             <h:outputText value="#{item.totalimagenes}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListControlsolicitudesTitle_proyecto}"/>
+                         <p:column headerText="Proyecto">
+                            <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{item.proyecto.nombre}"/>
                             </f:facet>
-                            <h:outputText value="#{item.proyecto}"/>
+                            <f:facet name="input">
+                                <p:selectOneMenu id="proyecto" filter="true" value="#{item.proyecto}">
+                                    <f:selectItems value="#{nomProyectosController.itemsAvailableSelectOne}"
+                                                   var="proyectoItem"
+                                                   itemValue="#{proyectoItem}"
+                                                   itemLabel="#{proyectoItem.getNombre()}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            </p:cellEditor>
                         </p:column>
                         <p:column>
                             <p:commandLink value="Cancelar"/>
                             <br/>
                             <p:commandLink value="Terminar"/>
                         </p:column>
+       <p:column style="width:32px">
+           <p:rowEditor />
+       </p:column>                        
                     </p:dataTable>
                 </p:panel>
             </h:form>
