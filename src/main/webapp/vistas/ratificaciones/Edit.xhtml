@@ -15,9 +15,9 @@
                         <p:outputLabel value="#{bundle.RatificacionesLabel_idratificacion}" for="idratificacion" />
                         <p:inputText id="idratificacion" value="#{ratificacionesController.selected.idratificacion}" title="#{bundle.RatificacionesTitle_idratificacion}" required="true" requiredMessage="#{bundle.RatificacionesRequiredMessage_idratificacion}" disabled="true"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_inicio}" for="inicio" />
-                        <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}"/>
+                        <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}" disabled="true"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_fin}" for="fin" />
-                        <p:calendar id="fin" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.fin}" title="#{bundle.RatificacionesTitle_fin}"/>
+                        <p:calendar id="fin" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.fin}" title="#{bundle.RatificacionesTitle_fin}" mindate="#{ratificacionesController.getFechaInicioMin()}"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_responsables}" for="responsables" />
                         <p:inputText id="responsables" value="#{ratificacionesController.selected.responsables}" title="#{bundle.RatificacionesTitle_responsables}" />
                         <p:outputLabel value="#{bundle.RatificacionesLabel_responsablee}" for="responsablee" />

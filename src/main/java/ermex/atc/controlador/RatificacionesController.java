@@ -7,8 +7,14 @@ import ermex.atc.entidad.Procesoratificacion;
 import ermex.atc.sesion.RatificacionesFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -51,7 +57,18 @@ public class RatificacionesController implements Serializable {
     private RatificacionesFacade getFacade() {
         return ejbFacade;
     }
-
+    public Date getFechaInicioMin(){
+        Calendar c2 = new GregorianCalendar();
+        c2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        c2.set(c2.get(Calendar.YEAR),0, 1);
+        return c2.getTime();
+    }
+    public Date getFechaInicioMax(){
+        Calendar c2 = new GregorianCalendar();
+        c2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        c2.set(c2.get(Calendar.YEAR),11,31);
+        return c2.getTime();
+    }
     public Ratificaciones prepareCreate() {
         selected = new Ratificaciones();
         initializeEmbeddableKey();
@@ -105,7 +122,17 @@ public class RatificacionesController implements Serializable {
                     msg = cause.getLocalizedMessage();
                 }
                 if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
+                    if("Transaction marked for rollback.".equals(msg))
+                    {
+                        JsfUtil.addErrorMessage("No se pudo realizar la acción. Porque hay gestores en ratificación");
+                    }else if (msg.contains("Ya hay una ratificacion en el mismo año"))
+                    {
+                        JsfUtil.addErrorMessage("Ya hay una ratificacion en el mismo año");
+                    }
+                    else
+                    {                       
+                        JsfUtil.addErrorMessage(msg);
+                    }
                 } else {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
