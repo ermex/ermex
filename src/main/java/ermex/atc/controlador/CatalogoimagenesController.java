@@ -92,6 +92,9 @@ public class CatalogoimagenesController implements Serializable {
              sateli=Integer.parseInt(selected.getSatelite());
              modo=ejbFacade.obtenerModo(sateli);
              nivel=ejbFacade.obtenerNivel(sateli);
+             selected.setResolucion(null);
+             selected.setNivel(null);
+             selected.setTipo(null);
              
             }
         } catch (Exception e) {
@@ -111,7 +114,6 @@ public class CatalogoimagenesController implements Serializable {
         if (selected!=null) {
             sateliteR=selected.getSatelite();
             selected.setResolucion(null);
-            selected.setTipo(null);
             nivelR=selected.getTipo();
 
             

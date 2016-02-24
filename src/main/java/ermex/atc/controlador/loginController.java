@@ -9,6 +9,7 @@ import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Personalatencionusuarios;
 import ermex.atc.sesion.PersonalatencionusuariosFacade;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.ejb.SessionBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -20,7 +21,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author ermex
  */
-public class loginController {
+public class loginController implements Serializable{
 
     /**
      * Creates a new instance of loginController

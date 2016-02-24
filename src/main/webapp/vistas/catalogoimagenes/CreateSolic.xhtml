@@ -18,7 +18,7 @@
                             <f:selectItems  value="#{catalogoimagenesController.satelites}"
                                             var="selecsatelite"
                                             itemValue="#{selecsatelite}"/>
-                            <p:ajax  listener="#{catalogoimagenesController.obtenerMoVi()}" update="tipo"/>
+                            <p:ajax  listener="#{catalogoimagenesController.obtenerMoVi()}" update="tipo resolucion nivel"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_tipo}" for="tipo" />
                         <p:selectOneMenu id="tipo" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el modo" 
@@ -39,12 +39,12 @@
                             <p:ajax listener="#{catalogoimagenesController.obtenerResolucion()}" update="resolucion"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_resolucion}" for="resolucion" />
-                        <p:inputText id="resolucion" value="#{catalogoimagenesController.selected.resolucion}" onkeypress="return  false" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_resolucion}"
+                        <p:inputText id="resolucion" value="#{catalogoimagenesController.selected.resolucion}"  title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_resolucion}"
                                      required="true" requiredMessage="Se necesita una resolucion">
                         </p:inputText>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{catalogoimagenesController.create}"  value="#{bundleCatalogoImg.Save}" update="display,:SolicitudesInternetCreateForm:craateForC:ctlgImg,:growl" oncomplete="handleSubmit(args,'CatalogoimagenesCreateDialog');"/>
-                    <p:commandButton value="#{bundleCatalogoImg.Cancel}" oncomplete="handleSubmit(args,'CatalogoimagenesCreateDialog');"/>
+                    <p:commandButton value="#{bundleCatalogoImg.Cancel}" update="display" oncomplete="PF('CatalogoimagenesCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
