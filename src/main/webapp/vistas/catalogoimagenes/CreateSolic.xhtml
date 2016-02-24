@@ -10,17 +10,30 @@
         <p:dialog id="CatalogoimagenesCreateDlg" widgetVar="CatalogoimagenesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleCatalogoImg.CreateCatalogoimagenesTitle}">
             <h:form id="CatalogoimagenesCreateForm">
                 <h:panelGroup id="display">
+                    <p:messages autoUpdate="true" showDetail="true"/>
                     <p:panelGrid columns="2" rendered="#{catalogoimagenesController.selected != null}">
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_satelite}" for="satelite" />
-                        <p:inputText id="satelite" value="#{catalogoimagenesController.selected.satelite}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_satelite}" />
+                        <p:selectOneMenu id="satelite" filter="true"  value="#{catalogoimagenesController.selected.satelite}" required="true" requiredMessage="Elige el satelite" >
+                            <f:selectItem itemLabel="Seleccione el satelite" itemValue=""/>
+                            <f:selectItems  value="#{catalogoimagenesController.satelites}"
+                                            var="selecsatelite"
+                                            itemValue="#{selecsatelite}"/>
+                            <p:ajax  listener="#{catalogoimagenesController.obtenerMoVi()}" update="tipo nivel"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_tipo}" for="tipo" />
-                        <p:inputText id="tipo" value="#{catalogoimagenesController.selected.tipo}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_tipo}" />
+                        <p:selectOneMenu id="tipo" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el modo" >
+                            <f:selectItem itemLabel="Seleccione el modo" itemValue=""/>
+                            <f:selectItems  value="#{catalogoimagenesController.modo}"
+                                            var="selectipo"
+                                            itemValue="#{selectipo}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_nivel}" for="nivel" />
-                        <p:inputText id="nivel" value="#{catalogoimagenesController.selected.nivel}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_nivel}" />
-                        <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{catalogoimagenesController.selected.status}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_status}" />
-                        <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_identificador}" for="identificador" />
-                        <p:inputText id="identificador" value="#{catalogoimagenesController.selected.identificador}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_identificador}" required="true" requiredMessage="#{bundleCatalogoImg.CreateCatalogoimagenesRequiredMessage_identificador}"/>
+                        <p:selectOneMenu id="nivel" filter="true"  value="#{catalogoimagenesController.selected.tipo}" required="true" requiredMessage="Elige el nivel" >
+                            <f:selectItem itemLabel="Seleccione el nivel" itemValue=""/>
+                            <f:selectItems  value="#{catalogoimagenesController.nivel}"
+                                            var="selectnivel"
+                                            itemValue="#{selectnivel}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundleCatalogoImg.CreateCatalogoimagenesLabel_resolucion}" for="resolucion" />
                         <p:inputText id="resolucion" value="#{catalogoimagenesController.selected.resolucion}" title="#{bundleCatalogoImg.CreateCatalogoimagenesTitle_resolucion}" />
                     </p:panelGrid>
@@ -33,4 +46,3 @@
     </ui:composition>
 </html>
 
-  

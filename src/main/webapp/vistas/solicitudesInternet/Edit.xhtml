@@ -8,11 +8,11 @@
 
     <ui:composition>
 
-        <p:dialog id="SolicitudesInternetEditDlg"   widgetVar="SolicitudesInternetEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSolicitudesInternetTitle}">
+        <p:dialog id="SolicitudesInternetEditDlg"  position="center center" widgetVar="SolicitudesInternetEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditSolicitudesInternetTitle}" maximizable="true" responsive="true">
             <h:form id="SolicitudesInternetEditForm">
                 <h:panelGroup id="display" >
                     <p:growl id="growlEditSolici"  sticky="true" showDetail="true"/>
-                 <p:wizard id="wizardEditSoli" widgetVar="wiz" >
+                 <p:wizard id="wizardEditSoli" widgetVar="wizEditSol" >
                         <p:tab id="editarsolictud" title="Solicitud">
                             <p:panel header="Detalles de solicitud" toggleOrientation="center">   
                             <p:messages/>
@@ -47,10 +47,7 @@
                                             <p:calendar id="fechaVentanilla" pattern="MM/dd/yyyy" value="#{solicitudesInternetController.selected.fechaVentanilla}" readonly="true" disabled="true" title="#{bundle.EditSolicitudesInternetTitle_fechaVentanilla}"  />                                                 
                                             <p:outputLabel  value="#{bundle.CreateSolicitudesInternetLabel_justificacion}" for="justificacion"  />                                 
                                             <p:inputTextarea id="justificacion"  rows="10" cols="50" autoResize="false" style="resize: none" value="#{solicitudesInternetController.selected.justificacion}" title="#{bundle.CreateSolicitudesInternetTitle_justificacion}" /> 
-
                                            </p:panelGrid>
-                                
-                                
                                 <p:panelGrid   class="panelGridNoBorder" > 
                                     <p:panelGrid columns="4"  class="panelGridNoBorder">
                                     <f:facet name="header">
@@ -285,10 +282,10 @@
                                               disabled="#{empty solicitudesInternetController.updateAceptar}" 
                                               update="display,:SolicitudesInternetListForm:datalist,:growl " oncomplete="handleSubmit(args, 'SolicitudesInternetEditDialog');"
                                               />
-                            <p:commandButton value="#{bundle.Cancel}" actionListener="#{solicitudesInternetController.cancelarEdit()}" onclick="SolicitudesInternetDialog.hide"/>
+                             <p:commandButton value="#{bundle.Cancel}" actionListener="#{solicitudesInternetController.cancelarEdit()}" oncomplete="PF('wizEditSol').loadStep('editarsolictud',false);PF('SolicitudesInternetEditDialog').hide();"/>
                             
                          </p:panel>
-                    </p:tab>
+                    </p:tab>    
                 </p:wizard>
                     
                 </h:panelGroup>

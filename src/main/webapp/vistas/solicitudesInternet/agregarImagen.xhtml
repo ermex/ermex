@@ -9,7 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <ui:composition>
-        <p:dialog id="agregarFrom" widgetVar="agregarFormDialog" modal="true" resizable="false" appendTo="@(body)">
+        <p:dialog id="agregarFrom" header="Tipos de imagenes" widgetVar="agregarFormDialog" modal="true" resizable="false" appendTo="@(body)">
             <h:form id="agregarImgForm"> 
                 <p:dataTable id="agregarTaBImgN" value="#{catalogoimagenesController.itemsActivos()}" 
                              var="item"

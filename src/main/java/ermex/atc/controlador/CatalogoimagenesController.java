@@ -29,10 +29,27 @@ public class CatalogoimagenesController implements Serializable {
    // private List<Catalogoimagenes> itemsActivos = null;
     private List<Catalogoimagenes> imgSelect=null;
     private Catalogoimagenes selected;
+    private List<String> satelites;
+    private List<String> modo;
+    private List<String> nivel;
 
     public CatalogoimagenesController() {
     }
 
+    public List<String> getSatelites() {
+        return satelites;
+    }
+
+    public List<String> getModo() {
+        return modo;
+    }
+
+    public List<String> getNivel() {
+        return nivel;
+    }
+     
+    
+    
     public Catalogoimagenes getSelected() {
         return selected;
     }
@@ -61,16 +78,25 @@ public class CatalogoimagenesController implements Serializable {
 
     public Catalogoimagenes prepareCreate() {
         this.selected = new Catalogoimagenes();
-        System.out.println("Estamos en preparetCA");
+        if (satelites==null) {
+            satelites=ejbFacade.obtenerSatelies();
+        }
         initializeEmbeddableKey();
         return selected;
     }
     
-    public void imgSeleccionada(Catalogoimagenes img)
-    {
-        if (img!=null) {
-            
+    public void obtenerMoVi(){
+        int sateli;
+        try {
+            if (selected.getSatelite()!=null) {
+             sateli=Integer.parseInt(selected.getSatelite());
+             modo=ejbFacade.obtenerModo(sateli);
+             nivel=ejbFacade.obtenerNivel(sateli);
+             
+            }
+        } catch (Exception e) {
         }
+        
     }
     public List<Catalogoimagenes> itemsActivos()
     {

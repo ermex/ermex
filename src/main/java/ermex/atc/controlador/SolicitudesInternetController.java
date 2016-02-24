@@ -615,6 +615,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
         {
            // items=itemsRespaldo;
              mensaje= new FacesMessage(FacesMessage.SEVERITY_ERROR, "Solicitud no Actualizada","La solicitud no se puede actualizar" + selected.getSolicitud());
+             cancelarEdit();
         }
         
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
