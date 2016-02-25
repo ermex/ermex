@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>
+            <ui:insert name="title">Default Title</ui:insert>
+        </title>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" life="4000"/>        
+        <p:layout fullPage="true" style="border-style: none">
+            <p:layoutUnit position="north" style="border-style: none">                        
+                    <ui:include src="templateHeader.xhtml"/>                               
+            </p:layoutUnit>      
+            <p:layoutUnit position="south" style="border-style: none">
+                <ui:include src="templateFooter.xhtml"/>
+            </p:layoutUnit>            
+            <p:layoutUnit position="west" style="border-style: none" size="200" >
+                <ui:include src="templateMenuP.xhtml"/>
+             </p:layoutUnit>                      
+            <p:layoutUnit position="center" style="border-style: none">              
+                <ui:insert name="body"/>                
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
