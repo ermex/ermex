@@ -16,6 +16,11 @@
         <ui:define name="body">
             <h:form id="ControlsolicitudesListForm">
                 <p:panel header="#{bundle.ListControlsolicitudesTitle}">
+                       <p:contextMenu for="datalist">
+                            <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":CtlSolicitudesInternetViewForm" oncomplete="PF('CtlSolicitudesInternetViewDialog').show()"/>
+                            <p:menuitem icon="ui-icon-pencil" value="#{bundle.AsgProyecto}" />
+                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}"/> 
+                        </p:contextMenu>
                     <p:dataTable id="datalist" value="#{controlsolicitudesController.items}" var="item"
                                  selectionMode="single" selection="#{controlsolicitudesController.selected}"
                                  paginator="true"
@@ -23,9 +28,6 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton"/>
                         <p:column filterBy="#{item.solicitud}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_solicitud}"/>
@@ -80,16 +82,17 @@
                             </f:facet>
                             <h:outputText value="#{item.proyecto}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ControlsolicitudesViewForm" oncomplete="PF('ControlsolicitudesViewDialog').show()" disabled="#{empty controlsolicitudesController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ControlsolicitudesEditForm" oncomplete="PF('ControlsolicitudesEditDialog').show()" disabled="#{empty controlsolicitudesController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{controlsolicitudesController.destroy}" update=":growl,datalist" disabled="#{empty controlsolicitudesController.selected}"/>
-                        </f:facet>
+                        <p:column>
+                            <p:commandLink value="Cancelar"/>
+                            <br/>
+                            <p:commandLink value="Terminar"/>
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
             </h:form>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <ui:include src="ViewSolicitudes.xhtml"/>
         </ui:define>
     </ui:composition>
 

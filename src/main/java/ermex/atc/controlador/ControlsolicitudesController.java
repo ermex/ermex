@@ -4,6 +4,7 @@ import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Controlsolicitudes;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Imagnesolicitudes;
 import ermex.atc.entidad.Personalatencionusuarios;
 import ermex.atc.entidad.SolicitudesInternet;
 import ermex.atc.sesion.ControlsolicitudesFacade;
@@ -37,9 +38,9 @@ public class ControlsolicitudesController implements Serializable {
     private ermex.atc.sesion.ControlsolicitudesFacade ejbFacade;
     private List<Controlsolicitudes> items = null;
     private Controlsolicitudes selected;
-    private String usuario;
-
+    private final String usuario;
     private Personalatencionusuarios responsable;
+    private Imagnesolicitudes imagensolicitud;
     
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
@@ -53,6 +54,10 @@ public class ControlsolicitudesController implements Serializable {
 
     public void setSelected(Controlsolicitudes selected) {
         this.selected = selected;
+    }
+
+    public Imagnesolicitudes getImagensolicitud() {
+        return imagensolicitud;
     }
 
     protected void setEmbeddableKeys() {
@@ -71,6 +76,14 @@ public class ControlsolicitudesController implements Serializable {
 
     public void setResponsable(Personalatencionusuarios responsable) {
         this.responsable = responsable;
+    }
+    public List<Imagnesolicitudes> imgSolicitud()
+    {
+        List <Imagnesolicitudes> list = null;
+        if (selected!=null) {
+            list=selected.getSolicitud().getImagnesolicitudesList();
+        }
+        return  list;
     }
 
     public Controlsolicitudes prepareCreate() {

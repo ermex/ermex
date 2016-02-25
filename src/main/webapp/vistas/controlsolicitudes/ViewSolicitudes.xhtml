@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CtlSolicitudesInternetViewDlg" widgetVar="CtlSolicitudesInternetViewDialog" closable="false" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSolicitudesInternetTitle}" responsive="true">
+            <h:form id="CtlSolicitudesInternetViewForm">
+                <h:panelGroup id="display">    
+                    <p:growl id="growlViewCtlSolici"  sticky="true" showDetail="true"/>
+                    <p:wizard id="wizardCtlViewSoli" widgetVar="wizardCtlViewSoli" >
+                        <p:tab id="verSolici" title="Detalles de la solicitus">
+                            <p:panelGrid columns="2" layout="grid">
+                                <p:panelGrid columns="2" class="panelGridNoBorder" rendered="#{controlsolicitudesController.selected != null}">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Datos Generales" />
+                                     </f:facet>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_solicitud}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.solicitud}" title="#{bundle.ViewSolicitudesInternetTitle_solicitud}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_gestor}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.gestor}" title="#{bundle.ViewSolicitudesInternetTitle_gestor}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nombre}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.nombre}" title="#{bundle.ViewSolicitudesInternetTitle_nombre}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_dependencia}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.dependencia}" title="#{bundle.ViewSolicitudesInternetTitle_dependencia}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_organismo}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.organismo}" title="#{bundle.ViewSolicitudesInternetTitle_organismo}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_tema}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.tema}" title="#{bundle.ViewSolicitudesInternetTitle_tema}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nubosidad}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.nubosidad}" title="#{bundle.ViewSolicitudesInternetTitle_nubosidad}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_modo}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.modo}" title="#{bundle.ViewSolicitudesInternetTitle_modo}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_resolucion}"/>
+                                    <h:outputText value="#{controlsolicitudesController.selected.solicitud.resolucion}" title="#{bundle.ViewSolicitudesInternetTitle_resolucion}"/>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_nivel}"/>
+                                    <h:outputText value="#{solicitudesInternetController.selected.nivel}" title="#{bundle.ViewSolicitudesInternetTitle_nivel}"/> 
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_fechaCaptura}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.fechaCaptura}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                    </p:calendar>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_fechaVentanilla}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.fechaVentanilla}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                    </p:calendar>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_justificacion}"/>
+                                    <h:inputTextarea value="#{controlsolicitudesController.selected.solicitud.justificacion}" rows="5" cols="50" readonly="true" title="#{bundle.ViewSolicitudesInternetTitle_justificacion}"/>
+
+                                </p:panelGrid>
+                                <p:panelGrid columns="4" class="panelGridNoBorder">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="Periodos solicitados"/>
+                                    </f:facet>
+                                    <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo1I}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo1I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                   <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo1F}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo1F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                   <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo2I}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo2I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                   <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo2F}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo2F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                   <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo3I}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo3I}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                   <h:outputText value="#{bundle.ViewSolicitudesInternetLabel_periodo3F}"/>
+                                    <p:calendar  pattern="MM/dd/yyyy" readonly="true" showOn="none" value="#{controlsolicitudesController.selected.solicitud.periodo3F}" title="#{bundle.ViewSolicitudesInternetTitle_periodo1I}">                        
+                                   </p:calendar>
+                                </p:panelGrid>
+                    </p:panelGrid>
+                        </p:tab>
+                  <p:tab title="Imagenes Solicitadas">
+                                  <p:panel>                              
+                                    <h:form id="updateForC">
+                                        <p:dataTable id="ctlgImg" value="#{controlsolicitudesController.imgSolicitud()}" 
+                                                 var="item"
+                                                 paginator="true"
+                                                 rowsPerPageLabel="10,20,30"
+                                                 rows="10"
+                                                 selectionMode="single"
+                                                 rowKey="#{item.identificador}"
+                                                 >
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Id"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.identificador}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Satélite"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.satelite}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Modo"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.tipo}"/>
+                                            </p:column>
+                                            <p:column >
+                                                <f:facet name="header">
+                                                    <h:outputText value="Nivel"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.nivel}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Resolución"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.identificador.resolucion}"/>
+                                            </p:column>
+                                        </p:dataTable>                                        
+                                    </h:form>                           
+                               </p:panel> 
+                  </p:tab>                  
+                </p:wizard>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('wizardCtlViewSoli').loadStep('verSolici',false);PF('CtlSolicitudesInternetViewDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
