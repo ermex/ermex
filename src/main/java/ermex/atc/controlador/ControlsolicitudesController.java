@@ -39,7 +39,7 @@ public class ControlsolicitudesController implements Serializable {
     private ermex.atc.sesion.ControlsolicitudesFacade ejbFacade;
     private List<Controlsolicitudes> items = null;
     private Controlsolicitudes selected;
-    private  String usuario;
+    private final  String usuario;
     private Personalatencionusuarios responsable;
     private List<Imagnesolicitudes> imagensolicitud;
     
@@ -173,7 +173,7 @@ public String obtenerFecha()
 
     public List<Controlsolicitudes> getItems() {
         if (items == null) {
-            items = getFacade().findByUsuariostatus(usuario, 1);
+            items = getFacade().findByUsuariostatus(usuario,1);
         }
         return items;
     }
