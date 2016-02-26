@@ -133,7 +133,10 @@ public class NotasController implements Serializable {
         return selected;
         
     }
-
+public void generarIdNota()
+{
+    
+}
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("NotasCreated"));
         if (!JsfUtil.isValidationFailed()) {

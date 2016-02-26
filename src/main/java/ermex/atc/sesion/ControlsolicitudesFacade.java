@@ -61,4 +61,5 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
        query.setParameter(2, status);
        return  (List<Controlsolicitudes>) query.getResultList();
    }
+   
 }
