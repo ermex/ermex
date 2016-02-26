@@ -9,7 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <ui:composition>
-        <p:dialog id="dialogPaginaNota" widgetVar="PaginaNotaFormDialog" width="80%" height="80%" modal="true" resizable="false" appendTo="@(body)">
+        <p:dialog id="dialogPaginaNota" widgetVar="PaginaNotaFormDialog" modal="true" resizable="false" appendTo="@(body)">
             <h:form id="paginaNotaForm"> 
                 <h:panelGroup  rendered="#{notasController.selected!=null}">
                     <p:panel>

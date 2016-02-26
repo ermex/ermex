@@ -36,18 +36,27 @@ public class PersonalatencionusuariosFacade extends AbstractFacade<Personalatenc
     }
     public  Personalatencionusuarios acceso( String usuario, String pwd)
     {
-       Personalatencionusuarios usuarioBD = null;
-       EntityManagerFactory emf= Persistence.createEntityManagerFactory("ermex");
-       EntityManager emLogin = emf.createEntityManager();
+        Personalatencionusuarios user = null;
+        EntityManagerFactory emf;
+        EntityManager emFacade;
+        emf= Persistence.createEntityManagerFactory("ermex");
+        emFacade= emf.createEntityManager();
+        
+       String sentencia="Select * from personalatencionusuarios where usuario = ? and pwd=? and status=1";
+       Query query = emFacade.createNativeQuery(sentencia, Personalatencionusuarios.class);
+       query.setParameter(1, usuario);
+       query.setParameter(2, pwd);
         try {
-             TypedQuery<Personalatencionusuarios> query = emLogin.createNamedQuery("Personalatencionusuarios.findByPwdAndUsuario", Personalatencionusuarios.class).setParameter("usuario",usuario)
-            .setParameter("pwd", pwd);
-                        usuarioBD = (Personalatencionusuarios)query.getSingleResult();
+         user=(Personalatencionusuarios)query.getSingleResult();   
+         
         } catch (Exception e) {
-
+            System.out.println(e);
         }
+        System.out.println("valores del login ");
+        System.out.println(pwd);
+        System.out.println(usuario);
 
-        return usuarioBD;
+        return user;
     }    
     
     public List<Personalatencionusuarios> usuariosActivos()

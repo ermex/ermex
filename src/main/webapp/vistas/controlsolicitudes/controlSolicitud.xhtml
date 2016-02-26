@@ -35,9 +35,9 @@
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_fechacancelacion}" for="fechacancelacion" />
                                         <p:calendar id="fechacancelacion" showOn="none" pattern="MM/dd/yyyy" value="#{controlsolicitudesController.selected.fechacancelacion}" title="#{bundle.EditControlsolicitudesTitle_fechacancelacion}"  readonly="true"/>
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_totalimagenes}" for="totalimagenes"/>
-                                        <h:outputText id="totalimagenes" value="#{controlsolicitudesController.selected.observaciones}" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}"/>
+                                        <h:outputText id="totalimagenes" value="#{controlsolicitudesController.selected.totalimagenes}" title="#{bundle.EditControlsolicitudesTitle_totalimagenes}"/>
                                         <p:outputLabel value="#{bundle.EditControlsolicitudesLabel_proyecto}" for="proyecto" />                                        
-                                        <h:outputText id="proyecto" value="#{controlsolicitudesController.selected.proyecto}"/>
+                                        <h:outputText id="proyecto" value="#{controlsolicitudesController.selected.proyecto.nombre}"/>
                                     </p:panelGrid>                                       
                                 </p:panelGrid>
                             </p:panel>    
