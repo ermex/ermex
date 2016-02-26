@@ -26,7 +26,7 @@
                 <p:panel header="#{bundle.ListControlsolicitudesTitle}">
                        <p:contextMenu for="datalist">
                             <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":CtlSolicitudesInternetViewForm" oncomplete="PF('CtlSolicitudesInternetViewDialog').show()"/>
-                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" actionListener="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" /> 
+                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" action="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" /> 
                           
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{controlsolicitudesController.items}" var="item"

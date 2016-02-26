@@ -79,7 +79,7 @@ public class Notas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
-    private int status;
+    private int status=1;
     @Column(name = "fechaoficio")
     @Temporal(TemporalType.DATE)
     private Date fechaoficio;
@@ -104,8 +104,7 @@ public class Notas implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idnota")
     private List<Documentosnotas> documentosnotasList;
 
-    public Notas() {
-         this.fechacreacion=Calendar.getInstance(Locale.getDefault()).getTime();
+    public Notas() {         
     }
 
     public Notas(String idnota) {

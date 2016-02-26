@@ -146,14 +146,15 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
  public void cancelAndEditSolicitud() throws ParseException
  {
      SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
-     Date date= new Date();
      if (selected != null) {
          if (evento==1) {
              System.out.println("Estamos terminando solicitud");
              selected.setFechatermino(formatter.parse(obtenerFecha()));
+             selected.setStatus(2);
          } else if (evento == 2) {
              System.out.println("Estamos cancelando solicitud");
             selected.setFechacancelacion(formatter.parse(obtenerFecha()));
+            selected.setStatus(3);
          }
          update();
      }

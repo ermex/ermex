@@ -12,8 +12,13 @@ import ermex.atc.entidad.imgEntreNo;
 import ermex.atc.sesion.NotasFacade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -33,16 +38,15 @@ public class NotasController implements Serializable {
     private ermex.atc.sesion.NotasFacade ejbFacade;
     private List<Notas> items = null;
     //Declaracion de variables para llenar la tabla de imagenes entregradas en paginaNota.xhtml
-    private List<Object> itemsObject=null;
-    private Notas selected;    
+    private List<Object> itemsObject = null;
+    private Notas selected;
     private Personas designador;
     private Personas gestor;
     private Instituciones institucion;
     private Organismos organismo;
     private String solicitud;
     private String usuarioGestor;
-   
-    
+
     public NotasController() {
     }
 
@@ -84,33 +88,33 @@ public class NotasController implements Serializable {
 
     //metodo para obtener las imagenes entregadas a la nota
     public List<Object> getItemsObject() {
-        if (selected!=null) {           
-            itemsObject=getFacade().consultarImagen(selected.getIdnota());
-            
+        if (selected != null) {
+            itemsObject = getFacade().consultarImagen(selected.getIdnota());
+
         }
-        
+
         return itemsObject;
     }
-    
+
     //metodo para obtener informacion de la nota.
-    public void informacionNota()
-    {
+    public void informacionNota() {
         try {
-         if (selected!= null) {
-            solicitud=selected.getIdcontrolsolicitud().getSolicitud().toString();
-            designador=selected.getIdcontrolsolicitud().getGestor().getDesignador();
-            gestor=selected.getIdcontrolsolicitud().getGestor().getIdpersona();
-            institucion=selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion();
-            organismo= selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getIdorganismo();
-            usuarioGestor=selected.getIdcontrolsolicitud().getGestor().toString();
-            //nombreDesigandor= designador.getCargo()+ " " + designador.getNombre()+ " " +designador.getApellidop()+" " + designador.getApellidom();
-            //nombreGestor=gestor.getCargo() + " " + gestor.getNombre() + " " + gestor.getApellidop() + " " + gestor.getApellidom();
-        }     
-            
+            if (selected != null) {
+                solicitud = selected.getIdcontrolsolicitud().getSolicitud().toString();
+                designador = selected.getIdcontrolsolicitud().getGestor().getDesignador();
+                gestor = selected.getIdcontrolsolicitud().getGestor().getIdpersona();
+                institucion = selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion();
+                organismo = selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getIdorganismo();
+                usuarioGestor = selected.getIdcontrolsolicitud().getGestor().toString();
+                //nombreDesigandor= designador.getCargo()+ " " + designador.getNombre()+ " " +designador.getApellidop()+" " + designador.getApellidom();
+                //nombreGestor=gestor.getCargo() + " " + gestor.getNombre() + " " + gestor.getApellidop() + " " + gestor.getApellidom();
+            }
+
         } catch (Exception ex) {
-             JsfUtil.addErrorMessage(ex,"No se ecnontro informacion en la base de datos");
+            JsfUtil.addErrorMessage(ex, "No se ecnontro informacion en la base de datos");
         }
     }
+
     protected void setEmbeddableKeys() {
     }
 
@@ -126,17 +130,35 @@ public class NotasController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    public Notas crearNotaCS(Controlsolicitudes idCs)
-    {
-        selected=prepareCreate();
+
+    public Notas crearNotaCS(Controlsolicitudes idCs) {
+        selected = prepareCreate();
         selected.setIdcontrolsolicitud(idCs);
+        generarIdNota();
+        initializeEmbeddableKey();
         return selected;
-        
+
     }
-public void generarIdNota()
-{
-    
-}
+
+    public String obtenerFecha() {
+        Date date = new Date();
+        DateFormat converTime = new SimpleDateFormat("yyyy");
+        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        return converTime.format(date);
+    }
+
+   //generamos el idnota
+    public void generarIdNota() {
+        //obtenemos el valor de la secuencia
+        Calendar date = Calendar.getInstance();
+        Object obejto= ejbFacade.obtenerNonuto();
+        String fecha=String.valueOf(date.get(Calendar.YEAR));
+        String idnota;        
+        idnota=fecha+obejto;
+        selected.setIdnota(idnota);
+        selected.setNonota(obejto.hashCode());
+    }
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("NotasCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -168,11 +190,10 @@ public void generarIdNota()
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    if (persistAction==PersistAction.CREATE) {
+                    if (persistAction == PersistAction.CREATE) {
                         getFacade().create(selected);
-                    }else
-                    {                    
-                    getFacade().edit(selected);
+                    } else {
+                        getFacade().edit(selected);
                     }
                 } else {
                     getFacade().remove(selected);

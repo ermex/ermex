@@ -490,16 +490,16 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
              dia = Integer.parseInt(st.nextToken());
              years = Integer.parseInt(st.nextToken());
              //sumamos el mes 
-             if (dia > 10) {
+             if (dia > 7) {
                  if (mes < 12) {
                      mes = mes + 1;
                  } else {
                      mes = 1;
                      years = years + 1;
                  }
-                 dia = dia - 10;
+                 dia = dia - 7;
              } else  {
-                 dia=28;
+                 dia=1;
              }
              //restamos el dia, si esta es mayor a 3
          }

@@ -47,4 +47,13 @@ public class NotasFacade extends AbstractFacade<Notas> {
         
         return sql.getResultList();
     }
+    public Object obtenerNonuto()
+    {
+        
+        String senetencia="select last_value+1 from numeronota";
+        Query query= em.createNativeQuery(senetencia);
+        
+        return  query.getSingleResult();
+                
+    }
 }

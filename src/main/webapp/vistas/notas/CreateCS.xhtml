@@ -8,19 +8,19 @@
 
     <ui:composition>
 
-        <p:dialog id="NotasCreateDlg" widgetVar="NotasCreateDialog"   modal="true"  appendTo="@(body)" header="#{bundle.CreateNotasTitle}">
+        <p:dialog id="NotasCreateDlg" widgetVar="NotasCreateDialog"   modal="true"  appendTo="@(body)" header="#{bundle.IniciarNota}">
             <h:form id="NotasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{notasController.selected != null}">
                         <p:outputLabel value="Solicitud"/>
                         <h:outputText value="#{controlsolicitudesController.selected.solicitud.solicitud}"/>
                         <p:outputLabel value="#{bundle.CreateNotasLabel_idnota}" for="idnota" />
-                        <p:inputText id="idnota" value="#{notasController.selected.idnota}" title="#{bundle.CreateNotasTitle_idnota}" required="true" requiredMessage="#{bundle.CreateNotasRequiredMessage_idnota}"/>
+                        <h:outputText id="idnota" value="#{notasController.selected.idnota}" title="#{bundle.CreateNotasTitle_idnota}" />
                         <p:outputLabel value="#{bundle.CreateNotasLabel_nonota}" for="nonota" />
-                        <p:inputText id="nonota" value="#{notasController.selected.nonota}" title="#{bundle.CreateNotasTitle_nonota}" required="true" requiredMessage="#{bundle.CreateNotasRequiredMessage_nonota}"/>
+                        <h:outputText id="nonota" value="#{notasController.selected.nonota}" title="#{bundle.CreateNotasTitle_nonota}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{notasController.create}" value="#{bundle.Save}"  oncomplete="handleSubmit(args,'NotasCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" />
+                    <p:commandButton actionListener="#{notasController.create}" value="#{bundle.Aceptar}"  oncomplete="handleSubmit(args,'NotasCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NotasCreateDialog').hide();" />
                 </h:panelGroup>
             </h:form>
         </p:dialog>
