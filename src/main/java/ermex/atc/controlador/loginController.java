@@ -21,7 +21,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author ermex
  */
-public class loginController implements Serializable{
+public class loginController{
 
     /**
      * Creates a new instance of loginController
