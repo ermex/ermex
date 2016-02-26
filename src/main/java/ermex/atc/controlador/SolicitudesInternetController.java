@@ -589,23 +589,23 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
     {
         System.out.println(tiposConsulta);
         if (tiposConsulta==1) {
-           items=ejbFacade.findByActivos();   
+           items=ejbFacade.findByActivos(1);   
            tituloTabla="Lista de Solicitudes Pendientes";
         }else
         {
             if (tiposConsulta==2) {
-                items=ejbFacade.findByTerminados();
+                items=ejbFacade.findByActivos(2);   
                 tituloTabla="Lista de Solicitudes Terminadas";
             }else
             {
                 if (tiposConsulta==3) {
-                    items=ejbFacade.findByCancelados();
+                    items=ejbFacade.findByActivos(3);   
                     tituloTabla="Lista de Solicitudes Canceladas";
                 }
                 else
                 {
                     if (tiposConsulta==4) {
-                        items=ejbFacade.findByAsignados();
+                        items=ejbFacade.findByActivos(4);   
                         tituloTabla="Lista de Solicitudes Asignadas";
                     }
                 }
@@ -643,7 +643,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
 
     public List<SolicitudesInternet> getItems() {
         if (items == null) {
-            items = getFacade().findByActivos();
+            items = getFacade().findByActivos(1);
         }
         return items;
     }

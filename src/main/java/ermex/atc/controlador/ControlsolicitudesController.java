@@ -42,6 +42,7 @@ public class ControlsolicitudesController implements Serializable {
     private final  String usuario;
     private Personalatencionusuarios responsable;
     private List<Imagnesolicitudes> imagensolicitud;
+    private int evento=0;
     
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
@@ -82,6 +83,14 @@ public class ControlsolicitudesController implements Serializable {
         return responsable;
     }
 
+    public int getEvento() {
+        return evento;
+    }
+
+    public void setEvento(int evento) {
+        this.evento = evento;
+    }
+
     public void setResponsable(Personalatencionusuarios responsable) {
         this.responsable = responsable;
     }
@@ -112,7 +121,7 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
                    selected.setFechaasignacion(formatter.parse(obtenerFecha()));
                    update();
                    responsable=null;
-                   items=getFacade().findAll();
+                   items=getFacade().findByUsuariostatus(usuario, 4);
             }else
                {
                    System.out.println("responsable es nulo");
@@ -132,6 +141,23 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
              i=items.size();
          }
      }
+ }
+
+ public void cancelAndEditSolicitud() throws ParseException
+ {
+     SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+     Date date= new Date();
+     if (selected != null) {
+         if (evento==1) {
+             System.out.println("Estamos terminando solicitud");
+             selected.setFechatermino(formatter.parse(obtenerFecha()));
+         } else if (evento == 2) {
+             System.out.println("Estamos cancelando solicitud");
+            selected.setFechacancelacion(formatter.parse(obtenerFecha()));
+         }
+         update();
+     }
+     
  }
  
  public void actualizarItems(int i)
@@ -173,7 +199,7 @@ public String obtenerFecha()
 
     public List<Controlsolicitudes> getItems() {
         if (items == null) {
-            items = getFacade().findByUsuariostatus(usuario,1);
+            items = getFacade().findByUsuariostatus(usuario,4);
         }
         return items;
     }

@@ -80,24 +80,24 @@ public class SolicitudesInternetFacade extends AbstractFacade<SolicitudesInterne
     }
    
     //metodo para obtener las solictudes activas 
-    public List<SolicitudesInternet> findByActivos()
+    public List<SolicitudesInternet> findByActivos(int i)
     {
         TypedQuery query =em.createNamedQuery("SolicitudesInternet.findByActivos", SolicitudesInternet.class);
-         query.setParameter("status", 1);
+         query.setParameter("status", i);
          return query.getResultList();
     }
         //metodo para obtener las solictudes activas 
     public List<SolicitudesInternet> findByCancelados()
     {
         TypedQuery query =em.createNamedQuery("SolicitudesInternet.findByActivos", SolicitudesInternet.class);
-         query.setParameter("status", 2);
+         query.setParameter("status", 3);
          return query.getResultList();
     }
         //metodo para obtener las solictudes activas 
     public List<SolicitudesInternet> findByTerminados()
     {
         TypedQuery query =em.createNamedQuery("SolicitudesInternet.findByActivos", SolicitudesInternet.class);
-         query.setParameter("status", 3);
+         query.setParameter("status", 2);
          return query.getResultList();
     }
         public List<SolicitudesInternet> findByAsignados()
