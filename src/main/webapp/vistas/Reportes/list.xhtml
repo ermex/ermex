@@ -11,9 +11,6 @@
     <h:body>
         <ui:composition template="/templates/templateBase.xhtml">
             <ui:define name="body">
-
-                <p:layout style="min-width:400px;min-height:200px;">
-                    <p:layoutUnit position="west" resizable="true" size="350" minSize="350" maxSize="350">
                         <h:form>
                             <p:panelGrid columns="1" layout="grid">
                                 <f:facet name="header">
@@ -29,10 +26,6 @@
                                 </p:selectOneRadio>
                             </p:panelGrid>
                         </h:form>
-
-                    </p:layoutUnit>
-
-                    <p:layoutUnit position="center">
                         <h:form id="reporteForm1"> 
                             <h:panelGroup id="panelReposrteDepe">
                                 <p:dataTable id="datalist" var="emIngE" value="#{reportesController.resultadoContoller}"
@@ -55,8 +48,6 @@
                                 </p:dataTable>
                             </h:panelGroup>
                         </h:form>
-                    </p:layoutUnit>
-                </p:layout>
                 <ui:include src="calendarReportes.xhtml"/>
             </ui:define>
 
