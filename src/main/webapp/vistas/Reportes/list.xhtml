@@ -30,14 +30,14 @@
                         </h:form>
                     </p:layoutUnit>
                     <p:layoutUnit position="center">
-                        <h:form id="reporteForm1"> 
+                        <h:form id="reporteForm1" > 
                             <h:panelGroup id="panelReposrteDepe">
                                 <p:dataTable id="datalist" var="emIngE" value="#{reportesController.resultadoContoller}"
                                              scrollable="true"
                                              scrollWidth="100%"
                                              scrollHeight="100%"
                                              >
-                                    <p:column>
+                                    <p:column filterBy="#{emIngE[0]}" filterFunction="contains">
                                         <f:facet name="header">
                                             <h:outputText value="#{reportesController.encabezadoTabla}"/>
                                         </f:facet>                                            
