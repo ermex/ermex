@@ -25,93 +25,63 @@ import org.primefaces.model.chart.PieChartModel;
  *
  * @author ermex
  */
-@Named(value = "reportesController")
+@Named(value = "reportesRecibidasController")
 @SessionScoped
-public class reportesController implements Serializable {
+public class reportesRecibidasController implements Serializable {
 
     /**
      * Creates a new instance of reportesController
      */
-    private List<Object> resultadoContoller;
+    private List<Object> reporte;
     private Date Fechafinal;
     private Date Fechainicio;
-    private reporteFacade repofk;
-    private int opcion;
+    private reporteFacade reporteFacade;
     private long total=0;
-    private String encabezadoTabla;
     private PieChartModel grafica;
     private HorizontalBarChartModel horizontalGrafica;
-    private String title="GRÁFICA DE IMÁGENES ENTREGADAS";
-    
-    public reportesController() {
-        encabezadoTabla="DEPENDENCIA";
-        opcion=1;
-    }
+    private String title="GRÁFICA DE IMÁGENES RECIBIDAS";
     
     public void reset()
     {
-        opcion=1;
-        encabezadoTabla="DEPENDENCIA";
         Fechainicio=null;
         Fechafinal=null;
-        resultadoContoller=null;
+        reporte=null;
         horizontalGrafica=null;
         grafica=null;
     }
-    
-        //metodo generado por el programador para cabiar en encabezado de la tabla de list de reportes
-    private void asiganrEncabezado()
-    {
-        System.out.println("Valor del opcion en el case " + opcion);
-        switch(opcion)
-        {
-            case 1 :
-                encabezadoTabla="DEPENDENCIA";
-                break;
-            case 2 :
-                encabezadoTabla="ORGANISMO";
-                break;
-            case 3 :
-                encabezadoTabla="INSTITUCIÓN";
-                break;
-            case 4 :
-                encabezadoTabla="GESTOR";
-                break;
-                
-        }
-    }  
+   
     //metodo generado por el programador para obtener consulta de los reportes por periodos
-    // ya sea por dependencia, organismo, institucion y gestor
     public List<Object> generarReporte()
-    {   repofk= new reporteFacade();
-        if (Fechainicio!=null && Fechafinal!=null & opcion!=0) {
-            DateFormat  formatofeha= new SimpleDateFormat("yyyy-MM-dd");
-            resultadoContoller=getFacade().reporteDepen(formatofeha.format(Fechainicio),formatofeha.format(Fechafinal), this.opcion);                                  
-            if(!resultadoContoller.isEmpty()){
-                procesoChar(resultadoContoller);
+    {   reporteFacade= new reporteFacade();
+        if (Fechainicio!=null && Fechafinal!=null ) {
+            DateFormat  formatofeha= new SimpleDateFormat("yyyy-MM-dd");          
+            reporte=getFacade().reporteRecibidas(formatofeha.format(Fechainicio),formatofeha.format(Fechafinal));              
+            if(!reporte.isEmpty()){
+                procesoChar(reporte);
             }else{
                 horizontalGrafica=null;
                 grafica=null;
             }   
         }        
-        return resultadoContoller;
+        return reporte;
     }
     
      public long getcalcularTotal(){
         total=0;
-        if(resultadoContoller!=null){
-        for (Object obj:resultadoContoller) 
+        if(reporte!=null){
+        for (Object obj:reporte) 
         {
             Object[]obj1 =(Object[])obj;
             if(obj1[1]!=null){
-            total=total+((BigDecimal)obj1[1]).longValue();}
+            total=total+((long)obj1[1]);
+            }
         }
         }
         return total;
     }
      
     public List<Object> getResultadoContoller() {
-        return resultadoContoller=generarReporte();
+        return reporte=generarReporte();
     }
     
     public PieChartModel inicioCharPie(){
@@ -143,14 +113,16 @@ public class reportesController implements Serializable {
     public void procesoChar(List<Object> resultadoContoller){
             grafica=new PieChartModel();
             grafica.setTitle(title);
+            grafica.setShowDataLabels(true);
+            grafica.setLegendPosition("w");
             horizontalGrafica = new HorizontalBarChartModel(); 
             ChartSeries tipo = new ChartSeries();
             tipo.setLabel("Reporte");
             for (Object obj:resultadoContoller) 
             {
                 Object[]obj1 =(Object[])obj;
-                grafica.set((String)obj1[0],(BigDecimal)obj1[1]);
-                tipo.set((String)obj1[0],(BigDecimal)obj1[1]);
+                grafica.set(((BigDecimal)obj1[0]).toString(),(Long)obj1[1]);
+                tipo.set(((BigDecimal)obj1[0]).toString(),(Long)obj1[1]);
             }
             horizontalGrafica.addSeries(tipo);
             horizontalGrafica.setTitle(title);
@@ -208,28 +180,16 @@ public class reportesController implements Serializable {
         this.Fechainicio = Fechainicio;
     }
 
-    public int getOpcion() {
-        return opcion;
-    }
-    
-    public void setOpcion(int opcion) {
-        this.opcion = opcion;
-        asiganrEncabezado();
-    }
-    
-   private reporteFacade getFacade() {
-        return repofk;
+    private reporteFacade getFacade() {
+        return reporteFacade;
     }
 
     public reporteFacade getRepofk() {
-        return repofk;
-    }
-
-    public String getEncabezadoTabla() {
-        return encabezadoTabla;
+        return reporteFacade;
     }
     
     public Date getFechalimite() {
         return Calendar.getInstance().getTime();
     }
+    
 }

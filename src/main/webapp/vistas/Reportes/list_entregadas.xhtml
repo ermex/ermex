@@ -8,11 +8,11 @@
     <h:body>
         <ui:composition template="/templates/templateBase_1.xhtml">
             <ui:define name="title">
-                <h:outputText value="#{bundle.ListDependenciasTitle}"></h:outputText>
+                <h:outputText value="#{bundle.ReporteEntregadasTitle}"></h:outputText>
             </ui:define>
             <ui:define name="body" >            
-             
-                        <h:form id="reporteForm1">
+                <h:form id="reporteForm1">
+                    <p:panel header="#{bundle.ReporteEntregadasTitle}">
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
                             <p:panel header="Reporte por Periodos">
                                 <p:selectOneRadio value="#{reportesController.opcion}" required="true">
@@ -28,23 +28,22 @@
                             <p:panel header="Rango de Fechas" >
                                     <p:outputLabel value="Fecha Inicial:" for="fechaInicial" />
                                     <p:calendar id="fechaInicial" pattern="yyyy-MM-dd" value="#{reportesController.fechainicio}" required="true"
-                                        maxdate="#{reportesController.fechalimite}" readonlyInput="true" readonly=" true " navigator="true" >
+                                        yearRange="2003:" mindate="2003-12-16" maxdate="#{reportesController.fechalimite}" readonlyInput="true" readonly=" true " navigator="true" >
                                         <p:ajax update="fechaFinal,aceptar"  event="dateSelect"/>
                                     </p:calendar>
                                     <p:outputLabel value="Fecha Final:" for="fechaFinal" />
                                     <p:calendar id="fechaFinal" pattern="yyyy-MM-dd" value="#{reportesController.fechafinal}" disabled="#{empty reportesController.fechainicio}" required="true"
-                                        mindate="#{reportesController.fechainicio}" maxdate="#{reportesController.fechalimite}"
+                                        yearRange="2003:" mindate="#{reportesController.fechainicio}" maxdate="#{reportesController.fechalimite}"
                                         readonlyInput="true" readonly=" true " navigator="true">
                                         <p:ajax update="aceptar"  event="dateSelect"/>
                                     </p:calendar>
                                 </p:panel>
                         </p:panelGrid>
                             <center>
-                            <p:commandButton id="aceptar" value="Aceptar" update="@form" disabled="#{reportesController.opcion==0 or empty reportesController.fechafinal  or empty reportesController.fechainicio}"/>
+                            <p:commandButton id="aceptar" value="Aceptar" update="@form" disabled="#{empty reportesController.fechafinal  or empty reportesController.fechainicio or reportesController.fechainicio.after(reportesController.fechafinal)} "/>
                             <p:commandButton   value="Reset" actionListener="#{reportesController.reset()}"  update="@form"></p:commandButton>
                             </center>
                         <br/>
-                            <p:panel styleClass="ui-panelgrid-blank">
                                 <p:dataTable id="datalist" var="emIngE" value="#{reportesController.resultadoContoller}"
                                     >
                                     <p:column filterBy="#{emIngE[0]}" >
@@ -55,19 +54,20 @@
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="NO. DE IMÁGENES"/>
+                                            <h:outputText value="#{bundle.NoImagenes}"/>
                                         </f:facet>
                                         <h:outputText value="#{emIngE[1]}"/>
                                     </p:column>
                                 </p:dataTable>
-                                TOTAL DE IMÁGENES : #{reportesController.getcalcularTotal()}
+                                <h3 align="center">
+                                #{bundle.TotalImagenes} #{reportesController.getcalcularTotal()}
+                                </h3>
                                 <div class="ui-fluid">
                                 <p:chart type="pie" model="#{reportesController.grafica}" style="height:300px;margin:20px 0" responsive="true"/>                               
-                                <p:chart type="bar" model="#{reportesController.horizontalGrafica}" style="height:300px;margin:20px 0" responsive="true"/>
+                                <p:chart type="bar" model="#{reportesController.horizontalGrafica}" style="height:1000px;margin:20px" responsive="true"/>
                                 </div>
-                            </p:panel>
+                        </p:panel>
                         </h:form>
-                       
             </ui:define>
         </ui:composition>
     </h:body>

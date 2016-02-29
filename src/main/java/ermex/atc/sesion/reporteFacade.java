@@ -78,5 +78,41 @@ public class reporteFacade implements Serializable{
             System.out.println(e);
         }
         return result;
+    } 
+    public List<Object> reporteRecibidas( String fechainicial, String fechafinal)
+    {
+        Query query;
+        List<Object> result=new ArrayList<>();
+        String sqldependencia="";
+        try 
+        {
+            sqldependencia ="select * from reporteimgrecibidas(?,?) as (satelite numeric, img bigint)";
+            query=emFacade.createNativeQuery(sqldependencia);
+            query.setParameter(1, fechainicial);
+            query.setParameter(2, fechafinal);
+            result=(List<Object>)query.getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result;
+    }   
+    public List<Object> reporteProcesadas( String fechainicial, String fechafinal)
+    {
+        Query query;
+        List<Object> result=new ArrayList<>();
+        String sqldependencia="";
+        try 
+        {
+            sqldependencia ="select * from reporteimgprocesadas(?,?) as (satelite numeric, img bigint)";
+            query=emFacade.createNativeQuery(sqldependencia);
+            query.setParameter(1, fechainicial);
+            query.setParameter(2, fechafinal);
+            result=(List<Object>)query.getResultList();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result;
     }   
 }
