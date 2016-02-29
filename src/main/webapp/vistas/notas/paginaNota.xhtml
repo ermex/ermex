@@ -48,9 +48,8 @@
                 </p:panel>
                <p:panel header="Imagenes Entregadas">
                     <p:dataTable id="datalist" value="#{notasController.itemsObject}" var="emIngE"
-                                 scrollable="true"
-                                 scrollWidth="80%"
-                                 scrollHeight="80%"
+                                 paginator="true"
+                                 rows="15"
                             >
                         <p:column headerText="Satelite">
                             <h:outputText value="#{emIngE[0]}"/>
@@ -67,9 +66,17 @@
                         <p:column headerText="Copia" >
                            <h:outputText value="#{emIngE[4]}"/>
                        </p:column>
-                </p:dataTable>
+                        <f:facet name="footer">
+                            <h:commandLink value="Exportar">
+                                <p:dataExporter type="pdf"  target="datalist" fileName="#{notasController.solicitud}" 
+                                                preProcessor="#{notasController.preProcessPDF}"/>
+                            </h:commandLink> 
+                            <p:commandButton value="Exportar 2" action="#{notasController.imagenesEntregadasNota}"/>
+                        </f:facet>
+                                
+                </p:dataTable>                  
                </p:panel>
-              </h:panelGroup>
+              </h:panelGroup>             
             </h:form>
         </p:dialog>        
     </ui:composition>

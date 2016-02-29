@@ -1,5 +1,19 @@
 package ermex.atc.controlador;
 
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import ermex.atc.clases.generarHeaderPDF;
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
@@ -10,12 +24,18 @@ import ermex.atc.entidad.Organismos;
 import ermex.atc.entidad.Personas;
 import ermex.atc.entidad.imgEntreNo;
 import ermex.atc.sesion.NotasFacade;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
@@ -29,6 +49,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.ServletContext;
 
 @Named("notasController")
 @SessionScoped
@@ -96,6 +117,144 @@ public class NotasController implements Serializable {
         return itemsObject;
     }
 
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        Document pdf = (Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.LETTER);
+
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String urlImgLogo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "logoSiap.PNG";
+        String urlImgFondo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "imgfondo.png";        
+        
+        Image imagenfondo = Image.getInstance(urlImgFondo);
+        Image imagenfondoLogo = Image.getInstance(urlImgLogo);
+        imagenfondoLogo.scaleAbsolute(150f, 80f);
+        imagenfondoLogo.scalePercent(40, 40);
+        imagenfondo.setAbsolutePosition(100f, 150f);
+        pdf.add(imagenfondoLogo);
+        pdf.add(imagenfondo);  
+        
+    }
+    @SuppressWarnings("empty-statement")
+    public void imagenesEntregadasNota() throws IOException
+    {
+        
+        
+   List<Object> imagnes=itemsObject;
+        int filas = imagnes.size();
+        Document document = new Document(PageSize.LETTER, 30, 30, 40, 90);
+        
+        try{
+            
+             
+           // Se genera un nuevo documento en la ruta especificada dentro de FileOutputStream
+            PdfWriter write=PdfWriter.getInstance(document, new FileOutputStream("C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\relacion_imagens_"+ selected.getNonota()+".pdf"));
+            
+            generarHeaderPDF header = new generarHeaderPDF();
+            write.setPageEvent(header);
+            document.open(); 
+            document.add(new Paragraph("Relacion de imagens"));
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph("No. Nota: 0599"));
+            document.add(new Paragraph("Usuario: usuario ermex0057"));
+            document.add(new Paragraph("Solicitud: 20151104-112603-515"));  
+              document.add(new Paragraph(" "));
+           //Numero de columnas de la tabla 
+            PdfPTable table = new PdfPTable(5); 
+            //Size de cada una de las columas 
+            table.setWidths(new int[]{ 3, 2, 2, 2,10});
+            //Size de la tabal en porcentaje 
+            table.setWidthPercentage(100); 
+            
+            //Alineacion de la tabla en el docuemto 
+            table.setHorizontalAlignment(Element.ALIGN_CENTER);
+            //Se crea la variable Fon para el contenido de la tabla, encabezado y contenido 
+            Font fuente = new Font();
+            Font headtable = new Font();
+            //se asignan propiedades a la variable fuente como size de letra, color y familia 
+            fuente.setSize(8);
+            fuente.setColor(Color.BLACK);
+            fuente.setFamily("Arial");
+            //se asignan propiedades a la variable headtable como size de letra, color y estilo              
+            headtable.setColor(Color.BLACK);
+            headtable.setSize(9);
+            headtable.setStyle(Font.BOLD);
+            //se crea celdas las cuales seran el encabezado de la tabla, con nombre de la tabla y el tipo de fuente 
+            PdfPCell satelite = new PdfPCell(new Phrase("Satélite SPOT",headtable));
+            //fromato de la celda con alineacion de texto
+            satelite.setHorizontalAlignment(1);
+            PdfPCell jk = new PdfPCell(new Phrase("K/J",headtable));
+            jk.setHorizontalAlignment(1);
+            PdfPCell fecha= new PdfPCell(new Phrase("Fecha de Toma",headtable));
+            fecha.setHorizontalAlignment(1);
+            PdfPCell nivelproce = new PdfPCell(new Phrase("Nivel de Proc.",headtable));
+            nivelproce.setHorizontalAlignment(1);
+            PdfPCell identificador= new PdfPCell(new Phrase("Referencia",headtable));
+            identificador.setHorizontalAlignment(1); 
+            //se agregan las celdas a la tabla, los cuales seran el encabezado 
+            table.addCell(satelite);
+            table.addCell(jk);
+            table.addCell(fecha);
+            table.addCell(nivelproce);
+            table.addCell(identificador);
+            System.out.println("Valores de las imagenes");
+            imgEntreNo img= new imgEntreNo();
+            List<imgEntreNo> nota = new ArrayList<>();
+            Iterator<Object> itrTemp = itemsObject.iterator();
+            for (int i = 0; i <imagnes.size(); i++) {
+                Object[] variables=(Object[]) imagnes.get(i);
+               // nota.add(new imgEntreNo((int)variables[0], (String)variables[1],(String)variables[1],(String)variables[3], (String)variables[4]));
+                //img=(imgEntreNo) imagnes.get(i);
+                satelite.setPhrase(new Phrase(variables[0].toString(), fuente));
+                table.addCell(satelite);
+                jk.setPhrase(new Phrase(variables[1].toString(), fuente));
+                table.addCell(jk);
+                fecha.setPhrase( new Phrase(variables[2].toString(), fuente));
+                table.addCell(fecha);
+                nivelproce.setPhrase(new Phrase(variables[3].toString(), fuente));
+                table.addCell(nivelproce);
+                identificador.setPhrase(new Phrase(variables[4].toString(), fuente));
+                table.addCell(identificador);                
+            }
+            //se crea la tabla con los datos del arrayList con el size de filas.
+            //cada iteracion representa una fil, con 5 columnas como se definio arriba.
+//            for (int i = 0; i < filas ; i++) {
+//                //asignamos valor a la celda tomando el primer valor del ArrayList, con el el formato de la variable fuente 
+//                satelite.setPhrase(new Phrase(imagnes.get(0).toString(), fuente));
+//                //agregamos la celda a la tabla.
+//                table.addCell(satelite);
+//                //se remueve el primer valor del ArrayList
+//                imagnes.remove(0);
+//                jk.setPhrase(new Phrase(imagnes.get(0).toString(), fuente));
+//                table.addCell(jk);
+//                imagnes.remove(0);
+//                fecha.setPhrase( new Phrase(imagnes.get(0).toString(), fuente));
+//                table.addCell(fecha);
+//                imagnes.remove(0);
+//                
+//                nivelproce.setPhrase(new Phrase(imagnes.get(0).toString(), fuente));
+//                table.addCell(nivelproce);;
+//                imagnes.remove(0);
+//                identificador.setPhrase(new Phrase(imagnes.get(0).toString(), fuente));
+//                table.addCell(identificador);
+//                imagnes.remove(0); 
+//                System.out.println("Numero de imagnes"+i);
+//            }     
+            
+            //se agreda la tabla al documento.
+            document.add(table);
+               //cerramos el codumento 
+            document.close();
+            
+          //  prueba1();
+            
+        }catch( DocumentException | IOException e)
+        {
+            System.err.println("Ocurrio un error al crear el archivo");
+           // System.exit(-1);
+            System.out.println(e.getMessage());
+        }
+    }
     //metodo para obtener informacion de la nota.
     public void informacionNota() {
         try {
