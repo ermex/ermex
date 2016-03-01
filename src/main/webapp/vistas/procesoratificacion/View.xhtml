@@ -23,12 +23,6 @@
                         <h:outputText value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ProcesoratificacionTitle_freceprati}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ProcesoratificacionLabel_cambios}"/>
-                        <p:selectBooleanCheckbox value="#{procesoratificacionController.selected.cambios}" disabled="true"/>
-                        <h:outputText value="#{bundle.ProcesoratificacionLabel_status}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}"/>
-                        <h:outputText value="#{bundle.ProcesoratificacionLabel_comentarios}"/>
-                        <p:inputTextarea value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" disabled="true"/>
                         <h:outputText value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}"/>
                         <h:outputText value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -37,10 +31,12 @@
                         <h:outputText value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ProcesoratificacionLabel_proceso}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ProcesoratificacionTitle_proceso}"/>
-                        <h:outputText value="#{bundle.ProcesoratificacionLabel_documentacion}"/>
-                        <h:outputText value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ProcesoratificacionTitle_documentacion}"/>                        
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_cambios}"/>
+                        <p:selectBooleanCheckbox value="#{procesoratificacionController.selected.cambios}" disabled="true"/>
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_status}"/>
+                        <h:outputText value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}"/>                       
+                        <h:outputText value="#{bundle.ProcesoratificacionLabel_observaciones}"/>
+                        <p:inputTextarea value="#{procesoratificacionController.selected.observaciones}" title="#{bundle.ProcesoratificacionTitle_observaciones}"/>                        
                     </p:panelGrid>
                     </div> 
                 </h:panelGroup>

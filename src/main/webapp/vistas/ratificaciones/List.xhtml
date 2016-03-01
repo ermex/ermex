@@ -17,7 +17,7 @@
             <h:form id="RatificacionesListForm">
                 <p:panel header="#{bundle.ListRatificacionesTitle}">
                     <p:contextMenu for="datalist">
-                        <p:menuitem id="editButton"    value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()" disabled="#{ratificacionesController.selected.status == false}"/>
+                        <p:menuitem id="editButton"    value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":RatificacionesEditForm"      oncomplete="PF('RatificacionesEditDialog').show()"/>
                         <p:menuitem id="viewButton"    value="#{bundle.View}"      icon="ui-icon-search"   update=":RatificacionesViewForm"      oncomplete="PF('RatificacionesViewDialog').show()"/>                                               
                     </p:contextMenu>
                     <p:dataTable id="datalist" value="#{ratificacionesController.items}" var="item"
@@ -27,13 +27,12 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="#{bundle.ListRatificacionesEmpty}"
-                                 >
-                    <p:ajax event="rowSelect" update=":RatificacionesListForm"/>    
+                                 >   
                     <f:facet name="header">                       
-                        <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" />
+                        <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":RatificacionesCreateForm"    oncomplete="PF('RatificacionesCreateDialog').show()" actionListener="#{ratificacionesController.prepareCreate}" disabled="#{ratificacionesController.getfindByStatus().size() > 0}"/>
                     </f:facet>   
                         <p:column width="4%">
-                            <p:button icon="ui-icon-newwin" outcome="/vistas/procesoratificacion/List.xhtml" style=" float: left">
+                            <p:button  icon="ui-icon-newwin" outcome="/vistas/procesoratificacion/List.xhtml" style=" float: left">
                                 <f:param  name="ratificacion" value="#{item.idratificacion}" />
                             </p:button>
                         </p:column>

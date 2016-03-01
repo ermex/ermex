@@ -75,10 +75,10 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
         return query.getSingleResult();
     }
     
-   public List<Gestores> findByStatusActivoCompra(String status, String status1, String status2, String status3)
+   public List<Gestores> findByStatusActivoCompra(String status, String status1, String status2)
     {
         //Regresa los gestores activos y los de compra
-        String senetencia="SELECT g FROM Gestores g WHERE g.status !=:status and g.status !=:status1 and g.status !=:status2 and g.status !=:status3 order by g.gestor desc";
+        String senetencia="SELECT g FROM Gestores g WHERE g.status !=:status and g.status !=:status1 and g.status !=:status2 order by g.gestor desc";
         Query query =   em.createQuery(senetencia,Gestores.class);
         query.setParameter("status", status);
         query.setParameter("status1", status1);

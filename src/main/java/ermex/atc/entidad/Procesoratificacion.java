@@ -37,11 +37,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Procesoratificacion.findByFreceprati", query = "SELECT p FROM Procesoratificacion p WHERE p.freceprati = :freceprati"),
     @NamedQuery(name = "Procesoratificacion.findByCambios", query = "SELECT p FROM Procesoratificacion p WHERE p.cambios = :cambios"),
     @NamedQuery(name = "Procesoratificacion.findByStatus", query = "SELECT p FROM Procesoratificacion p WHERE p.status = :status"),
-    @NamedQuery(name = "Procesoratificacion.findByComentarios", query = "SELECT p FROM Procesoratificacion p WHERE p.comentarios = :comentarios"),
     @NamedQuery(name = "Procesoratificacion.findByFechaEnvioclaves", query = "SELECT p FROM Procesoratificacion p WHERE p.fechaEnvioclaves = :fechaEnvioclaves"),
     @NamedQuery(name = "Procesoratificacion.findByFechaConficlaves", query = "SELECT p FROM Procesoratificacion p WHERE p.fechaConficlaves = :fechaConficlaves"),
-    @NamedQuery(name = "Procesoratificacion.findByProceso", query = "SELECT p FROM Procesoratificacion p WHERE p.proceso = :proceso"),
-    @NamedQuery(name = "Procesoratificacion.findByDocumentacion", query = "SELECT p FROM Procesoratificacion p WHERE p.documentacion = :documentacion")})
+    @NamedQuery(name = "Procesoratificacion.findByObservaciones", query = "SELECT p FROM Procesoratificacion p WHERE p.observaciones = :observaciones")})
 public class Procesoratificacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,20 +56,15 @@ public class Procesoratificacion implements Serializable {
     @Size(max = 10)
     @Column(name = "status")
     private String status="proceso";
-    @Size(max = 2147483647)
-    @Column(name = "comentarios")
-    private String comentarios;
     @Column(name = "fecha_envioclaves")
     @Temporal(TemporalType.DATE)
     private Date fechaEnvioclaves;
     @Column(name = "fecha_conficlaves")
     @Temporal(TemporalType.DATE)
     private Date fechaConficlaves;
-    @Column(name = "proceso")
-    private BigInteger proceso;
     @Size(max = 2147483647)
-    @Column(name = "documentacion")
-    private String documentacion;
+    @Column(name = "observaciones")
+    private String observaciones;
     @JoinColumn(name = "idratificacion", referencedColumnName = "idratificacion")
     @ManyToOne
     @NotNull
@@ -120,14 +113,6 @@ public class Procesoratificacion implements Serializable {
         this.status = status;
     }
 
-    public String getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(String comentarios) {
-        this.comentarios = comentarios;
-    }
-
     public Date getFechaEnvioclaves() {
         return fechaEnvioclaves;
     }
@@ -144,20 +129,12 @@ public class Procesoratificacion implements Serializable {
         this.fechaConficlaves = fechaConficlaves;
     }
 
-    public BigInteger getProceso() {
-        return proceso;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setProceso(BigInteger proceso) {
-        this.proceso = proceso;
-    }
-
-    public String getDocumentacion() {
-        return documentacion;
-    }
-
-    public void setDocumentacion(String documentacion) {
-        this.documentacion = documentacion;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public Ratificaciones getIdratificacion() {

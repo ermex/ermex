@@ -125,9 +125,9 @@ public class RatificacionesController implements Serializable {
                     if("Transaction marked for rollback.".equals(msg))
                     {
                         JsfUtil.addErrorMessage("No se pudo realizar la acción. Porque hay gestores en ratificación");
-                    }else if (msg.contains("Ya hay una ratificacion en el mismo año"))
+                    }else if (msg.contains("Ya hay dos ratificacion en el mismo a"))
                     {
-                        JsfUtil.addErrorMessage("Ya hay una ratificacion en el mismo año");
+                        JsfUtil.addErrorMessage("Ya hay dos ratificaciones en el mismo año");
                     }
                     else
                     {                       

@@ -64,11 +64,15 @@ public class GestoresController implements Serializable {
     public GestoresController() {
         status = new HashMap<>();
         status.put("baja", "baja");
-        status.put("pendiente", "pendiente");
         status.put("ratificacion", "ratificacion"); 
         status.put("activo", "activo"); 
     }
-    
+    public String truncateString(String comentario) {
+         if(comentario.length()>=20){
+             return comentario.substring(0, 20);
+         }
+        return comentario;
+    }
     //*************************** Metodos del programador
     public String onFlowProcess(FlowEvent event) {
         switch(event.getNewStep())
@@ -143,7 +147,7 @@ public class GestoresController implements Serializable {
     }
     public List<Gestores> getItemsfindByStatusActivoCompra()
     {
-        return ejbFacade.findByStatusActivoCompra("antiguo","prueba", "pendiente", "baja");
+        return ejbFacade.findByStatusActivoCompra("antiguo","prueba", "baja");
     }
     public DefaultStreamedContent imagenError()throws IOException
     {

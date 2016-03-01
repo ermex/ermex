@@ -20,7 +20,7 @@
             <h:form id="ProcesoratificacionListForm">
                 <p:panel header="#{bundle.ListProcesoratificacionTitle}">
                     <p:contextMenu for="datalist">                       
-                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":ProcesoratificacionEditForm"      oncomplete="PF('ProcesoratificacionEditDialog').show()"/>
+                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":ProcesoratificacionEditForm"      oncomplete="PF('ProcesoratificacionEditDialog').show()" />
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":ProcesoratificacionViewForm"      oncomplete="PF('ProcesoratificacionViewDialog').show()"/>                       
                     </p:contextMenu>
                     <p:dataTable widgetVar="datalist" id="datalist" value="#{procesoratificacionController.items}" var="item"
@@ -32,7 +32,7 @@
                                  emptyMessage="#{bundle.ListProcesoratificacionEmpty}"
                                  >
                         <f:facet name="header">
-                            <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":ProcesoratificacionCreateForm"    oncomplete="PF('ProcesoratificacionCreateDialog').show()" actionListener="#{procesoratificacionController.prepareCreate}" />
+                            <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":ProcesoratificacionCreateForm"    oncomplete="PF('ProcesoratificacionCreateDialog').show()" actionListener="#{procesoratificacionController.prepareCreate}" disabled="#{ratificacionesController.getfindByStatus().size() == 0}" />
                         </f:facet>
                         <p:column headerText="#{bundle.ProcesoratificacionTitle_idratificacion}" filterBy="#{item.idratificacion.idratificacion}">                
                             <h:outputText value="#{item.idratificacion.idratificacion}"/>
@@ -50,24 +50,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ProcesoratificacionTitle_cambios}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.cambios}" disabled="true"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}">
-                            <f:facet name="filter">
-                                <p:selectOneMenu onchange="PF('datalist').filter()" >
-                                    <f:selectItem itemLabel="Todos"  itemValue="" />
-                                    <f:selectItem itemLabel="Activo" itemValue="activo"  />
-                                    <f:selectItem itemLabel="Baja" itemValue="baja" /> 
-                                    <f:selectItem itemLabel="Pendiente"  itemValue="pendiente" />
-                                    <f:selectItem itemLabel="Proceso"  itemValue="proceso" />
-                                </p:selectOneMenu>     
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaEnvioclaves}">
@@ -82,17 +64,28 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ProcesoratificacionTitle_proceso}"/>
+                        <p:column headerText="#{bundle.ProcesoratificacionTitle_status}" filterBy="#{item.status}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('datalist').filter()" >
+                                    <f:selectItem itemLabel="Todos"  itemValue="" />
+                                    <f:selectItem itemLabel="Activo" itemValue="activo"  />
+                                    <f:selectItem itemLabel="Baja" itemValue="baja" /> 
+                                    <f:selectItem itemLabel="Proceso"  itemValue="proceso" />
+                                </p:selectOneMenu>     
                             </f:facet>
-                            <h:outputText value="#{item.proceso}"/>
+                            <h:outputText value="#{item.status}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ProcesoratificacionTitle_documentacion}"/>
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_cambios}"/>
                             </f:facet>
-                            <h:outputText value="#{item.documentacion}"/>
+                            <p:selectBooleanCheckbox value="#{item.cambios}" disabled="true"/>
+                        </p:column>                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ProcesoratificacionTitle_observaciones}"/>
+                            </f:facet>
+                            <h:outputText value="#{gestoresController.truncateString(item.observaciones)}"/>
                         </p:column>
                     </p:dataTable>
                 </p:panel>

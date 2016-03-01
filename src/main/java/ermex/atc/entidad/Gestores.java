@@ -55,6 +55,9 @@ public class Gestores implements Serializable {
     @Lob
     @Column(name = "designacion")
     private byte[] designacion;
+    @Size(max = 2147483647)
+    @Column(name = "comentarios")
+    private String comentarios;
     @OneToMany(mappedBy = "gestor")
     private List<Histdesignagestor> histdesignagestorList;
 
@@ -296,6 +299,15 @@ public class Gestores implements Serializable {
         return gestor;
     }
 
+
+    public List<Histdesignagestor> getHistdesignagestorList() {
+        return histdesignagestorList;
+    }
+
+    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
+        this.histdesignagestorList = histdesignagestorList;
+    }
+
     public byte[] getDesignacion() {
         return designacion;
     }
@@ -304,12 +316,12 @@ public class Gestores implements Serializable {
         this.designacion = designacion;
     }
 
-    public List<Histdesignagestor> getHistdesignagestorList() {
-        return histdesignagestorList;
+    public String getComentarios() {
+        return comentarios;
     }
 
-    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
-        this.histdesignagestorList = histdesignagestorList;
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
     }
     
 }

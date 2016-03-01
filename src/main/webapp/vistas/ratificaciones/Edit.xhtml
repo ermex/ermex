@@ -25,7 +25,7 @@
                         <p:outputLabel value="#{bundle.RatificacionesLabel_comentarios}" for="comentarios" />
                         <p:inputTextarea id="comentarios" value="#{ratificacionesController.selected.comentarios}" title="#{bundle.RatificacionesTitle_comentarios}" />
                         <p:outputLabel value="#{bundle.RatificacionesLabel_status}" for="status" />
-                        <p:selectBooleanCheckbox id="status" value="#{ratificacionesController.selected.status}" />
+                        <p:selectBooleanCheckbox id="status" value="#{ratificacionesController.selected.status}" disabled="#{ratificacionesController.selected.status ==false}" />
                     </p:panelGrid>
                     </div>
                     <p:commandButton actionListener="#{ratificacionesController.update}" value="#{bundle.Save}" update="display,:RatificacionesListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RatificacionesEditDialog');">

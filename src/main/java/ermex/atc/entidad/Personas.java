@@ -121,7 +121,7 @@ public class Personas implements Serializable {
     private String apellidom;
     @Size(max = 2147483647)
     @Column(name = "grado")
-    private String grado;
+    private String grado="C.";
     @Size(max = 2147483647)
     @Column(name = "cargo")
     private String cargo;
@@ -404,6 +404,18 @@ public class Personas implements Serializable {
     public String toString() {
         return "ermex.atc.entidad.Personas[ idpersona=" + idpersona + " ]";
     }
+    public List<Cambiopersona> getCambiopersonaList() {
+        return cambiopersonaList;
+    }
+    public void setCambiopersonaList(List<Cambiopersona> cambiopersonaList) {
+        this.cambiopersonaList = cambiopersonaList;
+    }
+    public List<Histdesignagestor> getHistdesignagestorList() {
+        return histdesignagestorList;
+    }
+    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
+        this.histdesignagestorList = histdesignagestorList;
+    }
 
     public byte[] getIdoficialanv() {
         return idoficialanv;
@@ -483,22 +495,6 @@ public class Personas implements Serializable {
 
     public void setNombramiento(byte[] nombramiento) {
         this.nombramiento = nombramiento;
-    }
-
-    public List<Cambiopersona> getCambiopersonaList() {
-        return cambiopersonaList;
-    }
-
-    public void setCambiopersonaList(List<Cambiopersona> cambiopersonaList) {
-        this.cambiopersonaList = cambiopersonaList;
-    }
-
-    public List<Histdesignagestor> getHistdesignagestorList() {
-        return histdesignagestorList;
-    }
-
-    public void setHistdesignagestorList(List<Histdesignagestor> histdesignagestorList) {
-        this.histdesignagestorList = histdesignagestorList;
     }
     
 }

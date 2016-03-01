@@ -13,7 +13,7 @@
                     <div class="ui-fluid">
                     <p:panelGrid columns="2" rendered="#{ratificacionesController.selected != null}" layout="grid" styleClass="ui-panelgrid-blank">
                         <p:outputLabel value="#{bundle.RatificacionesLabel_inicio}" for="inicio" />
-                        <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}" required="true" requiredMessage="#{bundle.RatificacionesRequiredMessage_anio}" mindate="#{ratificacionesController.getFechaInicioMin()}" maxdate="#{ratificacionesController.getFechaInicioMax()}"/>
+                        <p:calendar id="inicio" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.inicio}" title="#{bundle.RatificacionesTitle_inicio}" required="true" requiredMessage="#{bundle.RatificacionesRequiredMessage_anio}" mindate="#{ratificacionesController.getFechaInicioMin()}" maxdate="#{ratificacionesController.getFechaInicioMax()}" readonlyInput="true" readonly=" true " navigator="true"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_fin}" for="fin" />
                         <p:calendar id="fin" pattern="MM/dd/yyyy" value="#{ratificacionesController.selected.fin}" title="#{bundle.RatificacionesTitle_fin}" mindate="#{ratificacionesController.getFechaInicioMin()}"/>
                         <p:outputLabel value="#{bundle.RatificacionesLabel_responsables}" for="responsables" />
@@ -26,7 +26,7 @@
                         <p:selectBooleanCheckbox id="status" value="#{ratificacionesController.selected.status}" disabled="true"/>
                     </p:panelGrid>
                     </div>
-                    <p:commandButton id="create" actionListener="#{ratificacionesController.create}" value="#{bundle.Save}" update="display,:RatificacionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'RatificacionesCreateDialog');">
+                    <p:commandButton id="create" actionListener="#{ratificacionesController.create}" value="#{bundle.Save}" update="display,:RatificacionesListForm:datalist,:growl" oncomplete="handleSubmit(args,'RatificacionesCreateDialog');" title="IMPORTANTE :Se cambiarán los gestores activos a ratificación">
                         <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
                     </p:commandButton>
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">

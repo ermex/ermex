@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,7 +32,6 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Ratificaciones.findAll", query = "SELECT r FROM Ratificaciones r order by r.idratificacion"),
     @NamedQuery(name = "Ratificaciones.findByIdratificacion", query = "SELECT r FROM Ratificaciones r WHERE r.idratificacion = :idratificacion"),
-    @NamedQuery(name = "Ratificaciones.findByAnio", query = "SELECT r FROM Ratificaciones r WHERE r.anio = :anio"),
     @NamedQuery(name = "Ratificaciones.findByInicio", query = "SELECT r FROM Ratificaciones r WHERE r.inicio = :inicio"),
     @NamedQuery(name = "Ratificaciones.findByFin", query = "SELECT r FROM Ratificaciones r WHERE r.fin = :fin"),
     @NamedQuery(name = "Ratificaciones.findByResponsables", query = "SELECT r FROM Ratificaciones r WHERE r.responsables = :responsables"),
@@ -40,16 +40,17 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Ratificaciones.findByStatus", query = "SELECT r FROM Ratificaciones r WHERE r.status = :status")})
 public class Ratificaciones implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private boolean status=true;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idratificacion")
     private Long idratificacion;
-    @Basic(optional = false)
-    @Column(name = "anio")
-    @Temporal(TemporalType.DATE)
-    private Date anio;
     @Column(name = "inicio")
     @Temporal(TemporalType.DATE)
     private Date inicio;
@@ -65,8 +66,6 @@ public class Ratificaciones implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "comentarios")
     private String comentarios;
-    @Column(name = "status")
-    private Boolean status=true;
     @OneToMany(mappedBy = "idratificacion")
     private List<Procesoratificacion> procesoratificacionList;
 
@@ -79,7 +78,6 @@ public class Ratificaciones implements Serializable {
 
     public Ratificaciones(Long idratificacion, Date anio) {
         this.idratificacion = idratificacion;
-        this.anio = anio;
     }
 
     public Long getIdratificacion() {
@@ -88,14 +86,6 @@ public class Ratificaciones implements Serializable {
 
     public void setIdratificacion(Long idratificacion) {
         this.idratificacion = idratificacion;
-    }
-
-    public Date getAnio() {
-        return anio;
-    }
-
-    public void setAnio(Date anio) {
-        this.anio = anio;
     }
 
     public Date getInicio() {
@@ -138,13 +128,6 @@ public class Ratificaciones implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
 
     public List<Procesoratificacion> getProcesoratificacionList() {
         return procesoratificacionList;
@@ -177,6 +160,14 @@ public class Ratificaciones implements Serializable {
     @Override
     public String toString() {
         return "ermex.atc.entidad.Ratificaciones[ idratificacion=" + idratificacion + " ]";
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
     
 }

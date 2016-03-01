@@ -22,13 +22,13 @@
                                 <f:selectItems value="#{personasController.tipo}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="#{bundle.PersonasLabel_domicilioOficina}" for="domicilioOficina" />
-                            <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}"/>                            
+                            <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_domicilioOficina}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_curp}" for="curp" />
                             <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" validatorMessage="#{bundle.PersonasValidatorMessage_curp}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}"/>
+                            <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_telefono}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_grado}" for="grado" />
-                            <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}"/>
+                            <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_grado}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo1}" for="correo1" />
                             <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_correo1}" validatorMessage="#{bundle.PersonasValidatorMessage_correo1}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_nombre}" for="nombre" />
@@ -40,11 +40,11 @@
                             <p:outputLabel value="#{bundle.PersonasLabel_dompersonal}" for="dompersonal" />
                             <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.PersonasTitle_dompersonal}"/>                                
                             <p:outputLabel value="#{bundle.PersonasLabel_apellidom}" for="apellidom" />
-                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}"/>
+                            <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidom}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_telpersonal}" for="telpersonal" />
                             <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.PersonasTitle_telpersonal}"/>                            
                             <p:outputLabel value="#{bundle.PersonasLabel_cargo}" for="cargo" />
-                            <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}"/>
+                            <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_cargo}"/>
                             <p:outputLabel value="#{bundle.PersonasLabel_correo3}" for="correo3" />
                             <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}"/>
                                 </p:panelGrid>

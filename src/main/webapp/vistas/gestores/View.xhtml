@@ -55,7 +55,9 @@
                                             <f:convertDateTime pattern="MM/dd/yyyy" />
                                         </h:outputText>
                                         <h:outputText value="#{bundle.GestoresLabel_status}"/>
-                                        <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.GestoresTitle_status}"/>  
+                                        <h:outputText value="#{gestoresController.selected.status}" title="#{bundle.GestoresTitle_status}"/> 
+                                        <p:outputLabel value="#{bundle.GestoresLabel_comentarios}" for="comentarios" />
+                                        <p:inputTextarea id="comentarios" value="#{gestoresController.selected.comentarios}" title="#{bundle.GestoresTitle_comentarios}" disabled="true" /> 
                                     </p:panelGrid>                                                            
                                     <p:link outcome="/vistas/gestores/verImg.xhtml" target="_blank">  
                                         <f:param  name="nomgestor" value="#{gestoresController.selected.gestor}" />

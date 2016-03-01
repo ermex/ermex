@@ -19,24 +19,20 @@
                         <p:inputText id="gestor" value="#{procesoratificacionController.selected.gestor}" title="#{bundle.ProcesoratificacionTitle_gestor}" disabled="true" />                      
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_freceprati}" for="freceprati" />
                         <p:calendar id="freceprati" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.freceprati}" title="#{bundle.ProcesoratificacionTitle_freceprati}"/>
-                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_cambios}" for="cambios" />
-                        <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}" />
-                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_status}" for="status" />
-                        <p:selectOneMenu id="status" value="#{procesoratificacionController.selected.status}" title="#{bundle.ProcesoratificacionTitle_status}" disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}">                           
-                            <f:selectItem itemLabel="activo" itemValue="activo" />
-                            <f:selectItem itemLabel="baja" itemValue="baja" />
-                            <f:selectItem itemLabel="pendiente" itemValue="pendiente" />
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_comentarios}" for="comentarios" />
-                        <p:inputTextarea id="comentarios" value="#{procesoratificacionController.selected.comentarios}" title="#{bundle.ProcesoratificacionTitle_comentarios}" />
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaEnvioclaves}" for="fechaEnvioclaves" />
                         <p:calendar id="fechaEnvioclaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaEnvioclaves}" title="#{bundle.ProcesoratificacionTitle_fechaEnvioclaves}"/>
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaConficlaves}" for="fechaConficlaves" />
-                        <p:calendar id="fechaConficlaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}"/>
-                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_proceso}" for="proceso" />
-                        <p:inputText id="proceso" value="#{procesoratificacionController.selected.proceso}" title="#{bundle.ProcesoratificacionTitle_proceso}" />
-                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_documentacion}" for="documentacion" />
-                        <p:inputText id="documentacion" value="#{procesoratificacionController.selected.documentacion}" title="#{bundle.ProcesoratificacionTitle_documentacion}" />
+                        <p:calendar id="fechaConficlaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}"/>                        
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_cambios}" for="cambios" />
+                        <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}" />
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_status}" for="status" />
+                        <p:selectOneMenu id="status" value="#{procesoratificacionController.selected.status}" title="Al cambiar a baja o activo, ya no se podra modificar" disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}">                           
+                            <f:selectItem itemLabel="activo" itemValue="activo" />
+                            <f:selectItem itemLabel="baja" itemValue="baja" />
+                            <f:selectItem itemLabel="proceso" itemValue="proceso"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.ProcesoratificacionLabel_observaciones}" for="observaciones" />
+                        <p:inputTextarea id="observaciones" value="#{procesoratificacionController.selected.observaciones}" title="#{bundle.ProcesoratificacionTitle_observaciones}" />
                         
                     </p:panelGrid>
                     </div>  

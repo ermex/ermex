@@ -17,7 +17,7 @@
                                 <p:messages closable="true" />
                                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-10" styleClass="ui-panelgrid-blank">      
                                     <p:outputLabel value="#{bundle.GestoresLabel_gestor}" for="gestor" />                                   
-                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}"/>
+                                    <p:inputText id="gestor" value="#{gestoresController.selected.gestor}" title="#{bundle.GestoresInput_gestor}" required="true" requiredMessage="#{bundle.GestoresRequiredMessage_gestor}" validatorMessage="#{bundle.GestoresValidatorMessage_gestor}" disabled="true"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_oficio}" for="oficio" />
                                     <p:inputText id="oficio" value="#{gestoresController.selected.oficio}" title="#{bundle.GestoresInput_oficio}" />
                                     <p:outputLabel value="#{bundle.GestoresLabel_fechaOficio}" for="fechaOficio" />
@@ -30,7 +30,8 @@
                                     <p:calendar id="fechaEnviouser" pattern="MM/dd/yyyy" value="#{gestoresController.selected.fechaEnviouser}" title="#{bundle.GestoresTitle_fechaEnviouser}"/>
                                     <p:outputLabel value="#{bundle.GestoresLabel_status}" for="status" />
                                     <p:inputText id="status" value="activo" title="#{bundle.GestoresInput_status}" disabled="true" />
-                                                                                
+                                    <p:outputLabel value="#{bundle.GestoresLabel_comentarios}" for="comentarios" />
+                                    <p:inputTextarea id="comentarios" value="#{gestoresController.selected.comentarios}" title="#{bundle.GestoresTitle_comentarios}" />                                                                                            
                                 </p:panelGrid> 
                             </p:panel>
                         </div>    

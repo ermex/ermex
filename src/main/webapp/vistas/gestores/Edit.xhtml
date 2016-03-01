@@ -42,8 +42,10 @@
                                     <p:selectOneMenu id="status" value="#{gestoresController.selected.status}" title="#{bundle.GestoresInput_status}" disabled="#{gestoresController.selected.status=='ratificacion'}">                          
                                         <f:selectItem itemLabel="activo" itemValue="activo"  />
                                         <f:selectItem itemLabel="baja" itemValue="baja" />
-                                        <f:selectItem itemLabel="pendiente" itemValue="pendiente" />
+                                        <f:selectItem itemLabel="ratificacion" itemValue="ratificacion" itemDisabled="true"/>
                                     </p:selectOneMenu>
+                                    <p:outputLabel value="#{bundle.GestoresLabel_comentarios}" for="comentarios" />
+                                    <p:inputTextarea id="comentarios" value="#{gestoresController.selected.comentarios}" title="#{bundle.GestoresTitle_comentarios}" /> 
                                 </p:panelGrid> 
                                 </p:fieldset>
                             </p:panelGrid>
