@@ -18,25 +18,17 @@
     <h:body>
         <p:growl id="growl" life="4000"/>        
         <p:layout fullPage="true" style="border-style: none">
-            
             <p:layoutUnit position="north" style="border-style: none">                        
-                <div id="top" class="top" >
-                    <ui:include src="templateHeader.xhtml"/>
-                </div>                
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="south">
+                    <ui:include src="templateHeader.xhtml"/>                               
+            </p:layoutUnit>      
+            <p:layoutUnit position="south" style="border-style: none">
                 <ui:include src="templateFooter.xhtml"/>
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="west" resizable="false" size="200" minSize="200" maxSize="200">
+            </p:layoutUnit>            
+            <p:layoutUnit position="west" style="border-style: none" size="200" >
                 <ui:include src="templateMenuP.xhtml"/>
-             </p:layoutUnit>            
-            
-            <p:layoutUnit position="center" resizable="false" size="500" minSize="300" maxSize="300" >
-                <p:scrollPanel mode="native" style="overflow-x: auto">
-                    <ui:insert name="body"/>                
-                </p:scrollPanel>
+             </p:layoutUnit>                      
+            <p:layoutUnit position="center" style="border-style: none">              
+                <ui:insert name="body"/>                
             </p:layoutUnit>
         </p:layout>
     </h:body>

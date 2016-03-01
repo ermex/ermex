@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
-        <ui:composition template="/templates/templateBase_1.xhtml">
+        <ui:composition template="/templates/templateBase.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{bundle.ReporteEntregadasTitle}"></h:outputText>
             </ui:define>
@@ -44,19 +44,30 @@
                             <p:commandButton   value="Reset" actionListener="#{reportesController.reset()}"  update="@form"></p:commandButton>
                             </center>
                         <br/>
-                                <p:dataTable id="datalist" var="emIngE" value="#{reportesController.resultadoContoller}"
-                                    >
+                                <p:dataTable id="datalist" var="emIngE" value="#{reportesController.resultadoContoller}">
+                                <f:facet name="footer">      
+                                    <h:commandLink>
+                                        <p:graphicImage library="images" name="excel_icon.png" styleClass="iconosDescarga"/>
+                                        <p:dataExporter type="xls" target="datalist" fileName="reporteEntregadas" />
+                                    </h:commandLink>
+                                </f:facet>    
                                     <p:column filterBy="#{emIngE[0]}" >
                                         <f:facet name="header">
                                             <h:outputText value="#{reportesController.encabezadoTabla}"/>
                                         </f:facet>                                            
                                         <h:outputText value="#{emIngE[0]}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{bundle.TotalImagenes}"/>
+                                        </f:facet>
                                     </p:column>
                                     <p:column>
                                         <f:facet name="header">
                                             <h:outputText value="#{bundle.NoImagenes}"/>
                                         </f:facet>
                                         <h:outputText value="#{emIngE[1]}"/>
+                                        <f:facet name="footer">
+                                            <h:outputText value="#{reportesController.getcalcularTotal()}"/>
+                                        </f:facet>
                                     </p:column>
                                 </p:dataTable>
                                 <h3 align="center">

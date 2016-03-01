@@ -5,12 +5,21 @@
  */
 package ermex.atc.controlador;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import ermex.atc.sesion.reporteFacade;
+import java.awt.Color;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -50,6 +59,16 @@ public class reportesRecibidasController implements Serializable {
         grafica=null;
     }
    
+    	public void preProcessPDF(Object document) throws IOException, DocumentException {
+            Document pdf = (Document) document;
+            pdf.open();
+            pdf.setPageSize(PageSize.LETTER);	 
+		Phrase phrase = new Phrase("Informe de Imágenes Recibidas ", FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD, new Color(0, 0, 0)));
+		Paragraph paragraph1 = new Paragraph(new SimpleDateFormat("dd-MM-yyyy").format(Fechainicio)+" a "+new SimpleDateFormat("dd-MM-yyyy").format(Fechafinal), FontFactory.getFont(FontFactory.HELVETICA,16, Font.BOLD, new Color(0, 0, 0)));
+		paragraph1.setSpacingAfter(20f);
+                pdf.add(phrase);
+                pdf.add(paragraph1);
+	}
     //metodo generado por el programador para obtener consulta de los reportes por periodos
     public List<Object> generarReporte()
     {   reporteFacade= new reporteFacade();

@@ -55,6 +55,10 @@ a:link:hover, a:visited:hover  {
     border-color: #D20005;
     border: none;
 }
+.iconosDescarga{
+    height: 5%; 
+    width:  4%;
+}
 .imagenMini{
     height: 70px; 
     width:  150px;
