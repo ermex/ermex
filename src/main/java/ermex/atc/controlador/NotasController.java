@@ -14,6 +14,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import ermex.atc.clases.generarHeaderPDF;
+import ermex.atc.clases.tablaImgNotas;
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
@@ -26,8 +27,11 @@ import ermex.atc.entidad.imgEntreNo;
 import ermex.atc.sesion.NotasFacade;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -46,10 +50,23 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRow;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
 
 @Named("notasController")
 @SessionScoped
@@ -67,6 +84,7 @@ public class NotasController implements Serializable {
     private Organismos organismo;
     private String solicitud;
     private String usuarioGestor;
+    private StreamedContent download;
 
     public NotasController() {
     }
@@ -107,6 +125,15 @@ public class NotasController implements Serializable {
         return solicitud;
     }
 
+    public StreamedContent getDownload() {
+        return download;
+    }
+
+    public void setDownload(StreamedContent download) {
+        this.download = download;
+    }
+
+
     //metodo para obtener las imagenes entregadas a la nota
     public List<Object> getItemsObject() {
         if (selected != null) {
@@ -117,24 +144,116 @@ public class NotasController implements Serializable {
         return itemsObject;
     }
 
-    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, InvalidFormatException {
         Document pdf = (Document) document;
         pdf.open();
         pdf.setPageSize(PageSize.LETTER);
 
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String urlImgLogo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "logoSiap.PNG";
-        String urlImgFondo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "imgfondo.png";        
-        
+        String urlImgFondo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "imgfondo.png";
+
         Image imagenfondo = Image.getInstance(urlImgFondo);
         Image imagenfondoLogo = Image.getInstance(urlImgLogo);
         imagenfondoLogo.scaleAbsolute(150f, 80f);
         imagenfondoLogo.scalePercent(40, 40);
         imagenfondo.setAbsolutePosition(100f, 150f);
         pdf.add(imagenfondoLogo);
-        pdf.add(imagenfondo);  
-        
+        pdf.add(imagenfondo);
+        crearNota();
     }
+
+    public void crearNota() throws IOException, InvalidFormatException {
+        //String ruta="C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\plantillanota.docx";        
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "plantilla" + File.separator + "plantillaN.docx";
+        InputStream fs = new FileInputStream(ruta);
+        XWPFDocument doc = new XWPFDocument(fs);
+        boolean bandera=false;
+        Date date = new Date();
+        DateFormat converTime = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy");
+        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        for (XWPFParagraph p : doc.getParagraphs()) {
+            for (XWPFRun r : p.getRuns()) {
+                if (r != null) {
+                    String text = r.getText(0);
+                    if (text != null) {
+                        if (text.contains("$fecha")) {
+                            text = text.replace("$fecha", converTime.format(date));
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("designado")) {
+                            text = text.replace("designado", designador.getGrado() + " " + designador.getNombre() + " "
+                                    + designador.getApellidop() + " " + designador.getApellidom());
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$cargo")) {
+                            text = text.replace("$cargo", designador.getCargo());
+                            r.setText(text, 0);
+                        }
+
+                        if (text.contains("$solicitud")) {
+                            text = text.replace("$solicitud", solicitud);
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$gestor")) {
+                            text = text.replace("$gestor", gestor.getGrado() + " " + gestor.getNombre() + " " + gestor.getApellidop()
+                                    + " " + gestor.getApellidom());
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$cuenta")) {
+                            text = text.replace("$cuenta", selected.getIdcontrolsolicitud().getGestor().getGestor());
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$empresa")) {
+                            text = text.replace("$empresa", institucion.getNombre());
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$numero")) {
+                            text = text.replace("$numero", String.valueOf(selected.getNoimagen()));
+                            r.setText(text, 0);
+                        }
+                        if (text.contains("$tema")) {
+                            text = text.replace("$tema", selected.getIdcontrolsolicitud().getSolicitud().getTema());
+                            r.setText(text, 0);
+                        }
+                        List<Object> imagnes = new ArrayList<>();
+                        if (itemsObject != null) {
+                            imagnes = itemsObject;
+
+                            //XWPFTable table = doc.createTable(itemsObject.size()+1, 5);
+                            XWPFTable table= new XWPFTable(doc.getTables().get(0).getCTTbl(),doc.getTables().get(0).getBody());
+                            XWPFTableRow row;
+                            for (int i = 0; i < imagnes.size(); i++) {
+                                Object[] variables = (Object[]) imagnes.get(i);
+                                  row  = table.createRow();
+                                // nota.add(new imgEntreNo((int)variables[0], (String)variables[1],(String)variables[1],(String)variables[3], (String)variables[4]));
+                                //img=(imgEntreNo) imagnes.get(i);
+                                
+                               row.getCell(0).setText(variables[0].toString());
+                                row.getCell(1).setText(variables[1].toString());
+                               row.getCell(2).setText(variables[2].toString());
+                                row.getCell(3).setText(variables[3].toString());
+                                row.getCell(4).setText(variables[4].toString());
+                                //table.addRow(row);
+                                System.out.println("Numero de filas " + i);
+                            }
+                            
+                            doc.setTable(0, table);
+                            itemsObject=null;
+                        }
+                    }
+                }
+            }
+        }
+    doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
+    descargar();
+    }
+public void descargar() throws FileNotFoundException
+{
+    download = new DefaultStreamedContent(new FileInputStream(
+					new File("C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\" + solicitud + ".docx")),"application/docx","primefaces_5");
+}
     @SuppressWarnings("empty-statement")
     public void imagenesEntregadasNota() throws IOException
     {
