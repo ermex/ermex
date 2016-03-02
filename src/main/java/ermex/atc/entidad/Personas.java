@@ -381,7 +381,9 @@ public class Personas implements Serializable {
     public void setGestoresList1(List<Gestores> gestoresList1) {
         this.gestoresList1 = gestoresList1;
     }
-
+    public Gestores getDGestor() {
+        return gestoresList1.get(gestoresList1.size()-1);
+    }
     @Override
     public int hashCode() {
         int hash = 0;
