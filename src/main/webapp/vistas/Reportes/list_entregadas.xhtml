@@ -40,7 +40,7 @@
                                 </p:panel>
                         </p:panelGrid>
                             <center>
-                            <p:commandButton id="aceptar" value="Aceptar" update="@form" disabled="#{empty reportesController.fechafinal  or empty reportesController.fechainicio or reportesController.fechainicio.after(reportesController.fechafinal)} "/>
+                                <p:commandButton id="aceptar" value="Aceptar" update="@form" disabled="#{empty reportesController.fechafinal or empty reportesController.fechainicio or reportesController.fechainicio.after(reportesController.fechafinal)}" />
                             <p:commandButton   value="Reset" actionListener="#{reportesController.reset()}"  update="@form"></p:commandButton>
                             </center>
                         <br/>
