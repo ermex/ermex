@@ -367,7 +367,9 @@ public class Personas implements Serializable {
     public List<Gestores> getGestoresList() {
         return gestoresList;
     }
-
+    public Gestores getGestor() {
+        return gestoresList.get(gestoresList.size()-1);
+    }
     public void setGestoresList(List<Gestores> gestoresList) {
         this.gestoresList = gestoresList;
     }

@@ -86,8 +86,8 @@
                                                 <f:facet name="header">
                                                     <h3>#{bundle.GestoresTitle_idpersona}</h3>
                                                 </f:facet>
-                                                <p:column headerText="#{bundle.PersonasLabel_curp}">
-                                                    <h:outputText value="#{gestores.curp}" />
+                                                <p:column headerText="#{bundle.GestoresTitle_idpersona}">
+                                                    <h:outputText value="#{gestores.gestor} #{gestores.gestor.status}" />
                                                 </p:column>
                                                 <p:column headerText="#{bundle.PersonasLabel_nombre}">
                                                     <h:outputText value="#{gestores.grado} #{gestores.nombre} #{gestores.apellidop} #{gestores.apellidom}" />
