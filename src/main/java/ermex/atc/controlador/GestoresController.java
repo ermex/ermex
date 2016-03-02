@@ -398,7 +398,11 @@ public class GestoresController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
+    public void prepare1(Gestores gestor) {
+        selected = gestor;
+        this.selectedInstitucion=gestor.getIdpersona().getIdinstitucion();
+        //initializeEmbeddableKey();
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("GestoresCreated"));
         reset();

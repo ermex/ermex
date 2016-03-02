@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePersonasTitle}" position="top" width="1350"  responsive="true"  closable="false" >
+            <h:form id="PersonasCreateForm">
+                <p:wizard id="wizardCrearPersonas" widgetVar="wizCrearPersonas" nextLabel="#{bundle.BotonSiguiente}" backLabel="#{bundle.BotonAtras}">                    
+                    <p:tab id="tabInstitucion" title="#{bundle.InstitucionTitle}">                            
+                        <p:panel header="#{bundle.DetallesPanel}">
+                            <div class="ui-fluid">
+                            <p:messages closable="true"/>
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">                                 
+                                <p:outputLabel value="#{bundle.DependenciaLabel}" for="iddependencia" />
+                                <h:outputText id="iddependencia" value="#{personasController.selected.idinstitucion.idorganismo.iddependencia.siglas}" title="#{bundle.PersonasTitle_dependencia}"/>                                             
+                                
+                                <p:outputLabel value="#{bundle.OrganismoLabel}" for="idorganismo" />
+                                <h:outputText id="idorganismo" value="#{personasController.selected.idinstitucion.idorganismo.nombre}" title="#{bundle.PersonasTitle_organismo}" /> 
+                                
+                                <p:outputLabel value="#{bundle.InstitucionLabel}" for="idinstitucion" />                                                           
+                                <h:outputText id="idinstitucion" value="#{personasController.selected.idinstitucion.nombre}" title="#{bundle.PersonasTitle_institucion}" />                               
+                            </p:panelGrid>
+                            </div>
+                        </p:panel>
+                    </p:tab> 
+                    <p:tab id="tabPersona" title="#{bundle.PersonasTitle}">
+                        <p:panel header="#{bundle.DetallesPanel}">
+                            <div class="ui-fluid">
+                            <p:messages closable="true"/>
+                            <p:panelGrid columns="4" layout="grid" columnClasses="ui-grid-col-4,ui-grid-col-10,ui-grid-col-4,ui-grid-col-10" styleClass="ui-panelgrid-blank">
+
+                                    <p:outputLabel value="#{bundle.PersonasLabel_tipo}" for="tipo" />
+                                    <p:selectOneMenu id="tipo" value="#{personasController.selected.tipo}">                     
+                                        <f:selectItems value="#{personasController.tipo}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_domicilioOficina}" for="domicilioOficina" />
+                                    <p:inputText id="domicilioOficina" value="#{personasController.selected.domicilioOficina}" title="#{bundle.PersonasTitle_domicilioOficina}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_domicilioOficina}"/>
+                                    
+                                    <p:outputLabel value="#{bundle.PersonasLabel_curp}" for="curp" />
+                                    <p:inputText id="curp" value="#{personasController.selected.curp}" title="#{bundle.PersonasTitle_curp}" validatorMessage="#{bundle.PersonasValidatorMessage_curp}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_telefono}" for="telefono" />
+                                    <p:inputText id="telefono" value="#{personasController.selected.telefono}" title="#{bundle.PersonasTitle_telefono}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_telefono}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_grado}" for="grado" />
+                                    <p:inputText id="grado" value="#{personasController.selected.grado}" title="#{bundle.PersonasTitle_grado}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_grado}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_correo1}" for="correo1" />
+                                    <p:inputText id="correo1" value="#{personasController.selected.correo1}" title="#{bundle.PersonasTitle_correo1}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_correo1}" validatorMessage="#{bundle.PersonasValidatorMessage_correo1}"/>                                                                          
+                                    <p:outputLabel value="#{bundle.PersonasLabel_nombre}" for="nombre" />
+                                    <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{bundle.PersonasTitle_nombre}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_nombre}" validatorMessage="#{bundle.PersonasValidatorMessage_nombre}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_correo2}" for="correo2" />
+                                    <p:inputText id="correo2" value="#{personasController.selected.correo2}" title="#{bundle.PersonasTitle_correo2}" validatorMessage="#{bundle.PersonasValidatorMessage_correo2}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_apellidop}" for="apellidop" />
+                                    <p:inputText id="apellidop" value="#{personasController.selected.apellidop}" title="#{bundle.PersonasTitle_apellidop}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidop}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidop}" />
+                                    <p:outputLabel value="#{bundle.PersonasLabel_dompersonal}" for="dompersonal" />
+                                    <p:inputText id="dompersonal" value="#{personasController.selected.dompersonal}" title="#{bundle.PersonasTitle_dompersonal}" />
+                                    <p:outputLabel value="#{bundle.PersonasLabel_apellidom}" for="apellidom" />
+                                    <p:inputText id="apellidom" value="#{personasController.selected.apellidom}" title="#{bundle.PersonasTitle_apellidom}" validatorMessage="#{bundle.PersonasValidatorMessage_apellidom}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_apellidom}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_telpersonal}" for="telpersonal" />
+                                    <p:inputText id="telpersonal" value="#{personasController.selected.telpersonal}" title="#{bundle.PersonasTitle_telpersonal}" />
+                                    <p:outputLabel value="#{bundle.PersonasLabel_cargo}" for="cargo" />
+                                    <p:inputText id="cargo" value="#{personasController.selected.cargo}" title="#{bundle.PersonasTitle_cargo}" required="true" requiredMessage="#{bundle.PersonasRequiredMessage_cargo}"/>
+                                    <p:outputLabel value="#{bundle.PersonasLabel_correo3}" for="correo3" />
+                                    <p:inputText id="correo3" value="#{personasController.selected.correo3}" title="#{bundle.PersonasTitle_correo3}" validatorMessage="#{bundle.PersonasValidatorMessage_correo3}" />
+                           </p:panelGrid>
+                            </div>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="tabImagen" title="#{bundle.ImagenesTitle}">
+                        <div class="ui-fluid">
+                        <p:panel header="#{bundle.ImagenesPanel}" >
+                            <p:panelGrid columns="5" style="text-align:center" styleClass="ui-panelgrid-blank"> 
+                                <p:fileUpload label="#{bundle.PersonasTitle_foto}" update="nombrefoto" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirFoto}" auto="true" >
+                                    <p:commandLink update="nombrefoto"  actionListener="#{personasController.quitarFoto()}">
+                                        <p:graphicImage id="nombrefoto" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.foto)}" cache="false" styleClass="imageSubir"/>                                     
+                                    </p:commandLink>
+                                </p:fileUpload>   
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_imgcurp}" update="nombreimgcurp" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirImgCurp}" auto="true" >
+                                    <p:commandLink update="nombreimgcurp"  actionListener="#{personasController.quitarImgCurp()}">
+                                        <p:graphicImage id="nombreimgcurp" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.imgcurp)}" cache="false" styleClass="imageSubir"/> 
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                <p:fileUpload label="#{bundle.PersonasTitle_idoficialanv}" update="nombreidoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialAnv}" auto="true">
+                                    <p:commandLink update="nombreidoficialanv"  actionListener="#{personasController.quitarIdOficialAnv()}">
+                                        <p:graphicImage id="nombreidoficialanv" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.idoficialanv)}" cache="false" styleClass="imageSubir"/>                             
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_idoficialrev}" update="nombreidoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirIdOficialRev}" auto="true" >
+                                    <p:commandLink update="nombreidoficialrev"  actionListener="#{personasController.quitarIdOficialRev()}">
+                                        <p:graphicImage id="nombreidoficialrev" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.idoficialrev)}" cache="false" styleClass="imageSubir"/>                                                             
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_huellamanoizq}" update="nombrehuellamanoizq" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoIzq}" auto="true" >
+                                    <p:commandLink update="nombrehuellamanoizq"  actionListener="#{personasController.quitarHuellaManoIzq()}">
+                                        <p:graphicImage id="nombrehuellamanoizq" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.huellamanoizq)}" cache="false" styleClass="imageSubir"/> 
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_huellapulgar}" update="nombrehuellapulgar" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaPulgar}" auto="true" >                 
+                                    <p:commandLink update="nombrehuellapulgar"  actionListener="#{personasController.quitarHuellaPulgar()}">
+                                        <p:graphicImage id="nombrehuellapulgar" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.huellapulgar)}" cache="false" styleClass="imageSubir"/> 
+                                    </p:commandLink>
+                                </p:fileUpload>
+
+                                <p:fileUpload label="#{bundle.PersonasTitle_nombramiento}" update="nombrenombramiento" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirNombramiento}" auto="true" >
+                                    <p:commandLink update="nombrenombramiento"  actionListener="#{personasController.quitarNombramiento()}">
+                                        <p:graphicImage id="nombrenombramiento" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.nombramiento)}" cache="false" styleClass="imageSubir"/> 
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_credoficialanv}" update="nombrecredoficialanv" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialAnv}" auto="true" >
+                                    <p:commandLink update="nombrecredoficialanv"  actionListener="#{personasController.quitarCredOficialAnv()}">
+                                        <p:graphicImage id="nombrecredoficialanv" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.credoficialanv)}" cache="false" styleClass="imageSubir"/>                               
+                                    </p:commandLink>
+                                </p:fileUpload>
+
+                                <p:fileUpload label="#{bundle.PersonasTitle_credoficialrev}" update="nombrecredoficialrev" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirCredOficialRev}" auto="true" >
+                                    <p:commandLink update="nombrecredoficialrev"  actionListener="#{personasController.quitarCredOficialRev()}">
+                                        <p:graphicImage id="nombrecredoficialrev" value="#{gestoresController.getImgMini(personasController.selected.credoficialrev)}" cache="false" styleClass="imageSubir"/>
+                                    </p:commandLink>
+                                </p:fileUpload>
+                                
+                                <p:fileUpload label="#{bundle.PersonasTitle_huellamanoder}" update="nombrehuellamanoder" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  fileUploadListener="#{personasController.subirHuellaManoDer}" auto="true" >
+                                    <p:commandLink update="nombrehuellamanoder"  actionListener="#{personasController.quitarHuellaManoDer()}">
+                                        <p:graphicImage id="nombrehuellamanoder" title="#{bundle.MessageQuitarImagen}" value="#{gestoresController.getImgMini(personasController.selected.huellamanoder)}" cache="false" styleClass="imageSubir"/> 
+                                    </p:commandLink>
+                                </p:fileUpload>
+ 
+                            </p:panelGrid>
+                        </p:panel>  
+                        </div>    
+                        <p:commandButton value="#{bundle.Save}"  actionListener="#{personasController.create}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" update=":GestoresEditForm">
+                            <p:confirm header="#{bundle.Confirmacion}" message="#{bundle.MsjConfirmacion}" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closable="false">
+                            <p:commandButton value="#{bundle.BotonYes}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{bundle.BotonNo}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </p:tab>  
+                </p:wizard> 
+                        <p:commandButton value="#{bundle.Cancel}" actionListener="#{personasController.reset}"  oncomplete="PF('wizCrearPersonas').loadStep('tabInstitucion',true);PF('PersonasCreateDialog').hide();" />           
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

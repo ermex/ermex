@@ -24,7 +24,11 @@
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_fechaConficlaves}" for="fechaConficlaves" />
                         <p:calendar id="fechaConficlaves" pattern="MM/dd/yyyy" value="#{procesoratificacionController.selected.fechaConficlaves}" title="#{bundle.ProcesoratificacionTitle_fechaConficlaves}"/>                        
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_cambios}" for="cambios" />
-                        <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}" />
+                        <p:selectBooleanCheckbox id="cambios" value="#{procesoratificacionController.selected.cambios}">
+                            <p:commandButton icon="ui-icon-pencil" action="#{gestoresController.prepare1(procesoratificacionController.selected.gestor)}"            update=":GestoresEditForm"   oncomplete="PF('GestoresEditDialog').show()"   title="#{bundle.BotonEditarPersonaUsuario}" disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}"/>                        
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(procesoratificacionController.selected.gestor.idpersona)}"  update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaGestor}"     disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}"/>  
+                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(procesoratificacionController.selected.gestor.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaDesignador}"     disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}"/>             
+                        </p:selectBooleanCheckbox>                          
                         <p:outputLabel value="#{bundle.ProcesoratificacionLabel_status}" for="status" />
                         <p:selectOneMenu id="status" value="#{procesoratificacionController.selected.status}" title="Al cambiar a baja o activo, ya no se podra modificar" disabled="#{procesoratificacionController.selected.status=='activo'||procesoratificacionController.selected.status=='baja'}">                           
                             <f:selectItem itemLabel="activo" itemValue="activo" />
@@ -45,6 +49,8 @@
                     </p:confirmDialog>
                     </h:panelGroup>
             </h:form>
+            <ui:include src="Edit_Gestor.xhtml"/>
+            <ui:include src="Edit_Persona.xhtml"/>
         </p:dialog>
 
     </ui:composition>
