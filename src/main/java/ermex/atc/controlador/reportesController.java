@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.faces.context.FacesContext;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.ChartSeries;
@@ -57,6 +59,11 @@ public class reportesController implements Serializable {
         resultadoContoller=null;
         horizontalGrafica=null;
         grafica=null;
+        resetearFitrosTabla();
+    }
+    public void resetearFitrosTabla() {
+        DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("reporteForm1:datalist");
+        table.reset();
     }
     
         //metodo generado por el programador para cabiar en encabezado de la tabla de list de reportes
