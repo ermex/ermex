@@ -53,9 +53,6 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
    public List<Controlsolicitudes> findByUsuariostatus(String usuario, int status)
    {
        String senetencia= "select * from controlsolicitudes where idpersonalatencion=? and status=?";
-       System.out.println("Valorres");
-       System.out.println(usuario);
-       System.out.println(status);
        Query query = em.createNativeQuery(senetencia, Controlsolicitudes.class);
        query.setParameter(1, usuario);
        query.setParameter(2, status);

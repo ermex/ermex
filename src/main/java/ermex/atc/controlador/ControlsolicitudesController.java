@@ -48,8 +48,6 @@ public class ControlsolicitudesController implements Serializable {
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
         //this.usuario="juan";
-        System.out.println("El usuario logeado es");
-        System.out.println(usuario);
     }
 
     public Controlsolicitudes getSelected() {
@@ -155,11 +153,9 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
      SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
      if (selected != null) {
          if (evento==1) {
-             System.out.println("Estamos terminando solicitud");
              selected.setFechatermino(formatter.parse(obtenerFecha()));
              selected.setStatus(2);
          } else if (evento == 2) {
-             System.out.println("Estamos cancelando solicitud");
             selected.setFechacancelacion(formatter.parse(obtenerFecha()));
             selected.setStatus(3);
          }

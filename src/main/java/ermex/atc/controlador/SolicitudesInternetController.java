@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -479,6 +480,7 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
          int mes = 0;
          int dia = 0;
          int years = 0;
+         Calendar fechar = Calendar.getInstance();
          String fecha1;
          SimpleDateFormat fd;
          Date date = null;
@@ -489,26 +491,16 @@ public void ModoNivel(List<Catalogoimagenes> tipoM)
              mes = Integer.parseInt(st.nextToken());
              dia = Integer.parseInt(st.nextToken());
              years = Integer.parseInt(st.nextToken());
-             //sumamos el mes 
-             if (dia > 7) {
-                 if (mes < 12) {
-                     mes = mes + 1;
-                 } else {
-                     mes = 1;
-                     years = years + 1;
-                 }
-                 dia = dia - 7;
-             } else  {
-                 dia=1;
-             }
+             fechar.set(years, mes, dia);
+             fechar.add(Calendar.DAY_OF_MONTH, +7);
+             fechaMinima=fd.format(fechar.getTime());
+             
              //restamos el dia, si esta es mayor a 3
          }
-         fechaMinima = String.valueOf(mes) + "/" + String.valueOf(dia) + "/" + String.valueOf(years);
         date = fd.parse(fechaMinima);
         return date;
  
     }
-
     public void setSelected(SolicitudesInternet selected) {
         this.selected = selected;
     }

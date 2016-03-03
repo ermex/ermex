@@ -6,8 +6,6 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Notas;
-import ermex.atc.entidad.Personalatencionusuarios;
-import ermex.atc.entidad.imgEntreNo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -49,7 +47,7 @@ public class NotasFacade extends AbstractFacade<Notas> {
     }
     public Object obtenerNonuto()
     {
-        
+        //obtienen el valor de lasecuencia y le suma 1
         String senetencia="select last_value+1 from numeronota";
         Query query= em.createNativeQuery(senetencia);
         

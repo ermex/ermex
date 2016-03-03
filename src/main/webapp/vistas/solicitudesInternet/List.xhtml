@@ -12,13 +12,15 @@
             <h:outputText value="#{bundle.ListSolicitudesInternetTitle}"></h:outputText> 
         </ui:define> 
         <ui:define name="body">                                     
-            <h:form id="SolicitudesInternetListForm">  
-                <h:outputText value="Solicitudes:" class="title_Page" />
+      <h:form id="SolicitudesInternetListForm">  
+          <p:panel>
+         <h:outputText value="Solicitudes:" class="title_Page" />
         <br/>
         <p:commandButton  value="Pendientes"  actionListener="#{solicitudesInternetController.setTiposConsulta(1)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/>                  
         <p:commandButton  value="Asignadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(4)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
         <p:commandButton  value="Terminadas"  actionListener="#{solicitudesInternetController.setTiposConsulta(2)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
         <p:commandButton  value="Canceladas"  actionListener="#{solicitudesInternetController.setTiposConsulta(3)}" action="#{solicitudesInternetController.actualizarItems()}" update="@form"/> 
+        </p:panel>
           <br/>
           <br/>
         <p:panel id="idpanelMenu" header="#{solicitudesInternetController.tituloTabla}">
