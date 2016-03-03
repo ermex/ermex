@@ -34,9 +34,8 @@ public class loginController implements Serializable{
     private PersonalatencionusuariosFacade facadeUsuario;
     private PersonalatencionusuariosController controlerusuario;
     private static final long serialVersionUID = 1194801825228386363L;
-    
-   private String user;
-   private String pwd;
+    private String user;
+    private String pwd;
 
 
     public void setFacadeUsuario(PersonalatencionusuariosFacade facdeUsuario) {
@@ -83,7 +82,7 @@ public class loginController implements Serializable{
             HttpSession session =  sessionBean.getSession();            
             //se asigna el nombre de la session
             session.setAttribute("username", user);
-            contExternal.redirect("./vistas/gestores/List.xhtml");   
+            contExternal.redirect("./vistas/controlsolicitudes/List.xhtml");   
              mensaje= new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvendido", user);
         }else
         {
@@ -92,4 +91,14 @@ public class loginController implements Serializable{
         }
         FacesContext.getCurrentInstance().addMessage(null, mensaje);
     }
+    
+    public void logout() throws IOException 
+    {
+		HttpSession session = sessionBean.getSession();
+		session.invalidate();
+                
+                FacesContext context= FacesContext.getCurrentInstance();
+                ExternalContext contExternal=context.getExternalContext();
+                contExternal.redirect("../../login.xhtml");
+	}
 }

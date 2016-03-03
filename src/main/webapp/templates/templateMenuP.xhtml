@@ -6,6 +6,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">  
     <h:body>
         <h:form >
+            <p:panel>
+            <p>Hola !!! #{loginController.user}</p>
+            <h:commandLink action="#{loginController.logout()}" value="Logout"></h:commandLink>
+            </p:panel>
             <p:panelMenu>
                     <p:submenu label="Dependencias" icon="ui-icon-check">
                          <p:menuitem value="Ver Dependencias" outcome="/vistas/dependencias/List.xhtml" />     

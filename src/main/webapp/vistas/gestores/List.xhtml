@@ -11,7 +11,7 @@
             <h:outputText value="#{bundle.ListGestoresTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form id="GestoresListForm">
+                <h:form id="GestoresListForm">
                 <p:panel header="#{bundle.ListGestoresTitle}">
                     <p:contextMenu for="datalist">                      
                         <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/>
@@ -63,8 +63,6 @@
                         </p:column>
                     </p:dataTable>  
                 </p:panel>
-            </h:form>
-
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
