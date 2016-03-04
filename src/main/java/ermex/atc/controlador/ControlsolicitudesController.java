@@ -46,6 +46,7 @@ public class ControlsolicitudesController implements Serializable {
     
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
+        //this.usuario="juan";
         System.out.println("El usuario logeado es");
         System.out.println(usuario);
     }

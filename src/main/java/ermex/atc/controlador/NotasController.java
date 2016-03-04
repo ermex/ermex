@@ -246,13 +246,14 @@ public class NotasController implements Serializable {
                 }
             }
         }
-    doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
+   // doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
+   doc.write(new FileOutputStream("/home/beto/juan/notas/" + solicitud + ".docx"));
     descargar();
     }
 public void descargar() throws FileNotFoundException
 {
     download = new DefaultStreamedContent(new FileInputStream(
-					new File("C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\" + solicitud + ".docx")),"application/docx","primefaces_5");
+					new File("/home/beto/juan/notas/20130422-170139-148.docx")),"application/docx","primefaces_5.docx");
 }
     @SuppressWarnings("empty-statement")
     public void imagenesEntregadasNota() throws IOException

@@ -19,7 +19,7 @@ public class sessionBean {
 
 public static HttpSession getSession() {
 		return (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
+				.getExternalContext().getSession(false);
 	}
 
 	public static HttpServletRequest getRequest() {
@@ -29,7 +29,7 @@ public static HttpSession getSession() {
 
 	public static String getUserName() {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
+				.getExternalContext().getSession(false);
 		return session.getAttribute("username").toString();
 	}
 

@@ -82,8 +82,7 @@ public class GestoresFacade extends AbstractFacade<Gestores> {
         Query query =   em.createQuery(senetencia,Gestores.class);
         query.setParameter("status", status);
         query.setParameter("status1", status1);
-        query.setParameter("status2", status);
-        query.setParameter("status3", status1);
+        query.setParameter("status2", status2);
         return (List<Gestores>) query.getResultList();
     }
   

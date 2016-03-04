@@ -71,9 +71,6 @@
                                 <p:dataExporter type="pdf"  target="datalist" fileName="#{notasController.solicitud}" 
                                                 preProcessor="#{notasController.preProcessPDF}"/>
                             </h:commandLink> 
-                            <p:commandButton value="Exportar 2" action="#{notasController.crearNota}" ajax="false">
-                                <p:fileDownload value="#{notasController.download}"/>
-                            </p:commandButton>
                         </f:facet>
                                 
                 </p:dataTable>                  
