@@ -43,6 +43,7 @@ public class ControlsolicitudesController implements Serializable {
     private Personalatencionusuarios responsable;
     private List<Imagnesolicitudes> imagensolicitud;
     private int evento=0;
+    private String titulo="Solicitudes Asignadas";
     
     public ControlsolicitudesController() {
         this.usuario=sessionBean.getUserName();
@@ -58,6 +59,11 @@ public class ControlsolicitudesController implements Serializable {
     public void setSelected(Controlsolicitudes selected) {
         this.selected = selected;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+    
 
     public List<Imagnesolicitudes> getImagensolicitud() {
         if (selected!=null) {
@@ -166,7 +172,21 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
  {
      if (usuario!=null) {
          items=ejbFacade.findByUsuariostatus(usuario, i);
-         System.out.println("Estamos acualizando el control solicitues");
+         if (i==4) {
+             titulo="Solicitudes Asignadas";
+         }
+         else
+         {
+             if (i==2) {
+             titulo="Solicitudes Terminadas";    
+             }
+             else
+             {
+                 if (i==3) {
+                     titulo="Solicitudes Canceladas";
+                 }
+             }
+         }
      }
  }
 public void resetResponsable()

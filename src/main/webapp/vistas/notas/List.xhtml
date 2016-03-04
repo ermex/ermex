@@ -15,7 +15,20 @@
 
         <ui:define name="body">
             <h:form id="NotasListForm">
+                <p:panel>
+                 <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}" update="@form"/>                  
+                <p:commandButton  value="Terminadas" action="#{notasController.filtro(2)}" update="@form"/> 
+                <p:commandButton  value="Canceladas" action="#{notasController.filtro(3)}" update="@form"/> 
+                <br/>
+                <br/>
+                </p:panel>
+                <br/>
                 <p:panel header="#{bundle.ListNotasTitle}">
+                       <p:contextMenu for="datalist">
+                            <p:menuitem id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotasViewForm" oncomplete="PF('NotasViewDialog').show()" disabled="#{empty notasController.selected}"/>
+                            <p:menuitem id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotasEditForm" oncomplete="PF('NotasEditDialog').show()" disabled="#{empty notasController.selected}"/>                           
+                            <p:menuitem id="verNota"   icon="ui-icon-pencil" value="No. imagen" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show() #{notasController.informacionNota()}" disabled="#{empty notasController.selected}"/>
+                        </p:contextMenu>
                     <p:dataTable id="datalist" value="#{notasController.items}" var="item"
                                  selectionMode="single" selection="#{notasController.selected}"
                                  paginator="true"
@@ -23,10 +36,11 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-
-                        <p:ajax event="rowSelect"   update="viewButton verNota editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="viewButton editButton deleteButton verNota"/>
-
+                        <f:facet name="header">
+                           <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" actionListener="#{notasController.descargar()}">
+                                     <p:fileDownload value="#{notasController.download}"  />
+                            </p:commandButton>
+                        </f:facet>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNotasTitle_idnota}"/>
@@ -123,15 +137,6 @@
                             </f:facet>
                             <h:outputText value="#{item.idcontrolsolicitud}"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotasViewForm" oncomplete="PF('NotasViewDialog').show()" disabled="#{empty notasController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":NotasEditForm" oncomplete="PF('NotasEditDialog').show()" disabled="#{empty notasController.selected}"/>
-                            <p:commandButton id="verNota"   icon="ui-icon-pencil" value="No. imagen" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show() #{notasController.informacionNota()}" disabled="#{empty notasController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{notasController.destroy}" update=":growl,datalist" disabled="#{empty notasController.selected}"/>
-                                                           <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" actionListener="#{notasController.descargar()}">
-                                     <p:fileDownload value="#{notasController.download}"  />
-                                </p:commandButton>
-                        </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>

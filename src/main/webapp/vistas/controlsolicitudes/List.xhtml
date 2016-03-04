@@ -15,7 +15,8 @@
 
         <ui:define name="body">
             <h:form id="ControlsolicitudesListForm">
-                <h:outputText value="Responsable de atender la solicitud:" class="title_Page" />
+                <p:panel>
+                                    <h:outputText value="Responsable de atender la solicitud:" class="title_Page" />
                 <h:outputText value="#{controlsolicitudesController.usuario}" class="title_Page" />
                 <br/>
                 <p:commandButton  value="Asignados"  action="#{controlsolicitudesController.actualizarItems(4)}" update="@form"/>                  
@@ -23,11 +24,11 @@
                 <p:commandButton  value="Canceladas" action="#{controlsolicitudesController.actualizarItems(3)}" update="@form"/> 
                 <br/>
                 <br/>
-                <p:panel header="#{bundle.ListControlsolicitudesTitle}">
+                </p:panel>
+                <p:panel header="#{controlsolicitudesController.titulo}">
                        <p:contextMenu for="datalist">
                             <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":CtlSolicitudesInternetViewForm" oncomplete="PF('CtlSolicitudesInternetViewDialog').show()"/>
-                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" action="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" /> 
-                          
+                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" action="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" />                           
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{controlsolicitudesController.items}" var="item"
                                  selectionMode="single" selection="#{controlsolicitudesController.selected}"

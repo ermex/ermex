@@ -14,6 +14,7 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import ermex.atc.clases.generarHeaderPDF;
+import ermex.atc.clases.sessionBean;
 import ermex.atc.clases.tablaImgNotas;
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
@@ -75,6 +76,7 @@ public class NotasController implements Serializable {
     @EJB
     private ermex.atc.sesion.NotasFacade ejbFacade;
     private List<Notas> items = null;
+    private List<Notas> itemsRespaldo = null;
     //Declaracion de variables para llenar la tabla de imagenes entregradas en paginaNota.xhtml
     private List<Object> itemsObject = null;
     private Notas selected;
@@ -437,6 +439,14 @@ public void descargar() throws FileNotFoundException
         selected.setIdnota(idnota);
         selected.setNonota(obejto.hashCode());
     }
+   public void filtro(int tipo)
+   {
+       if (tipo!=0) {
+       items=ejbFacade.notasBayResponsableAndStatus(sessionBean.getUserName(), tipo);    
+       }
+       
+       
+   }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("NotasCreated"));
@@ -459,7 +469,8 @@ public void descargar() throws FileNotFoundException
 
     public List<Notas> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
+            itemsRespaldo=getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
         }
         return items;
     }
