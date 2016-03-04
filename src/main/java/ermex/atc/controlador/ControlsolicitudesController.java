@@ -43,6 +43,7 @@ public class ControlsolicitudesController implements Serializable {
     private Personalatencionusuarios responsable;
     private List<Imagnesolicitudes> imagensolicitud;
     private int evento=0;
+    private int editar=4;
     private String titulo="Solicitudes Asignadas";
     
     public ControlsolicitudesController() {
@@ -71,6 +72,14 @@ public class ControlsolicitudesController implements Serializable {
     }
 
     protected void setEmbeddableKeys() {
+    }
+
+    public int getEditar() {
+        return editar;
+    }
+
+    public void setEditar(int editar) {
+        this.editar = editar;
     }
 
     protected void initializeEmbeddableKey() {
@@ -153,9 +162,11 @@ public void asignarResponsable(SolicitudesInternet solicitud) throws ParseExcept
      SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
      if (selected != null) {
          if (evento==1) {
+             System.out.println("Estamos terminando");
              selected.setFechatermino(formatter.parse(obtenerFecha()));
              selected.setStatus(2);
          } else if (evento == 2) {
+             System.out.println("Estamos cancelando");
             selected.setFechacancelacion(formatter.parse(obtenerFecha()));
             selected.setStatus(3);
          }

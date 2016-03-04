@@ -62,7 +62,7 @@ public class Notas implements Serializable {
     @NotNull
     @Column(name = "nonota")
     private int nonota;
-    @Size(max = 50)
+    @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "noimagen")

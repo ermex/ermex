@@ -72,6 +72,8 @@ public class NotasController implements Serializable {
     private String usuarioGestor;
     private StreamedContent download;
     private String tituloTabla="Notas iniciadas";
+    private boolean descargar=true;
+    private int tipoConsulta=1;
 
     public NotasController() {
     }
@@ -128,6 +130,22 @@ public class NotasController implements Serializable {
         this.tituloTabla = tituloTabla;
     }
 
+    public boolean isDescargar() {
+        return descargar;
+    }
+
+    public void setDescargar(boolean descargar) {
+        this.descargar = descargar;
+    }
+
+    public int getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public void setTipoConsulta(int tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
+
 
     //metodo para obtener las imagenes entregadas a la nota
     public List<Object> getItemsObject() {
@@ -137,6 +155,30 @@ public class NotasController implements Serializable {
         }
 
         return itemsObject;
+    }
+    
+    public void acuseAndOficio(int evento)
+    {
+        Date date = new Date();
+        DateFormat converTime2 = new SimpleDateFormat("MM/dd/yyyy");
+        converTime2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
+        try {
+            Date fecha=converTime2.parse(converTime2.format(date));
+            if (evento==1) {
+            selected.setFechaoficio(fecha);
+            update();
+        }else
+        {
+            if (evento==2) {
+                selected.setFechaacuse(fecha);
+                selected.setStatus(3);
+                update();
+            }
+        }
+        } catch (ParseException ex) {
+            Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, InvalidFormatException {
@@ -193,11 +235,14 @@ public class NotasController implements Serializable {
                 String valorObj=""+obj;
                 int noimg=Integer.parseInt(valorObj);
                 if (noimg > 0) {
-                    
-                    selected.setNombre(fecha+"-" + "nota-" + selected.getNonota());
+                    String nombreNota=fecha+ " nota " + selected.getNonota()+" ("+
+                           selected.getIdcontrolsolicitud().getGestor().getGestor()+"_"+
+                           selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getNombre()
+                            + ")";
+                    selected.setNombre(nombreNota);
                     selected.setFechacreacion(fechacreacion);   
                     selected.setStatus(2);
-                   // selected.setNoimagen(noimg);
+                    selected.setNoimagen(noimg);
                     
                     JsfUtil.addSuccessMessage("Total de imagenes encontradas " + noimg + " para la nota " + selected.getIdnota());
                 }else
@@ -223,13 +268,21 @@ public class NotasController implements Serializable {
     }
     public String pathFile()
     {
-        
-        String path= "/home/beto/"+sessionBean.getUserName()+"/"+obtenerFecha();
+       // String path="C:/Documents and Settings/ermex/My Documents/notas/";
+        String path= "/home/apermex/"+sessionBean.getUserName()+"/"+obtenerFecha()+"/";
         File directorio= new File(path);
         if (!directorio.exists()) {
             directorio.mkdirs();
         }
         return directorio.getAbsolutePath();
+    }
+    public void validarDescarga()
+    {
+        if (selected!=null) {
+            if (selected.getStatus()==2 || selected.getStatus()==3) {
+                descargar=false;
+            }
+        }
     }
     public void generarNotaWord() throws IOException, InvalidFormatException {
         //String ruta="C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\plantillanota.docx";        
@@ -315,16 +368,16 @@ public class NotasController implements Serializable {
             }
         }
    //doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
-  doc.write(new FileOutputStream(pathFile() +"/"+ selected.getNombre() + ".docx"));
+  doc.write(new FileOutputStream(pathFile()+ selected.getNombre() + ".docx"));
         System.out.println("Nota creada");
     //descargar();
     }
-      public void descargar() throws FileNotFoundException
+      public void descargarDoc() throws FileNotFoundException
      {
-//          download = new DefaultStreamedContent(new FileInputStream(
-//					new File("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/20130422-170139-148.docx")),"application/docx","primefaces_5.docx");
-         download = new DefaultStreamedContent(new FileInputStream(
-					new File("/home/beto/carolina2016/20160305 nota 382.docx")),"application/docx",selected.getNombre()+".docx");
+       //download = new DefaultStreamedContent(new FileInputStream(
+	//				new File(pathFile()+selected.getNombre()+".docx")),"application/docx",selected.getNombre()+".docx");
+       download = new DefaultStreamedContent(new FileInputStream(
+				new File(pathFile()+"/"+selected.getNombre()+".docx")),"application/docx",selected.getNombre()+".docx");
      }
       
     //metodo para obtener informacion de la nota.
@@ -398,7 +451,7 @@ public class NotasController implements Serializable {
        if (tipo!=0) {
        items=ejbFacade.notasBayResponsableAndStatus(sessionBean.getUserName(), tipo);    
        }
-       
+       descargar=true;
        if (tipo==1) {
            tituloTabla="Notas asignadas";
        }else
@@ -409,6 +462,7 @@ public class NotasController implements Serializable {
            {
                if (tipo==3) {
                     tituloTabla="Notas terminadas";        
+                    
                }else
                {
                         tituloTabla="Notas canceladas";        
@@ -442,6 +496,8 @@ public class NotasController implements Serializable {
     public List<Notas> getItems() {
         if (items == null) {
             items = getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
+            descargar=true;
+            tipoConsulta=1;
             //itemsRespaldo=getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
             tituloTabla="Notas iniciadas";
         }

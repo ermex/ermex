@@ -16,19 +16,21 @@
         <ui:define name="body">
             <h:form id="ControlsolicitudesListForm">
                 <p:panel>
-                                    <h:outputText value="Responsable de atender la solicitud:" class="title_Page" />
+               <h:outputText value="Seleccione el estado de la solicitud:" class="title_Page" />
+                
                 <h:outputText value="#{controlsolicitudesController.usuario}" class="title_Page" />
                 <br/>
-                <p:commandButton  value="Asignados"  action="#{controlsolicitudesController.actualizarItems(4)}" update="@form"/>                  
-                <p:commandButton  value="Terminadas" action="#{controlsolicitudesController.actualizarItems(2)}" update="@form"/> 
-                <p:commandButton  value="Canceladas" action="#{controlsolicitudesController.actualizarItems(3)}" update="@form"/> 
+                <p:commandButton  value="Asignados"  action="#{controlsolicitudesController.actualizarItems(4)}" actionListener="#{controlsolicitudesController.setEditar(4)}" update="@form"/>                  
+                <p:commandButton  value="Terminadas" action="#{controlsolicitudesController.actualizarItems(2)}" actionListener="#{controlsolicitudesController.setEditar(2)}" update="@form"/> 
+                <p:commandButton  value="Canceladas" action="#{controlsolicitudesController.actualizarItems(3)}" actionListener="#{controlsolicitudesController.setEditar(3)}" update="@form"/> 
                 <br/>
                 <br/>
                 </p:panel>
                 <p:panel header="#{controlsolicitudesController.titulo}">
                        <p:contextMenu for="datalist">
                             <p:menuitem icon="ui-icon-search" value="#{bundle.View}" update=":CtlSolicitudesInternetViewForm" oncomplete="PF('CtlSolicitudesInternetViewDialog').show()"/>
-                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" action="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" />                           
+                            <p:menuitem icon="ui-icon-plus" value="#{bundle.iniciarNota}" action="#{notasController.crearNotaCS(controlsolicitudesController.selected)}" update=":NotasCreateForm" oncomplete="PF('NotasCreateDialog').show()" 
+                                        disabled="#{controlsolicitudesController.editar eq 2 or controlsolicitudesController.editar eq 3}"/>                           
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{controlsolicitudesController.items}" var="item"
                                  selectionMode="single" selection="#{controlsolicitudesController.selected}"
@@ -36,11 +38,11 @@
                                  rowKey="#{item.idcontrolsolicitud}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
-                                 editable="#{item.status== 1}"
+                                 editable="#{controlsolicitudesController.editar==4}"
                                  >
                         <p:ajax event="rowEdit" listener="#{controlsolicitudesController.update()}"/>
                         <p:ajax event="rowEditCancel" listener="#{controlsolicitudesController.cancelarEdit}"/>
-                        <p:ajax event="rowSelect" update="proyecto" />
+                        <p:ajax event="rowSelect" />
                         <p:column filterBy="#{item.solicitud}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListControlsolicitudesTitle_solicitud}"/>
@@ -56,7 +58,7 @@
                             </h:outputText>
                         </p:column>
                          <p:column headerText="Tema">
-                            <p:cellEditor>
+                            <p:cellEditor >
                             <f:facet name="output">
                               <h:outputText value="#{item.tema}"/>
                             </f:facet>
@@ -127,9 +129,9 @@
                                 <p:confirm header="" message="Esta segura(o) de terminar la solicitud? #{item.solicitud}" icon="ui-icon-alert"/>
                             </p:commandLink>
                         </p:column>
-       <p:column style="width:32px">
+                        <p:column style="width:32px">
            <p:rowEditor />
-       </p:column>                        
+</p:column>                        
                     </p:dataTable>
                     
                 </p:panel>

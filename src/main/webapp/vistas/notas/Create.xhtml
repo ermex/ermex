@@ -26,8 +26,6 @@
                         <h:inputTextarea id="observaciones" value="#{notasController.selected.observaciones}" title="#{bundle.CreateNotasTitle_observaciones}" />
                         <p:outputLabel value="#{bundle.CreateNotasLabel_dispotivioentrega}" for="dispotivioentrega" />
                         <p:inputText id="dispotivioentrega" value="#{notasController.selected.dispotivioentrega}" title="#{bundle.CreateNotasTitle_dispotivioentrega}" />
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_pwdnota}" for="pwdnota" />
-                        <p:inputText id="pwdnota" value="#{notasController.selected.pwdnota}" required="true"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notasController.createNota()}" value="#{bundle.Save}" update="display,:NotasListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotasCreateDialog');"
                                      disabled="#{notasController.selected.noimagen==0}"/>

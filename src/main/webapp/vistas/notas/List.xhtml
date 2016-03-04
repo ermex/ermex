@@ -16,21 +16,25 @@
         <ui:define name="body">
             <h:form id="NotasListForm">
                 <p:panel>
-                 <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}" update="@form"/>                  
-                 <p:commandButton  value="Creadas" action="#{notasController.filtro(2)}" update="@form"/> 
-                 <p:commandButton  value="Terminadas" action="#{notasController.filtro(3)}" update="@form"/> 
-                 <p:commandButton  value="Canceladas" action="#{notasController.filtro(4)}" update="@form"/> 
+                   <h:outputText value="Seleccione el estado de la nota:" class="title_Page" />
+                   <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}"  actionListener="#{notasController.setTipoConsulta(1)}" update="@form"/>                  
+                 <p:commandButton  value="Creadas" action="#{notasController.filtro(2)}" actionListener="#{notasController.setTipoConsulta(2)}" update="@form"/> 
+                 <p:commandButton  value="Terminadas" action="#{notasController.filtro(3)}" actionListener="#{notasController.setTipoConsulta(3)}" update="@form"/> 
+                 <p:commandButton  value="Canceladas" action="#{notasController.filtro(4)}" actionListener="#{notasController.setTipoConsulta(4)}" update="@form"/> 
                 <br/>
                 <br/>
                 </p:panel>
                 <br/>
-                <p:panel header="#{notasController.tituloTabla}">
-                       <p:contextMenu for="datalist">
-                            <p:menuitem id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotasViewForm" oncomplete="PF('NotasViewDialog').show()" />
-                            <p:menuitem id="editButton"   icon="ui-icon-pencil" value="#{bundle.Create}" update=":NotasCreateForm"
-                                        oncomplete="PF('NotasCreateDialog').show()" actionListener="#{notasController.prepararCrearNota()}" />                           
-                            <p:menuitem id="verNota"   icon="ui-icon-pencil" value="Ver imagenes" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" 
-                                        actionListener="#{notasController.informacionNota()}" disabled="#{notasController.selected.status==1} #{notasController.selected.status==4}"/>
+                <p:panel id="idpanel" header="#{notasController.tituloTabla}">
+                    <p:contextMenu id="nemu" for="datalist">
+                            <p:menuitem id="crearNotaB"   icon="ui-icon-pencil" value="#{bundle.CrearNota}" update=":NotasCreateForm"
+                                        oncomplete="PF('NotasCreateDialog').show()" actionListener="#{notasController.prepararCrearNota()}" disabled="#{notasController.tipoConsulta != 1}"/>                           
+                            <p:menuitem id="verNota"   icon="ui-icon-search"  value="#{bundle.VerImg}" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" 
+                                        actionListener="#{ notasController.informacionNota()}" disabled="#{notasController.tipoConsulta eq 1 or notasController.tipoConsulta eq 4}"/>
+                            <p:menuitem id="oficio" icon="ui-icon-plus" value="#{bundle.fechaOficio}" actionListener="#{notasController.acuseAndOficio(1)}"
+                                        disabled="#{empty notasController.selected.fechacreacion or (!empty notasController.selected.fechaoficio)}"/>                            
+                            <p:menuitem id="acuse" icon="ui-icon-plus"  value="#{bundle.fechaAcuse}"  actionListener="#{notasController.acuseAndOficio(2)}"
+                                        disabled="#{empty notasController.selected.fechaoficio or (!empty notasController.selected.fechaacuse) }"/>
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{notasController.items}" var="item"
                                  selectionMode="single" selection="#{notasController.selected}"
@@ -39,9 +43,12 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
+                        <p:ajax event="rowSelect" update=":NotasListForm:nemu,iddescargar" listener="#{notasController.validarDescarga()}"/>
                         <f:facet name="header">
-                           <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" actionListener="#{notasController.descargar()}">
-                                     <p:fileDownload value="#{notasController.download}"  />
+                            <p:commandButton id="iddescargar" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" 
+                                             actionListener="#{notasController.descargarDoc()}" disabled="#{notasController.descargar}">
+                                
+                            <p:fileDownload value="#{notasController.download}" />
                             </p:commandButton>
                            <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
                            <p:columnToggler datasource="datalist" trigger="toggler" />                            
@@ -117,12 +124,6 @@
                                 <h:outputText value="#{bundle.ListNotasTitle_dispotivioentrega}"/>
                             </f:facet>
                             <h:outputText value="#{item.dispotivioentrega}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNotasTitle_pwdnota}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pwdnota}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
