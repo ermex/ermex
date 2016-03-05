@@ -45,6 +45,7 @@ public class NotasFacade extends AbstractFacade<Notas> {
         
         return sql.getResultList();
     }
+    //metodo para obtener el siguiente numero de nota
     public Object obtenerNonuto()
     {
         //obtienen el valor de lasecuencia y le suma 1
@@ -54,6 +55,14 @@ public class NotasFacade extends AbstractFacade<Notas> {
         return  query.getSingleResult();
                 
     }
+    public Object obtenerNoImagen(String idnota)
+    {
+        String sentencia="select count(*) from ctl_copias where idnota=?";
+        Query query=em.createNativeQuery(sentencia);
+        query.setParameter(1, idnota);
+        return  query.getSingleResult();
+    }
+    //obtenr lsa notas dependiendo del respansable y status
     public List<Notas> notasBayResponsableAndStatus(String responsable,int status)
     {
         String consulta="select n.idnota,n.idcontrolsolicitud,n.nonota,n.nombre,n.noimagen,n.nooficio,n.fechacreacion, n.observaciones,\n" +

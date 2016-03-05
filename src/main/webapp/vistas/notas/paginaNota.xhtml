@@ -65,14 +65,7 @@
                        </p:column>                        
                         <p:column headerText="Copia" >
                            <h:outputText value="#{emIngE[4]}"/>
-                       </p:column>
-                        <f:facet name="footer">
-                            <h:commandLink value="Exportar">
-                                <p:dataExporter type="pdf"  target="datalist" fileName="#{notasController.solicitud}" 
-                                                preProcessor="#{notasController.preProcessPDF}"/>
-                            </h:commandLink> 
-                        </f:facet>
-                                
+                       </p:column>                                
                 </p:dataTable>                  
                </p:panel>
               </h:panelGroup>             

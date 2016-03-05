@@ -17,8 +17,9 @@
             <h:form id="NotasListForm">
                 <p:panel>
                  <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}" update="@form"/>                  
-                <p:commandButton  value="Terminadas" action="#{notasController.filtro(2)}" update="@form"/> 
-                <p:commandButton  value="Canceladas" action="#{notasController.filtro(3)}" update="@form"/> 
+                 <p:commandButton  value="Creadas" action="#{notasController.filtro(2)}" update="@form"/> 
+                 <p:commandButton  value="Terminadas" action="#{notasController.filtro(3)}" update="@form"/> 
+                 <p:commandButton  value="Canceladas" action="#{notasController.filtro(4)}" update="@form"/> 
                 <br/>
                 <br/>
                 </p:panel>
@@ -26,8 +27,10 @@
                 <p:panel header="#{notasController.tituloTabla}">
                        <p:contextMenu for="datalist">
                             <p:menuitem id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":NotasViewForm" oncomplete="PF('NotasViewDialog').show()" />
-                            <p:menuitem id="editButton"   icon="ui-icon-pencil" value="#{bundle.Create}" update=":NotasEditForm" oncomplete="PF('NotasEditDialog').show()" />                           
-                            <p:menuitem id="verNota"   icon="ui-icon-pencil" value="No. imagen" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" actionListener="#{notasController.informacionNota()}"/>
+                            <p:menuitem id="editButton"   icon="ui-icon-pencil" value="#{bundle.Create}" update=":NotasCreateForm"
+                                        oncomplete="PF('NotasCreateDialog').show()" actionListener="#{notasController.prepararCrearNota()}" />                           
+                            <p:menuitem id="verNota"   icon="ui-icon-pencil" value="Ver imagenes" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" 
+                                        actionListener="#{notasController.informacionNota()}" disabled="#{notasController.selected.status==1} #{notasController.selected.status==4}"/>
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{notasController.items}" var="item"
                                  selectionMode="single" selection="#{notasController.selected}"
@@ -40,8 +43,10 @@
                            <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" actionListener="#{notasController.descargar()}">
                                      <p:fileDownload value="#{notasController.download}"  />
                             </p:commandButton>
+                           <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
+                           <p:columnToggler datasource="datalist" trigger="toggler" />                            
                         </f:facet>
-                        <p:column>
+                        <p:column  filterBy="#{item.idnota}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNotasTitle_idnota}"/>
                             </f:facet>
@@ -53,6 +58,12 @@
                             </f:facet>
                             <h:outputText value="#{item.nonota}"/>
                         </p:column>
+                        <p:column filterBy="#{item.idcontrolsolicitud.solicitud.solicitud}">
+                            <f:facet name="header">
+                                <h:outputText value="Solicitud"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idcontrolsolicitud.solicitud.solicitud}"/>
+                        </p:column>                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNotasTitle_nombre}"/>
@@ -87,12 +98,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNotasTitle_status}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.status}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNotasTitle_fechaoficio}"/>
                             </f:facet>
                             <h:outputText value="#{item.fechaoficio}">
@@ -109,21 +114,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNotasTitle_reposiciones}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.reposiciones}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListNotasTitle_dispotivioentrega}"/>
                             </f:facet>
                             <h:outputText value="#{item.dispotivioentrega}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNotasTitle_idorganismo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idorganismo}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -133,10 +126,10 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListNotasTitle_idcontrolsolicitud}"/>
+                                <h:outputText value="#{bundle.ListNotasTitle_reposiciones}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idcontrolsolicitud}"/>
-                        </p:column>
+                            <h:outputText value="#{item.reposiciones}"/>
+                        </p:column>                        
                     </p:dataTable>
                 </p:panel>
             </h:form>

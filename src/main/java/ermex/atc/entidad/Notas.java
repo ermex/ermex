@@ -66,7 +66,7 @@ public class Notas implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "noimagen")
-    private Integer noimagen;
+    private Integer noimagen=0;
     @Size(max = 25)
     @Column(name = "nooficio")
     private String nooficio;
