@@ -28,8 +28,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.servlet.http.HttpSession;
 import org.primefaces.event.RowEditEvent;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Named("controlsolicitudesController")
 @SessionScoped
@@ -47,7 +47,7 @@ public class ControlsolicitudesController implements Serializable {
     private String titulo="Solicitudes Asignadas";
     
     public ControlsolicitudesController() {
-        this.usuario=sessionBean.getUserName();
+        this.usuario=SecurityContextHolder.getContext().getAuthentication().getName();
         //this.usuario="juan";
     }
 

@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:composition template="/templates/templateBase.xhtml">
         <ui:define name="title">
@@ -14,7 +15,7 @@
                 <h:form id="GestoresListForm">
                 <p:panel header="#{bundle.ListGestoresTitle}">
                     <p:contextMenu for="datalist">                      
-                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/>
+                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":GestoresEditForm"      oncomplete="PF('GestoresEditDialog').show()"/></sec:authorize>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":GestoresViewForm"      oncomplete="PF('GestoresViewDialog').show()"/>                 
                         <p:menuitem id="histButton"     value="#{bundle.ViewHD}"    icon="ui-icon-note"     update=":GestoresHistForm"      oncomplete="PF('GestoresHistDialog').show()" action="#{histdesignagestorController.seleccionarGestor(gestoresController.selected)}" title="#{bundle.BotonHistorialDesignador}"/>
                     </p:contextMenu>
@@ -27,7 +28,7 @@
                                  emptyMessage="#{bundle.ListGestoresEmpty}"
                                  >
                         <f:facet name="header">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/>                           
+                            <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{gestoresController.prepareCreate}" update=":GestoresCreateForm" oncomplete="PF('GestoresCreateDialog').show()"/></sec:authorize>                           
                         </f:facet>
                         <f:facet name="footer">      
                             <h:commandLink>
@@ -47,23 +48,23 @@
                         <p:column headerText="#{bundle.GestoresTitle_idpersona}">                            
                             <h:outputText value="#{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
                         </p:column> 
-                        <p:column exportable="false" width="5%" >
+                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:column exportable="false" width="5%" >
                             <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.idpersona)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaGestor}"/>                                                            
                             <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaGestor}"/>             
-                        </p:column> 
+                            </p:column></sec:authorize>
                         <p:column headerText="#{bundle.GestoresTitle_designador}">
                             <h:outputText value="#{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
                         </p:column> 
-                        <p:column exportable="false" width="5%">
+                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:column exportable="false" width="5%">
                             <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.designador)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaDesignador}"/>                                                            
                             <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaDesignador}"/>    
-                        </p:column> 
+                            </p:column></sec:authorize> 
                         <p:column headerText="#{bundle.GestoresTitle_comentarios}" width="10%" >                                
                             <h:outputLabel value="#{gestoresController.truncateString(item.comentarios)}"  />
                         </p:column>
                     </p:dataTable>  
                 </p:panel>
-                </h:form>:
+                </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

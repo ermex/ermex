@@ -1,12 +1,10 @@
 package ermex.atc.controlador;
 
-import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Personalatencionusuarios;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 
 import ermex.atc.sesion.PersonalatencionusuariosFacade;
-import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,32 +13,42 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.ejb.SessionBean;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
+import javax.inject.Named;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-@ManagedBean(name="personalatencionusuariosController", eager=true)
+@Named("personalatencionusuariosController")
 @SessionScoped
 public class PersonalatencionusuariosController implements Serializable {
 
-    @Inject
+    @EJB
     private ermex.atc.sesion.PersonalatencionusuariosFacade ejbFacade;
     private List<Personalatencionusuarios> items = null;
     private Personalatencionusuarios selected;
-    
-   
 
     public PersonalatencionusuariosController() {
     }
-
+    public String user(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+    public String status(int status){
+        if(status==1){
+            return "activo";
+        }else{
+            return "baja";
+        }
+    }
+    public List<Personalatencionusuarios> usuariosActivos()
+    {
+        List<Personalatencionusuarios> activos;
+        activos= ejbFacade.usuariosActivos();
+        return activos;
+    }
     public Personalatencionusuarios getSelected() {
         return selected;
     }
@@ -113,7 +121,17 @@ public class PersonalatencionusuariosController implements Serializable {
                     msg = cause.getLocalizedMessage();
                 }
                 if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
+                    if (msg.contains("Ya existe la llave (pwd)"))
+                    {
+                        JsfUtil.addErrorMessage("Ya existe un usuario con dicha contraseña");
+                    }else if (msg.contains("Ya existe la llave (usuario)"))
+                    {
+                        JsfUtil.addErrorMessage("Ya existe un usuario");
+                    }else if (msg.contains("Ya existe la llave (correo)"))
+                    {
+                        JsfUtil.addErrorMessage("Ya existe un usuario con ese correo");
+                    }else{
+                    JsfUtil.addErrorMessage(msg);}
                 } else {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
@@ -134,26 +152,6 @@ public class PersonalatencionusuariosController implements Serializable {
 
     public List<Personalatencionusuarios> getItemsAvailableSelectOne() {
         return getFacade().findAll();
-    }
-
-    public  boolean login(String user, String pwd){        
-        FacesContext context1= FacesContext.getCurrentInstance();
-        ExternalContext contExternal=context1.getExternalContext();
-        boolean log=false;
-        if (user!=null && pwd!=null) {
-            ejbFacade= new PersonalatencionusuariosFacade();
-           Personalatencionusuarios  acceso = ejbFacade.acceso(user,pwd);
-            if (null!=acceso) {
-                log=true;                
-            }else
-            {
-                log=false;
-            }
-        }else
-        {
-            System.out.println("El valor de U es nulo");
-        }
-        return log;
     }
 
     @FacesConverter(forClass = Personalatencionusuarios.class)
@@ -195,12 +193,6 @@ public class PersonalatencionusuariosController implements Serializable {
             }
         }
 
-    }
-    public List<Personalatencionusuarios> usuariosActivos()
-    {
-        List<Personalatencionusuarios> activos;
-        activos= ejbFacade.usuariosActivos();
-        return activos;
     }
 
 }

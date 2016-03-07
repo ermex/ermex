@@ -3,36 +3,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition>
 
-        <p:dialog id="PersonalatencionusuariosEditDlg" widgetVar="PersonalatencionusuariosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonalatencionusuariosTitle}">
+       <p:dialog id="PersonalatencionusuariosEditDlg" widgetVar="PersonalatencionusuariosEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPersonalatencionusuariosTitle}">
             <h:form id="PersonalatencionusuariosEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{personalatencionusuariosController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{personalatencionusuariosController.selected.nombre}" title="#{bundle.EditPersonalatencionusuariosTitle_nombre}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_apellidopa}" for="apellidopa" />
-                        <p:inputText id="apellidopa" value="#{personalatencionusuariosController.selected.apellidopa}" title="#{bundle.EditPersonalatencionusuariosTitle_apellidopa}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_apellidoma}" for="apellidoma" />
-                        <p:inputText id="apellidoma" value="#{personalatencionusuariosController.selected.apellidoma}" title="#{bundle.EditPersonalatencionusuariosTitle_apellidoma}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{personalatencionusuariosController.selected.telefono}" title="#{bundle.EditPersonalatencionusuariosTitle_telefono}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_correo}" for="correo" />
-                        <p:inputText id="correo" value="#{personalatencionusuariosController.selected.correo}" title="#{bundle.EditPersonalatencionusuariosTitle_correo}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_puesto}" for="puesto" />
-                        <p:inputText id="puesto" value="#{personalatencionusuariosController.selected.puesto}" title="#{bundle.EditPersonalatencionusuariosTitle_puesto}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_usuario}" for="usuario" />
-                        <p:inputText id="usuario" value="#{personalatencionusuariosController.selected.usuario}" title="#{bundle.EditPersonalatencionusuariosTitle_usuario}" required="true" requiredMessage="#{bundle.EditPersonalatencionusuariosRequiredMessage_usuario}"/>
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_pwd}" for="pwd" />
-                        <p:inputText id="pwd" value="#{personalatencionusuariosController.selected.pwd}" title="#{bundle.EditPersonalatencionusuariosTitle_pwd}" />
-                        <p:outputLabel value="#{bundle.EditPersonalatencionusuariosLabel_status}" for="status" />
-                        <p:inputText id="status" value="#{personalatencionusuariosController.selected.status}" title="#{bundle.EditPersonalatencionusuariosTitle_status}" required="true" requiredMessage="#{bundle.EditPersonalatencionusuariosRequiredMessage_status}"/>
-                    </p:panelGrid>
+                    <p:fieldset legend="#{bundle.DetallesPanel}" style="margin-bottom:20px">
+                        <p:panelGrid columns="2" rendered="#{personalatencionusuariosController.selected != null}" styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_nombre}" for="nombre" />
+                            <p:inputText id="nombre" value="#{personalatencionusuariosController.selected.nombre}" title="#{bundle.PersonalatencionusuariosTitle_nombre}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_nombre}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_apellidopa}" for="apellidopa" />
+                            <p:inputText id="apellidopa" value="#{personalatencionusuariosController.selected.apellidopa}" title="#{bundle.PersonalatencionusuariosTitle_apellidopa}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_apellidopa}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_apellidoma}" for="apellidoma" />
+                            <p:inputText id="apellidoma" value="#{personalatencionusuariosController.selected.apellidoma}" title="#{bundle.PersonalatencionusuariosTitle_apellidoma}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_apellidoma}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_telefono}" for="telefono" />
+                            <p:inputText id="telefono" value="#{personalatencionusuariosController.selected.telefono}" title="#{bundle.PersonalatencionusuariosTitle_telefono}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_correo}" for="correo" />
+                            <p:inputText id="correo" value="#{personalatencionusuariosController.selected.correo}" title="#{bundle.PersonalatencionusuariosTitle_correo}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_correo}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_puesto}" for="puesto" />
+                            <p:inputText id="puesto" value="#{personalatencionusuariosController.selected.puesto}" title="#{bundle.PersonalatencionusuariosTitle_puesto}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_usuario}" for="usuario" />
+                            <p:inputText id="usuario" value="#{personalatencionusuariosController.selected.usuario}" title="#{bundle.PersonalatencionusuariosTitle_usuario}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_usuario}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_pwd}" for="pwd" />
+                            <p:inputText id="pwd" value="#{personalatencionusuariosController.selected.pwd}" title="#{bundle.PersonalatencionusuariosTitle_pwd}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_pwd}"/>
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_status}" for="status" />
+                            <p:selectOneMenu id="status" value="#{personalatencionusuariosController.selected.status}" title="#{bundle.PersonalatencionusuariosTitle_status}" required="true" requiredMessage="#{bundle.PersonalatencionusuariosRequiredMessage_status}">                          
+                                <f:selectItem itemLabel="activo" itemValue="1"  />
+                                <f:selectItem itemLabel="baja" itemValue="0" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:fieldset>    
+                    <p:fieldset legend="#{bundle.RolesTitle}" style="margin-bottom:20px">
+                        <p:panelGrid columns="2" rendered="#{personalatencionusuariosController.selected != null}" styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_atcNormal}" for="atcNormal" />
+                            <p:selectBooleanCheckbox id="atcNormal" value="#{personalatencionusuariosController.selected.atcNormal}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_atcGestores}" for="atcGestores" />
+                            <p:selectBooleanCheckbox id="atcGestores" value="#{personalatencionusuariosController.selected.atcGestores}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_atcRatificacion}" for="atcRatificacion" />
+                            <p:selectBooleanCheckbox id="atcRatificacion" value="#{personalatencionusuariosController.selected.atcRatificacion}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_reportes}" for="reportes" />
+                            <p:selectBooleanCheckbox id="reportes" value="#{personalatencionusuariosController.selected.reportes}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_usuarios}" for="usuarios" />
+                            <p:selectBooleanCheckbox id="usuarios" value="#{personalatencionusuariosController.selected.usuarios}" />
+                            <p:outputLabel value="#{bundle.PersonalatencionusuariosLabel_manual}" for="manual" />
+                            <p:selectBooleanCheckbox id="manual" value="#{personalatencionusuariosController.selected.manual}" />
+                        </p:panelGrid>
+                    </p:fieldset>
                     <p:commandButton actionListener="#{personalatencionusuariosController.update}" value="#{bundle.Save}" update="display,:PersonalatencionusuariosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonalatencionusuariosEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PersonalatencionusuariosEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

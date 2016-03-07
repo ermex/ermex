@@ -7,8 +7,8 @@
     <h:body>
         <h:form >
             <p:panel>
-            <p>Hola !!! #{loginController.user}</p>
-            <h:commandLink action="#{loginController.logout()}" value="Logout"></h:commandLink>
+                <p:graphicImage value="/resources/images/contacto.png"  width="20%"/>
+                #{personalatencionusuariosController.user()}
             </p:panel>
             <p:panelMenu>
                     <p:submenu label="Dependencias" icon="ui-icon-check">
@@ -37,23 +37,28 @@
                     <p:submenu label="Solicitudes" icon="ui-icon-check">
                         <p:menuitem value="Ver Solicitudes" outcome="/vistas/solicitudesInternet/List.xhtml" />
                         <p:menuitem value="Control Solicitudes" outcome="/vistas/controlsolicitudes/List.xhtml" />
-                   </p:submenu>
+                    </p:submenu>
                     <p:submenu label="Usuarios" icon="ui-icon-check">
                         <p:menuitem value="Usuarios" outcome="/vistas/personalatencionusuarios/List.xhtml" />
-                   </p:submenu>
+                    </p:submenu>
                     <p:submenu label="Notas" icon="ui-icon-check">
                         <p:menuitem value="Notas" outcome="/vistas/notas/List.xhtml" />
                         <p:menuitem value="Documentos notas" outcome="/vistas/documentosnotas/List.xhtml" />
-                   </p:submenu>
-                     <p:submenu label="Reportes" icon="ui-icon-check">
+                    </p:submenu>
+                    <p:submenu label="Manual" icon="ui-icon-check">
+                        <p:menuitem value="Ver Manual de Usuario" outcome="/vistas/Manuales/Manual.xhtml" target="_blank" />     
+                    </p:submenu>
+                    <p:submenu label="Reportes" icon="ui-icon-check">
                         <p:menuitem value="Imagenes Recibidas" outcome="/vistas/Reportes/list_recibidas.xhtml" />
                         <p:menuitem value="Imagenes Procesadas" outcome="/vistas/Reportes/list_procesadas.xhtml" />                       
                         <p:menuitem value="Imagenes Entregadas" outcome="/vistas/Reportes/list_entregadas.xhtml"/>
-                   </p:submenu> 
-                    <p:submenu label="Manual" icon="ui-icon-check">
-                        <p:menuitem value="Ver Manual de Usuario" outcome="/vistas/Reportes/Manual.xhtml" target="_blank" />     
-                    </p:submenu>
+                    </p:submenu> 
                 </p:panelMenu>
+                <p:panel>
+                    <h:outputLink value="/ermex/j_spring_security_logout" >
+                        <p:graphicImage value="/resources/images/salir.png"  width="20%"/>
+                    </h:outputLink>
+                </p:panel>
         </h:form>
     </h:body>
 </html>

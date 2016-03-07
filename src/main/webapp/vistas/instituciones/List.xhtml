@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:composition template="/templates/templateBase.xhtml">
 
@@ -17,7 +18,7 @@
             <h:form id="InstitucionesListForm">
                 <p:panel header="#{bundle.ListInstitucionesTitle}">
                     <p:contextMenu for="datalist">
-                        <p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":InstitucionesEditForm"      oncomplete="PF('InstitucionesEditDialog').show()"/>
+                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:menuitem id="editButton"     value="#{bundle.Edit}"      icon="ui-icon-pencil"   update=":InstitucionesEditForm"      oncomplete="PF('InstitucionesEditDialog').show()"/></sec:authorize>
                         <p:menuitem id="viewButton"     value="#{bundle.View}"      icon="ui-icon-search"   update=":InstitucionesViewForm"      oncomplete="PF('InstitucionesViewDialog').show()"/>                       
                     </p:contextMenu>
                     <p:dataTable widgetVar="datalist" id="datalist" value="#{institucionesController.items}" var="item"
@@ -29,7 +30,7 @@
                                  emptyMessage="#{bundle.ListInstitucionesEmpty}"
                                  >
                         <f:facet name="header">
-                            <p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"    oncomplete="PF('InstitucionesCreateDialog').show()" actionListener="#{institucionesController.prepareCreate}" />
+                            <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:commandButton id="createButton"   value="#{bundle.Create}"    icon="ui-icon-plus"     update=":InstitucionesCreateForm"    oncomplete="PF('InstitucionesCreateDialog').show()" actionListener="#{institucionesController.prepareCreate}" /></sec:authorize>
                         </f:facet>
                         <p:column width="5%">
                             <f:facet name="header">

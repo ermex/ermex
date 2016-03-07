@@ -2,35 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-          
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-        <link rel="stylesheet" href="/JSFSession/public/css/cssFormulario.css"/>
-    </h:head>
-   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
         <ui:composition template="/templates/templateLogin.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Login"></h:outputText>
+            </ui:define>
             <ui:define name="body">
-               <h:form>                 
-                 <p:panel header="LOGIN">
-                   <center>
-                    <p:panelGrid columns="2">
-                        <p:outputLabel value="Usuario: " for="usuario" />
-                        <p:inputText   id="usuario" label="usuario" required="true" requiredMessage="Se requiere Usuario" value="#{loginController.user}">
-                            <p:tooltip for="usuario" value="Introduzca su Usuario"></p:tooltip>                            
-                        </p:inputText>
-                        <p:outputLabel value="Contraseña: " for="pwd" />
-                        <h:inputSecret id="pwd" label="pwd" required="true" binding="#{pwd}" requiredMessage="Se requiere password" value="#{loginController.pwd}">
-                            <p:tooltip for="pwd" value="Introduzca su Contraseña"></p:tooltip>
-                        </h:inputSecret>
-                    </p:panelGrid>
-                       <p:commandButton value="Check" type="Sumbit" actionListener="#{loginController.autenticar()}"  oncomplete="handleLoginRequest(xhr, status, args)"  ajax="false" />
-                  </center>          
-                </p:panel>
-              </h:form>
+                <h:form id="loginForm" prependId="false">
+                    <center>
+                    <h:messages/>
+
+                    <!-- Id's must not be changed to support spring security check -->
+                    <h:panelGrid columns="3">
+                    <h:outputLabel for="j_username" value="User: * " />  
+                    <h:inputText id="j_username" required="true" label="username" />  
+                    <h:message for="j_username" style="color:red"/>
+
+                    <h:outputLabel for="j_password" value="Password: * " />  
+                    <h:inputSecret id="j_password" label="password" required="true" />  
+                    <h:message for="j_password" style="color:red"/>
+     
+                    </h:panelGrid>
+
+                    <h:commandButton type="submit" id="login" value="Login" action="#{loginnController.doLogin}" />
+                    </center>
+                </h:form>
             </ui:define>
         </ui:composition>
 </html>

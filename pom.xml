@@ -12,6 +12,8 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Spring Security -->
+        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
     </properties>
     
     <dependencies>
@@ -73,11 +75,43 @@
                 <artifactId>dom4j</artifactId>
                 <version>2.0.0-RC1</version>
         </dependency>                         
-      <dependency>
+       <dependency>
 		<groupId>com.lowagie</groupId>
 		<artifactId>itext</artifactId>
 		<version>2.1.0</version>
 	</dependency>
+        <!-- Spring Security -->
+        <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>3.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${org.springframework.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${org.springframework.version}</version>
+                <type>jar</type>
+                <scope>compile</scope>
+        </dependency>
+        <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-taglibs</artifactId>
+                <version>3.1.0.RELEASE</version>
+                <type>jar</type>
+                <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.webflow</groupId>
+            <artifactId>spring-faces</artifactId>
+            <version>2.3.2.RELEASE</version>
+        </dependency>
  </dependencies>
     <build>
         <plugins>

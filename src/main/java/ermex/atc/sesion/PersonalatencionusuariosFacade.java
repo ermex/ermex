@@ -6,14 +6,12 @@
 package ermex.atc.sesion;
 
 import ermex.atc.entidad.Personalatencionusuarios;
-import java.sql.ResultSet;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -36,27 +34,17 @@ public class PersonalatencionusuariosFacade extends AbstractFacade<Personalatenc
     }
     public  Personalatencionusuarios acceso( String usuario, String pwd)
     {
-        Personalatencionusuarios user = null;
         EntityManagerFactory emf;
         EntityManager emFacade;
         emf= Persistence.createEntityManagerFactory("ermex");
         emFacade= emf.createEntityManager();
-        
-       String sentencia="Select * from personalatencionusuarios where usuario = ? and pwd=? and status=1";
-       Query query = emFacade.createNativeQuery(sentencia, Personalatencionusuarios.class);
-       query.setParameter(1, usuario);
-       query.setParameter(2, pwd);
-        try {
-         user=(Personalatencionusuarios)query.getSingleResult();   
-         
-        } catch (Exception e) {
-            System.out.println(e);
+        try{
+            TypedQuery<Personalatencionusuarios> query =
+            emFacade.createNamedQuery("Personalatencionusuarios.findUno",Personalatencionusuarios.class).setParameter("usuario",usuario).setParameter("pwd",pwd);
+            return query.getSingleResult();
+        }catch(Exception e){
+            return null;
         }
-        System.out.println("valores del login ");
-        System.out.println(pwd);
-        System.out.println(usuario);
-
-        return user;
     }    
     
     public List<Personalatencionusuarios> usuariosActivos()
