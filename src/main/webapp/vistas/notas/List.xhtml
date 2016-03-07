@@ -17,6 +17,7 @@
             <h:form id="NotasListForm">
                 <p:panel>
                    <h:outputText value="Seleccione el estado de la nota:" class="title_Page" />
+                   <br/>
                    <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}"  actionListener="#{notasController.setTipoConsulta(1)}" update="@form"/>                  
                  <p:commandButton  value="Creadas" action="#{notasController.filtro(2)}" actionListener="#{notasController.setTipoConsulta(2)}" update="@form"/> 
                  <p:commandButton  value="Terminadas" action="#{notasController.filtro(3)}" actionListener="#{notasController.setTipoConsulta(3)}" update="@form"/> 
@@ -26,15 +27,16 @@
                 </p:panel>
                 <br/>
                 <p:panel id="idpanel" header="#{notasController.tituloTabla}">
-                    <p:contextMenu id="nemu" for="datalist">
+                    <p:contextMenu id="menu" for="datalist">
                             <p:menuitem id="crearNotaB"   icon="ui-icon-pencil" value="#{bundle.CrearNota}" update=":NotasCreateForm"
                                         oncomplete="PF('NotasCreateDialog').show()" actionListener="#{notasController.prepararCrearNota()}" disabled="#{notasController.tipoConsulta != 1}"/>                           
                             <p:menuitem id="verNota"   icon="ui-icon-search"  value="#{bundle.VerImg}" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" 
                                         actionListener="#{ notasController.informacionNota()}" disabled="#{notasController.tipoConsulta eq 1 or notasController.tipoConsulta eq 4}"/>
-                            <p:menuitem id="oficio" icon="ui-icon-plus" value="#{bundle.fechaOficio}" actionListener="#{notasController.acuseAndOficio(1)}"
+                            <p:menuitem id="oficio" icon="ui-icon-plus" value="#{bundle.fechaOficioNota}"  oncomplete="PF('uploadFile').show()" 
                                         disabled="#{empty notasController.selected.fechacreacion or (!empty notasController.selected.fechaoficio)}"/>                            
-                            <p:menuitem id="acuse" icon="ui-icon-plus"  value="#{bundle.fechaAcuse}"  actionListener="#{notasController.acuseAndOficio(2)}"
-                                        disabled="#{empty notasController.selected.fechaoficio or (!empty notasController.selected.fechaacuse) }"/>
+                            <p:menuitem id="acuse" icon="ui-icon-plus"  value="#{bundle.fechaAcuseNota}" oncomplete="PF('uploadOficioDialog').show()"
+                                        disabled="#{empty notasController.selected.fechaoficio or (!empty notasController.selected.fechaacuse) 
+                                                    or notasController.selected.status eq 4 or notasController.selected.status eq 4}"/>
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{notasController.items}" var="item"
                                  selectionMode="single" selection="#{notasController.selected}"
@@ -43,13 +45,8 @@
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
-                        <p:ajax event="rowSelect" update=":NotasListForm:nemu,iddescargar" listener="#{notasController.validarDescarga()}"/>
-                        <f:facet name="header">
-                            <p:commandButton id="iddescargar" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" 
-                                             actionListener="#{notasController.descargarDoc()}" disabled="#{notasController.descargar}">
-                                
-                            <p:fileDownload value="#{notasController.download}" />
-                            </p:commandButton>
+                        <p:ajax event="rowSelect" update="NotasListForm" listener="#{notasController.validarDescarga()}"/>
+                        <f:facet name="header">   
                            <p:commandButton id="toggler" type="button" value="Columns" icon="ui-icon-calculator" />
                            <p:columnToggler datasource="datalist" trigger="toggler" />                            
                         </f:facet>
@@ -130,10 +127,26 @@
                                 <h:outputText value="#{bundle.ListNotasTitle_reposiciones}"/>
                             </f:facet>
                             <h:outputText value="#{item.reposiciones}"/>
-                        </p:column>                        
+                        </p:column>
+                        <p:column headerText="Cancelar">
+                            <p:commandLink value="Cancelar" actionListener="#{notasController.acuseAndOficio(3)}" disabled="#{item.idnota != (notasController.selected.idnota) or item.status eq 3 or item.status eq 4}" immediate="true">
+                                <p:confirm header="Confirmation" message="Desea cancelar la nota? #{item.idnota} con No. de solicitud #{item.idcontrolsolicitud.solicitud.solicitud}" icon="ui-icon-alert"/>
+                            </p:commandLink>                            
+                        </p:column>
+                        <p:column headerText="Descargar" >                         
+                           <p:commandButton id="iddescargar" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s"  
+                                            disabled="#{item.idnota != (notasController.selected.idnota) or item.status eq 1 or item.status eq 4}"
+                                             actionListener="#{notasController.descargarDoc()}" >
+                                <p:fileDownload value="#{notasController.download}"/>
+                            </p:commandButton>
+                            
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
-            </h:form>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"  />
+    </p:confirmDialog>                
                 <script type="text/javascript">
                 function start() {
                     PF('statusDialog').show();
@@ -142,11 +155,13 @@
                 function stop() {
                     PF('statusDialog').hide();
                 }
-                </script>
+                </script>                
+            </h:form>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="paginaNota.xhtml"/>
+            <ui:include src="../documentosnotas/unploadOficio.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

@@ -87,7 +87,7 @@ public class Notas implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaacuse;
     @Column(name = "reposiciones")
-    private Integer reposiciones;
+    private Integer reposiciones=0;
     @Size(max = 2147483647)
     @Column(name = "dispotivioentrega")
     private String dispotivioentrega;

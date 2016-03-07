@@ -67,7 +67,7 @@ public class NotasFacade extends AbstractFacade<Notas> {
     {
         String consulta="select n.idnota,n.idcontrolsolicitud,n.nonota,n.nombre,n.noimagen,n.nooficio,n.fechacreacion, n.observaciones,\n" +
                                  "n.status,n.fechaoficio,n.fechaacuse,n.reposiciones,n.dispotivioentrega,n.idorganismo,n.pwdnota from notas n\n" +
-                            "join controlsolicitudes as s on (s.idcontrolsolicitud=n.idcontrolsolicitud) where s.idpersonalatencion=? and n.status=?";
+                            "join controlsolicitudes as s on (s.idcontrolsolicitud=n.idcontrolsolicitud) where s.idpersonalatencion=? and n.status=? order by n.idnota desc";
         Query query= em.createNativeQuery(consulta, Notas.class);
         query.setParameter(1, responsable);
         query.setParameter(2, status);

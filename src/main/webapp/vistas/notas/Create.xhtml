@@ -8,23 +8,23 @@
 
     <ui:composition>
 
-        <p:dialog id="NotasCreateDlg" widgetVar="NotasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNotasTitle}">
+        <p:dialog id="NotasCreateDlg" widgetVar="NotasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.crearNota}">
             <h:form id="NotasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{notasController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_idnota}" for="idnota" />
-                        <p:inputText id="idnota" value="#{notasController.selected.idnota}" title="#{bundle.CreateNotasTitle_idnota}" readonly="true"/>
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_nonota}" for="nonota" />
+                        <p:outputLabel value="#{bundle.idNota}" for="idnota" />
+                        <p:inputText id="idnota" value="#{notasController.selected.idnota}" title="#{bundle.idNota}" readonly="true"/>
+                        <p:outputLabel value="#{bundle.noNota}" for="nonota" />
                         <p:inputText id="nonota" value="#{notasController.selected.nonota}" title="#{bundle.CreateNotasTitle_nonota}" readonly="true"/>
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_nombre}" for="nombre" />
+                        <p:outputLabel value="#{bundle.nombreNota}" for="nombre" />
                         <p:inputText id="nombre" value="#{notasController.selected.nombre}" title="#{bundle.CreateNotasTitle_nombre}" readonly="true" />
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_nombre}" for="noimagen" />
+                        <p:outputLabel value="#{bundle.noImgNota}" for="noimagen" />
                         <p:inputText id="noimagen" value="#{notasController.selected.noimagen}" readonly="true"/>
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_fechacreacion}" for="fechacreacion" />
+                        <p:outputLabel value="#{bundle.fechaCreateNota}" for="fechacreacion" />
                         <p:calendar id="fechacreacion" pattern="MM/dd/yyyy" value="#{notasController.selected.fechacreacion}" readonly="true"/>
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_observaciones}" for="observaciones" />
+                        <p:outputLabel value="#{bundle.observacionNota}" for="observaciones" />
                         <h:inputTextarea id="observaciones" value="#{notasController.selected.observaciones}" title="#{bundle.CreateNotasTitle_observaciones}" />
-                        <p:outputLabel value="#{bundle.CreateNotasLabel_dispotivioentrega}" for="dispotivioentrega" />
+                        <p:outputLabel value="#{bundle.dispositivoEntrega}" for="dispotivioentrega" />
                         <p:inputText id="dispotivioentrega" value="#{notasController.selected.dispotivioentrega}" title="#{bundle.CreateNotasTitle_dispotivioentrega}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{notasController.createNota()}" value="#{bundle.Save}" update="display,:NotasListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotasCreateDialog');"

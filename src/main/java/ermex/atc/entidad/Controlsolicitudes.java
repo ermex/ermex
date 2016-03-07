@@ -34,14 +34,14 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Controlsolicitudes.findAll", query = "SELECT c FROM Controlsolicitudes c"),
     @NamedQuery(name = "Controlsolicitudes.findByIdcontrolsolicitud", query = "SELECT c FROM Controlsolicitudes c WHERE c.idcontrolsolicitud = :idcontrolsolicitud"),
     @NamedQuery(name = "Controlsolicitudes.findByGestor", query = "SELECT c FROM Controlsolicitudes c WHERE c.gestor = :gestor"),
-    @NamedQuery(name = "Controlsolicitudes.findByFechaasignacion", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechaasignacion = :fechaasignacion"),
-    @NamedQuery(name = "Controlsolicitudes.findByTema", query = "SELECT c FROM Controlsolicitudes c WHERE c.tema = :tema"),
-    @NamedQuery(name = "Controlsolicitudes.findBySolicitud", query = "SELECT c FROM Controlsolicitudes c WHERE c.solicitud = :solicitud"),
-    @NamedQuery(name = "Controlsolicitudes.findByObservaciones", query = "SELECT c FROM Controlsolicitudes c WHERE c.observaciones = :observaciones"),
-    @NamedQuery(name = "Controlsolicitudes.findByStatus", query = "SELECT c FROM Controlsolicitudes c WHERE c.status = :status"),
-    @NamedQuery(name = "Controlsolicitudes.findByFechatermino", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechatermino = :fechatermino"),
-    @NamedQuery(name = "Controlsolicitudes.findByFechacancelacion", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechacancelacion = :fechacancelacion"),
-    @NamedQuery(name = "Controlsolicitudes.findByTotalimagenes", query = "SELECT c FROM Controlsolicitudes c WHERE c.totalimagenes = :totalimagenes")})
+    @NamedQuery(name = "Controlsolicitudes.findByFechaasignacion", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechaasignacion = :fechaasignacion order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByTema", query = "SELECT c FROM Controlsolicitudes c WHERE c.tema = :tema order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findBySolicitud", query = "SELECT c FROM Controlsolicitudes c WHERE c.solicitud = :solicitud  order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByObservaciones", query = "SELECT c FROM Controlsolicitudes c WHERE c.observaciones = :observaciones order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByStatus", query = "SELECT c FROM Controlsolicitudes c WHERE c.status = :status order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByFechatermino", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechatermino = :fechatermino order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByFechacancelacion", query = "SELECT c FROM Controlsolicitudes c WHERE c.fechacancelacion = :fechacancelacion order by c.solicitud desc"),
+    @NamedQuery(name = "Controlsolicitudes.findByTotalimagenes", query = "SELECT c FROM Controlsolicitudes c WHERE c.totalimagenes = :totalimagenes order by c.solicitud desc")})
 public class Controlsolicitudes implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -5,6 +5,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.codec.Base64;
 import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
@@ -20,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -39,6 +41,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -49,9 +52,10 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-
+import org.primefaces.model.UploadedFile;
 
 @Named("notasController")
 @SessionScoped
@@ -71,10 +75,10 @@ public class NotasController implements Serializable {
     private String solicitud;
     private String usuarioGestor;
     private StreamedContent download;
-    private String tituloTabla="Notas iniciadas";
-    private boolean descargar=true;
-    private int tipoConsulta=1;
-
+    private String tituloTabla = "Notas iniciadas";
+    private boolean descargar = true;
+    private int tipoConsulta = 1;
+    private UploadedFile file;
     public NotasController() {
     }
 
@@ -115,7 +119,7 @@ public class NotasController implements Serializable {
     }
 
     public StreamedContent getDownload() {
-        return download;
+                return download;
     }
 
     public void setDownload(StreamedContent download) {
@@ -146,6 +150,13 @@ public class NotasController implements Serializable {
         this.tipoConsulta = tipoConsulta;
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
 
     //metodo para obtener las imagenes entregadas a la nota
     public List<Object> getItemsObject() {
@@ -156,29 +167,33 @@ public class NotasController implements Serializable {
 
         return itemsObject;
     }
-    
-    public void acuseAndOficio(int evento)
-    {
+
+    //metodo para actualizar la nota dependiendo la accion
+    public void acuseAndOficio(int evento) {
         Date date = new Date();
         DateFormat converTime2 = new SimpleDateFormat("MM/dd/yyyy");
         converTime2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
-        try {
-            Date fecha=converTime2.parse(converTime2.format(date));
-            if (evento==1) {
-            selected.setFechaoficio(fecha);
-            update();
-        }else
-        {
-            if (evento==2) {
-                selected.setFechaacuse(fecha);
-                selected.setStatus(3);
-                update();
+        if (selected != null) {
+            try {
+                Date fecha = converTime2.parse(converTime2.format(date));
+                //acualiza la nota si ya se tiene el nuemor de oficio
+                if (evento == 1) {
+                    selected.setFechaoficio(fecha);
+                    update();
+                } else //actualiza la nota si el gestor ya hizo un acuse de resivido y la nota se da  por terminado
+                if (evento == 2) {
+                    selected.setFechaacuse(fecha);
+                    selected.setStatus(3);
+                    update();
+                } else //actulazo la nota a candelado 
+                if (evento == 3) {
+                    selected.setStatus(4);
+                    update();
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        } catch (ParseException ex) {
-            Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
 
     public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException, InvalidFormatException {
@@ -200,13 +215,13 @@ public class NotasController implements Serializable {
         //crearNota();
     }
 //metodo para actualizar la nota iniciadad
-    public void createNota()
-    {
-        if (selected!=null) {
-         //iniciamos itemsObject, el cual contien las imagenes entregadas a la nota
-         getItemsObject();
-         //iniciamos las valores de la nota
-         informacionNota();
+
+    public void createNota() {
+        if (selected != null) {
+            //iniciamos itemsObject, el cual contien las imagenes entregadas a la nota
+            getItemsObject();
+            //iniciamos las valores de la nota
+            informacionNota();
             try {
                 //generamos la nota
                 generarNotaWord();
@@ -215,74 +230,91 @@ public class NotasController implements Serializable {
             } catch (IOException | InvalidFormatException ex) {
                 Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
+
         }
 
     }
-    public void prepararCrearNota() throws ParseException
-    {
+
+    //agrega los nuevos valores a las variables de la nota y estas puedan  ser vistos por el usuario 
+    public void prepararCrearNota() throws ParseException {
         Date date = new Date();
         Object obj;
         DateFormat converTime = new SimpleDateFormat("yyyyMMdd");
         DateFormat converTime2 = new SimpleDateFormat("MM/dd/yyyy");
-        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));        
+        converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
         converTime2.setTimeZone(TimeZone.getTimeZone("GMT-6"));
-        String fecha =converTime.format(date);
-        Date fechacreacion=converTime2.parse(converTime2.format(date));
-        if (selected!=null) {
-            obj=ejbFacade.obtenerNoImagen(selected.getIdnota());
-            if (obj!=null) {
-                String valorObj=""+obj;
-                int noimg=Integer.parseInt(valorObj);
+        String fecha = converTime.format(date);
+        Date fechacreacion = converTime2.parse(converTime2.format(date));
+        if (selected != null) {
+            obj = ejbFacade.obtenerNoImagen(selected.getIdnota());
+            if (obj != null) {
+                String valorObj = "" + obj;
+                int noimg = Integer.parseInt(valorObj);
                 if (noimg > 0) {
-                    String nombreNota=fecha+ " nota " + selected.getNonota()+" ("+
-                           selected.getIdcontrolsolicitud().getGestor().getGestor()+"_"+
-                           selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getNombre()
+                    String nombreNota = fecha + " nota " + selected.getNonota() + " ("
+                            + selected.getIdcontrolsolicitud().getGestor().getGestor() + "_"
+                            + selected.getIdcontrolsolicitud().getGestor().getIdpersona().getIdinstitucion().getNombre()
                             + ")";
                     selected.setNombre(nombreNota);
-                    selected.setFechacreacion(fechacreacion);   
+                    selected.setFechacreacion(fechacreacion);
                     selected.setStatus(2);
                     selected.setNoimagen(noimg);
-                    
+
                     JsfUtil.addSuccessMessage("Total de imagenes encontradas " + noimg + " para la nota " + selected.getIdnota());
-                }else
-                {
+                } else {
                     JsfUtil.addErrorMessage("No se encontrarin imagenes para la nota" + selected.getIdnota());
                 }
             }
         }
     }
-    
-    public void cancelarCreate()
-    {
+
+    //recuperamos la informacion de la nota si esta no es crado
+    public void cancelarCreate() {
         System.out.println("Estamos en cancelar");
-        if (selected!=null) {
-            selected= ejbFacade.find(selected.getIdnota());
+        if (selected != null) {
+            selected = ejbFacade.find(selected.getIdnota());
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).equals(selected)) {
                     items.set(i, selected);
-                    i=items.size();
+                    i = items.size();
                 }
             }
         }
     }
-    public String pathFile()
-    {
-       // String path="C:/Documents and Settings/ermex/My Documents/notas/";
-        String path= "/home/apermex/"+sessionBean.getUserName()+"/"+obtenerFecha()+"/";
-        File directorio= new File(path);
+
+    //obtenmos la ruta del archivo 
+    public String pathFile() {
+         String path="C:/Documents and Settings/ermex/My Documents/notas/";
+       // String path = "/home/beto/" + sessionBean.getUserName() + "/" + obtenerFecha();
+        //Se crea un archivo para validar que exista el directorio donde se va guardar el archivo
+        File directorio = new File(path);
         if (!directorio.exists()) {
+            //si no existe se crean los directorios necesarios
             directorio.mkdirs();
         }
         return directorio.getAbsolutePath();
     }
-    public void validarDescarga()
-    {
-        if (selected!=null) {
-            if (selected.getStatus()==2 || selected.getStatus()==3) {
-                descargar=false;
+
+    public void validarDescarga() {
+        if (selected != null) {
+            if (selected.getStatus() == 2 || selected.getStatus() == 3) {
+                descargar = false;
             }
         }
+    }
+    public void upload(FileUploadEvent event) throws FileNotFoundException, IOException {
+        file=event.getFile();
+        File copia= new File("home/beto/prueba/"+file.getFileName());
+        OutputStream out = new FileOutputStream(copia);
+        int len;
+        byte[] buf = new byte[1024];
+        while ((len=file.getInputstream().read(buf))>0) {
+             out.write(buf, 0, len);
+            
+        }
+        out.close();
+        file.getInputstream().close();
+        
     }
     public void generarNotaWord() throws IOException, InvalidFormatException {
         //String ruta="C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\plantillanota.docx";        
@@ -290,7 +322,7 @@ public class NotasController implements Serializable {
         String ruta = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "plantilla" + File.separator + "plantillaN.docx";
         InputStream fs = new FileInputStream(ruta);
         XWPFDocument doc = new XWPFDocument(fs);
-        boolean bandera=false;
+        boolean bandera = false;
         Date date = new Date();
         DateFormat converTime = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy");
         converTime.setTimeZone(TimeZone.getTimeZone("GMT-6"));
@@ -343,43 +375,66 @@ public class NotasController implements Serializable {
                             imagnes = itemsObject;
 
                             //XWPFTable table = doc.createTable(itemsObject.size()+1, 5);
-                            XWPFTable table= new XWPFTable(doc.getTables().get(0).getCTTbl(),doc.getTables().get(0).getBody());
+                            XWPFTable table = new XWPFTable(doc.getTables().get(0).getCTTbl(), doc.getTables().get(0).getBody());
                             XWPFTableRow row;
                             for (int i = 0; i < imagnes.size(); i++) {
                                 Object[] variables = (Object[]) imagnes.get(i);
-                                  row  = table.createRow();
+                                row = table.createRow();
                                 // nota.add(new imgEntreNo((int)variables[0], (String)variables[1],(String)variables[1],(String)variables[3], (String)variables[4]));
                                 //img=(imgEntreNo) imagnes.get(i);
-                                
-                               row.getCell(0).setText(variables[0].toString());
+
+                                row.getCell(0).setText(variables[0].toString());
                                 row.getCell(1).setText(variables[1].toString());
-                               row.getCell(2).setText(variables[2].toString());
+                                row.getCell(2).setText(variables[2].toString());
                                 row.getCell(3).setText(variables[3].toString());
                                 row.getCell(4).setText(variables[4].toString());
                                 //table.addRow(row);
                                 System.out.println("Numero de filas " + i);
                             }
-                            
+
                             doc.setTable(0, table);
-                            itemsObject=null;
+                            itemsObject = null;
                         }
                     }
                 }
             }
         }
-   //doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
-  doc.write(new FileOutputStream(pathFile()+ selected.getNombre() + ".docx"));
+        //doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
+        doc.write(new FileOutputStream(pathFile()+File.separator + selected.getNombre() + ".docx"));
+        
+        
         System.out.println("Nota creada");
-    //descargar();
+        System.out.println(pathFile()+File.separator + selected.getNombre() + ".docx");
+        //descargar();
     }
-      public void descargarDoc() throws FileNotFoundException
-     {
-       //download = new DefaultStreamedContent(new FileInputStream(
-	//				new File(pathFile()+selected.getNombre()+".docx")),"application/docx",selected.getNombre()+".docx");
-       download = new DefaultStreamedContent(new FileInputStream(
-				new File(pathFile()+"/"+selected.getNombre()+".docx")),"application/docx",selected.getNombre()+".docx");
-     }
-      
+
+    public void descargarDoc() {
+        //download = new DefaultStreamedContent(new FileInputStream(
+        //				new File(pathFile()+selected.getNombre()+".docx")),"application/docx",selected.getNombre()+".docx");
+
+       
+
+        try {
+             String archivo = pathFile() + File.separator + selected.getNombre() + ".docx";
+             System.out.println(archivo);
+            File path = new File(archivo);
+            download = new DefaultStreamedContent(new FileInputStream(path), "application/docx", selected.getNombre() + selected.getReposiciones() + ".docx");
+            selected.setReposiciones(selected.getReposiciones() + 1);
+            update();
+            System.out.println("archivo descargado");
+        } catch (FileNotFoundException ex) {
+            ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            String ruta = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" + File.separator + "word-icon.png";
+            FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al descargar", " ");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            try {
+                download = new DefaultStreamedContent(new FileInputStream(ruta), "application/png", "Error_Descarga.png");
+            } catch (FileNotFoundException ex1) {
+                Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }
+    }
+
     //metodo para obtener informacion de la nota.
     public void informacionNota() {
         try {
@@ -413,6 +468,7 @@ public class NotasController implements Serializable {
         return selected;
     }
 //metodo para iniciar la nota desde controlsolicitudes
+
     public Notas crearNotaCS(Controlsolicitudes idCs) {
         selected = prepareCreate();
         selected.setIdcontrolsolicitud(idCs);
@@ -429,49 +485,41 @@ public class NotasController implements Serializable {
         return converTime.format(date);
     }
 
-   //generamos el idnota
+    //generamos el idnota
     public void generarIdNota() {
         //obtenemos el valor de la secuencia
         String idnota;
         Calendar date = Calendar.getInstance();
         //obtienen el siguiente valor de secuencia
-        Object obejto= ejbFacade.obtenerNonuto();
-        String fecha=String.valueOf(date.get(Calendar.YEAR));
+        Object obejto = ejbFacade.obtenerNonuto();
+        String fecha = String.valueOf(date.get(Calendar.YEAR));
         //genera el id de nota
-        int numeronota=Integer.parseInt(""+obejto);
-        numeronota=numeronota+10000;        
-        String idn=String.valueOf(numeronota);        
-        idnota=fecha+idn.substring(1,5);
+        int numeronota = Integer.parseInt("" + obejto);
+        numeronota = numeronota + 10000;
+        String idn = String.valueOf(numeronota);
+        idnota = fecha + idn.substring(1, 5);
         selected.setIdnota(idnota);
         selected.setNonota(obejto.hashCode());
     }
+
     //metodo para obtener las notas deacuerdo al usuario y estado
-   public void filtro(int tipo)
-   {
-       if (tipo!=0) {
-       items=ejbFacade.notasBayResponsableAndStatus(sessionBean.getUserName(), tipo);    
-       }
-       descargar=true;
-       if (tipo==1) {
-           tituloTabla="Notas asignadas";
-       }else
-       {
-           if (tipo==2) {
-                tituloTabla="Notas Creadas";    
-           }else
-           {
-               if (tipo==3) {
-                    tituloTabla="Notas terminadas";        
-                    
-               }else
-               {
-                        tituloTabla="Notas canceladas";        
-               }
-           }
-       }
-       
-       
-   }
+    public void filtro(int tipo) {
+        if (tipo != 0) {
+            items = ejbFacade.notasBayResponsableAndStatus(sessionBean.getUserName(), tipo);
+        }
+        descargar = true;
+        if (tipo==1) {
+            tituloTabla = "Notas iniciadas";
+        } else if (tipo == 2) {
+            tituloTabla = "Notas Creadas";
+        } else if (tipo == 3) {
+            tituloTabla = "Notas terminadas";
+
+        } else {
+            tituloTabla = "Notas canceladas";
+        }
+
+    }
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("NotasCreated"));
@@ -483,7 +531,6 @@ public class NotasController implements Serializable {
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("NotasUpdated"));
     }
-    
 
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("NotasDeleted"));
@@ -495,11 +542,11 @@ public class NotasController implements Serializable {
 
     public List<Notas> getItems() {
         if (items == null) {
-            items = getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
-            descargar=true;
-            tipoConsulta=1;
+            items = getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(), 1);
+            descargar = true;
+            tipoConsulta = 1;
             //itemsRespaldo=getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
-            tituloTabla="Notas iniciadas";
+            tituloTabla = "Notas iniciadas";
         }
         return items;
     }

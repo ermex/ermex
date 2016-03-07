@@ -44,7 +44,7 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
     }
    public List<Controlsolicitudes> findByUsuario(String usuario)
    {
-       String sentencia="Select * from controlsolicitudes where idpersonalatencion=?";
+       String sentencia="Select * from controlsolicitudes where idpersonalatencion=? order by c.solicitud desc";
          Query query= em.createNativeQuery(sentencia, Controlsolicitudes.class);
         
         query.setParameter(1, usuario);
@@ -52,7 +52,7 @@ public class ControlsolicitudesFacade extends AbstractFacade<Controlsolicitudes>
    }
    public List<Controlsolicitudes> findByUsuariostatus(String usuario, int status)
    {
-       String senetencia= "select * from controlsolicitudes where idpersonalatencion=? and status=?";
+       String senetencia= "select * from controlsolicitudes where idpersonalatencion=? and status=? order by solicitud desc";
        Query query = em.createNativeQuery(senetencia, Controlsolicitudes.class);
        query.setParameter(1, usuario);
        query.setParameter(2, status);
