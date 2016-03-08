@@ -16,9 +16,7 @@
         <ui:define name="body">
             <h:form id="ControlsolicitudesListForm">
                 <p:panel>
-               <h:outputText value="Seleccione el estado de la solicitud:" class="title_Page" />
-                
-                <h:outputText value="#{controlsolicitudesController.usuario}" class="title_Page" />
+                <br/>
                 <br/>
                 <p:commandButton  value="Asignados"  action="#{controlsolicitudesController.actualizarItems(4)}" actionListener="#{controlsolicitudesController.setEditar(4)}" update="@form"/>                  
                 <p:commandButton  value="Terminadas" action="#{controlsolicitudesController.actualizarItems(2)}" actionListener="#{controlsolicitudesController.setEditar(2)}" update="@form"/> 

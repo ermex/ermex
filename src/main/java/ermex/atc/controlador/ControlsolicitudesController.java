@@ -1,6 +1,5 @@
 package ermex.atc.controlador;
 
-import ermex.atc.clases.sessionBean;
 import ermex.atc.entidad.Controlsolicitudes;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;

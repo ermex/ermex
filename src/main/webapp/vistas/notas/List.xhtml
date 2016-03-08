@@ -16,7 +16,6 @@
         <ui:define name="body">
             <h:form id="NotasListForm">
                 <p:panel>
-                   <h:outputText value="Seleccione el estado de la nota:" class="title_Page" />
                    <br/>
                    <p:commandButton  value="Iniciadas"  action="#{notasController.filtro(1)}"  actionListener="#{notasController.setTipoConsulta(1)}" update="@form"/>                  
                  <p:commandButton  value="Creadas" action="#{notasController.filtro(2)}" actionListener="#{notasController.setTipoConsulta(2)}" update="@form"/> 

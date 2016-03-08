@@ -5,8 +5,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
-import com.lowagie.text.pdf.codec.Base64;
-import ermex.atc.clases.sessionBean;
+
 import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
@@ -46,6 +45,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -56,6 +57,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Named("notasController")
 @SessionScoped
@@ -285,7 +287,8 @@ public class NotasController implements Serializable {
     //obtenmos la ruta del archivo 
     public String pathFile() {
          String path="C:/Documents and Settings/ermex/My Documents/notas/";
-       // String path = "/home/beto/" + sessionBean.getUserName() + "/" + obtenerFecha();
+       String user=SecurityContextHolder.getContext().getAuthentication().getName();
+      //  String path = "/home/apermex/" + user + File.separator + obtenerFecha()+ File.separator + selected.getIdnota();
         //Se crea un archivo para validar que exista el directorio donde se va guardar el archivo
         File directorio = new File(path);
         if (!directorio.exists()) {
@@ -303,18 +306,66 @@ public class NotasController implements Serializable {
         }
     }
     public void upload(FileUploadEvent event) throws FileNotFoundException, IOException {
-        file=event.getFile();
-        File copia= new File("home/beto/prueba/"+file.getFileName());
-        OutputStream out = new FileOutputStream(copia);
-        int len;
-        byte[] buf = new byte[1024];
-        while ((len=file.getInputstream().read(buf))>0) {
-             out.write(buf, 0, len);
+        try {
+            file=event.getFile();
+            System.out.println("Estamos en el metodo upload ");
+            File copia= new File("C:/Documents and Settings/ermex/My Documents/copias/"+file.getFileName());
+            copia.createNewFile();
+            file.write(copia.getAbsolutePath());
+            // OutputStream out = new FileOutputStream(copia);
+            //int len;
+            //byte[] buf = new byte[1000];
+            //while ((len=file.getInputstream().read(buf))!=-1) {
+            //   out.write(buf, 0, len);
             
+            //}
+            //out.close();
+            //out.flush();
+            System.out.println("Salimos del metodo upload");
+            file.getInputstream().close();
+            //file=event.getFile();
+            //String tipo;
+            
+            
+            
+// Prepare filename prefix and suffix for an unique filename in upload folder.
+//        System.out.println("File type: " + file.getContentType());
+//        System.out.println("File name: " + file.getFileName());
+//        System.out.println("File size: " + file.getSize() + " bytes");
+//        
+//        String prefix = FilenameUtils.getBaseName(file.getFileName());
+//        String suffix = FilenameUtils.getExtension(file.getFileName());
+//        
+//        // Prepare file and outputstream.
+//        File file1 = null;
+//        OutputStream output = null;
+//        
+//        try {
+//            // Create file with unique name in upload folder and write to it.
+//            file1 = File.createTempFile(prefix + "_", "." + suffix, new File("C:/Documents and Settings/ermex/My Documents/homework"+File.separator+file.getFileName()));
+//            output = new FileOutputStream(file1);
+//            IOUtils.copy(file.getInputstream(), output);
+//            String fileName = file.getFileName();
+//
+//            // Show succes message.
+//            FacesContext.getCurrentInstance().addMessage("uploadForm", new FacesMessage(
+//                FacesMessage.SEVERITY_INFO, "File upload succeed!", null));
+//        } catch (IOException e) {
+//            // Cleanup.
+//            if (file1 != null) file1.delete();
+//
+//            // Show error message.
+//            FacesContext.getCurrentInstance().addMessage("uploadForm", new FacesMessage(
+//                FacesMessage.SEVERITY_ERROR, "File upload failed with I/O error.", null));
+//
+//            // Always log stacktraces (with a real logger).
+//            e.printStackTrace();
+//        } finally {
+//            IOUtils.closeQuietly(output);
+//        }
+        } catch (Exception ex) {
+            Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        out.close();
-        file.getInputstream().close();
-        
     }
     public void generarNotaWord() throws IOException, InvalidFormatException {
         //String ruta="C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\plantillanota.docx";        
@@ -505,7 +556,8 @@ public class NotasController implements Serializable {
     //metodo para obtener las notas deacuerdo al usuario y estado
     public void filtro(int tipo) {
         if (tipo != 0) {
-            items = ejbFacade.notasBayResponsableAndStatus(sessionBean.getUserName(), tipo);
+            String user=SecurityContextHolder.getContext().getAuthentication().getName();
+            items = ejbFacade.notasBayResponsableAndStatus(user, tipo);
         }
         descargar = true;
         if (tipo==1) {
@@ -542,11 +594,15 @@ public class NotasController implements Serializable {
 
     public List<Notas> getItems() {
         if (items == null) {
-            items = getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(), 1);
-            descargar = true;
-            tipoConsulta = 1;
-            //itemsRespaldo=getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
-            tituloTabla = "Notas iniciadas";
+            String user=SecurityContextHolder.getContext().getAuthentication().getName();
+            if (user!=null) {
+                 items = getFacade().notasBayResponsableAndStatus(user, 1);
+                descargar = true;
+                tipoConsulta = 1;
+                //itemsRespaldo=getFacade().notasBayResponsableAndStatus(sessionBean.getUserName(),1);
+                tituloTabla = "Notas iniciadas";
+                
+            }          
         }
         return items;
     }
