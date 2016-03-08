@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
  * @author FABY
  */
 @Entity
-@Table(name = "escenas_procesadas", catalog = "gestor", schema = "public")
+@Table(name = "escenas_procesadas", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "EscenasProcesadas.findAll", query = "SELECT e FROM EscenasProcesadas e"),
     @NamedQuery(name = "EscenasProcesadas.findByK", query = "SELECT e FROM EscenasProcesadas e WHERE e.k = :k"),

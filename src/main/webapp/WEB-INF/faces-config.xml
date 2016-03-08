@@ -12,11 +12,6 @@
             <base-name>/BundleCatalogoImg</base-name>
             <var>bundleCatalogoImg</var>
         </resource-bundle>
-    <managed-bean>
-        <managed-bean-name>loginController</managed-bean-name>
-        <managed-bean-class>ermex.atc.controlador.loginController</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
     </application>
    
 </faces-config>

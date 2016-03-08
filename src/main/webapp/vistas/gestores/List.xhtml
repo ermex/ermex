@@ -48,17 +48,17 @@
                         <p:column headerText="#{bundle.GestoresTitle_idpersona}">                            
                             <h:outputText value="#{item.idpersona.grado} #{item.idpersona.nombre} #{item.idpersona.apellidop} #{item.idpersona.apellidom} "/>
                         </p:column> 
-                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:column exportable="false" width="5%" >
+                        <p:column exportable="false" width="5%" >
                             <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.idpersona)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaGestor}"/>                                                            
-                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaGestor}"/>             
-                            </p:column></sec:authorize>
+                            <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.idpersona)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaGestor}"/></sec:authorize>            
+                        </p:column>
                         <p:column headerText="#{bundle.GestoresTitle_designador}">
                             <h:outputText value="#{item.designador.grado} #{item.designador.nombre} #{item.designador.apellidop} #{item.designador.apellidom} "/>
                         </p:column> 
-                        <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:column exportable="false" width="5%">
+                        <p:column exportable="false" width="5%">
                             <p:commandButton icon="ui-icon-note" action="#{cambiopersonaController.seleccionarPersona(item.designador)}" update=":CambioPersonaForm" oncomplete="PF('CambioPersonaDialog').show()" title="#{bundle.BotonCambioPersonaDesignador}"/>                                                            
-                            <p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaDesignador}"/>    
-                            </p:column></sec:authorize> 
+                            <sec:authorize ifAllGranted="ROLE_ATC_GESTORES"><p:commandButton icon="ui-icon-pencil" action="#{personasController.prepare1(item.designador)}" update=":PersonasEditarForm" oncomplete="PF('PersonasEditarDialog').show()" title="#{bundle.BotonEditarPersonaDesignador}"/></sec:authorize>    
+                        </p:column> 
                         <p:column headerText="#{bundle.GestoresTitle_comentarios}" width="10%" >                                
                             <h:outputLabel value="#{gestoresController.truncateString(item.comentarios)}"  />
                         </p:column>

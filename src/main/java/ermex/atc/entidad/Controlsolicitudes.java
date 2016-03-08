@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
  * @author FABY
  */
 @Entity
-@Table(name = "controlsolicitudes", catalog = "gestor", schema = "public")
+@Table(name = "controlsolicitudes", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Controlsolicitudes.findAll", query = "SELECT c FROM Controlsolicitudes c"),
     @NamedQuery(name = "Controlsolicitudes.findByIdcontrolsolicitud", query = "SELECT c FROM Controlsolicitudes c WHERE c.idcontrolsolicitud = :idcontrolsolicitud"),

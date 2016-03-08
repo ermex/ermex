@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  * @author FABY
  */
 @Entity
-@Table(name = "histdesignagestor", catalog = "gestor", schema = "public")
+@Table(name = "histdesignagestor", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Histdesignagestor.findAll", query = "SELECT h FROM Histdesignagestor h"),
     @NamedQuery(name = "Histdesignagestor.findByGestor", query = "SELECT h FROM Histdesignagestor h WHERE h.gestor.gestor = :gestor"),

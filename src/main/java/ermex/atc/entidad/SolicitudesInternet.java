@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author FABY
  */
 @Entity
-@Table(name = "solicitudes_internet", catalog = "gestor", schema = "public")
+@Table(name = "solicitudes_internet", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "SolicitudesInternet.findAll", query = "SELECT s FROM SolicitudesInternet s order by s.solicitud"),
     @NamedQuery(name = "SolicitudesInternet.findBySolicitud", query = "SELECT s FROM SolicitudesInternet s WHERE s.solicitud = :solicitud"),

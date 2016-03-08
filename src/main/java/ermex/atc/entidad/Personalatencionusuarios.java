@@ -15,7 +15,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -25,7 +24,7 @@ import javax.validation.constraints.Size;
  * @author FABY
  */
 @Entity
-@Table(name = "personalatencionusuarios", catalog = "gestor", schema = "public")
+@Table(name = "personalatencionusuarios", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Personalatencionusuarios.findUno", query = "SELECT p FROM Personalatencionusuarios p WHERE p.usuario = :usuario and p.pwd=:pwd and p.status=1"),
     @NamedQuery(name = "Personalatencionusuarios.findAll", query = "SELECT p FROM Personalatencionusuarios p order by p.usuario"),

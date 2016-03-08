@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
  * @author FABY
  */
 @Entity
-@Table(name = "ctl_copias", catalog = "gestor", schema = "public")
+@Table(name = "ctl_copias", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "CtlCopias.findAll", query = "SELECT c FROM CtlCopias c"),
     @NamedQuery(name = "CtlCopias.findByOriginal", query = "SELECT c FROM CtlCopias c WHERE c.original = :original"),
