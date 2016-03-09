@@ -207,6 +207,7 @@ public String obtenerFecha()
         return converTime.format(date);
 }
     public void create() {
+        System.out.println("Esmos en crear");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ControlsolicitudesCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

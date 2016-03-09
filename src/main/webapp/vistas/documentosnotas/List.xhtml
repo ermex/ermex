@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=" viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update=" viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -64,7 +64,6 @@
                             <h:outputText value="#{item.idnota}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{documentosnotasController.prepareCreate}" update=":DocumentosnotasCreateForm" oncomplete="PF('DocumentosnotasCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DocumentosnotasViewForm" oncomplete="PF('DocumentosnotasViewDialog').show()" disabled="#{empty documentosnotasController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DocumentosnotasEditForm" oncomplete="PF('DocumentosnotasEditDialog').show()" disabled="#{empty documentosnotasController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{documentosnotasController.destroy}" update=":growl,datalist" disabled="#{empty documentosnotasController.selected}"/>
@@ -72,8 +71,6 @@
                     </p:dataTable>
                 </p:panel>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>

@@ -31,10 +31,8 @@
                                         oncomplete="PF('NotasCreateDialog').show()" actionListener="#{notasController.prepararCrearNota()}" disabled="#{notasController.tipoConsulta != 1}"/>                           
                             <p:menuitem id="verNota"   icon="ui-icon-search"  value="#{bundle.VerImg}" update=":paginaNotaForm" oncomplete="PF('PaginaNotaFormDialog').show()" 
                                         actionListener="#{ notasController.informacionNota()}" disabled="#{notasController.tipoConsulta eq 1 or notasController.tipoConsulta eq 4}"/>
-                            <p:menuitem id="oficio" icon="ui-icon-plus" value="#{bundle.fechaOficioNota}"  oncomplete="PF('uploadFile').show()" 
-                                        disabled="#{empty notasController.selected.fechacreacion or (!empty notasController.selected.fechaoficio)}"/>                            
-                            <p:menuitem id="acuse" icon="ui-icon-plus"  value="#{bundle.fechaAcuseNota}" oncomplete="PF('uploadOficioDialog').show()"
-                                        disabled="#{empty notasController.selected.fechaoficio or (!empty notasController.selected.fechaacuse) 
+                            <p:menuitem id="oficio" icon="ui-icon-plus" value="#{bundle.fechaOficioNota}" disabled="#{empty notasController.selected.fechacreacion or (!empty notasController.selected.fechaoficio)}"/>                            
+                            <p:menuitem id="acuse" icon="ui-icon-plus"  value="#{bundle.fechaAcuseNota}"  disabled="#{empty notasController.selected.fechaoficio or (!empty notasController.selected.fechaacuse) 
                                                     or notasController.selected.status eq 4 or notasController.selected.status eq 4}"/>
                         </p:contextMenu>
                     <p:dataTable id="datalist" value="#{notasController.items}" var="item"
@@ -160,7 +158,6 @@
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
             <ui:include src="paginaNota.xhtml"/>
-            <ui:include src="../documentosnotas/unploadOficio.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

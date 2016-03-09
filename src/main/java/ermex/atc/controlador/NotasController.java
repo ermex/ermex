@@ -10,6 +10,7 @@ import ermex.atc.entidad.Notas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
 import ermex.atc.entidad.Controlsolicitudes;
+import ermex.atc.entidad.Documentosnotas;
 import ermex.atc.entidad.Instituciones;
 import ermex.atc.entidad.Organismos;
 import ermex.atc.entidad.Personas;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -305,67 +307,35 @@ public class NotasController implements Serializable {
             }
         }
     }
-    public void upload(FileUploadEvent event) throws FileNotFoundException, IOException {
-        try {
+    public void upload(FileUploadEvent event) {
+       
             file=event.getFile();
-            System.out.println("Estamos en el metodo upload ");
-            File copia= new File("C:/Documents and Settings/ermex/My Documents/copias/"+file.getFileName());
-            copia.createNewFile();
-            file.write(copia.getAbsolutePath());
-            // OutputStream out = new FileOutputStream(copia);
-            //int len;
-            //byte[] buf = new byte[1000];
-            //while ((len=file.getInputstream().read(buf))!=-1) {
-            //   out.write(buf, 0, len);
-            
-            //}
-            //out.close();
-            //out.flush();
-            System.out.println("Salimos del metodo upload");
-            file.getInputstream().close();
-            //file=event.getFile();
-            //String tipo;
-            
-            
-            
-// Prepare filename prefix and suffix for an unique filename in upload folder.
-//        System.out.println("File type: " + file.getContentType());
-//        System.out.println("File name: " + file.getFileName());
-//        System.out.println("File size: " + file.getSize() + " bytes");
-//        
-//        String prefix = FilenameUtils.getBaseName(file.getFileName());
-//        String suffix = FilenameUtils.getExtension(file.getFileName());
-//        
-//        // Prepare file and outputstream.
-//        File file1 = null;
-//        OutputStream output = null;
-//        
-//        try {
-//            // Create file with unique name in upload folder and write to it.
-//            file1 = File.createTempFile(prefix + "_", "." + suffix, new File("C:/Documents and Settings/ermex/My Documents/homework"+File.separator+file.getFileName()));
-//            output = new FileOutputStream(file1);
-//            IOUtils.copy(file.getInputstream(), output);
-//            String fileName = file.getFileName();
-//
-//            // Show succes message.
-//            FacesContext.getCurrentInstance().addMessage("uploadForm", new FacesMessage(
-//                FacesMessage.SEVERITY_INFO, "File upload succeed!", null));
-//        } catch (IOException e) {
-//            // Cleanup.
-//            if (file1 != null) file1.delete();
-//
-//            // Show error message.
-//            FacesContext.getCurrentInstance().addMessage("uploadForm", new FacesMessage(
-//                FacesMessage.SEVERITY_ERROR, "File upload failed with I/O error.", null));
-//
-//            // Always log stacktraces (with a real logger).
-//            e.printStackTrace();
-//        } finally {
-//            IOUtils.closeQuietly(output);
-//        }
-        } catch (Exception ex) {
-            Logger.getLogger(NotasController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    public void subirArchivo(int op, String ruta) throws IOException
+    {
+        DocumentosnotasController crear = new DocumentosnotasController();
+        Documentosnotas docuemntosNotas = new Documentosnotas();
+        if (op == 1) {
+          //crear.prepareCreate();
+          //crear.getSelected().setIdnota(selected);
+          //crear.getSelected().setNotaword(ruta);
+          //crear.createDocuento(selected, ruta);
+        } else if (op == 2) {
+
+        } else if (op == 3) {
+            String path = pathFile() + file.getFileName();
+            File copia = new File(path);
+            if (!copia.exists()) {
+                if (copia.createNewFile()) {
+                    OutputStream out = new FileOutputStream(copia);
+                    out.write(file.getContents());
+                    out.flush();
+                    out.close();
+
+                }
+            }
         }
+
     }
     public void generarNotaWord() throws IOException, InvalidFormatException {
         //String ruta="C:\\Documents and Settings\\ermex\\My Documents\\ProgramasNotas\\documentosPrueba\\plantillanota.docx";        
@@ -453,7 +423,7 @@ public class NotasController implements Serializable {
         //doc.write(new FileOutputStream("C:/Documents and Settings/ermex/My Documents/ProgramasNotas/documentosPrueba/" + solicitud + ".docx"));
         doc.write(new FileOutputStream(pathFile()+File.separator + selected.getNombre() + ".docx"));
         
-        
+        subirArchivo(1,pathFile()+File.separator + selected.getNombre() + ".docx");
         System.out.println("Nota creada");
         System.out.println(pathFile()+File.separator + selected.getNombre() + ".docx");
         //descargar();

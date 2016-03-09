@@ -11,8 +11,8 @@
         <p:dialog id="uploadOficioDlg" widgetVar="uploadOficioDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDocumentosnotasTitle}">
             <h:form id="uploadFile" enctype="multipart/form-data">
                 <p:growl id="messages" showDetail="true" />
-                <p:fileUpload fileUploadListener="#{notasController.upload}" skinSimple="true" mode="advanced" dragDropSupport="false"/>
-                
+                <p:fileUpload fileUploadListener="#{notasController.upload}" skinSimple="true" mode="advanced" dragDropSupport="false" update="idDocumentSubir"/>
+                <p:commandButton id="idDocumentSubir" value="Aceptar" disabled="#{empty notasController.file}"/>
             </h:form>                
         </p:dialog>
 

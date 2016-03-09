@@ -3,6 +3,7 @@ package ermex.atc.controlador;
 import ermex.atc.entidad.Documentosnotas;
 import ermex.atc.controlador.util.JsfUtil;
 import ermex.atc.controlador.util.JsfUtil.PersistAction;
+import ermex.atc.entidad.Notas;
 import ermex.atc.sesion.DocumentosnotasFacade;
 
 import java.io.Serializable;
@@ -46,6 +47,10 @@ public class DocumentosnotasController implements Serializable {
     }
 
     private DocumentosnotasFacade getFacade() {
+        if (ejbFacade==null) {
+            ejbFacade= new DocumentosnotasFacade();
+            
+        }
         return ejbFacade;
     }
 
@@ -55,7 +60,20 @@ public class DocumentosnotasController implements Serializable {
         return selected;
     }
 
+    public void createDocuento(Notas idnota, String pathWord)
+    {
+        System.out.println("Estamos crear docuemnto");
+        this.selected= new Documentosnotas();
+        this.selected.setIdnota(idnota);
+        this.selected.setNotaword(pathWord);
+        System.out.println(selected.getIdnota().getIdnota());
+        System.out.println(selected.getNotaword());
+        initializeEmbeddableKey();
+       // create();
+       // System.out.println("Salimos del documento");
+    }
     public void create() {
+       System.out.println("Estamos en create ");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("DocumentosnotasCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
@@ -88,6 +106,7 @@ public class DocumentosnotasController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                     if (persistAction==PersistAction.CREATE) {
                         getFacade().create(selected);
+                        System.out.println("Salimos de crear docuemnto");
                     }else
                     {
                     getFacade().edit(selected);

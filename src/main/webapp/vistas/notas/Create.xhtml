@@ -27,12 +27,12 @@
                         <p:outputLabel value="#{bundle.dispositivoEntrega}" for="dispotivioentrega" />
                         <p:inputText id="dispotivioentrega" value="#{notasController.selected.dispotivioentrega}" title="#{bundle.CreateNotasTitle_dispotivioentrega}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{notasController.createNota()}" value="#{bundle.Save}" update="display,:NotasListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotasCreateDialog');"
+                    <p:commandButton actionListener="#{notasController.createNota()}" action="#{documentosnotasController.createDocuento(notasController.selected, notasController.pathFile())}" value="#{bundle.Save}" update=":DocumentosnotasCreateForm" oncomplete="PF('DocumentosnotasCreateDialog').show()"
                                      disabled="#{notasController.selected.noimagen==0}"/>
                     <p:commandButton value="#{bundle.Cancel}" action="#{notasController.cancelarCreate()}" update="display,:NotasListForm:datalist,:growl"  oncomplete="PF('NotasCreateDialog').hide();"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
-
+            <ui:include src="../documentosnotas/Create.xhtml"/>
     </ui:composition>
 </html>
